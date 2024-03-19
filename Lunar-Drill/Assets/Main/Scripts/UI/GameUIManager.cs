@@ -9,7 +9,7 @@ public class GameUIManager : MonoBehaviour
     //--- Private Fields ------------------------
 
     //--- Unity Methods ------------------------
-
+    
     //--- Public Methods ------------------------
 
     /* Opens options panel. */
