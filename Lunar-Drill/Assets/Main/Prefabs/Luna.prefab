@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4603303532592014212}
   - component: {fileID: 3688287869893254816}
+  - component: {fileID: 8224682475587872733}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -52,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 517f8a46907d14e41ad3ac0de84d3b57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8224682475587872733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161170352693601933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 385ccb6a4e0f4fc4aa18af21b9902c54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 6566899627907189698}
+  controller: {fileID: 7663241939689912788}
+  spriteRenderer: {fileID: 3688287869893254816}
+  sprites:
+  - {fileID: 21300000, guid: e3b342a845313364082a3546b2981799, type: 3}
+  - {fileID: 21300000, guid: 98bff41783214244faf2c9fef964566c, type: 3}
+  - {fileID: 21300000, guid: e8300db2ef738ee44b4b19253e689007, type: 3}
+  - {fileID: 21300000, guid: bce370589e752da4eaa07105f65b0ee5, type: 3}
+  fps: 6
 --- !u!1 &5337368519830427384
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,8 +219,12 @@ MonoBehaviour:
     m_ActionName: Luna/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 3285e2d2-e7d9-4320-afab-cc310c468d3e
-    m_ActionName: Drillian/MoveDirection[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a]
+    m_ActionId: 2c5e1403-3afc-4e64-9ba4-2cf5b54a9b49
+    m_ActionName: Drillian/MoveDirection[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 478c4450-3483-4010-be8a-28abbd83b308
+    m_ActionName: Pause Menu/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Luna
