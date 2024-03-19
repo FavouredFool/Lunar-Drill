@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,14 +12,19 @@ public class OptionsMenuUtilities : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField] private GameObject _optionsPanel;
-    [SerializeField] private Toggle _fsSetting;
-    [SerializeField] private TMP_Dropdown _srSetting;
+    [SerializeField] private GameObject _optionsPanel; // Panel containing option UI
+    [SerializeField] private GameObject _firstSelected; // Object that should be first selected
+
+    [SerializeField] private Slider _masterSlider; // The UI slider that corresponds to the master volume.
+    [SerializeField] private Slider _musicSlider; // The UI slider that corresponds to the music volume.
+    [SerializeField] private Slider _sfxSlider; // The UI slider that corresponds to the sound effects volume.
+    [SerializeField] AudioMixer _audioMixer; // The Audio mixer that is being changed.
+    [SerializeField] private Toggle _fsSetting; // UI toggle for setting full screen mode 
+    [SerializeField] private TMP_Dropdown _srSetting; // UI dropdown for setting resolution
 
     //--- Private Fields ------------------------
 
     private bool _isOpen = false;
-
     private List<TMP_Dropdown.OptionData> _resolutions = new();
 
     //--- Unity Methods ------------------------
@@ -44,6 +51,8 @@ public class OptionsMenuUtilities : MonoBehaviour
         else
         {
             _optionsPanel.SetActive(true);
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
 
             // Pause game
             Time.timeScale = 0;
@@ -62,12 +71,24 @@ public class OptionsMenuUtilities : MonoBehaviour
     //--- Private Methods ------------------------
 
     /* 
-     * Populates audio options with defualt values. 
+     * Populates audio options with default values. 
      * TODO
      */
     private void PopulateAudioOptions()
     {
-        Debug.Log("Needs to be implemented.");
+        _masterSlider.onValueChanged.AddListener(changeMasterVolume);
+        float _currentMasterVolume;
+        if (_audioMixer.GetFloat("MasterVolume", out _currentMasterVolume))
+            _masterSlider.value = Mathf.Pow(2, (_currentMasterVolume / 10));
+        _musicSlider.onValueChanged.AddListener(changeMusicVolume);
+        float _currentMusicVolume;
+        if (_audioMixer.GetFloat("PreMusicVolume", out _currentMusicVolume))
+            _musicSlider.value = Mathf.Pow(2, (_currentMusicVolume / 10));
+        _sfxSlider.onValueChanged.AddListener(changeFXVolume);
+        float _currentSfxVolume;
+        if (_audioMixer.GetFloat("PreSFXVolume", out _currentSfxVolume))
+            _sfxSlider.value = Mathf.Pow(2, (_currentSfxVolume / 10));
+
     }
 
     /* Populates display options with default values. */
@@ -115,5 +136,21 @@ public class OptionsMenuUtilities : MonoBehaviour
         Screen.SetResolution(Int32.Parse(x), Int32.Parse(y), FullScreenMode.ExclusiveFullScreen);
     }
 
+    /* Function to change the Master Volume */
+    public void changeMasterVolume(float value)
+    {
+        _audioMixer.SetFloat("MasterVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+    }
+
+    /* Function to change the MUsic Volume */
+    public void changeMusicVolume(float value)
+    {
+        _audioMixer.SetFloat("PreMusicVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+    }
+    /* Function to change the FX Volume */
+    public void changeFXVolume(float value)
+    {
+        _audioMixer.SetFloat("PreSFXVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+    }
 
 }

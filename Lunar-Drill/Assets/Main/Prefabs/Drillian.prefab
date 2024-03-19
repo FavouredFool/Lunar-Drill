@@ -89,21 +89,13 @@ MonoBehaviour:
     m_ActionId: bcb30632-91a4-4e31-bc74-6015b7202ad0
     m_ActionName: Luna/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4851948530192768895}
-        m_TargetAssemblyTypeName: DrillianController, Assembly-CSharp
-        m_MethodName: SetMoveDirectionInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3285e2d2-e7d9-4320-afab-cc310c468d3e
-    m_ActionName: Drillian/MoveDirection[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a]
+      m_Calls: []
+    m_ActionId: 2c5e1403-3afc-4e64-9ba4-2cf5b54a9b49
+    m_ActionName: Drillian/MoveDirection[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 478c4450-3483-4010-be8a-28abbd83b308
+    m_ActionName: Pause Menu/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Drillian
@@ -189,7 +181,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 517f8a46907d14e41ad3ac0de84d3b57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
