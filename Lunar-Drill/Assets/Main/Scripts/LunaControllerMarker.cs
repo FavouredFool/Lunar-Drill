@@ -9,7 +9,6 @@ public class LunaControllerMarker : MonoBehaviour
     [SerializeField][Range(2, 5)] float _outerOrbitRange;
     
 
-
     //--- Private Fields ------------------------
 
     Vector2 _goalDirection;

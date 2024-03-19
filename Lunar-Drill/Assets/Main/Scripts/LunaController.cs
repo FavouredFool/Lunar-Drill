@@ -58,8 +58,12 @@ public class LunaController : MonoBehaviour
     public void SetGoalDirectionInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        
-        _goalDirection = context.ReadValue<Vector2>();
+
+        Vector2 readValue = context.ReadValue<Vector2>();
+
+        if (readValue.magnitude < 0.1f) return;
+
+        _goalDirection = readValue;
     }
 
 
@@ -75,8 +79,6 @@ public class LunaController : MonoBehaviour
 
     void CalculateOrbitRotation()
     {
-        if (_goalDirection.magnitude < 0.1f) return;
-
         Vector2 currentDirection = transform.position.normalized;
 
         float angle = Vector2.Angle(currentDirection, _goalDirection);
