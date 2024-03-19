@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionsMenuUtilities : MonoBehaviour
@@ -36,6 +37,9 @@ public class OptionsMenuUtilities : MonoBehaviour
     {
         _optionsCanvas.alpha = 1;
         _rayCastBlock.raycastTarget = true;
+
+        // Pause game
+        Time.timeScale = 0;
     }
 
     /* Closes options panel. */
@@ -43,6 +47,18 @@ public class OptionsMenuUtilities : MonoBehaviour
     {
         _optionsCanvas.alpha = 0;
         _rayCastBlock.raycastTarget = false;
+
+        // Continue game
+        Time.timeScale = 1;
+    }
+
+    /* Switches the scene to main menu scene. */
+    public void ToMainMenu(string sceneName)
+    {
+        _optionsCanvas.alpha = 0;
+        _rayCastBlock.raycastTarget = false;
+        Debug.Log(sceneName);
+        SceneManager.LoadScene(sceneName);
     }
 
     //--- Private Methods ------------------------
