@@ -18,6 +18,7 @@ public class LunaController : MonoBehaviour
     float _orbitDistanceT;
     Vector2 _goalDirection;
     bool _mustReachThresholdForMovement = false;
+    Rigidbody2D _rigidbody;
 
 
     //--- Unity Methods ------------------------
@@ -28,11 +29,12 @@ public class LunaController : MonoBehaviour
         _movementArrivedAngleThreshold = Mathf.Min(_movementArrivedAngleThreshold, _movementStartAngleThreshold);
     }
 
-    public void Start()
+    public void Awake()
     {
         _orbitRotationT = 0;
         _orbitDistanceT = 1;
         _goalDirection = Vector2.zero;
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     public void FixedUpdate()
@@ -40,10 +42,6 @@ public class LunaController : MonoBehaviour
         CalculateOrbitDistance();
         CalculateOrbitRotation();
         SetLunaPosition();
-    }
-
-    public void LateUpdate()
-    {
         SetLunaRotation();
     }
 
@@ -119,12 +117,12 @@ public class LunaController : MonoBehaviour
         Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
         Vector2 position = rotatedVector * distance;
 
-        transform.position = position;
+        _rigidbody.MovePosition(position);
     }
 
     void SetLunaRotation()
     {
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, -transform.position);
+        _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, -transform.position));
     }
 
 }
