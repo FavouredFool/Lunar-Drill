@@ -68,8 +68,6 @@ public class DrillianController : MonoBehaviour
 
         Vector2 readValue = context.ReadValue<Vector2>();
 
-        if (readValue.magnitude < 0.1f) return;
-
         _goalMoveDirection = readValue.normalized;
     }
 
@@ -152,9 +150,8 @@ public class DrillianController : MonoBehaviour
 
         Vector2 moveDirection;
 
-        if (!_lastFrameIsBurrowed)
+        if (!_lastFrameIsBurrowed || _goalMoveDirection.magnitude < 0.1f)
         {
-            // on enter: air -> planet change direction to where you're looking
             moveDirection = transform.up;
         }
         else
