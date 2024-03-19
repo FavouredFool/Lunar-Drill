@@ -15,7 +15,7 @@ public class GameUIManager : MonoBehaviour
     /* Opens options panel. */
     public void OpenOptions()
     {
-        _optionsMenuUtilities.Open();
+        _optionsMenuUtilities.Toggle();
     }
 
     //--- Private Methods ------------------------

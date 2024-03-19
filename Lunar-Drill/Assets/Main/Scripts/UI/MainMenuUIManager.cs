@@ -5,8 +5,6 @@ public class MainMenuUIManager : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField] private OptionsMenuUtilities _optionsMenuUtilities;
-
     //--- Private Fields ------------------------
 
     //--- Unity Methods ------------------------
@@ -19,20 +17,14 @@ public class MainMenuUIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    /* Opens options panel. */
-    public void OpenOptions()
-    {
-        _optionsMenuUtilities.Open();
-    }
-
     /* Quits the application. */
     public void QuitGame()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
     }
 
     //--- Private Methods ------------------------

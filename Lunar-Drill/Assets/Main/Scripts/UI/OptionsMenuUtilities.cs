@@ -10,53 +10,51 @@ public class OptionsMenuUtilities : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField] private CanvasGroup _optionsCanvas;
+    [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private Toggle _fsSetting;
     [SerializeField] private TMP_Dropdown _srSetting;
 
     //--- Private Fields ------------------------
 
+    private bool _isOpen = false;
+
     private List<TMP_Dropdown.OptionData> _resolutions = new();
-    private Image _rayCastBlock;
 
     //--- Unity Methods ------------------------
 
     private void Awake()
     {
-        _optionsCanvas.alpha = 0; // Be not diaplyed on start
-        _rayCastBlock = _optionsCanvas.GetComponent<Image>();
-        _rayCastBlock.raycastTarget = false; // Do not block raycasts on start
+        _optionsPanel.SetActive(false); // Do not display options at beginning
         PopulateAudioOptions();
         PopulateDisplayOptions();
     }
 
     //--- Public Methods ------------------------
 
-    /* Opens options panel. */
-    public void Open()
+    /* Opens and closes options panel. */
+    public void Toggle()
     {
-        _optionsCanvas.alpha = 1;
-        _rayCastBlock.raycastTarget = true;
+        if (_isOpen)
+        {
+            _optionsPanel.SetActive(false);
 
-        // Pause game
-        Time.timeScale = 0;
-    }
+            // Continue game
+            Time.timeScale = 1;
+        }
+        else
+        {
+            _optionsPanel.SetActive(true);
 
-    /* Closes options panel. */
-    public void Close()
-    {
-        _optionsCanvas.alpha = 0;
-        _rayCastBlock.raycastTarget = false;
-
-        // Continue game
-        Time.timeScale = 1;
+            // Pause game
+            Time.timeScale = 0;
+        }
+        _isOpen = !_isOpen;
     }
 
     /* Switches the scene to main menu scene. */
     public void ToMainMenu(string sceneName)
     {
-        _optionsCanvas.alpha = 0;
-        _rayCastBlock.raycastTarget = false;
+        Toggle();
         Debug.Log(sceneName);
         SceneManager.LoadScene(sceneName);
     }
