@@ -13,7 +13,6 @@ public class DrillianControlMarker : MonoBehaviour
 
     public void LateUpdate()
     {
-        Debug.Log(_drillian.RotationControlT);
         _fillRect.Height = _drillian.RotationControlT;
     }
 

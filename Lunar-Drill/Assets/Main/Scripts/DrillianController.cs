@@ -7,11 +7,24 @@ public class DrillianController : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField][Range(0.25f, 10f)] float _speed = 5;
+    [Header("Extern Information")]
     [SerializeField][Range(1f, 10f)] float _planetRadius = 2.5f;
+
+    [Header("Configuration")]
+    [SerializeField][Range(0.25f, 10f)] float _speed = 5;
     [SerializeField][Range(0.1f, 100f)] float _gravityStrength = 1f;
+
+    [Header("Control")]
     [SerializeField][Range(1, 100f)] float _maxRotationControl = 25f;
     [SerializeField][Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
+
+    [Header("Air Movement")]
+    [SerializeField][Range(0f, 100f)] float _airTurnControl = 1f;
+    [SerializeField][Range(0f, 1f)] float _airTurnPercentage = 0.25f;
+    [SerializeField][Range(0f, 100f)] float _airTurnSmoothing = 15f;
+
+    //--- Properties ------------------------
+    public float RotationControlT { get; set; } = 1;
 
 
     //--- Private Fields ------------------------
@@ -21,7 +34,9 @@ public class DrillianController : MonoBehaviour
     bool _isBurrowed;
     bool _lastFrameIsBurrowed;
     Tweener _controlTween;
-    public float RotationControlT { get; set; } = 1;
+    Vector2 _airTurnDirection;
+    Vector2 _turnDirection;
+
 
     //--- Unity Methods ------------------------
 
@@ -96,23 +111,58 @@ public class DrillianController : MonoBehaviour
         
         if (!_lastFrameIsBurrowed && _isBurrowed)
         {
-            Debug.Log("entered");
-            _controlTween = DOTween.To(() => RotationControlT, x => RotationControlT = x, 1, _timeTillControlRegain).SetEase(Ease.InQuad);
+            _controlTween = DOTween.To(() => RotationControlT, x => RotationControlT = x, 1, _timeTillControlRegain);
         }
     }
 
     void RotateDrillian()
     {
-        // Dies richtet sich an der derzeitigen Velocity aus.
-        _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, _rigidbody.velocity.normalized));
+        if (!_isBurrowed && _lastFrameIsBurrowed)
+        {
+            _airTurnDirection = _rigidbody.velocity.normalized;
+            _turnDirection = _airTurnDirection;
+        }
+
+        Vector2 lookDirection;
+        if (_isBurrowed)
+        {
+            lookDirection = _rigidbody.velocity.normalized;
+        }
+        else
+        {
+            //// a certain percentage of the rotation in the air is the velocity, another comes from the airTurnDirection
+            //_airTurnDirection = (_rigidbody.velocity.normalized * (1 - _airTurnPercentage) + _airTurnDirection * _airTurnPercentage).normalized;
+            //
+            //_airTurnDirection = Vector3.RotateTowards(_airTurnDirection, _goalMoveDirection, _airTurnControl * Time.deltaTime, float.PositiveInfinity);
+            //
+            //_turnDirection = Vector3.RotateTowards(_turnDirection, _airTurnDirection, _airTurnSmoothing * Time.deltaTime, float.PositiveInfinity);
+            //
+            //lookDirection = _turnDirection;
+
+            lookDirection = _rigidbody.velocity.normalized;
+        }
+
+
+        _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, lookDirection));
     }
 
     void MoveUpDrillian()
     {
         if (!_isBurrowed) return;
 
-        float rotationControl = Utilities.Remap(RotationControlT, 0, 1, 0, _maxRotationControl);
-        Vector2 moveDirection = Vector3.RotateTowards(_rigidbody.velocity.normalized, _goalMoveDirection, rotationControl * Time.deltaTime, float.PositiveInfinity);
+        Vector2 moveDirection;
+
+        if (!_lastFrameIsBurrowed)
+        {
+            // on enter: air -> planet change direction to where you're looking
+            moveDirection = transform.up;
+        }
+        else
+        {
+            float rotationControl = Utilities.Remap(RotationControlT, 0, 1, 0, _maxRotationControl);
+            moveDirection = Vector3.RotateTowards(_rigidbody.velocity.normalized, _goalMoveDirection, rotationControl * Time.deltaTime, float.PositiveInfinity);
+        }
+
         
         // Move along up-Vector
         _rigidbody.velocity = moveDirection * _speed;
