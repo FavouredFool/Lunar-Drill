@@ -3793,6 +3793,10 @@ PrefabInstance:
       value: Pause Menu/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/XInputControllerWindows/start]
       objectReference: {fileID: 0}
     - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
@@ -3800,6 +3804,10 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMoveDirectionInput
