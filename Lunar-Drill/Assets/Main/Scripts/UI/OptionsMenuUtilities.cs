@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,19 +12,19 @@ public class OptionsMenuUtilities : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField] private GameObject _optionsPanel;
-    [SerializeField] private Toggle _fsSetting;
-    [SerializeField] private TMP_Dropdown _srSetting;
+    [SerializeField] private GameObject _optionsPanel; // Panel containing option UI
+    [SerializeField] private GameObject _firstSelected; // Object that should be first selected
 
     [SerializeField] private Slider _masterSlider; // The UI slider that corresponds to the master volume.
     [SerializeField] private Slider _musicSlider; // The UI slider that corresponds to the music volume.
     [SerializeField] private Slider _sfxSlider; // The UI slider that corresponds to the sound effects volume.
     [SerializeField] AudioMixer _audioMixer; // The Audio mixer that is being changed.
+    [SerializeField] private Toggle _fsSetting; // UI toggle for setting full screen mode 
+    [SerializeField] private TMP_Dropdown _srSetting; // UI dropdown for setting resolution
 
     //--- Private Fields ------------------------
 
     private bool _isOpen = false;
-
     private List<TMP_Dropdown.OptionData> _resolutions = new();
 
     //--- Unity Methods ------------------------
@@ -50,6 +51,8 @@ public class OptionsMenuUtilities : MonoBehaviour
         else
         {
             _optionsPanel.SetActive(true);
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
 
             // Pause game
             Time.timeScale = 0;

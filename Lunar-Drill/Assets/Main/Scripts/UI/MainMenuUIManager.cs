@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenuUIManager : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
+
+    [SerializeField] private GameObject _firstSelected; // Object that should be first selected
 
     //--- Private Fields ------------------------
 
@@ -27,7 +30,12 @@ public class MainMenuUIManager : MonoBehaviour
 #endif
     }
 
-  //  public void Set
+    /* Sets "Start" Button as selected UI Element to allow menu controlling with controllers. */
+    public void SetSelectedUIElement()
+    {
+        var eventSystem = EventSystem.current;
+        eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
+    }
 
     //--- Private Methods ------------------------
 }
