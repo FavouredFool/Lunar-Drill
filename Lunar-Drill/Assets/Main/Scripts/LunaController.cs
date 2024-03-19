@@ -8,7 +8,7 @@ public class LunaController : MonoBehaviour
     [SerializeField][Range(2,5)] float _innerOrbitRange;
     [SerializeField][Range(2, 5)] float _outerOrbitRange;
     [SerializeField][Range(0.1f, 10f)] float _rotationSpeed;
-    [SerializeField][Range(0.1f, 10f)] float _graviationSpeed;
+    [SerializeField][Range(0, 10f)] float _graviationSpeed;
     [SerializeField][Range(0.1f, 100f)] float _movementStartAngleThreshold;
     [SerializeField][Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
 
