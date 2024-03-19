@@ -61,9 +61,14 @@ public class LunaController : MonoBehaviour
 
         Vector2 readValue = context.ReadValue<Vector2>();
 
-        if (readValue.magnitude < 0.1f) return;
-
-        _goalDirection = readValue;
+        if (Utilities.Approximately(readValue, Vector2.zero))
+        {
+            _goalDirection = Vector2.zero;
+        }
+        else
+        {
+            _goalDirection = readValue.normalized;
+        }
     }
 
 
@@ -79,6 +84,8 @@ public class LunaController : MonoBehaviour
 
     void CalculateOrbitRotation()
     {
+        if (_goalDirection.magnitude < 0.1f) return;
+
         Vector2 currentDirection = transform.position.normalized;
 
         float angle = Vector2.Angle(currentDirection, _goalDirection);
