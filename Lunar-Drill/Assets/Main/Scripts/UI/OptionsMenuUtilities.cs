@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -13,6 +14,11 @@ public class OptionsMenuUtilities : MonoBehaviour
     [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private Toggle _fsSetting;
     [SerializeField] private TMP_Dropdown _srSetting;
+
+    [SerializeField] private Slider _masterSlider; // The UI slider that corresponds to the master volume.
+    [SerializeField] private Slider _musicSlider; // The UI slider that corresponds to the music volume.
+    [SerializeField] private Slider _sfxSlider; // The UI slider that corresponds to the sound effects volume.
+    [SerializeField] AudioMixer _audioMixer; // The Audio mixer that is being changed.
 
     //--- Private Fields ------------------------
 
@@ -62,12 +68,14 @@ public class OptionsMenuUtilities : MonoBehaviour
     //--- Private Methods ------------------------
 
     /* 
-     * Populates audio options with defualt values. 
+     * Populates audio options with default values. 
      * TODO
      */
     private void PopulateAudioOptions()
     {
-        Debug.Log("Needs to be implemented.");
+        _masterSlider.onValueChanged.AddListener(changeMasterVolume);
+        _musicSlider.onValueChanged.AddListener(changeMusicVolume);
+        _sfxSlider.onValueChanged.AddListener(changeFXVolume);
     }
 
     /* Populates display options with default values. */
@@ -115,5 +123,21 @@ public class OptionsMenuUtilities : MonoBehaviour
         Screen.SetResolution(Int32.Parse(x), Int32.Parse(y), FullScreenMode.ExclusiveFullScreen);
     }
 
+    /* Function to change the Master Volume */
+    public void changeMasterVolume(float value)
+    {
+        _audioMixer.SetFloat("MasterVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+    }
+
+    /* Function to change the MUsic Volume */
+    public void changeMusicVolume(float value)
+    {
+        _audioMixer.SetFloat("PreMusicVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+    }
+    /* Function to change the FX Volume */
+    public void changeFXVolume(float value)
+    {
+        _audioMixer.SetFloat("PreSFXVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+    }
 
 }
