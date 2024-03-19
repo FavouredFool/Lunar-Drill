@@ -74,8 +74,18 @@ public class OptionsMenuUtilities : MonoBehaviour
     private void PopulateAudioOptions()
     {
         _masterSlider.onValueChanged.AddListener(changeMasterVolume);
+        float _currentMasterVolume;
+        if (_audioMixer.GetFloat("MasterVolume", out _currentMasterVolume))
+            _masterSlider.value = Mathf.Pow(2, (_currentMasterVolume / 10));
         _musicSlider.onValueChanged.AddListener(changeMusicVolume);
+        float _currentMusicVolume;
+        if (_audioMixer.GetFloat("PreMusicVolume", out _currentMusicVolume))
+            _musicSlider.value = Mathf.Pow(2, (_currentMusicVolume / 10));
         _sfxSlider.onValueChanged.AddListener(changeFXVolume);
+        float _currentSfxVolume;
+        if (_audioMixer.GetFloat("PreSFXVolume", out _currentSfxVolume))
+            _sfxSlider.value = Mathf.Pow(2, (_currentSfxVolume / 10));
+
     }
 
     /* Populates display options with default values. */
