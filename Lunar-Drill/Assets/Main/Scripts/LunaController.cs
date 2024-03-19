@@ -58,8 +58,17 @@ public class LunaController : MonoBehaviour
     public void SetGoalDirectionInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        
-        _goalDirection = context.ReadValue<Vector2>();
+
+        Vector2 readValue = context.ReadValue<Vector2>();
+
+        if (Utilities.Approximately(readValue, Vector2.zero))
+        {
+            _goalDirection = Vector2.zero;
+        }
+        else
+        {
+            _goalDirection = readValue.normalized;
+        }
     }
 
 
