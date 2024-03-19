@@ -25,14 +25,15 @@ public class DrillianController : MonoBehaviour
 
     //--- Properties ------------------------
     public float RotationControlT { get; set; } = 1;
+    public bool IsBurrowed { get; set; }
+    public bool LastFrameIsBurrowed { get; set; }
 
 
     //--- Private Fields ------------------------
 
     Vector2 _goalMoveDirection;
     Rigidbody2D _rigidbody;
-    bool _isBurrowed;
-    bool _lastFrameIsBurrowed;
+
     Tweener _controlTween;
     Vector2 _airTurnDirection;
     Vector2 _turnDirection;
@@ -57,7 +58,7 @@ public class DrillianController : MonoBehaviour
         MoveUpDrillian();
         RotateDrillian();
 
-        _lastFrameIsBurrowed = _isBurrowed;
+        LastFrameIsBurrowed = IsBurrowed;
     }
 
     //--- Public Methods ------------------------
@@ -80,12 +81,12 @@ public class DrillianController : MonoBehaviour
 
     void SetIsBurrowed()
     {
-        _isBurrowed = transform.position.magnitude <= _planetRadius;
+        IsBurrowed = transform.position.magnitude <= _planetRadius;
     }
 
     void ApplyGravity()
     {
-        if (_isBurrowed)
+        if (IsBurrowed)
         {
             _rigidbody.gravityScale = 0;
         }
@@ -97,7 +98,7 @@ public class DrillianController : MonoBehaviour
 
     void SetControl()
     {
-        if (!_isBurrowed)
+        if (!IsBurrowed)
         {
             if (_controlTween != null)
             {
@@ -107,7 +108,7 @@ public class DrillianController : MonoBehaviour
             RotationControlT = 0;
         }
         
-        if (!_lastFrameIsBurrowed && _isBurrowed)
+        if (!LastFrameIsBurrowed && IsBurrowed)
         {
             _controlTween = DOTween.To(() => RotationControlT, x => RotationControlT = x, 1, _timeTillControlRegain);
         }
@@ -115,14 +116,14 @@ public class DrillianController : MonoBehaviour
 
     void RotateDrillian()
     {
-        if (!_isBurrowed && _lastFrameIsBurrowed)
+        if (!IsBurrowed && LastFrameIsBurrowed)
         {
             _airTurnDirection = _rigidbody.velocity.normalized;
             _turnDirection = _airTurnDirection;
         }
 
         Vector2 lookDirection;
-        if (_isBurrowed)
+        if (IsBurrowed)
         {
             lookDirection = _rigidbody.velocity.normalized;
         }
@@ -146,11 +147,11 @@ public class DrillianController : MonoBehaviour
 
     void MoveUpDrillian()
     {
-        if (!_isBurrowed) return;
+        if (!IsBurrowed) return;
 
         Vector2 moveDirection;
 
-        if (!_lastFrameIsBurrowed || _goalMoveDirection.magnitude < 0.1f)
+        if (!LastFrameIsBurrowed || _goalMoveDirection.magnitude < 0.1f)
         {
             moveDirection = transform.up;
         }
