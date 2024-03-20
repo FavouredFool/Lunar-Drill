@@ -31,6 +31,10 @@ public class LunaController : MonoBehaviour
 
     [Header("Collision")]
     [SerializeField] LayerMask _damageCollisions;
+    [SerializeField][Range(0f, 5f)] float _invincibleTime;
+
+    [Header("Sprite")]
+    [SerializeField] SpriteRenderer _spriteRenderer;
 
 
     public int MoveSign { get; private set; } = 0;
@@ -47,6 +51,8 @@ public class LunaController : MonoBehaviour
     float _distanceFromOrbit = 0f;
     float _laserStartPoint = 0f;
     float _laserEndPoint = 0f;
+
+    bool _isInvincible = false;
 
 
     //--- Unity Methods ------------------------
@@ -233,14 +239,23 @@ public class LunaController : MonoBehaviour
 
     void GetHit()
     {
+        // Health Reduce, Invincibility, Splash-Effect, 
 
+        // invincible
+        _isInvincible = true;
+        // Set invincible to false after one second
+        DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
+        _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
     }
 
     void EvaluateCollision(Collider2D collision)
     {
         if (Utilities.LayerMaskContainsLayer(_damageCollisions, collision.gameObject.layer))
         {
-            GetHit();
+            if (!_isInvincible)
+            {
+                GetHit();
+            }
         }
     }
 

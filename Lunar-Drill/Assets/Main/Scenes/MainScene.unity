@@ -3602,6 +3602,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: _invincibleTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 1125295979}
+    - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: _damageCollisions.m_Bits
       value: 256
       objectReference: {fileID: 0}
@@ -3911,6 +3919,10 @@ PrefabInstance:
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: _invincibleTime
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5267,6 +5279,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de77c621dbbda04684a93cf1c59e6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &1125295979 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3688287869893254816, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+  m_PrefabInstance: {fileID: 789863299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1149104073
 GameObject:
   m_ObjectHideFlags: 0

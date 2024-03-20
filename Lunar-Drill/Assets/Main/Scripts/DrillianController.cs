@@ -180,12 +180,11 @@ public class DrillianController : MonoBehaviour
     {
         // Health Reduce, Invincibility, Splash-Effect, 
 
-        Debug.Log("DRILLER IS HITTTT");
         // invincible
         _isInvincible = true;
         // Set invincible to false after one second
         DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
-        _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 16, 0);
+        _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
 
 
     }
