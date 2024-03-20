@@ -1,3 +1,6 @@
+using DG.Tweening;
+using Shapes;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,41 +8,49 @@ public class LunaController : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField][Range(2,5)] float _innerOrbitRange;
+    [Header("Extern Information")]
     [SerializeField][Range(2, 5)] float _outerOrbitRange;
+
+    [Header("Configuration")]
     [SerializeField][Range(0.1f, 10f)] float _rotationSpeed;
-    [SerializeField][Range(0, 10f)] float _graviationSpeed;
+
+    [Header("Movement Smoothing")]
     [SerializeField][Range(0.1f, 100f)] float _movementStartAngleThreshold;
     [SerializeField][Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
+
+    [Header("Laser")]
+    [SerializeField] Line _laserVisual;
+    [SerializeField][Range(0.01f, 1f)] float _laserSpeed;
+    [SerializeField][Range(0.1f, 3f)] float _laserStartPoint;
+    [SerializeField][Range(0.1f, 3f)] float _laserEndPoint;
+
 
     //--- Private Fields ------------------------
 
     float _orbitRotationT;
-    float _orbitDistanceT;
     Vector2 _goalDirection;
     bool _mustReachThresholdForMovement = false;
     Rigidbody2D _rigidbody;
+    Tweener _laserStartTween;
+    Tweener _laserEndTween;
 
 
     //--- Unity Methods ------------------------
 
     public void OnValidate()
     {
-        _innerOrbitRange = Mathf.Min(_innerOrbitRange, _outerOrbitRange);
         _movementArrivedAngleThreshold = Mathf.Min(_movementArrivedAngleThreshold, _movementStartAngleThreshold);
     }
 
     public void Awake()
     {
         _orbitRotationT = 0;
-        _orbitDistanceT = 1;
         _goalDirection = Vector2.zero;
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     public void FixedUpdate()
     {
-        CalculateOrbitDistance();
         CalculateOrbitRotation();
         SetLunaPosition();
         SetLunaRotation();
@@ -50,9 +61,34 @@ public class LunaController : MonoBehaviour
 
     public void ShootInput(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
+        if (context.performed)
+        {
+            if (_laserStartTween != null && _laserStartTween.IsPlaying())
+            {
+                _laserStartTween.Kill();
+            }
 
-        _orbitDistanceT += 0.1f;
+            if (_laserEndTween != null && _laserEndTween.IsPlaying())
+            {
+                _laserEndTween.Kill();
+            }
+
+            _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
+            _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
+            _laserStartTween = DOTween.To(() => _laserVisual.End, x => _laserVisual.End = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
+        }
+        else if (context.canceled)
+        {
+            _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
+            _laserEndTween = DOTween.To(() => _laserVisual.Start, x => _laserVisual.Start = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
+        }
+
+        // Shoot lazer!
+
+        // Interpolate LaserStartup with Dotween -> OnEnd of that, activate collider
+
+        // 
+
     }
 
     public void SetGoalDirectionInput(InputAction.CallbackContext context)
@@ -73,14 +109,6 @@ public class LunaController : MonoBehaviour
 
 
     //--- Private Methods ------------------------
-
-    void CalculateOrbitDistance()
-    {
-        // move
-        _orbitDistanceT -= _graviationSpeed * Time.deltaTime;
-        // guard
-        _orbitDistanceT = Mathf.Clamp01(_orbitDistanceT);
-    }
 
     void CalculateOrbitRotation()
     {
@@ -121,10 +149,9 @@ public class LunaController : MonoBehaviour
     void SetLunaPosition()
     {
         float angle = _orbitRotationT.Remap(0, 1, 0, 360);
-        float distance = _orbitDistanceT.Remap(0, 1, _innerOrbitRange, _outerOrbitRange);
 
         Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
-        Vector2 position = rotatedVector * distance;
+        Vector2 position = rotatedVector * _outerOrbitRange;
 
         _rigidbody.MovePosition(position);
     }
