@@ -33,7 +33,7 @@ public class PlayerConnectController : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("test");
-        AssignPlayerToCharacter();
+        SwitchActionMapToCharacter();
     }
 
     public void OnSwap()
@@ -51,43 +51,45 @@ public class PlayerConnectController : MonoBehaviour
         Debug.Log($"Player {_input.user} Swapped to: {_character}");
     }
 
+    // Luna Input Events
+    
     public void OnMoveGoal(InputAction.CallbackContext context)
     {
-        Debug.Log($"Luna {context.ToString()}");
+        Debug.Log("luna");
+        InputBus.Fire(new LunaMoveGoal(context));
     }
+
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        InputBus.Fire(new LunaShoot(context));
+        Debug.Log("luna");
+
+    }
+
+
+
+    // Drillian Input Events
     public void OnMoveDirection(InputAction.CallbackContext context)
     {
-        Debug.Log($"Drillean {context.ToString()}");
+        Debug.Log("drillian");
+        InputBus.Fire(new DrillianMoveDirection(context));
     }
 
 
-    //Function to assign the Correct Input to the Character. Connect Controller 
-    public void AssignPlayerToCharacter()
+
+    //Method to activate the correct action map
+    public void SwitchActionMapToCharacter()
     {
-        // Find correct gameobject for the character
-        GameObject characterGO;
-        if (_character == ChosenCharacter.drillian)
+        if (_character == ChosenCharacter.luna)
         {
-            characterGO = FindAnyObjectByType<DrillianController>().gameObject;
-
+            _input.SwitchCurrentActionMap("Luna");
         }
         else
         {
-            characterGO = FindAnyObjectByType<LunaController>().gameObject;
+            _input.SwitchCurrentActionMap("Drillian");
         }
-        // assign this objects input to the gamobject
-        PlayerInput characterInput = characterGO.GetComponent<PlayerInput>();
-        Debug.Log($"Assigning {_input.user.pairedDevices[0]} to {characterGO}");
-        if(characterInput.user == null)
-        {
-            
-        }
-        else
-        {
-            characterInput.user.UnpairDevices();
-            InputUser.PerformPairingWithDevice(_input.user.pairedDevices[0]);
-        }
-        
     }
+
+
     
 }
