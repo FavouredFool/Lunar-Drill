@@ -9,6 +9,7 @@ public class LunaController : MonoBehaviour
     //--- Exposed Fields ------------------------
 
     [Header("Extern Information")]
+    [SerializeField][Range(2, 5)] float _planetRadius = 2.5f;
     [SerializeField][Range(2, 5)] float _outerOrbitRange;
 
     [Header("Configuration")]
@@ -20,9 +21,12 @@ public class LunaController : MonoBehaviour
 
     [Header("Laser")]
     [SerializeField] Line _laserVisual;
+    [SerializeField] BoxCollider2D _laserCollider;
     [SerializeField][Range(0.01f, 1f)] float _laserSpeed;
-    [SerializeField][Range(0.1f, 3f)] float _laserStartPoint;
-    [SerializeField][Range(0.1f, 3f)] float _laserEndPoint;
+
+    [Header("Knockback")]
+    [SerializeField][Range(0.1f, 3f)] float _laserKnockbackStrength;
+    [SerializeField][Range(0.1f, 3f)] float _orbitReturnStrength;
 
 
     //--- Private Fields ------------------------
@@ -33,6 +37,10 @@ public class LunaController : MonoBehaviour
     Rigidbody2D _rigidbody;
     Tweener _laserStartTween;
     Tweener _laserEndTween;
+    bool _currentlyLasering = false;
+    float _distanceFromOrbit = 0f;
+    float _laserStartPoint = 0f;
+    float _laserEndPoint = 0f;
 
 
     //--- Unity Methods ------------------------
@@ -51,6 +59,8 @@ public class LunaController : MonoBehaviour
 
     public void FixedUpdate()
     {
+        SetLaserSize();
+        CalculateDistanceFromOrbit();
         CalculateOrbitRotation();
         SetLunaPosition();
         SetLunaRotation();
@@ -59,10 +69,56 @@ public class LunaController : MonoBehaviour
 
     //--- Public Methods ------------------------
 
+    public void SetLaserSize()
+    {
+        _laserStartPoint = 0.32f;
+        _laserEndPoint = transform.position.magnitude - _planetRadius;
+
+        // Move Laser
+        bool startAnimating = _laserStartTween != null && _laserStartTween.IsPlaying();
+        bool endAnimating = _laserEndTween != null && _laserEndTween.IsPlaying();
+
+        // collider
+        _laserCollider.offset = new Vector2(0, (_laserEndPoint - _laserStartPoint) / 2 + _laserStartPoint);
+        _laserCollider.size = new Vector2(0.25f, _laserEndPoint - _laserStartPoint);
+
+        if (startAnimating || endAnimating) return;
+        if (!_currentlyLasering) return;
+
+        _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
+        _laserVisual.End = new Vector3(0, _laserEndPoint, 0);
+
+        
+    }
+
+    public void SetLaserColliderSize()
+    {
+
+    }
+
+    public void CalculateDistanceFromOrbit()
+    {
+        if (!_currentlyLasering)
+        {
+            // reduce
+            _distanceFromOrbit = Mathf.Max(0, _distanceFromOrbit -= _orbitReturnStrength * Time.deltaTime);
+        }
+        else
+        {
+            // increase
+            _distanceFromOrbit = Mathf.Max(0, _distanceFromOrbit += _laserKnockbackStrength * Time.deltaTime);
+        }
+
+    }
+
     public void ShootInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            if (_currentlyLasering) return;
+
+            _laserCollider.enabled = false;
+
             if (_laserStartTween != null && _laserStartTween.IsPlaying())
             {
                 _laserStartTween.Kill();
@@ -73,14 +129,23 @@ public class LunaController : MonoBehaviour
                 _laserEndTween.Kill();
             }
 
+            _currentlyLasering = true;
+
             _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
             _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
             _laserStartTween = DOTween.To(() => _laserVisual.End, x => _laserVisual.End = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
+            _laserStartTween.OnComplete(() => _laserCollider.enabled = true);
         }
         else if (context.canceled)
         {
             _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
             _laserEndTween = DOTween.To(() => _laserVisual.Start, x => _laserVisual.Start = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
+            _laserEndTween.OnComplete(() => {
+                _laserCollider.enabled = false;
+                _currentlyLasering = false;
+                _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
+                _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
+            });
         }
 
         // Shoot lazer!
@@ -151,7 +216,7 @@ public class LunaController : MonoBehaviour
         float angle = _orbitRotationT.Remap(0, 1, 0, 360);
 
         Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
-        Vector2 position = rotatedVector * _outerOrbitRange;
+        Vector2 position = rotatedVector * (_outerOrbitRange + _distanceFromOrbit);
 
         _rigidbody.MovePosition(position);
     }

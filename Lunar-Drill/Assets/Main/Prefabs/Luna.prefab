@@ -155,14 +155,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557280340b81b1c4f8a94a99d3de3ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _planetRadius: 2.5
   _outerOrbitRange: 4.5
   _rotationSpeed: 0.15
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
   _laserVisual: {fileID: 1399581150962231857}
-  _laserSpeed: 0.1875
-  _laserStartPoint: 0.3
-  _laserEndPoint: 2
+  _laserCollider: {fileID: 4179838589217548754}
+  _laserSpeed: 0.115
+  _laserKnockbackStrength: 0.5
+  _orbitReturnStrength: 1.5
 --- !u!114 &5807452418047519785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,8 +361,8 @@ MonoBehaviour:
   geometry: 0
   colorMode: 0
   colorEnd: {r: 1, g: 1, b: 1, a: 1}
-  start: {x: 0, y: 0.3, z: 0}
-  end: {x: 0, y: 0.3, z: 0}
+  start: {x: 0, y: 0.32, z: 0}
+  end: {x: 0, y: 0.32, z: 0}
   thickness: 0.3
   thicknessSpace: 0
   endCaps: 0
@@ -456,7 +458,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.15}
+  m_Offset: {x: 0, y: 1.18}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
