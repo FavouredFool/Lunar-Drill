@@ -5687,8 +5687,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerHUD: {fileID: 964499353}
   _spiderHUD: {fileID: 1610943554}
-  _playerHP: 4
-  _spiderHP: 4
+  _maxPlayerHP: 4
+  _maxSpiderHP: 4
 --- !u!4 &1301515984
 Transform:
   m_ObjectHideFlags: 0
@@ -8783,6 +8783,10 @@ PrefabInstance:
     - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Name
       value: HP_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5141588206772480916, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Pivot.x

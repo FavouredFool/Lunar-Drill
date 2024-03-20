@@ -8,9 +8,20 @@ public class GameManager : MonoBehaviour
         _playerHUD,
         _spiderHUD;
 
+    [SerializeField] int _maxPlayerHP, _maxSpiderHP;
+
+    int _playerHP;
+    int _spiderHP;
+
+    public void Awake()
+    {
+        PlayerHP = _maxPlayerHP;
+        SpiderHP = _maxSpiderHP;
+    }
+
     public int PlayerHP { get => _playerHP; 
         set 
-        { 
+        {
             _playerHP = value; 
             _playerHUD.RefreshHearts(_playerHP);
             if (_playerHP == 0) EndGame(false);
@@ -25,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] int _playerHP, _spiderHP;
+    
 
     public void EndGame(bool playerVictory)
     {

@@ -178,7 +178,10 @@ public class DrillianController : MonoBehaviour
 
     void GetHit()
     {
-        // Health Reduce, Invincibility, Splash-Effect, 
+        // Splash-Effect, 
+
+        // Health Reduce
+        FindObjectOfType<GameManager>().PlayerHP -= 1;
 
         // invincible
         _isInvincible = true;

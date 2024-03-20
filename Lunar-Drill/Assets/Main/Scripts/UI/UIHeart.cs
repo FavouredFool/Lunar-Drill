@@ -8,7 +8,7 @@ public class UIHeart : MonoBehaviour
 {
     [SerializeField] Image spriteRenderer;
 
-    bool _on;
+    bool _on = true;
 
     Tween scaleTween;
 
@@ -21,6 +21,8 @@ public class UIHeart : MonoBehaviour
     {
         if (_on == on) return;
 
+        _on = on;
+
         scaleTween.Kill();
 
         if (on)
@@ -29,7 +31,7 @@ public class UIHeart : MonoBehaviour
         }
         else
         {
-            scaleTween = transform.DOScale(1, 0.2f).SetEase(Ease.InBounce).SetUpdate(true);
+            scaleTween = transform.DOScale(0, 0.2f).SetEase(Ease.InBounce).SetUpdate(true);
         }
     }
 }
