@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _constantlyRotating: 0
   _innerOrbitRange: 3
-  _rotationSpeed: 0.2
+  _rotationSpeed: 0.1
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
 --- !u!114 &8535113388948585094
@@ -76,7 +76,7 @@ MonoBehaviour:
   _laserMinThickness: 0.05
   _thickeningSpeed: 0.05
   _preLaserDuration: 3
-  _laserDuration: 5
+  _laserDuration: 0.5
 --- !u!50 &3790611985934121596
 Rigidbody2D:
   serializedVersion: 4
@@ -639,7 +639,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 12}
+  m_Size: {x: 0.7, y: 12}
   m_EdgeRadius: 0
 --- !u!1 &8426296041570113597
 GameObject:

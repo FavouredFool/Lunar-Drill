@@ -49,34 +49,126 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator DetermineMoves()
     {
-        yield return null;
+        if (_constantlyRotating)
+        {
+            StartCoroutine(RotateCircle());
+            yield break;
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(LaserMovement());
+    }
+
+    IEnumerator LaserMovement()
+    {
+        while (true)
+        {
+
+            int random = Random.Range(0, 3);
+            if (random == 0)
+            {
+                yield return ShootLuna();
+            }
+            else if (random == 1) 
+            {
+                yield return ShootRandom();
+            }
+            else
+            {
+                yield return SimpleMovement();
+            }
+
+            yield return new WaitForSeconds(2f);
+        }
+    }
+
+    IEnumerator ShootRandom()
+    {
+        _goalRotation = Random.insideUnitCircle.normalized;
+
+        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
 
         StartCoroutine(_spiderLaser.ShootLaser());
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
 
-        StartCoroutine(RotateCircle());
+        _goalRotation = Random.insideUnitCircle.normalized;
+
+        yield return new WaitForSeconds(5f);
+    }
+
+    IEnumerator ShootLuna()
+    {
+        GoalMoveOppositeOfLuna();
+
+        // Hier brächte ich logik die checkt wann ich angekommen bin
+        yield return new WaitForSeconds(Random.Range(2f, 4f));
+
+        StartCoroutine(_spiderLaser.ShootLaser());
+
+        yield return new WaitForSeconds(0.5f);
+
+        // check ob luna links oder rechts ist
+        GoalMoveOpposite(LunaIsClockwise());
+
+        yield return new WaitForSeconds(Random.Range(2f, 4f));
+    }
+
+    IEnumerator SimpleMovement()
+    {
+        _goalRotation = Random.insideUnitCircle.normalized;
+
+        yield return new WaitForSeconds(Random.Range(2f, 6f));
+    }
+
+    void GoalMoveOppositeOfLuna()
+    {
+        LunaController lunaController = FindObjectOfType<LunaController>();
+
+        if (lunaController == null) throw new System.Exception();
+
+        // go on opposite side
+        _goalRotation = -lunaController.transform.position.normalized;
+    }
+
+    bool LunaIsClockwise()
+    {
+        LunaController lunaController = FindObjectOfType<LunaController>();
+
+        if (lunaController == null) throw new System.Exception();
+
+        return Vector2.SignedAngle(transform.position.normalized, lunaController.transform.position.normalized) >= 0;
+        
+    }
+
+    void GoalMoveOpposite(bool clockwise)
+    {
+        float angle = clockwise ? 181 : 179;
+        _goalRotation = Quaternion.Euler(0, 0, angle) * transform.position.normalized;
     }
 
     IEnumerator RotateCircle()
     {
-        _goalRotation = Quaternion.Euler(0, 0, 45) * Vector2.up;
 
-        yield return new WaitForSeconds(2f);
+        while (true)
+        {
+            _goalRotation = Quaternion.Euler(0, 0, 45) * Vector2.up;
 
-        _goalRotation = Quaternion.Euler(0, 0, 135) * Vector2.up;
+            yield return new WaitForSeconds(2f);
 
-        yield return new WaitForSeconds(2f);
+            _goalRotation = Quaternion.Euler(0, 0, 135) * Vector2.up;
 
-        _goalRotation = Quaternion.Euler(0, 0, 225) * Vector2.up;
+            yield return new WaitForSeconds(2f);
 
-        yield return new WaitForSeconds(2f);
+            _goalRotation = Quaternion.Euler(0, 0, 225) * Vector2.up;
 
-        _goalRotation = Quaternion.Euler(0, 0, 315) * Vector2.up;
+            yield return new WaitForSeconds(2f);
 
-        yield return new WaitForSeconds(2f);
+            _goalRotation = Quaternion.Euler(0, 0, 315) * Vector2.up;
 
-        StartCoroutine(RotateCircle());
+            yield return new WaitForSeconds(2f);
+        }
     }
 
     void CalculateOrbitRotation()

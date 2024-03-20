@@ -46,10 +46,6 @@ public class SpiderLaser : MonoBehaviour
 
         _laserVisual.enabled = false;
         _laserCollider.enabled = false;
-
-        yield return new WaitForSeconds(5);
-
-        yield return ShootLaser();
     }
 
 
