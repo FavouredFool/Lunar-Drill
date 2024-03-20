@@ -13,6 +13,8 @@ public class LunaSpriteIterator : MonoBehaviour
 
     float timer=0;
 
+    int lastMoveSign = 1;
+
     float fraction => (1f / fps);
     int index = 0;
 
@@ -20,11 +22,17 @@ public class LunaSpriteIterator : MonoBehaviour
 
     private void Update()
     {
+        if (controller.MoveSign != 0) lastMoveSign = controller.MoveSign;
+
         timer += Time.deltaTime;
-        if (timer>=fraction)
+        if (timer >= fraction)
         {
             timer = 0;
-            index=(index+1)%sprites.Length;
+
+            index = (index + lastMoveSign);
+            if (index < 0) index += sprites.Length;
+            index = index % sprites.Length;
+
             spriteRenderer.sprite = sprites[index];
         }
     }

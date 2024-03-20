@@ -11,4 +11,9 @@ public static class Utilities
     {
         return Vector2.Distance(v1, v2) < 0.001f;
     }
+
+    public static bool LayerMaskContainsLayer(LayerMask layerMask, int layer)
+    {
+        return layerMask == (layerMask | 1 << layer);
+    }
 }
