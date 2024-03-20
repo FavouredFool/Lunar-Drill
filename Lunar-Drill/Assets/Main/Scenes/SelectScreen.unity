@@ -1855,8 +1855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sideMovementDelta: 13
-  <IsConnectState>k__BackingField: 1
-  rectTransform: {fileID: 0}
+  _nextScene: MainScene
 --- !u!1 &1604763771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,7 +2072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85dc4a31fd7fd1a48a9f523c61ebd62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInputs: []
 --- !u!114 &1803692016
 MonoBehaviour:
   m_ObjectHideFlags: 0
