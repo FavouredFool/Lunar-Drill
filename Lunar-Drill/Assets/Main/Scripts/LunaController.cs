@@ -239,8 +239,6 @@ public class LunaController : MonoBehaviour
 
     void GetHit()
     {
-        // Splash-Effect, 
-
         // Health Reduce
         FindObjectOfType<GameManager>().PlayerHP -= 1;
 
@@ -249,6 +247,10 @@ public class LunaController : MonoBehaviour
         // Set invincible to false after one second
         DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
         _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
+
+        // Splash-Effect, 
+
+        // Time Scale down
 
     }
 
