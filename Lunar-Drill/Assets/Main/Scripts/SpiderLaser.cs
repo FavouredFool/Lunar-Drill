@@ -17,6 +17,11 @@ public class SpiderLaser : MonoBehaviour
     [SerializeField] Color _preLaserColor;
     [SerializeField] Color _laserColor;
 
+    [Header("Timings")]
+    [SerializeField][Range(0.1f, 10f)] float _preLaserDuration;
+    [SerializeField][Range(0.1f, 10f)] float _laserDuration;
+
+
 
     //--- Private Fields ------------------------
 
@@ -36,17 +41,18 @@ public class SpiderLaser : MonoBehaviour
         _laserVisual.Color = _preLaserColor;
         _laserVisual.Thickness = _laserMinThickness;
         _laserVisual.enabled = true;
-        
-        yield return new WaitForSeconds(2);
+
+        DOTween.To(() => _laserVisual.Color, x => _laserVisual.Color = x, Color.clear, _preLaserDuration).SetEase(Ease.InFlash, 17, 0);
+        yield return new WaitForSeconds(_preLaserDuration);
 
         _laserVisual.Color = _laserColor;
         DOTween.To(() => _laserVisual.Thickness, x => _laserVisual.Thickness = x, _laserMaxThickness, _thickeningSpeed).SetEase(Ease.InSine);
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(_laserDuration);
 
         _laserVisual.enabled = false;
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
 
         yield return ShootLaser();
     }

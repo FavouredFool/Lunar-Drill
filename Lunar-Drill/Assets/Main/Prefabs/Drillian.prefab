@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _planetRadius: 2.5
   _speed: 5
-  _gravityStrength: 2.2
+  _gravityStrength: 2.5
   _maxRotationControl: 10
   _timeTillControlRegain: 0.25
   _damageCollisions:
