@@ -3926,7 +3926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: _gravityStrength
-      value: 2.2
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5998,7 +5998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8b23269661b014d8862ce1c4799a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outerOrbitRange: 4.5
+  _outerOrbitRange: 4
 --- !u!1 &1410195460
 GameObject:
   m_ObjectHideFlags: 0
@@ -8893,21 +8893,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1088389781213518242, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: _thickeningSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2234265607896831609, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: m_Name
       value: Spider
       objectReference: {fileID: 0}
-    - target: {fileID: 2234265607896831609, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2332832379483453229, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3593579679363586201, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Layer
-      value: 9
+    - target: {fileID: 2348344619466423206, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3806534218160603578, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8949,9 +8945,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5682532037232052346, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Layer
-      value: 9
+    - target: {fileID: 7006185780467702930, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

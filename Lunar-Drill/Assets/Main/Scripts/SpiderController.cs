@@ -14,6 +14,7 @@ public class SpiderController : MonoBehaviour
 
     Rigidbody2D _rigidbody;
     float _orbitRotationT = 0.75f;
+    SpiderLaser _spiderLaser;
 
 
     //--- Unity Methods ------------------------
@@ -21,6 +22,12 @@ public class SpiderController : MonoBehaviour
     public void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _spiderLaser = GetComponent<SpiderLaser>();
+    }
+
+    public void Start()
+    {
+        StartCoroutine(_spiderLaser.ShootLaser());
     }
 
     public void FixedUpdate()
