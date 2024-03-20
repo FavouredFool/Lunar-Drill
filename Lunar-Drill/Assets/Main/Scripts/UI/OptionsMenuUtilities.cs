@@ -20,7 +20,7 @@ public class OptionsMenuUtilities : MonoBehaviour
     [SerializeField] private Slider _sfxSlider; // The UI slider that corresponds to the sound effects volume.
     [SerializeField] AudioMixer _audioMixer; // The Audio mixer that is being changed.
     [SerializeField] private Toggle _fsSetting; // UI toggle for setting full screen mode 
-    [SerializeField] private TMP_Dropdown _srSetting; // UI dropdown for setting resolution
+    //[SerializeField] private TMP_Dropdown _srSetting; // UI dropdown for setting resolution
 
     //--- Private Fields ------------------------
 
@@ -98,21 +98,21 @@ public class OptionsMenuUtilities : MonoBehaviour
         _fsSetting.isOn = true; // Default = full screen
         _fsSetting.onValueChanged.AddListener(ChangeFullScreen);
 
-        /* Resolution */
-        List<string> resolutionStrings = new List<string>();
-        for (int i = 0; i < Screen.resolutions.Count(); i++)
-        {
-            if (!resolutionStrings.Contains(Screen.resolutions[i].width.ToString() + " x " + Screen.resolutions[i].height.ToString()))
-            {
-                resolutionStrings.Add(Screen.resolutions[i].width.ToString() + " x " + Screen.resolutions[i].height.ToString());
-            }
-        }
-        _resolutions = resolutionStrings.Select(r => new TMP_Dropdown.OptionData(r)).ToList();
-        _srSetting.options = _resolutions;
-        // Listen to future changes
-        _srSetting.onValueChanged.AddListener(ChangeScreenResolution);
-        // Set current value as default
-        _srSetting.value = _srSetting.options.FindIndex(option => option.text == Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString());
+        ///* Resolution */
+        //List<string> resolutionStrings = new List<string>();
+        //for (int i = 0; i < Screen.resolutions.Count(); i++)
+        //{
+        //    if (!resolutionStrings.Contains(Screen.resolutions[i].width.ToString() + " x " + Screen.resolutions[i].height.ToString()))
+        //    {
+        //        resolutionStrings.Add(Screen.resolutions[i].width.ToString() + " x " + Screen.resolutions[i].height.ToString());
+        //    }
+        //}
+        //_resolutions = resolutionStrings.Select(r => new TMP_Dropdown.OptionData(r)).ToList();
+        //_srSetting.options = _resolutions;
+        //// Listen to future changes
+        //_srSetting.onValueChanged.AddListener(ChangeScreenResolution);
+        //// Set current value as default
+        //_srSetting.value = _srSetting.options.FindIndex(option => option.text == Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString());
     }
 
     /* Toggles full screen mode. */
