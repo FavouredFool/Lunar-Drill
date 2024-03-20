@@ -157,7 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _planetRadius: 2.5
   _outerOrbitRange: 4.5
-  _rotationSpeed: 0.15
+  _maxRotationSpeed: 0.15
+  _slowLaseringPercent: 0.5
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
   _laserVisual: {fileID: 1399581150962231857}
