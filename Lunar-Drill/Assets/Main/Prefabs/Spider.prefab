@@ -59,6 +59,20 @@ MonoBehaviour:
   _rotationSpeed: 0.1
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
+  _lunaLaser:
+    serializedVersion: 2
+    m_Bits: 64
+  _drillian:
+    serializedVersion: 2
+    m_Bits: 256
+  _overheatGain: 0.25
+  _overheatLoss: 0.01
+  _spriteRenderers:
+  - {fileID: 2297733279568171791}
+  - {fileID: 2668978879122849518}
+  - {fileID: 4885361180782936067}
+  - {fileID: 6884750448878901344}
+  _invincibleTime: 5
 --- !u!114 &8535113388948585094
 MonoBehaviour:
   m_ObjectHideFlags: 0

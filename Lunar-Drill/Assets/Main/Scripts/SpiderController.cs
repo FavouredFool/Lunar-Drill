@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,25 @@ public class SpiderController : MonoBehaviour
     [Header("Movement Smoothing")]
     [SerializeField][Range(0.1f, 100f)] float _movementStartAngleThreshold;
     [SerializeField][Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
+    [SerializeField] LayerMask _lunaLaser;
+    [SerializeField] LayerMask _drillian;
+
+    [Header("Overheat")]
+    [SerializeField][Range(0.01f, 1)] float _overheatGain = 0.25f;
+    [SerializeField][Range(0.01f, 1)] float _overheatLoss = 0.05f;
+
+    [Header("Sprites")]
+    [SerializeField] SpriteRenderer[] _spriteRenderers;
+
+    [Header("Hit")]
+    [SerializeField][Range(0.01f, 5f)] float _invincibleTime = 5f;
 
     public int MoveSign { get; private set; } = 0;
+    public float OverheatT { get; set; } = 0;
+    public bool IsVulnerable { get; set; } = false;
+    public bool IsInvincible { get; set; } = false;
+    public bool IsNotHurtingOnTouch => IsVulnerable || IsInvincible;
+
 
     //--- Private Fields ------------------------
 
@@ -41,12 +59,33 @@ public class SpiderController : MonoBehaviour
     public void FixedUpdate()
     {
         CalculateOrbitRotation();
+
+        EvaluateOverheat();
+
         SetSpiderPosition();
         SetSpiderRotation();
     }
 
 
     //--- Private Methods ------------------------
+
+    void EvaluateOverheat()
+    {
+        if (Mathf.Approximately(OverheatT, 1))
+        {
+            if (!IsVulnerable)
+            {
+                IsVulnerable = true;
+
+                // stop laser??
+                // Change sprite here
+            }
+        }
+        else
+        {
+            OverheatT = Mathf.Clamp01(OverheatT - _overheatLoss * Time.deltaTime);
+        }
+    }
 
     IEnumerator DetermineMoves()
     {
@@ -65,6 +104,9 @@ public class SpiderController : MonoBehaviour
     {
         while (true)
         {
+            yield return null;
+
+            if (IsVulnerable) continue;
 
             int random = Random.Range(0, 3);
             if (random == 0)
@@ -154,6 +196,10 @@ public class SpiderController : MonoBehaviour
 
         while (true)
         {
+            yield return null;
+
+            if (IsVulnerable) continue;
+
             _goalRotation = Quaternion.Euler(0, 0, 45) * Vector2.up;
 
             yield return new WaitForSeconds(2f);
@@ -222,8 +268,40 @@ public class SpiderController : MonoBehaviour
         _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, transform.position));
     }
 
+    void IncreaseHeat()
+    {
+        OverheatT = Mathf.Clamp01(OverheatT + _overheatGain * Time.deltaTime);
+    }
+
+    void GetDamaged()
+    {
+        FindObjectOfType<GameManager>().SpiderHP -= 1;
+        IsVulnerable = false;
+        IsInvincible = true;
+        OverheatT = 0;
+        DOVirtual.DelayedCall(4, () => IsInvincible = false, false);
+
+        foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
+        {
+            spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 48, 0.75f);
+        }
+
+        
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (_lunaLaser == (_lunaLaser | (1 << collision.gameObject.layer)) && !IsInvincible)
+        {
+            IncreaseHeat();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"hit on spider: {collision}");
+        if (_drillian == (_drillian | (1 << collision.gameObject.layer)) && IsVulnerable)
+        {
+            GetDamaged();
+        }
     }
 }
