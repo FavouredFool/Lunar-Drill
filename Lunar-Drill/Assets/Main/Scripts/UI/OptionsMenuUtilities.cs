@@ -95,9 +95,23 @@ public class OptionsMenuUtilities : MonoBehaviour
     private void PopulateDisplayOptions()
     {
         /* Full Screen */
-        _fsSetting.isOn = true; // Default = full screen
+        if (Screen.fullScreenMode == FullScreenMode.Windowed)
+        {
+            _fsSetting.isOn = false;
+        }
+        else
+        {
+            _fsSetting.isOn = true; // Default = full screen
+        }
         _fsSetting.onValueChanged.AddListener(ChangeFullScreen);
-
+        if (Screen.fullScreenMode == FullScreenMode.Windowed)
+        {
+            _fsSetting.isOn = false;
+        }
+        else
+        {
+            _fsSetting.isOn = true; // Default = full screen
+        }
         ///* Resolution */
         //List<string> resolutionStrings = new List<string>();
         //for (int i = 0; i < Screen.resolutions.Count(); i++)
