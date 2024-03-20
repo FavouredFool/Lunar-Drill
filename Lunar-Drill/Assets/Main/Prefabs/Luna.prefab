@@ -168,7 +168,7 @@ MonoBehaviour:
   _orbitReturnStrength: 1.5
   _damageCollisions:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1280
   _invincibleTime: 3
   _spriteRenderer: {fileID: 3688287869893254816}
 --- !u!114 &5807452418047519785
@@ -236,6 +236,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 478c4450-3483-4010-be8a-28abbd83b308
     m_ActionName: Pause Menu/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e812c6a3-4103-4554-a650-c6d7949cc58b
+    m_ActionName: Connect/Swap[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Luna

@@ -6,8 +6,13 @@ public class SpiderController : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
+    [SerializeField] bool _constantlyRotating = false;
     [SerializeField][Range(2, 5)] float _innerOrbitRange = 3;
     [SerializeField][Range(0.01f, 1f)] float _rotationSpeed = 5f;
+
+    [Header("Movement Smoothing")]
+    [SerializeField][Range(0.1f, 100f)] float _movementStartAngleThreshold;
+    [SerializeField][Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
 
 
     //--- Private Fields ------------------------
@@ -15,6 +20,8 @@ public class SpiderController : MonoBehaviour
     Rigidbody2D _rigidbody;
     float _orbitRotationT = 0.75f;
     SpiderLaser _spiderLaser;
+    bool _mustReachThresholdForMovement = false;
+    Vector2 _goalRotation = Vector2.zero;
 
 
     //--- Unity Methods ------------------------
@@ -27,12 +34,12 @@ public class SpiderController : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(_spiderLaser.ShootLaser());
+        StartCoroutine(DetermineMoves());
     }
 
     public void FixedUpdate()
     {
-        AdjustPositionT();
+        CalculateOrbitRotation();
         SetSpiderPosition();
         SetSpiderRotation();
     }
@@ -40,9 +47,56 @@ public class SpiderController : MonoBehaviour
 
     //--- Private Methods ------------------------
 
-    void AdjustPositionT()
+    IEnumerator DetermineMoves()
     {
-        _orbitRotationT += _rotationSpeed * Time.deltaTime * Mathf.Sin(Time.time * 2);
+        yield return null;
+
+        StartCoroutine(_spiderLaser.ShootLaser());
+
+        yield return new WaitForSeconds(1f);
+
+        _goalRotation = Vector2.down;
+
+        yield return new WaitForSeconds(5f);
+
+        _goalRotation = Vector2.up;
+    }
+
+    void CalculateOrbitRotation()
+    {
+        if (_goalRotation.magnitude < 0.1f) return;
+
+        Vector2 currentDirection = transform.position.normalized;
+
+        float angle = Vector2.Angle(currentDirection, _goalRotation);
+
+        if (_mustReachThresholdForMovement && _movementStartAngleThreshold > angle)
+        {
+            return;
+        }
+
+        int sign;
+
+        if (angle < _movementArrivedAngleThreshold)
+        {
+            _mustReachThresholdForMovement = true;
+            sign = 0;
+        }
+        else
+        {
+            // Dot product to find out if you should move clockwise or counterclockwise
+            _mustReachThresholdForMovement = false;
+            sign = -(int)Mathf.Sign(_goalRotation.x * currentDirection.y - _goalRotation.y * currentDirection.x);
+        }
+
+        // increase
+        _orbitRotationT += sign * _rotationSpeed * Time.deltaTime;
+
+        // guard
+        if (_orbitRotationT >= 1)
+        {
+            _orbitRotationT -= 1;
+        }
     }
 
     void SetSpiderPosition()

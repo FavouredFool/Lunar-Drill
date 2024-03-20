@@ -55,7 +55,7 @@ MonoBehaviour:
   _timeTillControlRegain: 0.25
   _damageCollisions:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 1600
   _invincibleTime: 3
   _spriteRenderer: {fileID: 1141031731221533029}
 --- !u!114 &1372043916927778522

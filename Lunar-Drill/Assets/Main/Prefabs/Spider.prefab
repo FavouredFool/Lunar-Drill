@@ -52,8 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0541081b8f0724891a309c5fce66cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _constantlyRotating: 0
   _innerOrbitRange: 3
   _rotationSpeed: 0.05
+  _movementStartAngleThreshold: 3
+  _movementArrivedAngleThreshold: 1.5
 --- !u!114 &8535113388948585094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +72,7 @@ MonoBehaviour:
   _laserStartOffset: 0
   _laserVisual: {fileID: 6375073258161511058}
   _laserCollider: {fileID: 6992246927161238013}
-  _laserMaxThickness: 0.9
+  _laserMaxThickness: 0.6
   _laserMinThickness: 0.05
   _thickeningSpeed: 0.05
   _preLaserDuration: 3
