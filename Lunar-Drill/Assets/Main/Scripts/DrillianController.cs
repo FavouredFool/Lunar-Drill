@@ -18,10 +18,18 @@ public class DrillianController : MonoBehaviour
     [SerializeField][Range(1, 100f)] float _maxRotationControl = 25f;
     [SerializeField][Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
 
-    [Header("Air Movement")]
-    [SerializeField][Range(0f, 100f)] float _airTurnControl = 1f;
-    [SerializeField][Range(0f, 1f)] float _airTurnPercentage = 0.25f;
-    [SerializeField][Range(0f, 100f)] float _airTurnSmoothing = 15f;
+    //[Header("Air Movement")]
+    //[SerializeField][Range(0f, 100f)] float _airTurnControl = 1f;
+    //[SerializeField][Range(0f, 1f)] float _airTurnPercentage = 0.25f;
+    //[SerializeField][Range(0f, 100f)] float _airTurnSmoothing = 15f;
+
+    [Header("Collision")]
+    [SerializeField] LayerMask _damageCollisions;
+    [SerializeField][Range(0f, 5f)] float _invincibleTime;
+
+    [Header("Sprite")]
+    [SerializeField] SpriteRenderer _spriteRenderer;
+
 
     //--- Properties ------------------------
     public float RotationControlT { get; set; } = 1;
@@ -37,6 +45,8 @@ public class DrillianController : MonoBehaviour
     Tweener _controlTween;
     Vector2 _airTurnDirection;
     Vector2 _turnDirection;
+
+    bool _isInvincible = false;
 
 
     //--- Unity Methods ------------------------
@@ -165,4 +175,35 @@ public class DrillianController : MonoBehaviour
         // Move along up-Vector
         _rigidbody.velocity = moveDirection * _speed;
     }
+
+    void GetHit()
+    {
+        // Health Reduce, Invincibility, Splash-Effect, 
+
+        Debug.Log("DRILLER IS HITTTT");
+        // invincible
+        _isInvincible = true;
+        // Set invincible to false after one second
+        DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
+        _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 16, 0);
+
+
+    }
+
+    void EvaluateCollision(Collider2D collision)
+    {
+        if (Utilities.LayerMaskContainsLayer(_damageCollisions, collision.gameObject.layer))
+        {
+            if (!_isInvincible)
+            {
+                GetHit();
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        EvaluateCollision(collision);
+    }
+
 }

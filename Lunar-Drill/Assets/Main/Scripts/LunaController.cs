@@ -29,6 +29,9 @@ public class LunaController : MonoBehaviour
     [SerializeField][Range(0.1f, 3f)] float _laserKnockbackStrength;
     [SerializeField][Range(0.1f, 3f)] float _orbitReturnStrength;
 
+    [Header("Collision")]
+    [SerializeField] LayerMask _damageCollisions;
+
 
     public int MoveSign { get; private set; } = 0;
 
@@ -78,8 +81,8 @@ public class LunaController : MonoBehaviour
         _laserEndPoint = transform.position.magnitude - _planetRadius;
 
         // Move Laser
-        bool startAnimating = _laserStartTween != null && _laserStartTween.IsPlaying();
-        bool endAnimating = _laserEndTween != null && _laserEndTween.IsPlaying();
+        bool startAnimating = _laserStartTween != null && _laserStartTween.IsActive();
+        bool endAnimating = _laserEndTween != null && _laserEndTween.IsActive();
 
         // collider
         _laserCollider.offset = new Vector2(0, (_laserEndPoint - _laserStartPoint) / 2 + _laserStartPoint);
@@ -92,11 +95,6 @@ public class LunaController : MonoBehaviour
         _laserVisual.End = new Vector3(0, _laserEndPoint, 0);
 
         
-    }
-
-    public void SetLaserColliderSize()
-    {
-
     }
 
     public void CalculateDistanceFromOrbit()
@@ -124,12 +122,12 @@ public class LunaController : MonoBehaviour
 
             _laserCollider.enabled = false;
 
-            if (_laserStartTween != null && _laserStartTween.IsPlaying())
+            if (_laserStartTween != null && _laserStartTween.IsActive())
             {
                 _laserStartTween.Kill();
             }
 
-            if (_laserEndTween != null && _laserEndTween.IsPlaying())
+            if (_laserEndTween != null && _laserEndTween.IsActive())
             {
                 _laserEndTween.Kill();
             }
@@ -231,6 +229,25 @@ public class LunaController : MonoBehaviour
     void SetLunaRotation()
     {
         _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, -transform.position));
+    }
+
+    void GetHit()
+    {
+
+    }
+
+    void EvaluateCollision(Collider2D collision)
+    {
+        if (Utilities.LayerMaskContainsLayer(_damageCollisions, collision.gameObject.layer))
+        {
+            GetHit();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log($"hit on luna: {collision}");
+        EvaluateCollision(collision);
     }
 
 }

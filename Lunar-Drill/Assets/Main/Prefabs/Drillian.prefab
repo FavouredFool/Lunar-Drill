@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1372043916927778522}
   - component: {fileID: 2568886297308648150}
   - component: {fileID: 8514681387159665595}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Drillian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,9 +53,11 @@ MonoBehaviour:
   _gravityStrength: 2
   _maxRotationControl: 10
   _timeTillControlRegain: 0.25
-  _airTurnControl: 20
-  _airTurnPercentage: 0.15
-  _airTurnSmoothing: 10
+  _damageCollisions:
+    serializedVersion: 2
+    m_Bits: 576
+  _invincibleTime: 2
+  _spriteRenderer: {fileID: 1141031731221533029}
 --- !u!114 &1372043916927778522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +189,7 @@ GameObject:
   - component: {fileID: 3587950130237990063}
   - component: {fileID: 1141031731221533029}
   - component: {fileID: 1038394447196655809}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

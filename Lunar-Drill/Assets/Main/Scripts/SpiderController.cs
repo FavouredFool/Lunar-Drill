@@ -52,4 +52,9 @@ public class SpiderController : MonoBehaviour
     {
         _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, transform.position));
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log($"hit on spider: {collision}");
+    }
 }
