@@ -12,6 +12,10 @@ public class LunaController : MonoBehaviour
     [SerializeField][Range(0.1f, 100f)] float _movementStartAngleThreshold;
     [SerializeField][Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
 
+    //--- Properties ----------------------------
+
+    public int MoveSign { get; private set; } = 0;
+
     //--- Private Fields ------------------------
 
     float _orbitRotationT;
@@ -95,22 +99,21 @@ public class LunaController : MonoBehaviour
             return;
         }
 
-        int sign;
 
         if (angle < _movementArrivedAngleThreshold)
         {
             _mustReachThresholdForMovement = true;
-            sign = 0;
+            MoveSign = 0;
         }
         else
         {
             // Dot product to find out if you should move clockwise or counterclockwise
             _mustReachThresholdForMovement = false;
-            sign = -(int)Mathf.Sign(_goalDirection.x * currentDirection.y - _goalDirection.y * currentDirection.x);
+            MoveSign = -(int)Mathf.Sign(_goalDirection.x * currentDirection.y - _goalDirection.y * currentDirection.x);
         }
 
         // increase
-        _orbitRotationT += sign * _rotationSpeed * Time.deltaTime;
+        _orbitRotationT += MoveSign * _rotationSpeed * Time.deltaTime;
         // guard
         if (_orbitRotationT >= 1)
         {
