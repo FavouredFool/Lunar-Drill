@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3790611985934121596}
   - component: {fileID: 1212641372050918967}
   - component: {fileID: 7851926753432480047}
+  - component: {fileID: 4584614065186125988}
+  - component: {fileID: 7756796454352137033}
   m_Layer: 9
   m_Name: Spider
   m_TagString: Untagged
@@ -151,6 +153,45 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!95 &4584614065186125988
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2234265607896831609}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b37326b49271117448d31bbe4f05da15, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7756796454352137033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2234265607896831609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce34ce64b29a10d45b81fad7645e2ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 640577912219903628}
+  animator: {fileID: 4584614065186125988}
+  spriteRenderer: {fileID: 2297733279568171791}
+  crest: {fileID: 2446997433656444215}
+  fps: 6
+  rotTime: 2
 --- !u!1 &2332832379483453229
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2896130235644590175}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -667,7 +708,7 @@ Transform:
   m_GameObject: {fileID: 8426296041570113597}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
