@@ -785,7 +785,6 @@ Transform:
   - {fileID: 1368627422}
   - {fileID: 1948594156}
   - {fileID: 626392374}
-  - {fileID: 168172184}
   - {fileID: 17610889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -857,7 +856,7 @@ Transform:
   m_Children:
   - {fileID: 1644398480}
   - {fileID: 1450746953}
-  m_Father: {fileID: 129321634}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &168172185
 MonoBehaviour:
@@ -8248,3 +8247,4 @@ SceneRoots:
   - {fileID: 789863299}
   - {fileID: 1606041890}
   - {fileID: 129321634}
+  - {fileID: 168172184}
