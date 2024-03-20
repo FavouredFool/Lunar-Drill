@@ -55,11 +55,28 @@ public class SpiderController : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        _goalRotation = Vector2.down;
+        StartCoroutine(RotateCircle());
+    }
 
-        yield return new WaitForSeconds(5f);
+    IEnumerator RotateCircle()
+    {
+        _goalRotation = Quaternion.Euler(0, 0, 45) * Vector2.up;
 
-        _goalRotation = Vector2.up;
+        yield return new WaitForSeconds(2f);
+
+        _goalRotation = Quaternion.Euler(0, 0, 135) * Vector2.up;
+
+        yield return new WaitForSeconds(2f);
+
+        _goalRotation = Quaternion.Euler(0, 0, 225) * Vector2.up;
+
+        yield return new WaitForSeconds(2f);
+
+        _goalRotation = Quaternion.Euler(0, 0, 315) * Vector2.up;
+
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(RotateCircle());
     }
 
     void CalculateOrbitRotation()

@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _constantlyRotating: 0
   _innerOrbitRange: 3
-  _rotationSpeed: 0.05
+  _rotationSpeed: 0.2
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
 --- !u!114 &8535113388948585094
