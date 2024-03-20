@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _planetRadius: 2.5
-  _outerOrbitRange: 4.5
+  _outerOrbitRange: 4.25
   _maxRotationSpeed: 0.15
   _slowLaseringPercent: 0.5
   _movementStartAngleThreshold: 3
@@ -295,8 +295,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000004896725, y: -0.04107671}
-  m_Size: {x: 1.000001, y: 0.3427783}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.9, y: 0.275}
   m_Direction: 1
 --- !u!1 &8190726408963654578
 GameObject:
