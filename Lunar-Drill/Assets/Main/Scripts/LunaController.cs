@@ -13,7 +13,8 @@ public class LunaController : MonoBehaviour
     [SerializeField][Range(2, 5)] float _outerOrbitRange;
 
     [Header("Configuration")]
-    [SerializeField][Range(0.1f, 10f)] float _rotationSpeed;
+    [SerializeField][Range(0.1f, 10f)] float _maxRotationSpeed;
+    [SerializeField][Range(0.1f, 1f)] float _slowLaseringPercent;
 
     [Header("Movement Smoothing")]
     [SerializeField][Range(0.1f, 100f)] float _movementStartAngleThreshold;
@@ -102,6 +103,8 @@ public class LunaController : MonoBehaviour
     {
         if (!_currentlyLasering)
         {
+            if (_laserEndTween != null && _laserEndTween.IsActive()) return;
+
             // reduce
             _distanceFromOrbit = Mathf.Max(0, _distanceFromOrbit -= _orbitReturnStrength * Time.deltaTime);
         }
@@ -140,11 +143,12 @@ public class LunaController : MonoBehaviour
         }
         else if (context.canceled)
         {
+            _currentlyLasering = false;
+
             _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
             _laserEndTween = DOTween.To(() => _laserVisual.Start, x => _laserVisual.Start = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
             _laserEndTween.OnComplete(() => {
                 _laserCollider.enabled = false;
-                _currentlyLasering = false;
                 _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
                 _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
             });
@@ -203,8 +207,10 @@ public class LunaController : MonoBehaviour
             MoveSign = -(int)Mathf.Sign(_goalDirection.x * currentDirection.y - _goalDirection.y * currentDirection.x);
         }
 
+        float currentRotationSpeed = (_currentlyLasering) ? _maxRotationSpeed * (1 - _slowLaseringPercent) : _maxRotationSpeed;
+
         // increase
-        _orbitRotationT += MoveSign * _rotationSpeed * Time.deltaTime;
+        _orbitRotationT += MoveSign * currentRotationSpeed * Time.deltaTime;
         // guard
         if (_orbitRotationT >= 1)
         {
