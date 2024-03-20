@@ -1855,6 +1855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sideMovementDelta: 13
+  _nextScene: MainScene
 --- !u!1 &1604763771
 GameObject:
   m_ObjectHideFlags: 0

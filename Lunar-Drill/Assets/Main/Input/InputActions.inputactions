@@ -427,6 +427,17 @@
                     "action": "Swap",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7464535e-bc3f-4d13-8bf7-a8a0c8e5a717",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

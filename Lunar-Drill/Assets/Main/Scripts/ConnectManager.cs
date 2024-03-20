@@ -9,6 +9,7 @@ public class ConnectManager : MonoBehaviour
     public void Awake()
     {
         playerInputs = new();
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayerJoined(PlayerInput input)
