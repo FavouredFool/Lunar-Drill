@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4851948530192768895}
   - component: {fileID: 1372043916927778522}
   - component: {fileID: 2568886297308648150}
-  m_Layer: 0
+  - component: {fileID: 8514681387159665595}
+  m_Layer: 8
   m_Name: Drillian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,13 +49,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _planetRadius: 2.5
-  _speed: 6
-  _gravityStrength: 4
-  _maxRotationControl: 15
+  _speed: 5
+  _gravityStrength: 2.5
+  _maxRotationControl: 10
   _timeTillControlRegain: 0.25
-  _airTurnControl: 20
-  _airTurnPercentage: 0.15
-  _airTurnSmoothing: 10
+  _damageCollisions:
+    serializedVersion: 2
+    m_Bits: 1600
+  _invincibleTime: 3
+  _spriteRenderer: {fileID: 1141031731221533029}
 --- !u!114 &1372043916927778522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,13 +92,25 @@ MonoBehaviour:
     m_ActionId: bcb30632-91a4-4e31-bc74-6015b7202ad0
     m_ActionName: Luna/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4851948530192768895}
+        m_TargetAssemblyTypeName: DrillianController, Assembly-CSharp
+        m_MethodName: SetMoveDirectionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2c5e1403-3afc-4e64-9ba4-2cf5b54a9b49
-    m_ActionName: Drillian/MoveDirection[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+    m_ActionName: Drillian/MoveDirection[/DualShock4GamepadHID/leftStick,/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 478c4450-3483-4010-be8a-28abbd83b308
-    m_ActionName: Pause Menu/Pause[/Keyboard/escape]
+    m_ActionName: Pause Menu/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Drillian
@@ -128,6 +143,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!70 &8514681387159665595
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2649280870426949734}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.1}
+  m_Size: {x: 0.4, y: 0.7}
+  m_Direction: 0
 --- !u!1 &6011343490646548567
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +189,7 @@ GameObject:
   - component: {fileID: 3587950130237990063}
   - component: {fileID: 1141031731221533029}
   - component: {fileID: 1038394447196655809}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
