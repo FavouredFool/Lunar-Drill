@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 
-public class DrillianController : MonoBehaviour
+public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>
 {
     //--- Exposed Fields ------------------------
 
@@ -54,6 +54,7 @@ public class DrillianController : MonoBehaviour
     public void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        InputBus.Subscribe(this);
     }
 
     public void FixedUpdate()
@@ -72,7 +73,10 @@ public class DrillianController : MonoBehaviour
     }
 
     //--- Public Methods ------------------------
-
+    public void OnEventHappened(DrillianMoveDirection e) // Control over Signal Bus.
+    {
+        SetMoveDirectionInput(e.context);
+    }
     public void SetMoveDirectionInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;

@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class LunaController : MonoBehaviour
+public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInputSubscriber<LunaMoveGoal>
 {
     //--- Exposed Fields ------------------------
 
@@ -67,6 +67,8 @@ public class LunaController : MonoBehaviour
         _orbitRotationT = 0;
         _goalDirection = Vector2.zero;
         _rigidbody = GetComponent<Rigidbody2D>();
+        InputBus.Subscribe<LunaMoveGoal>(this);
+        InputBus.Subscribe<LunaShoot>(this);
     }
 
     public void FixedUpdate()
@@ -80,6 +82,17 @@ public class LunaController : MonoBehaviour
 
 
     //--- Public Methods ------------------------
+    public void OnEventHappened(LunaShoot e) // Event to use Input System
+    {
+        Debug.Log("Shoot");
+        ShootInput(e.context);
+    }
+
+    public void OnEventHappened(LunaMoveGoal e) // Event to use Input System
+    {
+        SetGoalDirectionInput(e.context);
+    }
+
 
     public void SetLaserSize()
     {
@@ -270,5 +283,4 @@ public class LunaController : MonoBehaviour
         Debug.Log($"hit on luna: {collision}");
         EvaluateCollision(collision);
     }
-
 }

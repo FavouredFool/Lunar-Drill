@@ -80,16 +80,39 @@ public class PlayerConnectController : MonoBehaviour
     //Method to activate the correct action map
     public void SwitchActionMapToCharacter()
     {
+        GameObject characterGO;
         if (_character == ChosenCharacter.luna)
         {
-            _input.SwitchCurrentActionMap("Luna");
+            characterGO = FindAnyObjectByType<LunaController>().gameObject;
+            if(characterGO != null)
+            {
+                _input.SwitchCurrentActionMap("Luna");
+            }
+
         }
         else
         {
-            _input.SwitchCurrentActionMap("Drillian");
+            characterGO = FindAnyObjectByType<DrillianController>().gameObject;
+            if(characterGO != null)
+            {
+
+                _input.SwitchCurrentActionMap("Drillian");
+            }
         }
+
+        if(characterGO != null)
+        {
+            PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
+            if (goPlayerInput != null)
+            {
+                goPlayerInput.enabled = false;
+                Debug.Log("Disabled INput");
+            }
+        }
+        
+       
     }
 
-
     
+
 }
