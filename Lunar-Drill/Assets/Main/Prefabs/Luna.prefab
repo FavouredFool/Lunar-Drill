@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4603303532592014212}
   - component: {fileID: 3688287869893254816}
   - component: {fileID: 8224682475587872733}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 5807452418047519785}
   - component: {fileID: 6566899627907189698}
   - component: {fileID: 4376716811814968986}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Luna
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,6 +166,11 @@ MonoBehaviour:
   _laserSpeed: 0.115
   _laserKnockbackStrength: 0.5
   _orbitReturnStrength: 1.5
+  _damageCollisions:
+    serializedVersion: 2
+    m_Bits: 256
+  _invincibleTime: 3
+  _spriteRenderer: {fileID: 3688287869893254816}
 --- !u!114 &5807452418047519785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +316,7 @@ GameObject:
   - component: {fileID: 6041152181074477082}
   - component: {fileID: 5396765568904674558}
   - component: {fileID: 4179838589217548754}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +439,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8190726408963654578}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

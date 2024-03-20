@@ -3924,6 +3924,10 @@ PrefabInstance:
       propertyPath: _invincibleTime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: _gravityStrength
+      value: 2.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
