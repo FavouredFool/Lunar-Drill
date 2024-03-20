@@ -3589,6 +3589,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: _damageCollisions.m_Bits
+      value: 1280
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3891,6 +3895,10 @@ PrefabInstance:
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: _damageCollisions.m_Bits
+      value: 1600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5940,6 +5948,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 478c4450-3483-4010-be8a-28abbd83b308
     m_ActionName: Pause Menu/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e812c6a3-4103-4554-a650-c6d7949cc58b
+    m_ActionName: Connect/Swap[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Luna
@@ -5957,7 +5969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8b23269661b014d8862ce1c4799a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outerOrbitRange: 4
+  _outerOrbitRange: 4.25
 --- !u!1 &1410195460
 GameObject:
   m_ObjectHideFlags: 0
@@ -8895,6 +8907,10 @@ PrefabInstance:
     - target: {fileID: 3806534218160603578, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8535113388948585094, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: _laserMaxThickness
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
