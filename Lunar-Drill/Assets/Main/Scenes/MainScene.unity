@@ -3549,6 +3549,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4179838589217548754, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5337368519830427384, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_Name
       value: Luna
