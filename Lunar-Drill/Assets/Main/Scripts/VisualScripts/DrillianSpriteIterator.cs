@@ -9,7 +9,7 @@ public class DrillianSpriteIterator : MonoBehaviour
     [SerializeField] DrillianController controller;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Sprite[] sprites;
-    [SerializeField] float fps;
+    [SerializeField] float fps=18;
 
     float timer=0;
     float velocityLerp => rb.velocity.magnitude / 6f;
