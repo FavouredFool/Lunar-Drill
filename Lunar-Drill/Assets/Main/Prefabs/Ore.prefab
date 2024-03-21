@@ -56,7 +56,7 @@ MonoBehaviour:
   _outerRadius: 4.25
   _planetRadius: 2.5
   _durationTillOnOuterRadius: 0.5
-  _shootOutAngle: 30
+  _shootOutAngle: 45
   _oreVisuals: {fileID: 8901834677261509067}
   _burrowedColor: {r: 0.9960785, g: 0.7294118, b: 0, a: 1}
   _flyingColor: {r: 0, g: 0.9960785, b: 0.98823535, a: 1}
