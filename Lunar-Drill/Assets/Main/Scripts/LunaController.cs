@@ -8,10 +8,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 {
     //--- Exposed Fields ------------------------
 
-    [Header("Extern Information")]
-    [SerializeField][Range(2, 5)] float _planetRadius = 2.5f;
-    [SerializeField][Range(2, 5)] float _outerOrbitRange;
-
     [Header("Configuration")]
     [SerializeField][Range(0.1f, 10f)] float _maxRotationSpeed;
     [SerializeField][Range(0.1f, 1f)] float _slowLaseringPercent;
@@ -105,7 +101,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     public void SetLaserSize()
     {
         _laserStartPoint = 0.32f;
-        _laserEndPoint = transform.position.magnitude - _planetRadius;
+        _laserEndPoint = transform.position.magnitude - Utilities.PlanetRadius;
 
         // Move Laser
         bool startAnimating = _laserStartTween != null && _laserStartTween.IsActive();
@@ -266,7 +262,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         float angle = _orbitRotationT.Remap(0, 1, 0, 360);
 
         Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
-        Vector2 position = rotatedVector * (_outerOrbitRange + _distanceFromOrbit);
+        Vector2 position = rotatedVector * (Utilities.OuterOrbit + _distanceFromOrbit);
 
         _rigidbody.MovePosition(position);
     }

@@ -9,10 +9,14 @@ public class OreSpawner : MonoBehaviour
 
     [Header("Configuration")]
     [SerializeField][Range(1, 20)] int _maxOres;
-    [SerializeField][Range(0.1f, 5)] int _maxSpawnSpeed;
+    [SerializeField][Range(0.1f, 5)] float _maxSpawnSpeed;
 
     [Header("Blueprint")]
     [SerializeField] OreController _oreBlueprint;
+
+    [Header("Placement")]
+    [SerializeField][Range(0.05f, 0.5f)] float _planetOuterPaddingPercentage;
+    [SerializeField][Range(0.1f, 5)] float _orePadding;
 
 
     //--- Private Fields ------------------------
@@ -27,7 +31,6 @@ public class OreSpawner : MonoBehaviour
     public void FixedUpdate()
     {
         _spawnSpeed = DOVirtual.EasedValue(_maxSpawnSpeed, 0, _activeOres.Count / (float)_maxOres, Ease.Linear);
-        Debug.Log(_spawnSpeed);
 
         _spawnT += _spawnSpeed * Time.deltaTime;
 
@@ -51,9 +54,15 @@ public class OreSpawner : MonoBehaviour
 
     void SpawnOre()
     {
-        Debug.Log("SpawnOre");
         OreController ore = Instantiate(_oreBlueprint, transform);
+        ore.transform.position = GetSpawnPosition();
         _activeOres.Add(ore);
+    }
+
+    Vector2 GetSpawnPosition()
+    {
+        Vector2 placementIdea = Random.insideUnitCircle * Utilities.PlanetRadius * (1 - _planetOuterPaddingPercentage);
+        return placementIdea;
     }
 
 

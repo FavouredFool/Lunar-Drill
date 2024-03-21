@@ -8,9 +8,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 {
     //--- Exposed Fields ------------------------
 
-    [Header("Extern Information")]
-    [SerializeField][Range(1f, 10f)] float _planetRadius = 2.5f;
-
     [Header("Configuration")]
     [SerializeField][Range(0.25f, 10f)] float _speed = 5;
     [SerializeField][Range(0.1f, 100f)] float _gravityStrength = 1f;
@@ -117,7 +114,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     void SetIsBurrowed()
     {
-        IsBurrowed = transform.position.magnitude <= _planetRadius;
+        IsBurrowed = transform.position.magnitude <= Utilities.PlanetRadius;
     }
 
     void ApplyGravity()

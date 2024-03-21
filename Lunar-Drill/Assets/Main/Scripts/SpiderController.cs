@@ -8,7 +8,6 @@ public class SpiderController : MonoBehaviour
     //--- Exposed Fields ------------------------
 
     [SerializeField] bool _constantlyRotating = false;
-    [SerializeField][Range(2, 5)] float _innerOrbitRange = 3;
     [SerializeField][Range(0.01f, 1f)] float _rotationSpeed = 5f;
 
     [Header("Movement Smoothing")]
@@ -258,7 +257,7 @@ public class SpiderController : MonoBehaviour
         float angle = _orbitRotationT.Remap(0, 1, 0, 360);
 
         Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
-        Vector2 position = rotatedVector * _innerOrbitRange;
+        Vector2 position = rotatedVector * Utilities.InnerOrbit;
 
         _rigidbody.MovePosition(position);
     }
