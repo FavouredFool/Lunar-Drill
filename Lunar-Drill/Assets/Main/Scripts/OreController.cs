@@ -77,6 +77,10 @@ public class OreController : MonoBehaviour
     {
         _oreState = OreState.FLYING;
 
+        OreSpawner spawner = transform.parent.GetComponent<OreSpawner>();
+        Assert.IsNotNull(spawner);
+        spawner.RemoveOre(this);
+
         // Doesnt use rigidbodies so that i can tween it properly
         transform.position = _followDrillian.transform.position;
         _oreVisuals.Color = _flyingColor;
@@ -108,11 +112,6 @@ public class OreController : MonoBehaviour
 
         _oreState = OreState.FOLLOWING;
         _followDrillian.FollowingOres.Add(this);
-
-        OreSpawner spawner = transform.parent.GetComponent<OreSpawner>();
-        Assert.IsNotNull(spawner);
-
-        spawner.RemoveOre(this);
     }
 
     void MoveToFollow()

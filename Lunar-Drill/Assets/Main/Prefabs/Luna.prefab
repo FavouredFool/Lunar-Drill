@@ -170,6 +170,9 @@ MonoBehaviour:
   _ores:
     serializedVersion: 2
     m_Bits: 2048
+  _health:
+    serializedVersion: 2
+    m_Bits: 4096
   _invincibleTime: 3
   _spriteRenderer: {fileID: 3688287869893254816}
   _energyIncrease: 0.05
