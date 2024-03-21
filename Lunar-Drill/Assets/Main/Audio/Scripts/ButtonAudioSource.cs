@@ -11,7 +11,9 @@ public class ButtonAudioSource : MonoBehaviour, IAudioSubscriber<MenuSelectAudio
     [SerializeField] AudioClip _selectedClip = null; // Clip that is played on Select.
     [SerializeField, Range(0,1f)] float _selectVolume = 1.0f; // Volume of the Select Clip
     [SerializeField] List<float> _selectPitchVariations = new(); // List of Pitch Variations; simple way to make the sound less repetitive.
-    
+    float _selectAudioCooldown = 0.0f; // Time until the select sound may be again.
+    [SerializeField] bool _allowSelectPlay = true; // Time until the select sound may be again.
+
 
     [Header("Audio Confirm Options")]
     [SerializeField] AudioClip _confirmClip = null; // Clip that is played on Confirm.
@@ -26,6 +28,10 @@ public class ButtonAudioSource : MonoBehaviour, IAudioSubscriber<MenuSelectAudio
 
     public void OnAudioEvent(MenuSelectAudio audioEvent)
     {
+        if (!_allowSelectPlay)
+        {
+            return;
+        }
         _audioSource.volume = _selectVolume;
         _audioSource.pitch = _selectPitchVariations[Random.Range(0,_selectPitchVariations.Count-1)];
         _audioSource.PlayOneShot(_selectedClip);
@@ -33,13 +39,23 @@ public class ButtonAudioSource : MonoBehaviour, IAudioSubscriber<MenuSelectAudio
     }
     public void OnAudioEvent(MenuClickAudio audioEvent)
     {
+        _audioSource.Stop();
         _audioSource.volume = _confirmVolume;
         _audioSource.PlayOneShot(_confirmClip);
+        _allowSelectPlay = false;
+        StartCoroutine(StartSelectCooldown());
     }
 
     private void OnDestroy()
     {
         AudioController.Unsubscribe<MenuClickAudio>(this);
         AudioController.Unsubscribe<MenuSelectAudio>(this);
+    }
+
+    IEnumerator StartSelectCooldown()
+    {
+        
+        yield return null;
+        this._allowSelectPlay= true;
     }
 }

@@ -3603,13 +3603,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedClip: {fileID: 8300000, guid: 350b0bf5eb259264fbdadb4ec9f0de7a, type: 3}
-  _selectVolume: 0.15
+  _selectVolume: 0.3
   _selectPitchVariations:
   - 1
   - 1.1
   - 0.9
+  _allowSelectPlay: 1
   _confirmClip: {fileID: 8300000, guid: 7f484163da2df304d81c5b3d7033cc74, type: 3}
-  _confirmVolume: 0.5
+  _confirmVolume: 0.75
 --- !u!82 &1234331634
 AudioSource:
   m_ObjectHideFlags: 0
