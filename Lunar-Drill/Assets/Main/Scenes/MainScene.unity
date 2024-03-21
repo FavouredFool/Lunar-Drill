@@ -1063,6 +1063,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e812c6a3-4103-4554-a650-c6d7949cc58b
     m_ActionName: Connect/Swap[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 495d7b70-17d8-422c-b088-c702e351dc1a
+    m_ActionName: Connect/Ready[/Mouse/leftButton,/Pen/tip,/SwitchProControllerHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46dde74b-3159-4941-90e3-023c540bda67
+    m_ActionName: Singleplayer/MoveGoal[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b7c3c70b-0541-4359-b448-7f3a6020c8d1
+    m_ActionName: Singleplayer/MoveDirection[/SwitchProControllerHID/rightStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2020f35-150a-447c-878f-04d594b9cca9
+    m_ActionName: Singleplayer/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Pause Menu
@@ -2720,11 +2736,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.1
       objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: -2.92
       objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2732,7 +2748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2744,7 +2760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2756,7 +2772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2987,11 +3003,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2999,7 +3015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3011,7 +3027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3023,7 +3039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3755,6 +3771,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1e179434ebe434b937e014b7d1b9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bar: {fileID: 1333108241}
+  _barStartValue: 280
+  _barEndValue: 350
 --- !u!1001 &1059548372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4369,6 +4388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b83bc1f3da0de4c86ab898e4b1f1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _introTexts: []
+  _introTextfields: []
+  _countdownTextfield: []
   _playerHUD: {fileID: 964499353}
   _spiderHUD: {fileID: 1610943554}
   _maxPlayerHP: 4
@@ -4799,6 +4821,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e812c6a3-4103-4554-a650-c6d7949cc58b
     m_ActionName: Connect/Swap[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 495d7b70-17d8-422c-b088-c702e351dc1a
+    m_ActionName: Connect/Ready[/Mouse/leftButton,/Pen/tip,/SwitchProControllerHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46dde74b-3159-4941-90e3-023c540bda67
+    m_ActionName: Singleplayer/MoveGoal[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b7c3c70b-0541-4359-b448-7f3a6020c8d1
+    m_ActionName: Singleplayer/MoveDirection[/SwitchProControllerHID/rightStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2020f35-150a-447c-878f-04d594b9cca9
+    m_ActionName: Singleplayer/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Luna
@@ -8167,6 +8205,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+--- !u!1001 &8736392819379510101
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791614655259578740, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2964486227945929988, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: m_Name
+      value: OreSpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -8180,3 +8275,4 @@ SceneRoots:
   - {fileID: 8388676952011129149}
   - {fileID: 129321634}
   - {fileID: 168172184}
+  - {fileID: 8736392819379510101}

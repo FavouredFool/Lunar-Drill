@@ -22,7 +22,7 @@ public class OverheatBar : MonoBehaviour
         _spiderController = FindObjectOfType<SpiderController>();
     }
 
-    public void Update()
+    public void LateUpdate()
     {
         if (_spiderController == null) throw new System.Exception();
 

@@ -8,7 +8,6 @@ public class SpiderController : MonoBehaviour
     //--- Exposed Fields ------------------------
 
     [SerializeField] bool _constantlyRotating = false;
-    [SerializeField][Range(2, 5)] float _innerOrbitRange = 3;
     [SerializeField][Range(0.01f, 1f)] float _rotationSpeed = 5f;
 
     [Header("Movement Smoothing")]
@@ -26,6 +25,7 @@ public class SpiderController : MonoBehaviour
 
     [Header("Hit")]
     [SerializeField][Range(0.01f, 5f)] float _invincibleTime = 5f;
+    [SerializeField] HealthPickup _healthPickupBlueprint;
 
     public int MoveSign { get; private set; } = 0;
     public float OverheatT { get; set; } = 0;
@@ -37,7 +37,7 @@ public class SpiderController : MonoBehaviour
     //--- Private Fields ------------------------
 
     Rigidbody2D _rigidbody;
-    float _orbitRotationT = 0.75f;
+    float _orbitRotationT = 0f;
     SpiderLaser _spiderLaser;
     bool _mustReachThresholdForMovement = false;
     Vector2 _goalRotation = Vector2.zero;
@@ -258,7 +258,7 @@ public class SpiderController : MonoBehaviour
         float angle = _orbitRotationT.Remap(0, 1, 0, 360);
 
         Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
-        Vector2 position = rotatedVector * _innerOrbitRange;
+        Vector2 position = rotatedVector * Utilities.InnerOrbit;
 
         _rigidbody.MovePosition(position);
     }
@@ -279,14 +279,18 @@ public class SpiderController : MonoBehaviour
         IsVulnerable = false;
         IsInvincible = true;
         OverheatT = 0;
+        SpawnHP();
         DOVirtual.DelayedCall(4, () => IsInvincible = false, false);
 
         foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
         {
             spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 48, 0.75f);
         }
+    }
 
-        
+    void SpawnHP()
+    {
+        Instantiate(_healthPickupBlueprint, transform.position, Quaternion.LookRotation(Vector3.forward, transform.position.normalized));
     }
 
     private void OnTriggerStay2D(Collider2D collision)
