@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_zoomT);
+        //Debug.Log(_zoomT);
         _camera.orthographicSize = DOVirtual.EasedValue(_startZoom, _endZoom, _zoomT, Ease.Linear);
     }
 }
