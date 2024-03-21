@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerConnectController : MonoBehaviour
 {
@@ -51,6 +52,10 @@ public class PlayerConnectController : MonoBehaviour
     // When the Scene is loaded then we assign the player input to the character
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        
+        SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) =>Destroy(gameObject);
         SwitchActionMapToCharacter();
     }
 
@@ -109,6 +114,7 @@ public class PlayerConnectController : MonoBehaviour
     //Method to activate the correct action map
     public void SwitchActionMapToCharacter()
     {
+        
         GameObject characterGO;
         if (_character == ChosenCharacter.luna)
         {
@@ -138,8 +144,8 @@ public class PlayerConnectController : MonoBehaviour
                 {
                     goPlayerInput.enabled = false;
                     Debug.Log("Disabled INput");
+
                 }
-                _input.SwitchCurrentActionMap("Drillian");
             }
         }
         else
@@ -149,22 +155,34 @@ public class PlayerConnectController : MonoBehaviour
             _input.SwitchCurrentActionMap("Singleplayer");
             // and disable the inputs of the objects accordingly
             characterGO = FindAnyObjectByType<DrillianController>().gameObject;
+            bool foundDrillian = false;
             if (characterGO != null)
+            {
+                foundDrillian = true;
+                PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
+                if (goPlayerInput != null)
+                {
+                    goPlayerInput.enabled = false;
+                    
+                }
+                
+                
+            }
+            else
+            {
+                _input.SwitchCurrentActionMap("Connect");
+            }
+            characterGO = FindAnyObjectByType<LunaController>().gameObject;
+            if (characterGO != null && foundDrillian)
             {
                 PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
                 if (goPlayerInput != null)
                 {
                     goPlayerInput.enabled = false;
                 }
-                
-            }
-            characterGO = FindAnyObjectByType<LunaController>().gameObject;
-            if (characterGO != null)
-            {
-                PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
-                if (goPlayerInput != null)
+                else
                 {
-                    goPlayerInput.enabled = false;
+                    _input.SwitchCurrentActionMap("Connect");
                 }
             }
         }
