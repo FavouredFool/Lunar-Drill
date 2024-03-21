@@ -66,6 +66,12 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         InputBus.Subscribe(this);
     }
 
+    public void Start()
+    {
+        _rigidbody.position = Quaternion.Euler(0, 0, 225) * Vector2.up * Utilities.OuterOrbit;
+        _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, Vector3.zero));
+    }
+
     public void FixedUpdate()
     {
         SetWorldGravity();
@@ -190,7 +196,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
             lookDirection = _rigidbody.velocity.normalized;
         }
-
 
         _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, lookDirection));
     }

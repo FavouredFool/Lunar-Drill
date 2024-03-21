@@ -37,7 +37,7 @@ public class SpiderController : MonoBehaviour
     //--- Private Fields ------------------------
 
     Rigidbody2D _rigidbody;
-    float _orbitRotationT = 0.75f;
+    float _orbitRotationT = 0f;
     SpiderLaser _spiderLaser;
     bool _mustReachThresholdForMovement = false;
     Vector2 _goalRotation = Vector2.zero;

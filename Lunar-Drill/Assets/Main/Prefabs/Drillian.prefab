@@ -195,9 +195,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3.5
-  _minGravityStrength: 0.35
-  _maxGravityStrength: 2
-  _timeTillMaxGravityOutside: 2
+  _minGravityStrength: 0.65
+  _maxGravityStrength: 1
+  _timeTillMaxGravityOutside: 0.75
   _maxRotationControl: 7.5
   _timeTillControlRegain: 0.2
   _damageCollisions:

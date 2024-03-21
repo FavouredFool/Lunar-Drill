@@ -45,7 +45,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     //--- Private Fields ------------------------
 
-    float _orbitRotationT = 0.25f;
+    float _orbitRotationT = 0.33f;
     Vector2 _goalDirection;
     bool _mustReachThresholdForMovement = false;
     Rigidbody2D _rigidbody;
