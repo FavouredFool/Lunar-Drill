@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
         SpiderHP = _maxSpiderHP;
     }
 
+    public void Start()
+    {
+        // Countdown
+    }
+
     public int PlayerHP { get => _playerHP; 
         set 
         {

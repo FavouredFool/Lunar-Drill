@@ -12,7 +12,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [SerializeField][Range(0.25f, 10f)] float _speed = 5;
     [SerializeField][Range(0.1f, 100f)] float _minGravityStrength = 1f;
     [SerializeField][Range(0.1f, 100f)] float _maxGravityStrength = 2f;
-    [SerializeField][Range(1, 100f)] float _timeTillMaxGravityOutside = 2f;
+    [SerializeField][Range(0.1f, 100f)] float _timeTillMaxGravityOutside = 2f;
 
     [Header("Control")]
     [SerializeField][Range(1, 100f)] float _maxRotationControl = 25f;

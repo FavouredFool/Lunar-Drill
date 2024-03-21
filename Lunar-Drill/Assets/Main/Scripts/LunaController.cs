@@ -45,7 +45,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     //--- Private Fields ------------------------
 
-    float _orbitRotationT;
+    float _orbitRotationT = 0.25f;
     Vector2 _goalDirection;
     bool _mustReachThresholdForMovement = false;
     Rigidbody2D _rigidbody;
@@ -68,7 +68,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     public void Awake()
     {
-        _orbitRotationT = 0;
         _goalDirection = Vector2.zero;
         _rigidbody = GetComponent<Rigidbody2D>();
         InputBus.Subscribe<LunaMoveGoal>(this);
