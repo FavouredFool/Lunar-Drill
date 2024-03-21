@@ -61,8 +61,31 @@ public class OreSpawner : MonoBehaviour
 
     Vector2 GetSpawnPosition()
     {
-        Vector2 placementIdea = Random.insideUnitCircle * Utilities.PlanetRadius * (1 - _planetOuterPaddingPercentage);
-        return placementIdea;
+        Vector2 finalPlacement = Vector2.zero;
+        
+        for (int i = 0; i < 10000; i++)
+        {
+            bool placementAllowed = true;
+            Vector2 placementIdea = Random.insideUnitCircle * Utilities.PlanetRadius * (1 - _planetOuterPaddingPercentage);
+
+            foreach (OreController ore in _activeOres)
+            {
+                float distance = Vector2.Distance(ore.transform.position, placementIdea);
+
+                if (distance < _orePadding)
+                {
+                    placementAllowed = false;
+                }
+            }
+
+            if (placementAllowed)
+            {
+                finalPlacement = placementIdea;
+                break;
+            }
+        }
+
+        return finalPlacement;
     }
 
 
