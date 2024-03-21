@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,19 +12,19 @@ public class OptionsMenuUtilities : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField] private GameObject _optionsPanel;
-    [SerializeField] private Toggle _fsSetting;
-    [SerializeField] private TMP_Dropdown _srSetting;
+    [SerializeField] private GameObject _optionsPanel; // Panel containing option UI
+    [SerializeField] private GameObject _firstSelected; // Object that should be first selected
 
     [SerializeField] private Slider _masterSlider; // The UI slider that corresponds to the master volume.
     [SerializeField] private Slider _musicSlider; // The UI slider that corresponds to the music volume.
     [SerializeField] private Slider _sfxSlider; // The UI slider that corresponds to the sound effects volume.
     [SerializeField] AudioMixer _audioMixer; // The Audio mixer that is being changed.
+    [SerializeField] private Toggle _fsSetting; // UI toggle for setting full screen mode 
+    //[SerializeField] private TMP_Dropdown _srSetting; // UI dropdown for setting resolution
 
     //--- Private Fields ------------------------
 
     private bool _isOpen = false;
-
     private List<TMP_Dropdown.OptionData> _resolutions = new();
 
     //--- Unity Methods ------------------------
@@ -50,6 +51,8 @@ public class OptionsMenuUtilities : MonoBehaviour
         else
         {
             _optionsPanel.SetActive(true);
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
 
             // Pause game
             Time.timeScale = 0;
@@ -74,32 +77,56 @@ public class OptionsMenuUtilities : MonoBehaviour
     private void PopulateAudioOptions()
     {
         _masterSlider.onValueChanged.AddListener(changeMasterVolume);
+        float _currentMasterVolume;
+        if (_audioMixer.GetFloat("MasterVolume", out _currentMasterVolume))
+            _masterSlider.value = Mathf.Pow(2, (_currentMasterVolume / 10));
         _musicSlider.onValueChanged.AddListener(changeMusicVolume);
+        float _currentMusicVolume;
+        if (_audioMixer.GetFloat("PreMusicVolume", out _currentMusicVolume))
+            _musicSlider.value = Mathf.Pow(2, (_currentMusicVolume / 10));
         _sfxSlider.onValueChanged.AddListener(changeFXVolume);
+        float _currentSfxVolume;
+        if (_audioMixer.GetFloat("PreSFXVolume", out _currentSfxVolume))
+            _sfxSlider.value = Mathf.Pow(2, (_currentSfxVolume / 10));
+
     }
 
     /* Populates display options with default values. */
     private void PopulateDisplayOptions()
     {
         /* Full Screen */
-        _fsSetting.isOn = true; // Default = full screen
-        _fsSetting.onValueChanged.AddListener(ChangeFullScreen);
-
-        /* Resolution */
-        List<string> resolutionStrings = new List<string>();
-        for (int i = 0; i < Screen.resolutions.Count(); i++)
+        if (Screen.fullScreenMode == FullScreenMode.Windowed)
         {
-            if (!resolutionStrings.Contains(Screen.resolutions[i].width.ToString() + " x " + Screen.resolutions[i].height.ToString()))
-            {
-                resolutionStrings.Add(Screen.resolutions[i].width.ToString() + " x " + Screen.resolutions[i].height.ToString());
-            }
+            _fsSetting.isOn = false;
         }
-        _resolutions = resolutionStrings.Select(r => new TMP_Dropdown.OptionData(r)).ToList();
-        _srSetting.options = _resolutions;
-        // Listen to future changes
-        _srSetting.onValueChanged.AddListener(ChangeScreenResolution);
-        // Set current value as default
-        _srSetting.value = _srSetting.options.FindIndex(option => option.text == Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString());
+        else
+        {
+            _fsSetting.isOn = true; // Default = full screen
+        }
+        _fsSetting.onValueChanged.AddListener(ChangeFullScreen);
+        if (Screen.fullScreenMode == FullScreenMode.Windowed)
+        {
+            _fsSetting.isOn = false;
+        }
+        else
+        {
+            _fsSetting.isOn = true; // Default = full screen
+        }
+        ///* Resolution */
+        //List<string> resolutionStrings = new List<string>();
+        //for (int i = 0; i < Screen.resolutions.Count(); i++)
+        //{
+        //    if (!resolutionStrings.Contains(Screen.resolutions[i].width.ToString() + " x " + Screen.resolutions[i].height.ToString()))
+        //    {
+        //        resolutionStrings.Add(Screen.resolutions[i].width.ToString() + " x " + Screen.resolutions[i].height.ToString());
+        //    }
+        //}
+        //_resolutions = resolutionStrings.Select(r => new TMP_Dropdown.OptionData(r)).ToList();
+        //_srSetting.options = _resolutions;
+        //// Listen to future changes
+        //_srSetting.onValueChanged.AddListener(ChangeScreenResolution);
+        //// Set current value as default
+        //_srSetting.value = _srSetting.options.FindIndex(option => option.text == Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString());
     }
 
     /* Toggles full screen mode. */
