@@ -20,8 +20,8 @@ public class PlayerInfoDisplay : MonoBehaviour
     }
     private void UpdateDisplay()
     {
-        string Ready = _characterReady ? "Ready" : "Still Choosing";
-        _text.text = $"{_playerName}: {Ready}";
+        string Ready = _characterReady ? " Ready!" : "?";
+        _text.text = $"{_playerName}:{Ready}";
         if(_chosenCharacter == PlayerConnectController.ChosenCharacter.drillian)
         {
             transform.position =  _DrillianPosition.position;
@@ -32,7 +32,7 @@ public class PlayerInfoDisplay : MonoBehaviour
             transform.position = _LunaPosition.position;
 
         }
-        _text.color = _characterReady ? Color.white : new Color(0, 0, 0, 0.9f);
+        _text.color = Color.white;
     }
 
     public void ChosenCharacterChanged(PlayerConnectController.ChosenCharacter ch)

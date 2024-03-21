@@ -208,7 +208,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "WASD Composite",
+                    "name": "ArrowComposite",
                     "id": "341fa6a4-a27b-4493-9fac-f2aec851f60f",
                     "path": "2DVector",
                     "interactions": "",
@@ -221,7 +221,7 @@
                 {
                     "name": "up",
                     "id": "39c86293-ea19-4e88-9ff8-3183ab96c68e",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -232,7 +232,7 @@
                 {
                     "name": "down",
                     "id": "c2c22bd0-7146-42bd-8ada-ec2729b120c0",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -243,7 +243,7 @@
                 {
                     "name": "left",
                     "id": "bb4da878-a965-4002-b9cb-1e5f7c1c3575",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -254,7 +254,7 @@
                 {
                     "name": "right",
                     "id": "4bbee754-f20c-4816-a367-541e2a6ac73a",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -396,7 +396,7 @@
                 {
                     "name": "",
                     "id": "a267f2b9-61ae-4079-aa98-442b1d59fab2",
-                    "path": "*/{Cancel}",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -407,7 +407,7 @@
                 {
                     "name": "",
                     "id": "32dd3b41-0b71-474f-8bec-49874c9de1b1",
-                    "path": "*/{PrimaryAction}",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -616,8 +616,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "WASD Composite",
-                    "id": "0af50c03-d6c4-4b54-8340-221e5ae82a27",
+                    "name": "ArrowComposite",
+                    "id": "149e3d7f-0c30-48bb-972d-cffdb1368796",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -628,8 +628,8 @@
                 },
                 {
                     "name": "up",
-                    "id": "424dd744-3733-40ce-b08f-786df5a132e0",
-                    "path": "<Keyboard>/w",
+                    "id": "cfee3a0c-d99c-4126-bc75-533bc76c0a96",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -639,8 +639,8 @@
                 },
                 {
                     "name": "down",
-                    "id": "078c844b-7734-4bde-abfc-5a8935b1829f",
-                    "path": "<Keyboard>/s",
+                    "id": "77301255-02f4-433a-ae0c-5a381588065b",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -650,8 +650,8 @@
                 },
                 {
                     "name": "left",
-                    "id": "01d6c29d-71a9-47af-a4af-e595e83b7d3d",
-                    "path": "<Keyboard>/a",
+                    "id": "8974ec19-81b9-427e-adf3-065e58bf2e53",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -661,8 +661,8 @@
                 },
                 {
                     "name": "right",
-                    "id": "aed62f8b-ff9e-4c9e-84c3-d8920c0f4212",
-                    "path": "<Keyboard>/d",
+                    "id": "8cf7a474-2952-4eb7-85f0-afbf346208c6",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

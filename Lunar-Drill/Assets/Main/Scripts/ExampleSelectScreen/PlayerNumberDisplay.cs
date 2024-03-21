@@ -13,12 +13,13 @@ public class PlayerNumberDisplay : MonoBehaviour
 
     private void Awake()
     {
-        _selectScreen.PlayerNumberChanged.AddListener((int n)=>DisplayNumberOfPLayers(n));
+        _selectScreen.PlayerNumberChanged.AddListener((int n)=>DisplayNumberOfPlayers(n));
         _text = GetComponent<TMP_Text>();
+        DisplayNumberOfPlayers(0);
     }
 
 
-    private void DisplayNumberOfPLayers(int playerNumber)
+    private void DisplayNumberOfPlayers(int playerNumber)
     {
         _text.SetText(_playersMessage[playerNumber]);
     }
