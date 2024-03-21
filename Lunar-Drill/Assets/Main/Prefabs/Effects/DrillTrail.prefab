@@ -41,7 +41,7 @@ TrailRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2513040951434141992}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -73,12 +73,12 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Time: 0.3
+  m_SortingOrder: -98
+  m_Time: 0.4
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.4
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -92,31 +92,13 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.61850476
-        value: 0.73254555
-        inSlope: -1.567145
-        outSlope: -1.567145
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.6039837
-      - serializedVersion: 3
-        time: 0.81897974
-        value: 0.33846927
-        inSlope: -2.5487332
-        outSlope: -2.5487332
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
         time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
+        value: 0.8492015
+        inSlope: -0.20224558
+        outSlope: -0.20224558
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.15753004
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -159,7 +141,7 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
