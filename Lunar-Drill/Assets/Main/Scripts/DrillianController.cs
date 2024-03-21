@@ -210,11 +210,18 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
         _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
 
-
         // Splash-Effect, 
 
         // Time Scale down
 
+
+        // remove all ores
+        foreach (OreController ore in FollowingOres)
+        {
+            ore.DestroyOre();
+        }
+
+        FollowingOres.Clear();
     }
 
     void EvaluateCollision(Collider2D collision)

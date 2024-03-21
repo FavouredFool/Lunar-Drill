@@ -98,6 +98,10 @@ public class OreController : MonoBehaviour
             _moveTween.Kill();
         }
 
+        OreSpawner spawner = transform.parent.GetComponent<OreSpawner>();
+        Assert.IsNotNull(spawner);
+        spawner.RemoveOre(this);
+
         Destroy(gameObject);
     }
 
