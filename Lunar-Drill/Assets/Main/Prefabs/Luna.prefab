@@ -169,8 +169,13 @@ MonoBehaviour:
   _damageCollisions:
     serializedVersion: 2
     m_Bits: 1280
+  _ores:
+    serializedVersion: 2
+    m_Bits: 2048
   _invincibleTime: 3
   _spriteRenderer: {fileID: 3688287869893254816}
+  _energyIncrease: 0.1
+  _energyDecrease: 0.125
 --- !u!114 &5807452418047519785
 MonoBehaviour:
   m_ObjectHideFlags: 0

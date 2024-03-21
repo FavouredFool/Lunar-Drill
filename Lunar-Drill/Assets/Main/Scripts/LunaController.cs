@@ -31,13 +31,20 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     [Header("Collision")]
     [SerializeField] LayerMask _damageCollisions;
+    [SerializeField] LayerMask _ores;
     [SerializeField][Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
 
+    [Header("Energy")]
+    [SerializeField][Range(0.01f, 0.33f)] float _energyIncrease;
+    [SerializeField][Range(0.01f, 10f)] float _energyDecrease;
+
 
     public int MoveSign { get; private set; } = 0;
+    public float EnergyT { get; private set; } = 0.33f;
+
 
     //--- Private Fields ------------------------
 
@@ -73,6 +80,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     public void FixedUpdate()
     {
+        DecreaseEnergy();
         SetLaserSize();
         CalculateDistanceFromOrbit();
         CalculateOrbitRotation();
@@ -139,44 +147,14 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         {
             if (_currentlyLasering) return;
 
-            _laserCollider.enabled = false;
-
-            if (_laserStartTween != null && _laserStartTween.IsActive())
-            {
-                _laserStartTween.Kill();
-            }
-
-            if (_laserEndTween != null && _laserEndTween.IsActive())
-            {
-                _laserEndTween.Kill();
-            }
-
-            _currentlyLasering = true;
-
-            _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
-            _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
-            _laserStartTween = DOTween.To(() => _laserVisual.End, x => _laserVisual.End = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
-            _laserStartTween.OnComplete(() => _laserCollider.enabled = true);
+            StartLasering();
         }
         else if (context.canceled)
         {
-            _currentlyLasering = false;
+            if (!_currentlyLasering) return;
 
-            _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
-            _laserEndTween = DOTween.To(() => _laserVisual.Start, x => _laserVisual.Start = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
-            _laserEndTween.OnComplete(() => {
-                _laserCollider.enabled = false;
-                _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
-                _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
-            });
+            EndLasering();
         }
-
-        // Shoot lazer!
-
-        // Interpolate LaserStartup with Dotween -> OnEnd of that, activate collider
-
-        // 
-
     }
 
     public void SetGoalDirectionInput(InputAction.CallbackContext context)
@@ -198,6 +176,55 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     //--- Private Methods ------------------------
 
+    void StartLasering()
+    {
+        if (Mathf.Approximately(EnergyT, 0)) return;
+
+        _laserCollider.enabled = false;
+
+        if (_laserStartTween != null && _laserStartTween.IsActive())
+        {
+            _laserStartTween.Kill();
+        }
+
+        if (_laserEndTween != null && _laserEndTween.IsActive())
+        {
+            _laserEndTween.Kill();
+        }
+
+        _currentlyLasering = true;
+
+        _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
+        _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
+        _laserStartTween = DOTween.To(() => _laserVisual.End, x => _laserVisual.End = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
+        _laserStartTween.OnComplete(() => _laserCollider.enabled = true);
+    }
+
+    void EndLasering()
+    {
+        _currentlyLasering = false;
+
+        _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
+        _laserEndTween = DOTween.To(() => _laserVisual.Start, x => _laserVisual.Start = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
+        _laserEndTween.OnComplete(() => {
+            _laserCollider.enabled = false;
+            _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
+            _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
+        });
+    }
+
+    void DecreaseEnergy()
+    {
+        if (!_currentlyLasering) return;
+
+        EnergyT = Mathf.Clamp01(EnergyT - _energyDecrease * Time.deltaTime);
+
+        if (Mathf.Approximately(0, EnergyT))
+        {
+            EndLasering();
+        }
+    }
+
     void CalculateOrbitRotation()
     {
         if (_goalDirection.magnitude < 0.1f) return;
@@ -210,7 +237,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         {
             return;
         }
-
 
         if (angle < _movementArrivedAngleThreshold)
         {
@@ -267,6 +293,11 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     }
 
+    void GainEnergy()
+    {
+        EnergyT = Mathf.Clamp01(EnergyT + _energyIncrease);
+    }
+
     void EvaluateCollision(Collider2D collision)
     {
         if (Utilities.LayerMaskContainsLayer(_damageCollisions, collision.gameObject.layer))
@@ -276,11 +307,14 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
                 GetHit();
             }
         }
+        else if (Utilities.LayerMaskContainsLayer(_ores, collision.gameObject.layer))
+        {
+            GainEnergy();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"hit on luna: {collision}");
         EvaluateCollision(collision);
     }
 }

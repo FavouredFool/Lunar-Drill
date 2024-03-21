@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3524958571361847609}
   - component: {fileID: 7298846031573001242}
   - component: {fileID: 2303059019812154687}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Disc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 4967082888513017382}
   - component: {fileID: 5722301092382123889}
   - component: {fileID: 8482922156138621670}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,9 +187,10 @@ MonoBehaviour:
   _consumeLayer:
     serializedVersion: 2
     m_Bits: 128
-  _durationTillOnOuterRadius: 0.5
-  _shootOutAngle: 90
   _outerRadius: 4.25
+  _planetRadius: 2.5
+  _durationTillOnOuterRadius: 0.5
+  _shootOutAngle: 30
   _oreVisuals: {fileID: 3524958571361847609}
   _burrowedColor: {r: 0.9960785, g: 0.7294118, b: 0, a: 1}
   _flyingColor: {r: 0, g: 0.9960785, b: 0.98823535, a: 1}
