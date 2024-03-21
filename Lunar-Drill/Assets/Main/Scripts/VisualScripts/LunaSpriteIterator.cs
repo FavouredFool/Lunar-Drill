@@ -9,7 +9,7 @@ public class LunaSpriteIterator : MonoBehaviour
     [SerializeField] LunaController controller;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Sprite[] sprites;
-    [SerializeField] float fps;
+    [SerializeField] float fps=6;
 
     float timer=0;
 

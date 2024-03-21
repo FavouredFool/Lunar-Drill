@@ -202,7 +202,11 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         if (Utilities.LayerMaskContainsLayer(_damageCollisions, collision.gameObject.layer))
         {
-            if (!_isInvincible)
+            SpiderController spider = FindObjectOfType<SpiderController>();
+
+            if (spider == null) throw new System.Exception();
+
+            if (!_isInvincible && !spider.IsNotHurtingOnTouch)
             {
                 GetHit();
             }
