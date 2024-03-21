@@ -2258,7 +2258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AND DODGE HER LASERS!!!
+  m_text: GET READY!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3373,7 +3373,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HIT HER WEAKSPOT!
+  m_text: HIT HER WEAKSPOT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4943,8 +4943,12 @@ MonoBehaviour:
   - {fileID: 875117219}
   - {fileID: 649527214}
   _countdownTextfield: {fileID: 1245350319}
+  _timeManager: {fileID: 0}
   _playerHUD: {fileID: 964499353}
   _spiderHUD: {fileID: 1610943554}
+  _lunar_visuals: {fileID: 0}
+  _drillian_visuals: {fileID: 0}
+  _spider_visuals: {fileID: 0}
   _maxPlayerHP: 4
   _maxSpiderHP: 4
 --- !u!4 &1301515984
@@ -6315,7 +6319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DIG UP ENERGY!
+  m_text: DIG UP ENERGY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8298,7 +8302,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BREAK HER SHIELD!
+  m_text: BREAK HER SHIELD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
