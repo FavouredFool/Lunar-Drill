@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 
 public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>
 {
@@ -33,12 +34,15 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [Header("Ores")]
     [SerializeField][Range(0.125f, 5f)] float _oreDistance;
 
+    [Header("VFX")]
+    [SerializeField] private VisualEffect _drillImpactOut;
+    [SerializeField] private VisualEffect _drillImpactIn;
 
     //--- Properties ------------------------
 
     public float RotationControlT { get; set; } = 1;
-    public bool IsBurrowed { get; set; }
-    public bool LastFrameIsBurrowed { get; set; }
+    public bool IsBurrowed { get; set; } = true;
+    public bool LastFrameIsBurrowed { get; set; } = true;
     public List<OreController> FollowingOres { get; } = new();
     public float OreDistance => _oreDistance;
 
@@ -78,6 +82,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
         MoveUpDrillian();
         RotateDrillian();
+
+        ShootDrillImpactParticles();
 
         LastFrameIsBurrowed = IsBurrowed;
     }
@@ -261,4 +267,21 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         EvaluateCollision(collision);
     }
 
+
+    /* Plays VFX when Drillian leaves or enters planet. */
+    private void ShootDrillImpactParticles()
+    {
+        if (!IsBurrowed && LastFrameIsBurrowed)
+        {
+            _drillImpactOut.SetVector3("StartPosition", transform.position);
+            _drillImpactOut.SetVector3("DrillianUp", transform.up);
+            _drillImpactOut.SendEvent("Shoot");
+        }
+        else if (IsBurrowed && !LastFrameIsBurrowed)
+        {
+            _drillImpactIn.SetVector3("StartPosition", transform.position);
+            _drillImpactIn.SetVector3("DrillianUp", transform.up);
+            _drillImpactIn.SendEvent("Shoot");
+        }
+    }
 }
