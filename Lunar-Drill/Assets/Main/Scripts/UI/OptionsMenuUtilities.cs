@@ -83,11 +83,18 @@ public class OptionsMenuUtilities : MonoBehaviour
         _musicSlider.onValueChanged.AddListener(changeMusicVolume);
         float _currentMusicVolume;
         if (_audioMixer.GetFloat("PreMusicVolume", out _currentMusicVolume))
+        {
             _musicSlider.value = Mathf.Pow(2, (_currentMusicVolume / 10));
+            _audioMixer.SetFloat("PostMusicVolume", _currentMusicVolume); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+
+        }
         _sfxSlider.onValueChanged.AddListener(changeFXVolume);
         float _currentSfxVolume;
         if (_audioMixer.GetFloat("PreSFXVolume", out _currentSfxVolume))
+        {
+            _audioMixer.SetFloat("PreSFXVolume", _currentSfxVolume);
             _sfxSlider.value = Mathf.Pow(2, (_currentSfxVolume / 10));
+        }
 
     }
 
@@ -160,11 +167,13 @@ public class OptionsMenuUtilities : MonoBehaviour
     public void changeMusicVolume(float value)
     {
         _audioMixer.SetFloat("PreMusicVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+        _audioMixer.SetFloat("PostMusicVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
     }
     /* Function to change the FX Volume */
     public void changeFXVolume(float value)
     {
         _audioMixer.SetFloat("PreSFXVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+        _audioMixer.SetFloat("PostSFXVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
     }
 
 }
