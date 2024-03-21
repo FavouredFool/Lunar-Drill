@@ -3,42 +3,45 @@ using Shapes;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInputSubscriber<LunaMoveGoal>
 {
     //--- Exposed Fields ------------------------
 
     [Header("Configuration")]
-    [SerializeField][Range(0.1f, 10f)] float _maxRotationSpeed;
-    [SerializeField][Range(0.1f, 1f)] float _slowLaseringPercent;
+    [SerializeField] [Range(0.1f, 10f)] float _maxRotationSpeed;
+    [SerializeField] [Range(0.1f, 1f)] float _slowLaseringPercent;
 
     [Header("Movement Smoothing")]
-    [SerializeField][Range(0.1f, 100f)] float _movementStartAngleThreshold;
-    [SerializeField][Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
+    [SerializeField] [Range(0.1f, 100f)] float _movementStartAngleThreshold;
+    [SerializeField] [Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
 
     [Header("Laser")]
     [SerializeField] Line _laserVisual;
     [SerializeField] BoxCollider2D _laserCollider;
-    [SerializeField][Range(0.01f, 1f)] float _laserSpeed;
+    [SerializeField] [Range(0.01f, 1f)] float _laserSpeed;
 
     [Header("Knockback")]
-    [SerializeField][Range(0.1f, 3f)] float _laserKnockbackStrength;
-    [SerializeField][Range(0.1f, 3f)] float _orbitReturnStrength;
+    [SerializeField] [Range(0.1f, 3f)] float _laserKnockbackStrength;
+    [SerializeField] [Range(0.1f, 3f)] float _orbitReturnStrength;
 
     [Header("Collision")]
     [SerializeField] LayerMask _damageCollisions;
     [SerializeField] LayerMask _ores;
     [SerializeField] LayerMask _health;
-    [SerializeField][Range(0f, 5f)] float _invincibleTime;
+    [SerializeField] [Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] LunaSpriteIterator _spriteIterator;
 
     [Header("Energy")]
-    [SerializeField][Range(0.01f, 0.33f)] float _energyIncrease;
-    [SerializeField][Range(0.01f, 10f)] float _energyDecrease;
+    [SerializeField] [Range(0.01f, 0.33f)] float _energyIncrease;
+    [SerializeField] [Range(0.01f, 10f)] float _energyDecrease;
 
+    [Header("VFX")]
+    [SerializeField] VisualEffect _laserCharge;
 
     public int MoveSign { get; private set; } = 0;
     public float EnergyT { get; private set; } = 0.33f;
@@ -120,7 +123,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
         _laserVisual.End = new Vector3(0, _laserEndPoint, 0);
 
-        
+
     }
 
     public void CalculateDistanceFromOrbit()
@@ -197,6 +200,10 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
         _laserStartTween = DOTween.To(() => _laserVisual.End, x => _laserVisual.End = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
         _laserStartTween.OnComplete(() => _laserCollider.enabled = true);
+
+        // VFX
+        _laserCharge.SendEvent("Charge");
+        _laserCharge.SetBool("Alive", true);
     }
 
     void EndLasering()
@@ -205,11 +212,16 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
         _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
         _laserEndTween = DOTween.To(() => _laserVisual.Start, x => _laserVisual.Start = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
-        _laserEndTween.OnComplete(() => {
+        _laserEndTween.OnComplete(() =>
+        {
             _laserCollider.enabled = false;
             _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
             _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
         });
+
+        // VFX
+        _laserCharge.Stop();
+        _laserCharge.SetBool("Alive", false);
     }
 
     void DecreaseEnergy()

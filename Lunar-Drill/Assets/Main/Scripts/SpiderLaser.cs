@@ -4,6 +4,7 @@ using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SpiderLaser : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class SpiderLaser : MonoBehaviour
     [SerializeField][Range(0.1f, 10f)] float _preLaserDuration;
     [SerializeField][Range(0.1f, 10f)] float _laserDuration;
 
-
+    [Header("VFX")]
+    [SerializeField] VisualEffect _laserChargeOuter;
+    [SerializeField] VisualEffect _laserChargeInner;
 
     //--- Private Fields ------------------------
 
@@ -31,6 +34,14 @@ public class SpiderLaser : MonoBehaviour
 
     public IEnumerator ShootLaser()
     {
+        // VFX
+        _laserChargeOuter.SetFloat("Charge Time", _preLaserDuration);
+        _laserChargeOuter.SetBool("Alive", true);
+        _laserChargeOuter.SendEvent("Charge");
+        _laserChargeInner.SetFloat("Charge Time", _preLaserDuration);
+        _laserChargeInner.SetBool("Alive", true);
+        _laserChargeInner.SendEvent("Charge");
+
         _laserVisuals.ForEach(e => e.Thickness = _laserMinThickness);
         _laserVisuals.ForEach(e => e.enabled = true);
 
@@ -54,6 +65,12 @@ public class SpiderLaser : MonoBehaviour
 
         _laserVisuals.ForEach(e => e.enabled = false);
         _laserCollider.enabled = false;
+
+        // VFX
+        _laserChargeOuter.SetBool("Alive", false);
+        _laserChargeOuter.Stop();
+        _laserChargeInner.SetBool("Alive", false);
+        _laserChargeInner.Stop();
     }
 
 
