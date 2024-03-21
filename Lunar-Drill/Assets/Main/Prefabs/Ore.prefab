@@ -184,9 +184,9 @@ MonoBehaviour:
   _pickUpLayer:
     serializedVersion: 2
     m_Bits: 256
-  _consumeLayer:
+  _destroyLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1024
   _outerRadius: 4.25
   _planetRadius: 2.5
   _durationTillOnOuterRadius: 0.5

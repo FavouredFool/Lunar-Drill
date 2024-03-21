@@ -9,6 +9,7 @@ public class OreController : MonoBehaviour
 
     [Header("Layers")]
     [SerializeField] LayerMask _pickUpLayer;
+    [SerializeField] LayerMask _destroyLayer;
 
     [Header("Radius")]
     [SerializeField][Range(0.1f, 5f)] float _outerRadius;
@@ -59,6 +60,13 @@ public class OreController : MonoBehaviour
             if (_oreState == OreState.BURROWED)
             {
                 SetDrillian(collision);
+            }
+        }
+        else if (_destroyLayer == (_destroyLayer | 1 << collision.gameObject.layer))
+        {
+            if (_oreState == OreState.FLYING)
+            {
+                DestroyOre();
             }
         }
     }
