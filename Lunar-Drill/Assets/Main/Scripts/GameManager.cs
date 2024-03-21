@@ -39,23 +39,23 @@ public class GameManager : MonoBehaviour
 
         Assert.IsTrue(_introTextfields.Length == 4);
 
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
         _introTextfields[0].gameObject.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
         _introTextfields[1].gameObject.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
         _introTextfields[2].gameObject.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
         _introTextfields[3].gameObject.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
         _countdownTextfield.gameObject.SetActive(true);
 
