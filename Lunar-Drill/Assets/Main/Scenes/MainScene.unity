@@ -4359,6 +4359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionsMenu: {fileID: 586145471}
+  gameManager: {fileID: 1301515983}
   currentTimeScale: 1
 --- !u!1 &990399612
 GameObject:
@@ -5163,7 +5164,7 @@ MonoBehaviour:
   - {fileID: 875117219}
   - {fileID: 649527214}
   _countdownTextfield: {fileID: 1245350319}
-  _timeManager: {fileID: 0}
+  _timeManager: {fileID: 984790318}
   _playerHUD: {fileID: 964499353}
   _spiderHUD: {fileID: 1610943554}
   _maxPlayerHP: 4

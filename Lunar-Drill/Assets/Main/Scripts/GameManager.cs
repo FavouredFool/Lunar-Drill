@@ -36,10 +36,10 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartSequence()
     {
-        inCutscene = true;
-
         yield return new WaitForEndOfFrame();
         yield return new WaitForFixedUpdate();
+
+        inCutscene = true;
 
         Assert.IsTrue(_introTextfields.Length == 4);
 
@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         _introTextfields[3].gameObject.SetActive(true);
-
-        yield return new WaitForSecondsRealtime(2f);
 
         _countdownTextfield.gameObject.SetActive(true);
 
