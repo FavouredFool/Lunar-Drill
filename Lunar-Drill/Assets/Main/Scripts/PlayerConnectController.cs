@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.SceneManagement;
@@ -6,25 +7,43 @@ using UnityEngine.SceneManagement;
 public class PlayerConnectController : MonoBehaviour
 {
     // Enum to save which character is chosen by this Player connect Controller.
-    enum ChosenCharacter
+    public enum ChosenCharacter
     {
         drillian,
-        luna
+        luna,
+        singleplayer
+    }
+
+
+    private bool _ready = false; // Bool to save whether or not the player is ready to play!
+
+    public UnityEvent<bool> ReadyStateChanged = new(); // Event to Signal that the Ready State has changed.
+    public UnityEvent<ChosenCharacter> ChosenCharacterChanged = new(); // Event to Signal that the Ready State has changed.
+
+    public ChosenCharacter Character { get => _character; }
+    public bool Ready
+    {
+        get => _ready;
+        set
+        {
+            _ready = value;
+            ReadyStateChanged.Invoke(value);
+        }
     }
 
 
     //--- Private Fields ------------------------
     PlayerInput _input; // Input. Needed to assign the User to the Character
     
-    [SerializeField] ChosenCharacter _character; // The Character Chosen by the User attributed to this Gameobject.
+    ChosenCharacter _character = ChosenCharacter.singleplayer; // The Character Chosen by the User attributed to this Gameobject.
 
 
+    // --- Public Functions. 
     public void Start()
     {
         Debug.Log("connected");
         DontDestroyOnLoad(gameObject);
         _input = GetComponent<PlayerInput>();
-        _character = ChosenCharacter.drillian;
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
@@ -32,24 +51,34 @@ public class PlayerConnectController : MonoBehaviour
     // When the Scene is loaded then we assign the player input to the character
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("test");
         SwitchActionMapToCharacter();
     }
 
-    public void OnSwap()
+    public void OnSwap(InputAction.CallbackContext context) // Allow the player(s) to swap their characters. Does nothing when ready.
     {
+        if ((!context.started) || Ready)
+            return;
+
         if(_character == ChosenCharacter.drillian)
         {
+            ChosenCharacterChanged.Invoke(ChosenCharacter.luna);
             _character = ChosenCharacter.luna;
             
         }
-        else
+        else if(_character == ChosenCharacter.luna)
         {
+            ChosenCharacterChanged.Invoke(ChosenCharacter.drillian);
             _character = ChosenCharacter.drillian;
         }
-        Debug.Log("Swap");
-        Debug.Log($"Player {_input.user} Swapped to: {_character}");
     }
+
+    public void OnReady(InputAction.CallbackContext context) // Allow the player(s) to get ready. (And rewerse the readyness)
+    {
+        if (!context.started)
+            return;
+        Ready = !Ready;
+    }
+
 
     // Luna Input Events
     
@@ -83,34 +112,70 @@ public class PlayerConnectController : MonoBehaviour
         GameObject characterGO;
         if (_character == ChosenCharacter.luna)
         {
+
+            // If the player is Luna then search the gameobject, disable its input and change this objects input map accordingly
             characterGO = FindAnyObjectByType<LunaController>().gameObject;
             if(characterGO != null)
             {
+                PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
+                if (goPlayerInput != null)
+                {
+                    goPlayerInput.enabled = false;
+                    Debug.Log("Disabled INput");
+                }
                 _input.SwitchCurrentActionMap("Luna");
             }
 
         }
-        else
-        {
+        else if(_character == ChosenCharacter.drillian)
+        {   
+            // If the player is Drillian then search the gameobject, disable its input and change this objects input map accordingly
             characterGO = FindAnyObjectByType<DrillianController>().gameObject;
             if(characterGO != null)
             {
-
+                PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
+                if (goPlayerInput != null)
+                {
+                    goPlayerInput.enabled = false;
+                    Debug.Log("Disabled INput");
+                }
                 _input.SwitchCurrentActionMap("Drillian");
             }
         }
-
-        if(characterGO != null)
+        else
         {
-            PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
-            if (goPlayerInput != null)
+            // If the player is neither Luna nor Drillian then switch to Singleplayermode.
+            
+            _input.SwitchCurrentActionMap("Singleplayer");
+            // and disable the inputs of the objects accordingly
+            characterGO = FindAnyObjectByType<DrillianController>().gameObject;
+            if (characterGO != null)
             {
-                goPlayerInput.enabled = false;
-                Debug.Log("Disabled INput");
+                PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
+                if (goPlayerInput != null)
+                {
+                    goPlayerInput.enabled = false;
+                }
+                
+            }
+            characterGO = FindAnyObjectByType<LunaController>().gameObject;
+            if (characterGO != null)
+            {
+                PlayerInput goPlayerInput = characterGO.GetComponent<PlayerInput>();
+                if (goPlayerInput != null)
+                {
+                    goPlayerInput.enabled = false;
+                }
             }
         }
         
-       
+    }
+
+    // Method to switch to "coop mode"
+    public void CoopReady()
+    {
+        ChosenCharacterChanged.Invoke(ChosenCharacter.luna);
+        _character = ChosenCharacter.luna;
     }
 
     
