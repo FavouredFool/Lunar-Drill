@@ -205,6 +205,7 @@ MonoBehaviour:
     m_Bits: 1600
   _invincibleTime: 3
   _spriteRenderer: {fileID: 1141031731221533029}
+  _spriteIterator: {fileID: 1038394447196655809}
   _oreDistance: 0.25
 --- !u!114 &1372043916927778522
 MonoBehaviour:
@@ -451,3 +452,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2858996cd5eba8f46823a94c99dbdf33, type: 3}
   - {fileID: 21300000, guid: 78c2dda384c2a9f4f9f5439b1ab79e26, type: 3}
   fps: 18
+  _hitSprite: {fileID: 21300000, guid: 137b74a700c8a8648b76e53c47a75966, type: 3}
+  _stunSprite: {fileID: 0}
