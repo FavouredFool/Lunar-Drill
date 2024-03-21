@@ -72,6 +72,9 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _rigidbody = GetComponent<Rigidbody2D>();
         InputBus.Subscribe<LunaMoveGoal>(this);
         InputBus.Subscribe<LunaShoot>(this);
+
+        transform.position = Quaternion.Euler(0, 0, 120) * Vector2.up * Utilities.OuterOrbit;
+        transform.rotation = Quaternion.Euler(0, 0, -60);
     }
 
     public void FixedUpdate()
@@ -88,7 +91,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     //--- Public Methods ------------------------
     public void OnEventHappened(LunaShoot e) // Event to use Input System
     {
-        Debug.Log("Shoot");
         ShootInput(e.context);
     }
 

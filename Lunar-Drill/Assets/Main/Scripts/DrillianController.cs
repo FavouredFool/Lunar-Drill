@@ -64,13 +64,11 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         InputBus.Subscribe(this);
+
+        transform.position = Quaternion.Euler(0, 0, 240) * Vector2.up * Utilities.OuterOrbit;
+        transform.rotation = Quaternion.Euler(0, 0, 60);
     }
 
-    public void Start()
-    {
-        _rigidbody.position = Quaternion.Euler(0, 0, 225) * Vector2.up * Utilities.OuterOrbit;
-        _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, Vector3.zero));
-    }
 
     public void FixedUpdate()
     {
@@ -93,6 +91,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         SetMoveDirectionInput(e.context);
     }
+
     public void SetMoveDirectionInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
