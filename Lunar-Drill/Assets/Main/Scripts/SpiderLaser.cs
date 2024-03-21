@@ -25,6 +25,8 @@ public class SpiderLaser : MonoBehaviour
     [SerializeField] VisualEffect _laserChargeOuter;
     [SerializeField] VisualEffect _laserChargeInner;
 
+    public bool isActive { get; private set; }=false;
+
     //--- Private Fields ------------------------
 
 
@@ -34,6 +36,8 @@ public class SpiderLaser : MonoBehaviour
 
     public IEnumerator ShootLaser()
     {
+        isActive = true;
+
         // VFX
         _laserChargeOuter.SetFloat("Charge Time", _preLaserDuration);
         _laserChargeOuter.SetBool("Alive", true);
@@ -71,6 +75,8 @@ public class SpiderLaser : MonoBehaviour
         _laserChargeOuter.Stop();
         _laserChargeInner.SetBool("Alive", false);
         _laserChargeInner.Stop();
+
+        isActive = false;
     }
 
 

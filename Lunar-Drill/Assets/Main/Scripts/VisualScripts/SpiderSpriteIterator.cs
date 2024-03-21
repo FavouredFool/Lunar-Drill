@@ -6,15 +6,22 @@ using DG.Tweening;
 public class SpiderSpriteIterator : MonoBehaviour
 {
     [SerializeField] SpiderController controller;
+
+    [SerializeField] SpiderLaser laserController;
+
     [SerializeField] Animator animator;
+
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Transform crest;
+
     [SerializeField] float fps = 6;
     [SerializeField] float rotTime = 2;
 
     float timer = 0;
 
     int lastMoveSign = 1;
+
+    bool isLaser => laserController.isActive;
 
     float fraction => 1f / fps;
     float angleStep => rotTime/fraction;
@@ -33,14 +40,22 @@ public class SpiderSpriteIterator : MonoBehaviour
 
         crest.gameObject.SetActive(!isControlled);
 
-        timer += Time.deltaTime;
-        if (timer >= fraction && lastMoveSign != 0 && !isControlled)
+        if (!isControlled)
         {
-            timer = 0;
+            timer += Time.deltaTime;
 
-            crest.Rotate(Vector3.forward, angleStep);
+            spriteRenderer.sprite = _idleSprite;
+
+            if (timer >= fraction && lastMoveSign != 0 && !isLaser)
+            {
+                timer = 0;
+
+                crest.Rotate(Vector3.forward, angleStep * lastMoveSign);
+            }
         }
 
+        if (isLaser)
+            crest.rotation = Quaternion.LookRotation(Vector3.forward,transform.position.normalized);
     }
 
     bool isControlled => Time.time < controlTime;
@@ -53,10 +68,12 @@ public class SpiderSpriteIterator : MonoBehaviour
         spriteRenderer.sprite = sprite;
     }
 
-    [SerializeField] Sprite _hitSprite, _stunSprite;
+    [SerializeField] Sprite _hitSprite, _stunSprite, _idleSprite;
     public void Hit()
     {
         Control(_hitSprite, TimeManager.hitFrameTime);
+
+        animator.SetBool("stunned",false);
 
         scaleTween.Kill();
         scaleTween = spriteRenderer.transform.DOScale(initialScale*1.33f, TimeManager.hitFrameTime * 0.33f).SetUpdate(true).SetEase(Ease.OutBack).OnComplete(() =>
@@ -66,7 +83,9 @@ public class SpiderSpriteIterator : MonoBehaviour
     }
     public void Stun(float time)
     {
-        Control(_hitSprite, time);
+        Control(_stunSprite, time);
+
+        animator.SetBool("stunned", true);
 
         float pulseTime = 1/3;
         int loops = Mathf.FloorToInt(time / pulseTime);
@@ -74,5 +93,14 @@ public class SpiderSpriteIterator : MonoBehaviour
 
         scaleTween.Kill();
         scaleTween = spriteRenderer.transform.DOScale(initialScale*1.33f, pulseTime).SetEase(Ease.OutBack).SetLoops(loops, LoopType.Yoyo);
+    }
+
+    bool isShield => Time.time < shieldTime;
+    float shieldTime = 0;
+    public void ShieldHit(float time)
+    {
+        shieldTime = Time.time + time;
+
+        //Trigger Shield Particles here
     }
 }

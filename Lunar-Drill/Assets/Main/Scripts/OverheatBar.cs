@@ -26,7 +26,7 @@ public class OverheatBar : MonoBehaviour
     {
         if (_spiderController == null) throw new System.Exception();
 
-        _bar.AngRadiansStart = DOVirtual.EasedValue(Mathf.Deg2Rad * _barStartValue, Mathf.Deg2Rad * _barEndValue, _spiderController.OverheatT, Ease.Linear);
+        _bar.AngRadiansStart = DOVirtual.EasedValue(Mathf.Deg2Rad * _barStartValue, Mathf.Deg2Rad * _barEndValue, 1-_spiderController.OverheatT, Ease.Linear);
 
         _bar.enabled = !Mathf.Approximately(_bar.AngRadiansStart, _bar.AngRadiansEnd);
     }

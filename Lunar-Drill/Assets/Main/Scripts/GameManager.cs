@@ -16,11 +16,6 @@ public class GameManager : MonoBehaviour
         _playerHUD,
         _spiderHUD;
 
-    [Header("Vis-Ref")]
-    [SerializeField] LunaSpriteIterator _lunar_visuals;
-    [SerializeField] DrillianSpriteIterator _drillian_visuals;
-    [SerializeField] SpiderSpriteIterator _spider_visuals;
-
     [SerializeField] int _maxPlayerHP, _maxSpiderHP;
 
     int _playerHP;
