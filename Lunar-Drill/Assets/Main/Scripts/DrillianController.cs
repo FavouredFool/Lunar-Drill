@@ -10,7 +10,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     [Header("Configuration")]
     [SerializeField][Range(0.25f, 10f)] float _speed = 5;
-    [SerializeField][Range(0.1f, 100f)] float _gravityStrength = 1f;
+    [SerializeField][Range(0.1f, 100f)] float _minGravityStrength = 1f;
+    [SerializeField][Range(0.1f, 100f)] float _maxGravityStrength = 2f;
+    [SerializeField][Range(1, 100f)] float _timeTillMaxGravityOutside = 2f;
 
     [Header("Control")]
     [SerializeField][Range(1, 100f)] float _maxRotationControl = 25f;
@@ -49,6 +51,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     Tweener _controlTween;
     Vector2 _airTurnDirection;
     Vector2 _turnDirection;
+
+    float _gravityT = 0;
+    Tween _gravityTTween;
 
     bool _isInvincible = false;
 
@@ -109,7 +114,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     void SetWorldGravity()
     {
-        Physics2D.gravity = -transform.position * _gravityStrength;
+        float gravity = DOVirtual.EasedValue(_minGravityStrength, _maxGravityStrength, _gravityT, Ease.Linear);
+        Physics2D.gravity = -transform.position * gravity;
     }
 
     void SetIsBurrowed()
@@ -144,6 +150,17 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         if (!LastFrameIsBurrowed && IsBurrowed)
         {
             _controlTween = DOTween.To(() => RotationControlT, x => RotationControlT = x, 1, _timeTillControlRegain);
+        }
+
+        if (LastFrameIsBurrowed && !IsBurrowed)
+        {
+            if (_gravityTTween != null && _gravityTTween.IsActive())
+            {
+                _gravityTTween.Kill();
+            }
+
+            _gravityT = 0;
+            _gravityTTween = DOTween.To(() => _gravityT, x => _gravityT = x, 1, _timeTillMaxGravityOutside);
         }
     }
 
