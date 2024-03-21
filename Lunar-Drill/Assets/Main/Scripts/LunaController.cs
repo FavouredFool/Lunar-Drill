@@ -34,6 +34,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
+    [SerializeField] LunaSpriteIterator _spriteIterator;
 
     [Header("Energy")]
     [SerializeField] [Range(0.01f, 0.33f)] float _energyIncrease;
@@ -48,7 +49,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     //--- Private Fields ------------------------
 
-    float _orbitRotationT;
+    float _orbitRotationT = 0.33f;
     Vector2 _goalDirection;
     bool _mustReachThresholdForMovement = false;
     Rigidbody2D _rigidbody;
@@ -71,7 +72,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     public void Awake()
     {
-        _orbitRotationT = 0;
         _goalDirection = Vector2.zero;
         _rigidbody = GetComponent<Rigidbody2D>();
         InputBus.Subscribe<LunaMoveGoal>(this);
@@ -288,6 +288,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     void GetHit()
     {
         // Health Reduce
+        _spriteIterator.Hit();
         FindObjectOfType<GameManager>().PlayerHP -= 1;
 
         // invincible

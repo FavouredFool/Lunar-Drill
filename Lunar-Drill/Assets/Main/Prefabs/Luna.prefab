@@ -106,6 +106,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e8300db2ef738ee44b4b19253e689007, type: 3}
   - {fileID: 21300000, guid: bce370589e752da4eaa07105f65b0ee5, type: 3}
   fps: 6
+  _hitSprite: {fileID: 21300000, guid: ad9f47acf4fa41b409e6eff13bb32ce5, type: 3}
 --- !u!1 &5337368519830427384
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +177,7 @@ MonoBehaviour:
     m_Bits: 4096
   _invincibleTime: 3
   _spriteRenderer: {fileID: 3688287869893254816}
+  _spriteIterator: {fileID: 8224682475587872733}
   _energyIncrease: 0.05
   _energyDecrease: 0.175
   _laserCharge: {fileID: 8672350994022337839}

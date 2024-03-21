@@ -13,7 +13,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [SerializeField][Range(0.25f, 10f)] float _speed = 5;
     [SerializeField][Range(0.1f, 100f)] float _minGravityStrength = 1f;
     [SerializeField][Range(0.1f, 100f)] float _maxGravityStrength = 2f;
-    [SerializeField][Range(1, 100f)] float _timeTillMaxGravityOutside = 2f;
+    [SerializeField][Range(0.1f, 100f)] float _timeTillMaxGravityOutside = 2f;
 
     [Header("Control")]
     [SerializeField][Range(1, 100f)] float _maxRotationControl = 25f;
@@ -30,6 +30,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
+    [SerializeField] DrillianSpriteIterator _spriteIterator;
 
     [Header("Ores")]
     [SerializeField][Range(0.125f, 5f)] float _oreDistance;
@@ -68,6 +69,12 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         InputBus.Subscribe(this);
+    }
+
+    public void Start()
+    {
+        _rigidbody.position = Quaternion.Euler(0, 0, 225) * Vector2.up * Utilities.OuterOrbit;
+        _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, Vector3.zero));
     }
 
     public void FixedUpdate()
@@ -197,7 +204,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             lookDirection = _rigidbody.velocity.normalized;
         }
 
-
         _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, lookDirection));
     }
 
@@ -225,6 +231,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     void GetHit()
     {
         // Health Reduce
+        _spriteIterator.Hit();
         FindObjectOfType<GameManager>().PlayerHP -= 1;
 
         // invincible

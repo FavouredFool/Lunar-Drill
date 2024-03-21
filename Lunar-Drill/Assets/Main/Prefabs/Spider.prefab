@@ -71,6 +71,7 @@ MonoBehaviour:
   - {fileID: 2668978879122849518}
   - {fileID: 4885361180782936067}
   - {fileID: 6884750448878901344}
+  _spriteIterator: {fileID: 7756796454352137033}
   _invincibleTime: 5
   _healthPickupBlueprint: {fileID: 9097799415653815186, guid: af248468a2be6c546a196074a40c7b35, type: 3}
 --- !u!114 &8535113388948585094
@@ -209,6 +210,8 @@ MonoBehaviour:
   crest: {fileID: 2446997433656444215}
   fps: 6
   rotTime: 2
+  _hitSprite: {fileID: 21300000, guid: 216a83dc72275074085e23ed353ae775, type: 3}
+  _stunSprite: {fileID: 21300000, guid: 74a7d99e6b9918f4cb4db5a6c78b3937, type: 3}
 --- !u!1 &2332832379483453229
 GameObject:
   m_ObjectHideFlags: 0
