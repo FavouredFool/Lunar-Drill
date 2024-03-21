@@ -100,6 +100,11 @@ public class OreController : MonoBehaviour
 
         _oreState = OreState.FOLLOWING;
         _followDrillian.FollowingOres.Add(this);
+
+        OreSpawner spawner = transform.parent.GetComponent<OreSpawner>();
+        Assert.IsNotNull(spawner);
+
+        spawner.RemoveOre(this);
     }
 
     void MoveToFollow()
