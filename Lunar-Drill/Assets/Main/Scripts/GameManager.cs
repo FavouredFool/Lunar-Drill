@@ -6,10 +6,11 @@ using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] string[] _introTexts;
     [SerializeField] TMP_Text[] _introTextfields;
 
-    [SerializeField] TMP_Text[] _countdownTextfield;
+    [SerializeField] TMP_Text _countdownTextfield;
+
+    [SerializeField] TimeManager _timeManager;
 
     [SerializeField] HUDisplay
         _playerHUD,
@@ -33,34 +34,56 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        //StartCoroutine(StartSequence());
+        StartCoroutine(StartSequence());
     }
 
     public IEnumerator StartSequence()
     {
-        Assert.IsTrue(_introTexts.Length == 4);
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();
+
+        // Hier Timemanager timescale = 0;
+
         Assert.IsTrue(_introTextfields.Length == 4);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
-        _introTextfields[0].text = _introTexts[0];
+        _introTextfields[0].gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
-        _introTextfields[1].text = _introTexts[1];
+        _introTextfields[1].gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
-        _introTextfields[2].text = _introTexts[2];
+        _introTextfields[2].gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSecondsRealtime(2f);
 
-        _introTextfields[3].text = _introTexts[3];
+        _introTextfields[3].gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSecondsRealtime(2f);
 
-        //for(int i = 3; i )
+        _countdownTextfield.gameObject.SetActive(true);
 
+        for (int i = 3; i > 0; i--)
+        {
+            _countdownTextfield.text = i.ToString();
+
+            yield return new WaitForSecondsRealtime(1f);
+        }
+
+        _countdownTextfield.text = "GO!";
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        _introTextfields[0].gameObject.SetActive(false);
+        _introTextfields[1].gameObject.SetActive(false);
+        _introTextfields[2].gameObject.SetActive(false);
+        _introTextfields[3].gameObject.SetActive(false);
+        _countdownTextfield.gameObject.SetActive(false);
+
+        // Hier Timemanager timescale = 1;
     }
 
     public int PlayerHP { get => _playerHP; 
