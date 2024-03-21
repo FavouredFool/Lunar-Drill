@@ -10,14 +10,14 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     //--- Exposed Fields ------------------------
 
     [Header("Configuration")]
-    [SerializeField][Range(0.25f, 10f)] float _speed = 5;
-    [SerializeField][Range(0.1f, 100f)] float _minGravityStrength = 1f;
-    [SerializeField][Range(0.1f, 100f)] float _maxGravityStrength = 2f;
-    [SerializeField][Range(0.1f, 100f)] float _timeTillMaxGravityOutside = 2f;
+    [SerializeField] [Range(0.25f, 10f)] float _speed = 5;
+    [SerializeField] [Range(0.1f, 100f)] float _minGravityStrength = 1f;
+    [SerializeField] [Range(0.1f, 100f)] float _maxGravityStrength = 2f;
+    [SerializeField] [Range(0.1f, 100f)] float _timeTillMaxGravityOutside = 2f;
 
     [Header("Control")]
-    [SerializeField][Range(1, 100f)] float _maxRotationControl = 25f;
-    [SerializeField][Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
+    [SerializeField] [Range(1, 100f)] float _maxRotationControl = 25f;
+    [SerializeField] [Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
 
     //[Header("Air Movement")]
     //[SerializeField][Range(0f, 100f)] float _airTurnControl = 1f;
@@ -26,14 +26,14 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     [Header("Collision")]
     [SerializeField] LayerMask _damageCollisions;
-    [SerializeField][Range(0f, 5f)] float _invincibleTime;
+    [SerializeField] [Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] DrillianSpriteIterator _spriteIterator;
 
     [Header("Ores")]
-    [SerializeField][Range(0.125f, 5f)] float _oreDistance;
+    [SerializeField] [Range(0.125f, 5f)] float _oreDistance;
 
     [Header("VFX")]
     [SerializeField] private VisualEffect _drillImpactOut;
@@ -62,6 +62,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     bool _isInvincible = false;
 
+    bool _vfxIgnore = true;
 
     //--- Unity Methods ------------------------
 
@@ -159,7 +160,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
             RotationControlT = 0;
         }
-        
+
         if (!LastFrameIsBurrowed && IsBurrowed)
         {
             _controlTween = DOTween.To(() => RotationControlT, x => RotationControlT = x, 1, _timeTillControlRegain);
@@ -223,7 +224,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             moveDirection = Vector3.RotateTowards(_rigidbody.velocity.normalized, _goalMoveDirection, rotationControl * Time.deltaTime, float.PositiveInfinity);
         }
 
-        
+
         // Move along up-Vector
         _rigidbody.velocity = moveDirection * _speed;
     }
@@ -278,6 +279,12 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     /* Plays VFX when Drillian leaves or enters planet. */
     private void ShootDrillImpactParticles()
     {
+        if (_vfxIgnore)
+        {
+            _vfxIgnore = !_vfxIgnore;
+            return;
+        }
+
         if (!IsBurrowed && LastFrameIsBurrowed)
         {
             _drillImpactOut.SetVector3("StartPosition", transform.position);
