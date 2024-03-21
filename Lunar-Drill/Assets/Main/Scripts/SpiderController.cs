@@ -22,6 +22,7 @@ public class SpiderController : MonoBehaviour
 
     [Header("Sprites")]
     [SerializeField] SpriteRenderer[] _spriteRenderers;
+    [SerializeField] SpiderSpriteIterator _spriteIterator;
 
     [Header("Hit")]
     [SerializeField][Range(0.01f, 5f)] float _invincibleTime = 5f;
@@ -77,8 +78,9 @@ public class SpiderController : MonoBehaviour
             {
                 IsVulnerable = true;
 
-                // stop laser??
-                // Change sprite here
+                _spriteIterator.Stun(float.MaxValue); //Change this to overheat time
+
+                // stop current move??
             }
         }
         else
@@ -275,7 +277,10 @@ public class SpiderController : MonoBehaviour
 
     void GetDamaged()
     {
+        //Damage
+        _spriteIterator.Hit();
         FindObjectOfType<GameManager>().SpiderHP -= 1;
+
         IsVulnerable = false;
         IsInvincible = true;
         OverheatT = 0;
