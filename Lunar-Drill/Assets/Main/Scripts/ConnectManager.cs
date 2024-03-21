@@ -63,12 +63,16 @@ public class ConnectManager : MonoBehaviour
             connectedPlayers.Add(playerConnectInfo);
             if (connectedPlayers.Count == 1)
             {
-                _p1Info.gameObject.SetActive(true);
-                playerConnectInfo.ChosenCharacterChanged.AddListener((value) => _p1Info.ChosenCharacterChanged(value));
-                playerConnectInfo.ReadyStateChanged.AddListener((value) => _p1Info.ReadyStateChanged(value));
+                //_p1Info.gameObject.SetActive(true);
+                //playerConnectInfo.ChosenCharacterChanged.AddListener((value) => _p1Info.ChosenCharacterChanged(value));
+                //playerConnectInfo.ReadyStateChanged.AddListener((value) => _p1Info.ReadyStateChanged(value));
             }
             if (connectedPlayers.Count == 2)
             {
+                _p1Info.gameObject.SetActive(true);
+                connectedPlayers[0].ChosenCharacterChanged.AddListener((value) => _p1Info.ChosenCharacterChanged(value));
+                connectedPlayers[0].ReadyStateChanged.AddListener((value) => _p1Info.ReadyStateChanged(value));
+
                 _p2Info.gameObject.SetActive(true);
                 playerConnectInfo.ChosenCharacterChanged.AddListener((value) => _p2Info.ChosenCharacterChanged(value));
                 playerConnectInfo.ReadyStateChanged.AddListener((value) => _p2Info.ReadyStateChanged(value));

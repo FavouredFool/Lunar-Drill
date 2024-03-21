@@ -21,7 +21,7 @@ public class PlayerInfoDisplay : MonoBehaviour
     private void UpdateDisplay()
     {
         string Ready = _characterReady ? " Ready!" : "?";
-        _text.text = $"{_playerName}:{Ready}";
+        _text.text = $"{_playerName}{Ready}";
         if(_chosenCharacter == PlayerConnectController.ChosenCharacter.drillian)
         {
             transform.position =  _DrillianPosition.position;
