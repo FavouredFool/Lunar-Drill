@@ -31,7 +31,11 @@ public class UIHeart : MonoBehaviour
         }
         else
         {
-            scaleTween = transform.DOScale(0, 0.2f).SetEase(Ease.InBounce).SetUpdate(true);
+            scaleTween = transform.DOScale(1.5f, 0.4f).SetEase(Ease.OutBounce).SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    scaleTween = transform.DOScale(0, 0.2f).SetEase(Ease.InBack).SetUpdate(true);
+                });
         }
     }
 }

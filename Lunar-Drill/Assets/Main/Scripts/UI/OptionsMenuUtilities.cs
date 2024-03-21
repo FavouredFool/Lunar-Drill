@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 public class OptionsMenuUtilities : MonoBehaviour
 {
+    public bool _isOpen = false;
+
     //--- Exposed Fields ------------------------
 
     [SerializeField] private GameObject _optionsPanel; // Panel containing option UI
@@ -24,7 +26,6 @@ public class OptionsMenuUtilities : MonoBehaviour
 
     //--- Private Fields ------------------------
 
-    private bool _isOpen = false;
     private List<TMP_Dropdown.OptionData> _resolutions = new();
 
     //--- Unity Methods ------------------------
@@ -44,8 +45,6 @@ public class OptionsMenuUtilities : MonoBehaviour
         if (_isOpen)
         {
             _optionsPanel.SetActive(false);
-
-            // Continue game
             Time.timeScale = 1;
         }
         else
@@ -53,9 +52,6 @@ public class OptionsMenuUtilities : MonoBehaviour
             _optionsPanel.SetActive(true);
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
-
-            // Pause game
-            Time.timeScale = 0;
         }
         _isOpen = !_isOpen;
     }

@@ -29,6 +29,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
+    [SerializeField] DrillianSpriteIterator _spriteIterator;
 
     [Header("Ores")]
     [SerializeField][Range(0.125f, 5f)] float _oreDistance;
@@ -224,6 +225,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     void GetHit()
     {
         // Health Reduce
+        _spriteIterator.Hit();
         FindObjectOfType<GameManager>().PlayerHP -= 1;
 
         // invincible

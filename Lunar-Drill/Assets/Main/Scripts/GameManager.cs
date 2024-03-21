@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
         _playerHUD,
         _spiderHUD;
 
+    [Header("Vis-Ref")]
+    [SerializeField] LunaSpriteIterator _lunar_visuals;
+    [SerializeField] DrillianSpriteIterator _drillian_visuals;
+    [SerializeField] SpiderSpriteIterator _spider_visuals;
+
     [SerializeField] int _maxPlayerHP, _maxSpiderHP;
 
     int _playerHP;
@@ -64,7 +69,8 @@ public class GameManager : MonoBehaviour
             _playerHP = value; 
             _playerHUD.RefreshHearts(_playerHP);
             if (_playerHP == 0) EndGame(false);
-        } 
+            else TimeManager.main.HitFrame(); //Add Screenshake
+        }
     }
     public int SpiderHP { get => _spiderHP; 
         set 
@@ -72,6 +78,7 @@ public class GameManager : MonoBehaviour
             _spiderHP = value; 
             _spiderHUD.RefreshHearts(_spiderHP);
             if (_spiderHP == 0) EndGame(true);
+            else TimeManager.main.HitFrame(); //Add Screenshake
         }
     }
 
