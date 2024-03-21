@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TMP_Text _countdownTextfield;
 
+    [SerializeField] TimeManager _timeManager;
+
     [SerializeField] HUDisplay
         _playerHUD,
         _spiderHUD;
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitForFixedUpdate();
 
-        Time.timeScale = 0;
+        // Hier Timemanager timescale = 0;
 
         Assert.IsTrue(_introTextfields.Length == 4);
 
@@ -81,10 +83,7 @@ public class GameManager : MonoBehaviour
         _introTextfields[3].gameObject.SetActive(false);
         _countdownTextfield.gameObject.SetActive(false);
 
-        // les go
-        Debug.Log("GO");
-
-        Time.timeScale = 1;
+        // Hier Timemanager timescale = 1;
     }
 
     public int PlayerHP { get => _playerHP; 
