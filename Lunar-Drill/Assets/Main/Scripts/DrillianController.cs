@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>
 {
@@ -30,11 +31,17 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
 
+    [Header("Ores")]
+    [SerializeField][Range(0.125f, 5f)] float _oreDistance;
+
 
     //--- Properties ------------------------
+
     public float RotationControlT { get; set; } = 1;
     public bool IsBurrowed { get; set; }
     public bool LastFrameIsBurrowed { get; set; }
+    public List<OreController> FollowingOres { get; } = new();
+    public float OreDistance => _oreDistance;
 
 
     //--- Private Fields ------------------------
@@ -64,6 +71,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         SetIsBurrowed();
         ApplyGravity();
 
+        ReleaseOre();
         SetControl();
 
         MoveUpDrillian();
@@ -87,6 +95,20 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     }
 
     //--- Private Methods ------------------------
+
+    void ReleaseOre()
+    {
+        if (!IsBurrowed && LastFrameIsBurrowed)
+        {
+            // Release all ores
+            foreach (OreController ore in FollowingOres)
+            {
+                ore.ReleaseOre();
+            }
+
+            FollowingOres.Clear();
+        }
+    }
 
     void SetWorldGravity()
     {

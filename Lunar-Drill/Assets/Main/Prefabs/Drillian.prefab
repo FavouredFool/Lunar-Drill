@@ -204,6 +204,7 @@ MonoBehaviour:
     m_Bits: 1600
   _invincibleTime: 3
   _spriteRenderer: {fileID: 1141031731221533029}
+  _oreDistance: 0.25
 --- !u!114 &1372043916927778522
 MonoBehaviour:
   m_ObjectHideFlags: 0
