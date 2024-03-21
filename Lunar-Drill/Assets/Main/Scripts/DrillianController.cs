@@ -2,26 +2,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
-using UnityEngine.VFX;
+using System.Collections.Generic;
 
 public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>
 {
     //--- Exposed Fields ------------------------
 
-    [Header("Extern Information")]
-    [SerializeField] [Range(1f, 10f)] float _planetRadius = 2.5f;
-
     [Header("Configuration")]
-    [SerializeField] [Range(0.25f, 10f)] float _speed = 5;
-    [SerializeField] [Range(0.1f, 100f)] float _gravityStrength = 1f;
+    [SerializeField][Range(0.25f, 10f)] float _speed = 5;
+    [SerializeField][Range(0.1f, 100f)] float _minGravityStrength = 1f;
+    [SerializeField][Range(0.1f, 100f)] float _maxGravityStrength = 2f;
+    [SerializeField][Range(1, 100f)] float _timeTillMaxGravityOutside = 2f;
 
     [Header("Control")]
-    [SerializeField] [Range(1, 100f)] float _maxRotationControl = 25f;
-    [SerializeField] [Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
-
-    [Header("VFX")]
-    [SerializeField] private VisualEffect _drillImpactOut;
-    [SerializeField] private VisualEffect _drillImpactIn;
+    [SerializeField][Range(1, 100f)] float _maxRotationControl = 25f;
+    [SerializeField][Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
 
     //[Header("Air Movement")]
     //[SerializeField][Range(0f, 100f)] float _airTurnControl = 1f;
@@ -30,16 +25,22 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     [Header("Collision")]
     [SerializeField] LayerMask _damageCollisions;
-    [SerializeField] [Range(0f, 5f)] float _invincibleTime;
+    [SerializeField][Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
 
+    [Header("Ores")]
+    [SerializeField][Range(0.125f, 5f)] float _oreDistance;
+
 
     //--- Properties ------------------------
+
     public float RotationControlT { get; set; } = 1;
-    public bool IsBurrowed { get; set; } = true;
-    public bool LastFrameIsBurrowed { get; set; } = true;
+    public bool IsBurrowed { get; set; }
+    public bool LastFrameIsBurrowed { get; set; }
+    public List<OreController> FollowingOres { get; } = new();
+    public float OreDistance => _oreDistance;
 
 
     //--- Private Fields ------------------------
@@ -50,6 +51,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     Tweener _controlTween;
     Vector2 _airTurnDirection;
     Vector2 _turnDirection;
+
+    float _gravityT = 0;
+    Tween _gravityTTween;
 
     bool _isInvincible = false;
 
@@ -69,12 +73,11 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         SetIsBurrowed();
         ApplyGravity();
 
+        ReleaseOre();
         SetControl();
 
         MoveUpDrillian();
         RotateDrillian();
-
-        ShootDrillImpactParticles();
 
         LastFrameIsBurrowed = IsBurrowed;
     }
@@ -95,14 +98,29 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     //--- Private Methods ------------------------
 
+    void ReleaseOre()
+    {
+        if (!IsBurrowed && LastFrameIsBurrowed)
+        {
+            // Release all ores
+            foreach (OreController ore in FollowingOres)
+            {
+                ore.ReleaseOre();
+            }
+
+            FollowingOres.Clear();
+        }
+    }
+
     void SetWorldGravity()
     {
-        Physics2D.gravity = -transform.position * _gravityStrength;
+        float gravity = DOVirtual.EasedValue(_minGravityStrength, _maxGravityStrength, _gravityT, Ease.Linear);
+        Physics2D.gravity = -transform.position * gravity;
     }
 
     void SetIsBurrowed()
     {
-        IsBurrowed = transform.position.magnitude <= _planetRadius;
+        IsBurrowed = transform.position.magnitude <= Utilities.PlanetRadius;
     }
 
     void ApplyGravity()
@@ -128,10 +146,21 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
             RotationControlT = 0;
         }
-
+        
         if (!LastFrameIsBurrowed && IsBurrowed)
         {
             _controlTween = DOTween.To(() => RotationControlT, x => RotationControlT = x, 1, _timeTillControlRegain);
+        }
+
+        if (LastFrameIsBurrowed && !IsBurrowed)
+        {
+            if (_gravityTTween != null && _gravityTTween.IsActive())
+            {
+                _gravityTTween.Kill();
+            }
+
+            _gravityT = 0;
+            _gravityTTween = DOTween.To(() => _gravityT, x => _gravityT = x, 1, _timeTillMaxGravityOutside);
         }
     }
 
@@ -182,7 +211,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             moveDirection = Vector3.RotateTowards(_rigidbody.velocity.normalized, _goalMoveDirection, rotationControl * Time.deltaTime, float.PositiveInfinity);
         }
 
-
+        
         // Move along up-Vector
         _rigidbody.velocity = moveDirection * _speed;
     }
@@ -198,11 +227,18 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
         _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
 
-
         // Splash-Effect, 
 
         // Time Scale down
 
+
+        // remove all ores
+        foreach (OreController ore in FollowingOres)
+        {
+            ore.DestroyOre();
+        }
+
+        FollowingOres.Clear();
     }
 
     void EvaluateCollision(Collider2D collision)
@@ -223,24 +259,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     private void OnTriggerEnter2D(Collider2D collision)
     {
         EvaluateCollision(collision);
-    }
-
-
-    /* Plays VFX when Drillian leaves or enters planet. */
-    private void ShootDrillImpactParticles()
-    {
-        if (!IsBurrowed && LastFrameIsBurrowed)
-        {
-            _drillImpactOut.SetVector3("StartPosition", transform.position);
-            _drillImpactOut.SetVector3("DrillianUp", transform.up);
-            _drillImpactOut.SendEvent("Shoot");
-        }
-        else if (IsBurrowed && !LastFrameIsBurrowed)
-        {
-            _drillImpactIn.SetVector3("StartPosition", transform.position);
-            _drillImpactIn.SetVector3("DrillianUp", transform.up);
-            _drillImpactIn.SendEvent("Shoot");
-        }
     }
 
 }

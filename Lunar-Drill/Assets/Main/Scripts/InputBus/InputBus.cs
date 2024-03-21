@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+
 public static class InputBus
 {
     static Dictionary<Type, List<object>> subscribers = new();

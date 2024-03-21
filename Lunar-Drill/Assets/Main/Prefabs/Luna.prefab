@@ -156,8 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557280340b81b1c4f8a94a99d3de3ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planetRadius: 2.5
-  _outerOrbitRange: 4.25
   _maxRotationSpeed: 0.15
   _slowLaseringPercent: 0.5
   _movementStartAngleThreshold: 3
@@ -170,8 +168,16 @@ MonoBehaviour:
   _damageCollisions:
     serializedVersion: 2
     m_Bits: 1280
+  _ores:
+    serializedVersion: 2
+    m_Bits: 2048
+  _health:
+    serializedVersion: 2
+    m_Bits: 4096
   _invincibleTime: 3
   _spriteRenderer: {fileID: 3688287869893254816}
+  _energyIncrease: 0.05
+  _energyDecrease: 0.175
 --- !u!114 &5807452418047519785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +247,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e812c6a3-4103-4554-a650-c6d7949cc58b
     m_ActionName: Connect/Swap[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 495d7b70-17d8-422c-b088-c702e351dc1a
+    m_ActionName: Connect/Ready[/Mouse/leftButton,/Pen/tip,/SwitchProControllerHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46dde74b-3159-4941-90e3-023c540bda67
+    m_ActionName: Singleplayer/MoveGoal[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b7c3c70b-0541-4359-b448-7f3a6020c8d1
+    m_ActionName: Singleplayer/MoveDirection[/SwitchProControllerHID/rightStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2020f35-150a-447c-878f-04d594b9cca9
+    m_ActionName: Singleplayer/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Luna

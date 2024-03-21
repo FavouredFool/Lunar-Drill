@@ -9,7 +9,8 @@ public class PlayerSelectCanvas : MonoBehaviour
     //--- Exposed Fields ------------------------
 
     [SerializeField][Range(0f, 100f)] float _sideMovementDelta;
-    [SerializeField]string _nextScene; // the Scene to be loaded after the players selected their characters
+
+    [SerializeField] SelectScreenHandling _selectScreenHandling;
 
     public enum PlayerSelectState { CONNECT, PREPARE };
 
@@ -28,6 +29,8 @@ public class PlayerSelectCanvas : MonoBehaviour
     public void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        _selectScreenHandling.Starting.AddListener(() => ChangeConnected(true));
+        _selectScreenHandling.StoppingGameStart.AddListener(() => ChangeConnected(false));
     }
 
 
@@ -53,17 +56,12 @@ public class PlayerSelectCanvas : MonoBehaviour
     {
         IsConnectState = !IsConnectState;
         MoveToSide();
-        if( IsConnectState )
-        {
-            StartCoroutine(LoadPlayScene());
-
-        }
     }
 
-    // Function to start the loading of another Scene
-    IEnumerator LoadPlayScene()
+    public void ChangeConnected(bool newState)
     {
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(_nextScene);
+        IsConnectState = newState;
+        MoveToSide();
     }
+
 }

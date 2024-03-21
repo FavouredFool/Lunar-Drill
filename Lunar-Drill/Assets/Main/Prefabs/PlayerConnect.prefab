@@ -115,7 +115,7 @@ MonoBehaviour:
       - m_Target: {fileID: -6263970602297081459}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
         m_MethodName: OnSwap
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -126,6 +126,70 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e812c6a3-4103-4554-a650-c6d7949cc58b
     m_ActionName: Connect/New action[/Keyboard/anyKey]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6263970602297081459}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnReady
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 495d7b70-17d8-422c-b088-c702e351dc1a
+    m_ActionName: Connect/Ready[/Mouse/leftButton,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6263970602297081459}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnMoveGoal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 46dde74b-3159-4941-90e3-023c540bda67
+    m_ActionName: Singleplayer/MoveGoal[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6263970602297081459}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnMoveDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b7c3c70b-0541-4359-b448-7f3a6020c8d1
+    m_ActionName: Singleplayer/MoveDirection[/XInputControllerWindows/rightStick,/XInputControllerWindows1/rightStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6263970602297081459}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnShoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c2020f35-150a-447c-878f-04d594b9cca9
+    m_ActionName: Singleplayer/Shoot[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast,/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest,/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth,/Keyboard/enter,/Keyboard/space,/XInputControllerWindows/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Connect
@@ -143,4 +207,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13840bdb195c3364faeb3927222cc2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _character: 0
+  ReadyStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  ChosenCharacterChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _character: 2
