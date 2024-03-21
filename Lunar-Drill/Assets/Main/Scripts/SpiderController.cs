@@ -25,6 +25,7 @@ public class SpiderController : MonoBehaviour
 
     [Header("Hit")]
     [SerializeField][Range(0.01f, 5f)] float _invincibleTime = 5f;
+    [SerializeField] HealthPickup _healthPickupBlueprint;
 
     public int MoveSign { get; private set; } = 0;
     public float OverheatT { get; set; } = 0;
@@ -278,14 +279,18 @@ public class SpiderController : MonoBehaviour
         IsVulnerable = false;
         IsInvincible = true;
         OverheatT = 0;
+        SpawnHP();
         DOVirtual.DelayedCall(4, () => IsInvincible = false, false);
 
         foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
         {
             spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 48, 0.75f);
         }
+    }
 
-        
+    void SpawnHP()
+    {
+        Instantiate(_healthPickupBlueprint, transform.position, Quaternion.LookRotation(Vector3.forward, transform.position.normalized));
     }
 
     private void OnTriggerStay2D(Collider2D collision)

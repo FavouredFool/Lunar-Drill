@@ -28,6 +28,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     [Header("Collision")]
     [SerializeField] LayerMask _damageCollisions;
     [SerializeField] LayerMask _ores;
+    [SerializeField] LayerMask _health;
     [SerializeField][Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
@@ -289,6 +290,13 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     }
 
+    void GainHealth()
+    {
+        GameManager manager = FindObjectOfType<GameManager>();
+
+        manager.PlayerHP = Mathf.Min(4, manager.PlayerHP + 1);
+    }
+
     void GainEnergy()
     {
         EnergyT = Mathf.Clamp01(EnergyT + _energyIncrease);
@@ -309,6 +317,11 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
             GainEnergy();
             collision.gameObject.GetComponent<OreController>().DestroyOre();
+        }
+        else if (Utilities.LayerMaskContainsLayer(_health, collision.gameObject.layer))
+        {
+            GainHealth();
+            collision.gameObject.GetComponent<HealthPickup>().DestroyPickup();
         }
     }
 
