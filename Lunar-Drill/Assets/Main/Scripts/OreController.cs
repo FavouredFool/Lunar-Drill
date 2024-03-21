@@ -9,7 +9,6 @@ public class OreController : MonoBehaviour
 
     [Header("Layers")]
     [SerializeField] LayerMask _pickUpLayer;
-    [SerializeField] LayerMask _consumeLayer;
 
     [Header("Radius")]
     [SerializeField][Range(0.1f, 5f)] float _outerRadius;
@@ -62,13 +61,6 @@ public class OreController : MonoBehaviour
                 SetDrillian(collision);
             }
         }
-        else if (_consumeLayer == (_consumeLayer | 1 << collision.gameObject.layer))
-        {
-            if (_oreState == OreState.FLYING)
-            {
-                DestroyOre();
-            }
-        }
     }
 
     //--- Public Methods ------------------------
@@ -87,10 +79,7 @@ public class OreController : MonoBehaviour
         _moveTween = DOTween.To(() => (Vector2)transform.position, x => transform.position = x, goalPosition, _durationTillOnOuterRadius).SetEase(Ease.OutSine);
     }
 
-
-    //--- Private Methods ------------------------
-
-    void DestroyOre()
+    public void DestroyOre()
     {
         if (_moveTween != null && _moveTween.IsActive())
         {
@@ -99,6 +88,9 @@ public class OreController : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+
+    //--- Private Methods ------------------------
 
     void SetDrillian(Collider2D collision)
     {

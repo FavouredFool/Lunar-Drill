@@ -309,7 +309,10 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         }
         else if (Utilities.LayerMaskContainsLayer(_ores, collision.gameObject.layer))
         {
+            if (Mathf.Approximately(EnergyT, 1)) return;
+
             GainEnergy();
+            collision.gameObject.GetComponent<OreController>().DestroyOre();
         }
     }
 
