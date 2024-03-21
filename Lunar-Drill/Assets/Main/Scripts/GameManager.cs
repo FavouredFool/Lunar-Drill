@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
 
         _introTextfields[3].gameObject.SetActive(true);
 
+        yield return new WaitForSecondsRealtime(1f);
+
         _countdownTextfield.gameObject.SetActive(true);
 
         for (int i = 3; i > 0; i--)
