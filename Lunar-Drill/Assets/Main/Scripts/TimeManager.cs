@@ -8,10 +8,11 @@ public class TimeManager : MonoBehaviour
     public static float hitFrameTime = 0.5f;
     public static TimeManager main;
     [SerializeField] OptionsMenuUtilities optionsMenu;
+    [SerializeField] GameManager gameManager;
 
     [SerializeField] float currentTimeScale;
 
-    bool isPaused => optionsMenu._isOpen;
+    bool isPaused => optionsMenu._isOpen||gameManager.inCutscene;
 
     Tween timeScaleTween;
 
