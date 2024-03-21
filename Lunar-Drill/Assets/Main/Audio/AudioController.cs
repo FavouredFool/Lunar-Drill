@@ -9,11 +9,17 @@ public static class AudioController
 {
     static Dictionary<Type, List<object>> subscribers = new(); // Dictionary to save whicht subscribers listen to which events.
 
-    public static void Subscribe<T>(IAudioSubscriber<T> sub) where T : IAudioEvent // Method for a Subscriber to subscribe to 
+    public static void Subscribe<T>(IAudioSubscriber<T> sub) where T : IAudioEvent // Method for a Subscriber to subscribe to the Audio Controller
     {
         if (!subscribers.ContainsKey(typeof(T)))
             subscribers.Add(typeof(T), new());
         subscribers[typeof(T)].Add(sub);
+    }
+    public static void Unsubscribe<T>(IAudioSubscriber<T> sub) where T : IAudioEvent // Method for a Subscriber to unsubscribe from the Audio Controller
+    {
+        if (!subscribers.ContainsKey(typeof(T)))
+            return;
+        subscribers[typeof(T)].Remove(sub);
     }
 
     public static void Fire<T>(T e) where T:IAudioEvent // Function used to fire Audio Events. This notifies all (registered)Subscribers of the ivent
