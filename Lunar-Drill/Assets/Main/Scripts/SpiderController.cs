@@ -91,6 +91,9 @@ public class SpiderController : MonoBehaviour
 
                 _spriteIterator.Stun(float.MaxValue); //Change this to overheat time
 
+                Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0f, 0.1f));
+                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0f, 0.1f));
+
                 // stop current move??
             }
         }
@@ -281,6 +284,12 @@ public class SpiderController : MonoBehaviour
         {
             spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 48, 0.75f);
         }
+
+        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.7f, 0.8f),0.2f);
+        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.7f, 0.8f),0.2f);
+
+        Rumble.main?.RemovePermanentRumble(ChosenCharacter.luna, new Vector2(0f, 0.1f));
+        Rumble.main?.RemovePermanentRumble(ChosenCharacter.drillian, new Vector2(0f, 0.1f));
     }
 
     void SpawnHP()
