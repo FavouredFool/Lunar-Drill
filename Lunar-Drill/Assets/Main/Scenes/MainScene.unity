@@ -3184,6 +3184,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1848583452407653398, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484286899473381704, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5337368519830427384, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_Name
       value: Luna

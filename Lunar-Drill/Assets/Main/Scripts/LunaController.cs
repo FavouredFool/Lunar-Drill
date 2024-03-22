@@ -23,7 +23,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     [SerializeField] [Range(0.01f, 1f)] float _laserSpeed;
 
     [Header("Knockback")]
-    [SerializeField] [Range(0.1f, 3f)] float _laserKnockbackStrength;
+    [SerializeField] [Range(0f, 3f)] float _laserKnockbackStrength;
     [SerializeField] [Range(0.1f, 3f)] float _orbitReturnStrength;
 
     [Header("Collision")]
@@ -184,6 +184,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         if (Mathf.Approximately(EnergyT, 0)) return;
 
         _laserCollider.enabled = false;
+        _laserVisual.enabled = true;
 
         if (_laserStartTween != null && _laserStartTween.IsActive())
         {
