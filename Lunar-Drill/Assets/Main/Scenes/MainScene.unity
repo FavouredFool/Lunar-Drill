@@ -2590,6 +2590,7 @@ GameObject:
   - component: {fileID: 531625938}
   - component: {fileID: 531625937}
   - component: {fileID: 531625936}
+  - component: {fileID: 531625940}
   m_Layer: 5
   m_Name: Options Panel
   m_TagString: Untagged
@@ -2697,6 +2698,29 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!223 &531625940
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531625934}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 100
+  m_TargetDisplay: 0
 --- !u!1 &531695795
 GameObject:
   m_ObjectHideFlags: 0
@@ -5773,10 +5797,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2074041987}
-  - {fileID: 1032673094}
   - {fileID: 400298921}
   - {fileID: 775249138}
   - {fileID: 990399613}
+  - {fileID: 1032673094}
   m_Father: {fileID: 1989054596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
