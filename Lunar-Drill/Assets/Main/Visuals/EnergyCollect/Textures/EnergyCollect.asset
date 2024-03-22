@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7725006243459147467
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77e015c9f1a1eb44a23bc84ec1b265d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FlipbookNumU: 1
+  FlipbookNumV: 2
+  Mode: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546069fd762786f4da89225e1989d105, type: 3}
+  m_Name: EnergyCollect
+  m_EditorClassIdentifier: 
+  inputFrameGUIDs:
+  - 171483f89ec438d43942b1f655541702
+  - 3703946a6caff6d498e3c7867736c564
+  processorInfos:
+  - {fileID: 8640816017509002057}
+  exportSettings:
+    fileName: Assets/Main/Visuals/EnergyCollect/Textures/EnergyCollect_1x2.png
+    frameCount: 1
+    outputShape: 0
+    exportMode: 2
+    exportAlpha: 1
+    exportSeparateAlpha: 0
+    sRGB: 1
+    highDynamicRange: 0
+    compress: 1
+    generateMipMaps: 1
+    wrapMode: 0
+    filterMode: 1
+    dataContents: 0
+  editSettings:
+    selectedProcessor: -1
+    lockedProcessor: -1
+  inheritSettingsReference: {fileID: 0}
+--- !u!114 &8640816017509002057
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43fd70c9b64e53a4e8702dbd00412a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enabled: 1
+  Settings: {fileID: -7725006243459147467}

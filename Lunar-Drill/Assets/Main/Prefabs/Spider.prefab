@@ -212,10 +212,10 @@ MonoBehaviour:
   crest: {fileID: 2446997433656444215}
   fps: 6
   rotTime: 2
+  _energyLoss: {fileID: 32682472928292329}
   _hitSprite: {fileID: 21300000, guid: 216a83dc72275074085e23ed353ae775, type: 3}
   _stunSprite: {fileID: 21300000, guid: 74a7d99e6b9918f4cb4db5a6c78b3937, type: 3}
   _idleSprite: {fileID: 21300000, guid: 0287cf16040a2ef4e974c3218e2503c8, type: 3}
-  _energyLoss: {fileID: 32682472928292329}
 --- !u!1 &2332832379483453229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,7 +1123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4620942162638526875, guid: 564bb88ccdc15b34caadb30466b56fa7, type: 3}
       propertyPath: m_SortingOrder
-      value: 5
+      value: -98
       objectReference: {fileID: 0}
     - target: {fileID: 6919305023499579173, guid: 564bb88ccdc15b34caadb30466b56fa7, type: 3}
       propertyPath: m_Name

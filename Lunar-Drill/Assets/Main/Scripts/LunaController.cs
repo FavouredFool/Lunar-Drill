@@ -42,6 +42,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     [Header("VFX")]
     [SerializeField] VisualEffect _laserCharge;
+    [SerializeField] VisualEffect _energyCollect;
 
     public int MoveSign { get; private set; } = 0;
     public float EnergyT { get; private set; } = 0.33f;
@@ -332,6 +333,9 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
             GainEnergy();
             collision.gameObject.GetComponent<OreController>().DestroyOre();
+
+            // VFX
+            _energyCollect.SendEvent("Collect");
         }
         else if (Utilities.LayerMaskContainsLayer(_health, collision.gameObject.layer))
         {
