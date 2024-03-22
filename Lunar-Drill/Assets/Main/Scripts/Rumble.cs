@@ -14,7 +14,7 @@ public class Rumble : MonoBehaviour
 
     static bool isSingleplayer;
 
-    public List<(Vector2, float)>
+     List<(Vector2, float)>
         lunaStack = new(),
         drillianStack = new(),
         singleplayerStack = new();
@@ -85,7 +85,8 @@ public class Rumble : MonoBehaviour
         List<(Vector2, float)> stack = GetStack(c);
         if (stack == null) return;
 
-        stack.Add((vec, Time.time + time));
+        stack.Add((vec, time==-1? -1: Time.time + time));
+        Debug.Log($"Added {c} rumble of {vec} for {time}.  Stack size is {stack.Count}");
     }
     public void RemovePermanentRumble(ChosenCharacter c, Vector2 vec)
     {
@@ -97,9 +98,12 @@ public class Rumble : MonoBehaviour
             if (stack[i].Item1 == vec && stack[i].Item2 < 0)
             {
                 stack.RemoveAt(i);
+                Debug.Log($"Removed {c} rumble of {vec}. Stack size is {stack.Count}");
                 return;
             }
         }
+        Debug.Log($"Failed to remove {c} rumble of {vec}. Stack size remains {stack.Count}");
+
     }
 
     private void Awake()
@@ -144,7 +148,7 @@ public class Rumble : MonoBehaviour
                     i--;
                 }
             }
-            if(u!=null) foreach (var d in u.pairedDevices)
+            if(u!=null&&u.valid) foreach (var d in u.pairedDevices)
             {
                     if (d is Gamepad)
                     {
