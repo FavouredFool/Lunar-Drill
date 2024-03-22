@@ -53,19 +53,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3.5
   _minGravityStrength: 0.65
-  _maxGravityStrength: 1.5
-  _timeTillMaxGravityOutside: 1.25
+  _maxGravityStrength: 2
+  _timeTillMaxGravityOutside: 1.4
   _maxRotationControl: 7.5
   _timeTillControlRegain: 0.2
   _damageCollisions:
     serializedVersion: 2
     m_Bits: 1600
-  _spiderLaserCollision:
-    serializedVersion: 2
-    m_Bits: 1024
   _spiderCollision:
     serializedVersion: 2
     m_Bits: 512
+  _laserCollision:
+    serializedVersion: 2
+    m_Bits: 1088
   _invincibleTime: 3
   _spriteRenderer: {fileID: 1141031731221533029}
   _spriteIterator: {fileID: 1038394447196655809}

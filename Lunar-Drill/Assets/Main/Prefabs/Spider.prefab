@@ -119,7 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0541081b8f0724891a309c5fce66cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constantlyRotating: 0
   _rotationSpeed: 0.1
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
@@ -129,7 +128,7 @@ MonoBehaviour:
   _drillian:
     serializedVersion: 2
     m_Bits: 256
-  _overheatGain: 0.25
+  _overheatGain: 0.175
   _overheatLoss: 0.01
   _spriteRenderers:
   - {fileID: 2297733279568171791}

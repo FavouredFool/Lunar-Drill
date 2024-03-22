@@ -2884,14 +2884,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7385002710813159084, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
-      propertyPath: _hitVolume
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 7385002710813159084, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
-      propertyPath: _shootLaserVolume
-      value: 0.6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3985,14 +3977,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -45
       objectReference: {fileID: 0}
-    - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
-      propertyPath: _laser.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
-      propertyPath: _drillian.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4256,22 +4240,6 @@ PrefabInstance:
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
-      propertyPath: _maxGravityStrength
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
-      propertyPath: _laserCollision.m_Bits
-      value: 1088
-      objectReference: {fileID: 0}
-    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
-      propertyPath: _spiderCollision.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
-      propertyPath: _timeTillMaxGravityOutside
-      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9948,54 +9916,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1271885357551326900, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1271885357551326900, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1271885357551326900, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1271885357551326900, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269182715613013940, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269182715613013940, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269182715613013940, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269182715613013940, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2875849114915075368, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2875849114915075368, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2875849114915075368, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2875849114915075368, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4085835390566628310, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10080,12 +10000,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: The Undertaker
       objectReference: {fileID: 0}
-    - target: {fileID: 7609450279003870790, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4232740741643118685, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

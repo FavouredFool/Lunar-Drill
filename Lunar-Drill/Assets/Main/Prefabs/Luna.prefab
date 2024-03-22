@@ -203,6 +203,12 @@ MonoBehaviour:
   _damageCollisions:
     serializedVersion: 2
     m_Bits: 1280
+  _drillian:
+    serializedVersion: 2
+    m_Bits: 256
+  _laser:
+    serializedVersion: 2
+    m_Bits: 1024
   _ores:
     serializedVersion: 2
     m_Bits: 2048
