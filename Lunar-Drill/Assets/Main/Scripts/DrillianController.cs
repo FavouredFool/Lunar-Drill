@@ -26,6 +26,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     [Header("Collision")]
     [SerializeField] LayerMask _damageCollisions;
+    [SerializeField] LayerMask _spiderCollision;
+    [SerializeField] LayerMask _laserCollision;
     [SerializeField] [Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
@@ -248,8 +250,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
         _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
 
-        AudioController.Fire(new DrillianHitSpider(""));
-
         // remove all ores
         foreach (OreController ore in FollowingOres)
         {
@@ -270,6 +270,15 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             if (!_isInvincible && !spider.IsNotHurtingOnTouch)
             {
                 GetHit();
+
+                if (Utilities.LayerMaskContainsLayer(_spiderCollision, collision.gameObject.layer))
+                {
+                    AudioController.Fire(new DrillianHitSpider(""));
+                }
+                else if (Utilities.LayerMaskContainsLayer(_laserCollision, collision.gameObject.layer))
+                {
+                    AudioController.Fire(new DrillianHitLaser(""));
+                }
             }
         }
     }
