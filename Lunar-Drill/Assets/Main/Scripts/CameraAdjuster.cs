@@ -16,14 +16,17 @@ public class CameraAdjuster : MonoBehaviour
     }
 
     Vector2 lastScreenResolution;
+    bool lastFullScreen;
     private void Update()
     {
         Vector2 screenResolution = new Vector2(Screen.width, Screen.height);
+        bool fullScreen = Screen.fullScreen;
 
-        if (screenResolution!=lastScreenResolution)
+        if (screenResolution!=lastScreenResolution || fullScreen!=lastFullScreen)
             Adjust();
 
         lastScreenResolution = screenResolution;
+        lastFullScreen = fullScreen;
     }
 
     public void Adjust()
