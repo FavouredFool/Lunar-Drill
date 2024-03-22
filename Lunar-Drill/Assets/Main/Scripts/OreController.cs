@@ -39,6 +39,8 @@ public class OreController : MonoBehaviour
 
     public enum OreState { BURROWED, FOLLOWING, FLYING  };
 
+    public bool Collected { get; set; } = false;
+
 
     //--- Private Fields ------------------------
 

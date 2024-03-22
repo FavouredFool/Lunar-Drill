@@ -372,7 +372,12 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
             GainEnergy();
 
             // VFX
-            _energyCollect.SendEvent("Collect");
+            if (!collision.gameObject.GetComponent<OreController>().Collected)
+            {
+                _energyCollect.SendEvent("Collect");
+                collision.gameObject.GetComponent<OreController>().Collected = true;
+            }
+            
             collision.gameObject.GetComponent<OreController>().DestroyOre();
         }
         else if (Utilities.LayerMaskContainsLayer(_health, collision.gameObject.layer))
