@@ -7,6 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerConnectController : MonoBehaviour
 {
+
     // Enum to save which character is chosen by this Player connect Controller.
     public enum ChosenCharacter
     {
@@ -34,7 +35,7 @@ public class PlayerConnectController : MonoBehaviour
 
 
     //--- Private Fields ------------------------
-    PlayerInput _input; // Input. Needed to assign the User to the Character
+    public PlayerInput _input { get; set; } // Input. Needed to assign the User to the Character
     
     [SerializeField] ChosenCharacter _character = ChosenCharacter.singleplayer; // The Character Chosen by the User attributed to this Gameobject.
 
@@ -46,7 +47,6 @@ public class PlayerConnectController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         _input = GetComponent<PlayerInput>();
         SceneManager.sceneLoaded += OnSceneLoaded;
-
     }
 
     // When the Scene is loaded then we assign the player input to the character
@@ -132,6 +132,7 @@ public class PlayerConnectController : MonoBehaviour
                     Debug.Log("Disabled INput");
                 }
                 _input.SwitchCurrentActionMap("Luna");
+                Rumble.luna = this;
             }
 
         }
@@ -149,6 +150,7 @@ public class PlayerConnectController : MonoBehaviour
 
                 }
                 _input.SwitchCurrentActionMap("Drillian");
+                Rumble.drillian = this;
             }
         }
         else
@@ -168,8 +170,6 @@ public class PlayerConnectController : MonoBehaviour
                     goPlayerInput.enabled = false;
                     
                 }
-                
-                
             }
             else
             {
@@ -187,6 +187,8 @@ public class PlayerConnectController : MonoBehaviour
                 {
                     _input.SwitchCurrentActionMap("Connect");
                 }
+                Rumble.drillian = this;
+                Rumble.luna = this;
             }
         }
         
