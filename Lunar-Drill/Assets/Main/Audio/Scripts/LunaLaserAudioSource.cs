@@ -19,6 +19,7 @@ public class LunaLaserAudioSource : MonoBehaviour, IAudioSubscriber<LunaLaserFir
             _audioSource.Play();
         }
         _audioSource.pitch = Mathf.Lerp(_laserPitchRange[0], _laserPitchRange[1], audioEvent.LaserEnergyRemaining);
+        _audioSource.volume = _shootLaserVolume;
         
         // Logic for when theres no energy remaining
         if (audioEvent.LaserEnergyRemaining <= 0)
