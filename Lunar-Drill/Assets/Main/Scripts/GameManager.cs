@@ -31,7 +31,9 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+#if !UNITY_EDITOR
         StartCoroutine(StartSequence());
+#endif
     }
 
     public IEnumerator StartSequence()

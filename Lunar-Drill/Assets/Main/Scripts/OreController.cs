@@ -54,6 +54,7 @@ public class OreController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _oreVisuals.sprite = _embedded;
+        _oreVisuals.transform.Rotate(Vector3.forward, Random.Range(0,360));
     }
 
     private void Update()
