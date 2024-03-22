@@ -14,6 +14,6 @@ public class HealthPickup : MonoBehaviour
 
     public void DestroyPickup()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, 5);
     }
 }
