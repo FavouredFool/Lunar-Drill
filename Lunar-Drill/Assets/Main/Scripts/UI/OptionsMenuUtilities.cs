@@ -16,6 +16,9 @@ public class OptionsMenuUtilities : MonoBehaviour
 
     //--- Exposed Fields ------------------------
 
+    [SerializeField] private RectTransform _mainMenuRest;
+    [SerializeField] private RectTransform _optionsMenuRest;
+
     [SerializeField] private GameObject _mainMenuPanel; // Contains main menu buttons
     [SerializeField] private GameObject _optionsPanel; // Panel containing option UI
     [SerializeField] private GameObject _firstSelected; // Object that should be first selected
@@ -59,23 +62,23 @@ public class OptionsMenuUtilities : MonoBehaviour
 
         if (main)
         {
-            if (_isOpen)
+            if (_isOpen) //Close it
             {
 
-                _optionsPanel.transform.DOMoveX(Screen.width * 1.5f, _pullTime).SetUpdate(true);
+                _optionsPanel.transform.DOLocalMove(_optionsMenuRest.localPosition, _pullTime).SetUpdate(true);
                 DOVirtual.DelayedCall(_pullTime, () => _optionsPanel.SetActive(false)).SetUpdate(true);
 
                 _mainMenuPanel.SetActive(true);
-                _mainMenuPanel.transform.DOMoveX(Screen.width / 2, _pullTime).SetUpdate(true);
+                _mainMenuPanel.transform.DOLocalMove(Vector3.zero, _pullTime).SetUpdate(true);
 
                 Time.timeScale = 1;
             }
-            else
+            else //Open it
             {
                 _optionsPanel.SetActive(true);
-                _optionsPanel.transform.DOMoveX(Screen.width / 2, _pullTime).SetUpdate(true);
+                _optionsPanel.transform.DOLocalMove(Vector3.zero, _pullTime).SetUpdate(true);
 
-                _mainMenuPanel.transform.DOMoveX(-Screen.width/2, _pullTime).SetUpdate(true);
+                _mainMenuPanel.transform.DOLocalMove(_mainMenuRest.localPosition,_pullTime).SetUpdate(true);
                 DOVirtual.DelayedCall(_pullTime, () => _mainMenuPanel.SetActive(false)).SetUpdate(true);
 
                 var eventSystem = EventSystem.current;
@@ -85,17 +88,17 @@ public class OptionsMenuUtilities : MonoBehaviour
         }
         else
         {
-            if (_isOpen)
+            if (_isOpen) //Close it
             {
 
-                _optionsPanel.transform.DOMoveY(Screen.width * 1.5f, _pullTime).SetUpdate(true);
+                _optionsPanel.transform.DOLocalMove(_optionsMenuRest.localPosition, _pullTime).SetUpdate(true);
                 DOVirtual.DelayedCall(_pullTime, () => _optionsPanel.SetActive(false)).SetUpdate(true);
                 Time.timeScale = 1;
             }
-            else
+            else //Open it
             {
                 _optionsPanel.SetActive(true);
-                _optionsPanel.transform.DOMoveY(Screen.width / 2, _pullTime).SetUpdate(true);
+                _optionsPanel.transform.DOLocalMove(Vector3.zero, _pullTime).SetUpdate(true);
 
                 var eventSystem = EventSystem.current;
                 eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
@@ -193,6 +196,7 @@ public class OptionsMenuUtilities : MonoBehaviour
         {
             Screen.fullScreenMode = FullScreenMode.Windowed;
         }
+        CameraAdjuster.main.Adjust();
     }
 
     /* Changes screen resolution given index of dropdown menu. */
@@ -201,6 +205,7 @@ public class OptionsMenuUtilities : MonoBehaviour
         var x = _resolutions[idx].text.Split(" ")[0];
         var y = _resolutions[idx].text.Split(" ")[2];
         Screen.SetResolution(Int32.Parse(x), Int32.Parse(y), FullScreenMode.ExclusiveFullScreen);
+        CameraAdjuster.main.Adjust();
     }
 
     /* Function to change the Master Volume */
