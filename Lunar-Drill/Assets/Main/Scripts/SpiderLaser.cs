@@ -67,8 +67,12 @@ public class SpiderLaser : MonoBehaviour
         while (Time.time - waitStart < _preLaserDuration)
         {
             // If vulnerable, break out earlier
-            if (_spider.IsVulnerable) break;
-            yield return null;
+            if (_spider.IsVulnerable)
+            {
+                break;
+            }
+
+            yield return new WaitForEndOfFrame();
         }
 
         _laserSlimVisuals.ForEach(e => e.enabled = false);
@@ -82,15 +86,20 @@ public class SpiderLaser : MonoBehaviour
         thicknessTweens.Append(thicknessTween0);
         thicknessTweens.Join(thicknessTween1);
 
-        thicknessTweens.OnComplete(() => _laserCollider.enabled = true);
+        bool canBreak = false;
+        thicknessTweens.OnComplete(() => {
+
+            _laserCollider.enabled = true;
+            canBreak = true;
+        });
 
         float waitStart2 = Time.time;
 
         while (Time.time - waitStart2 < _laserDuration)
         {
             // If vulnerable, break out earlier
-            if (_spider.IsVulnerable) break;
-            yield return null;
+            if (_spider.IsVulnerable && canBreak) break;
+            yield return new WaitForEndOfFrame();
         }
 
         _laserVisuals.ForEach(e => e.enabled = false);

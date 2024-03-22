@@ -122,6 +122,8 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator ShootRandom()
     {
+        if (IsVulnerable) yield break;
+
         _goalRotation = Random.insideUnitCircle.normalized;
 
         yield return new WaitForSeconds(Random.Range(0.5f, 2f));
