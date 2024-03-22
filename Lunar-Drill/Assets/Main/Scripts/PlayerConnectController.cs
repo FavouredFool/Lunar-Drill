@@ -102,7 +102,6 @@ public class PlayerConnectController : MonoBehaviour
     // Drillian Input Events
     public void OnMoveDirection(InputAction.CallbackContext context)
     {
-        Debug.Log("drillian");
         InputBus.Fire(new DrillianMoveDirection(context));
     }
 

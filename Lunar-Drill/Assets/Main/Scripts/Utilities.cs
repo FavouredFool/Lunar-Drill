@@ -2,8 +2,8 @@ using UnityEngine;
 
 public static class Utilities
 {
-    public static float PlanetRadius = 2.5f;
-    public static float InnerOrbit = 3f;
+    public static float PlanetRadius = 2.75f;
+    public static float InnerOrbit = 3.25f;
     public static float OuterOrbit = 4.25f;
 
     public static float Remap(this float value, float from1, float to1, float from2, float to2)

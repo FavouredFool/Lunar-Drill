@@ -11,11 +11,12 @@ public class SpiderLaser : MonoBehaviour
     //--- Exposed Fields ------------------------
 
     [Header("Laser")]
-    [SerializeField] Line[] _laserVisuals;
+    [SerializeField] SpriteRenderer[] _laserSlimVisuals;
+    [SerializeField] SpriteRenderer[] _laserVisuals;
     [SerializeField] BoxCollider2D _laserCollider;
-    [SerializeField][Range(0.1f, 1f)] float _laserMaxThickness;
-    [SerializeField][Range(0.01f, 1f)] float _laserMinThickness;
-    [SerializeField][Range(0.01f, 1f)] float _thickeningSpeed;
+    [SerializeField][Range(0.1f, 10f)] float _laserMaxThickness;
+    [SerializeField][Range(0.01f, 10f)] float _laserMinThickness;
+    [SerializeField][Range(0.01f, 10f)] float _thickeningTimeSeconds;
 
     [Header("Timings")]
     [SerializeField][Range(0.1f, 10f)] float _preLaserDuration;
@@ -46,20 +47,24 @@ public class SpiderLaser : MonoBehaviour
         _laserChargeInner.SetBool("Alive", true);
         _laserChargeInner.SendEvent("Charge");
 
-        _laserVisuals.ForEach(e => e.Thickness = _laserMinThickness);
-        _laserVisuals.ForEach(e => e.enabled = true);
+        _laserVisuals.ForEach(e => e.enabled = false);
+        _laserSlimVisuals.ForEach(e => e.enabled = true);
 
-        foreach (Line laserVisual in _laserVisuals)
+        foreach (SpriteRenderer spriteRenderer in _laserSlimVisuals)
         {
-            DOTween.To(() => laserVisual.Color, x => laserVisual.Color = x, Color.clear, _preLaserDuration).SetEase(Ease.InFlash, 12, 0);
+            DOTween.To(() => spriteRenderer.color, x => spriteRenderer.color = x, Color.clear, _preLaserDuration).SetEase(Ease.InFlash, 12, 0);
         }
         
         yield return new WaitForSeconds(_preLaserDuration);
 
+        _laserSlimVisuals.ForEach(e => e.enabled = false);
+        _laserVisuals.ForEach(e => e.enabled = true);
+        _laserVisuals.ForEach(e => e.size = new Vector2(_laserMinThickness, e.size.y));
+
         Sequence thicknessTweens = DOTween.Sequence();
 
-        Tween thicknessTween0 = DOTween.To(() => _laserVisuals[0].Thickness, x => _laserVisuals[0].Thickness = x, _laserMaxThickness, _thickeningSpeed).SetEase(Ease.InSine);
-        Tween thicknessTween1 = DOTween.To(() => _laserVisuals[1].Thickness, x => _laserVisuals[1].Thickness = x, _laserMaxThickness, _thickeningSpeed).SetEase(Ease.InSine);
+        Tween thicknessTween0 = DOTween.To(() => _laserVisuals[0].size, x => _laserVisuals[0].size = x, new Vector2(_laserMaxThickness, _laserVisuals[0].size.y), _thickeningTimeSeconds).SetEase(Ease.InCubic);
+        Tween thicknessTween1 = DOTween.To(() => _laserVisuals[1].size, x => _laserVisuals[1].size = x, new Vector2(_laserMaxThickness, _laserVisuals[1].size.y), _thickeningTimeSeconds).SetEase(Ease.InCubic);
         thicknessTweens.Append(thicknessTween0);
         thicknessTweens.Join(thicknessTween1);
 
