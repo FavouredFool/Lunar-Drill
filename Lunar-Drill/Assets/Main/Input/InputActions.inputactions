@@ -37,61 +37,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "WASD Composite",
-                    "id": "b2c0dd31-b112-4d4a-92e6-2376a0589f50",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "f5c5ce6e-27b1-4702-9d72-2139f92a5cf7",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "72fe8553-626f-4dcd-8c1e-ab357b1c5354",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "143660aa-25cf-49d1-9e1b-d673e5d17343",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "fef88950-90c3-4d27-bf34-567858754c55",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "ebce6311-cd10-4fb2-9e12-9f7d4216e6c0",
                     "path": "<Gamepad>/buttonSouth",
@@ -206,61 +151,6 @@
                     "action": "MoveDirection",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "WASD Composite",
-                    "id": "341fa6a4-a27b-4493-9fac-f2aec851f60f",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveDirection",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "39c86293-ea19-4e88-9ff8-3183ab96c68e",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveDirection",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "c2c22bd0-7146-42bd-8ada-ec2729b120c0",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveDirection",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "bb4da878-a965-4002-b9cb-1e5f7c1c3575",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveDirection",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "4bbee754-f20c-4816-a367-541e2a6ac73a",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveDirection",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         },
@@ -396,7 +286,18 @@
                 {
                     "name": "",
                     "id": "a267f2b9-61ae-4079-aa98-442b1d59fab2",
-                    "path": "*/{Cancel}",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9199e408-7f4c-4a7f-9919-6af4ee6670a8",
+                    "path": "<HID::PowerA NSW Wired controller>/button3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -407,7 +308,18 @@
                 {
                     "name": "",
                     "id": "32dd3b41-0b71-474f-8bec-49874c9de1b1",
-                    "path": "*/{PrimaryAction}",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ready",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "332f2af4-fb08-4105-ae09-321826a2d0a5",
+                    "path": "<HID::PowerA NSW Wired controller>/button2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -460,61 +372,6 @@
                     "action": "MoveGoal",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "WASD Composite",
-                    "id": "3137d9b8-2cac-443b-b7e8-2bb57f067546",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "e8309fb6-1e5e-42e4-9109-b8733b274d5e",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "34bc138d-3aba-47e5-87bd-238350b02550",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "3f4a29a7-ec0b-4650-b1cc-44487b06ac1c",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "4d7ca6c4-f674-4436-8662-27fff55b778d",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveGoal",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -667,6 +524,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "MoveDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "ArrowComposite",
+                    "id": "28710c93-2b46-49dd-b7d5-49ea1ca145dc",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGoal",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "237a8e69-71d2-4edc-ac75-29e45e8ea072",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGoal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "b285639b-ca42-4261-8255-e411573a1a0e",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGoal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "3cfb8a48-8c68-4a66-9f30-30d0aecbf5e7",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGoal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "ed584861-dad7-4f9b-83c0-63648aa67777",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGoal",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

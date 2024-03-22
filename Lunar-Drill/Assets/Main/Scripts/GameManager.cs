@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     int _playerHP;
     int _spiderHP;
 
+    public bool inCutscene { get; private set; } = false;
+
     public void Awake()
     {
         PlayerHP = _maxPlayerHP;
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitForFixedUpdate();
 
-        // Hier Timemanager timescale = 0;
+        inCutscene = true;
 
         Assert.IsTrue(_introTextfields.Length == 4);
 
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
 
         _introTextfields[3].gameObject.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _countdownTextfield.gameObject.SetActive(true);
 
@@ -78,7 +80,8 @@ public class GameManager : MonoBehaviour
         _introTextfields[3].gameObject.SetActive(false);
         _countdownTextfield.gameObject.SetActive(false);
 
-        // Hier Timemanager timescale = 1;
+        inCutscene = false;
+        Time.timeScale = 1;
     }
 
     public int PlayerHP { get => _playerHP; 

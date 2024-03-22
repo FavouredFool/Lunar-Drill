@@ -89,15 +89,12 @@ public class PlayerConnectController : MonoBehaviour
     
     public void OnMoveGoal(InputAction.CallbackContext context)
     {
-        Debug.Log("luna");
         InputBus.Fire(new LunaMoveGoal(context));
     }
 
     public void OnShoot(InputAction.CallbackContext context)
     {
         InputBus.Fire(new LunaShoot(context));
-        Debug.Log("luna");
-
     }
 
 
@@ -146,6 +143,7 @@ public class PlayerConnectController : MonoBehaviour
                     Debug.Log("Disabled INput");
 
                 }
+                _input.SwitchCurrentActionMap("Drillian");
             }
         }
         else
