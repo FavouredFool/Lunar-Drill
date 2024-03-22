@@ -102,7 +102,7 @@ public class SpiderSpriteIterator : MonoBehaviour
     [SerializeField] Sprite _hitSprite, _stunSprite, _idleSprite;
     public void Hit()
     {
-        Control(_hitSprite, TimeManager.hitFrameTime);
+        Control(_hitSprite, controller.InvinvibilityTime);
 
         animator.SetBool("stunned", false);
 

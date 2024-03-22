@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text _countdownTextfield;
 
     [SerializeField] TimeManager _timeManager;
+    [SerializeField] Undertaker _undertaker;
 
     [SerializeField] HUDisplay
         _playerHUD,
@@ -25,8 +26,8 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
-        PlayerHP = _maxPlayerHP;
-        SpiderHP = _maxSpiderHP;
+        SetHealth(_maxPlayerHP, true);
+        SetHealth(_maxSpiderHP, false);
     }
 
     public void Start()
@@ -86,29 +87,67 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public int PlayerHP { get => _playerHP; 
-        set 
+    public void SetHealth(int amount, bool isPlayer)
+    {
+        if (isPlayer)
         {
-            _playerHP = value; 
+            _playerHP = amount;
             _playerHUD.RefreshHearts(_playerHP);
-            if (_playerHP == 0) EndGame(false);
-            else TimeManager.main.HitFrame(); //Add Screenshake
         }
-    }
-    public int SpiderHP { get => _spiderHP; 
-        set 
-        { 
-            _spiderHP = value; 
+        else
+        {
+            _spiderHP = amount;
             _spiderHUD.RefreshHearts(_spiderHP);
-            if (_spiderHP == 0) EndGame(true);
-            else TimeManager.main.HitFrame(); //Add Screenshake
+        }
+    }
+    public void Hit(GameObject obj, bool isPlayer)
+    {
+        if (isPlayer)
+        {
+            _playerHP--;
+            _playerHP = Mathf.Max(0, _playerHP);
+            _playerHUD.RefreshHearts(_playerHP);
+            if (_playerHP == 0)
+            {
+                EndGame(obj, false);
+                return;
+            }
+        }
+        else
+        {
+            _spiderHP--;
+            _spiderHP = Mathf.Max(0, _spiderHP);
+            _spiderHUD.RefreshHearts(_spiderHP);
+            if (_spiderHP == 0)
+            {
+                EndGame(obj, true);
+                return;
+            }
+        }
+
+        TimeManager.main.HitFrame(); 
+        //Add Screenshake?
+    }
+    public void Heal(GameObject obj, bool isPlayer)
+    {
+        if (isPlayer)
+        {
+            _playerHP++;
+            _playerHP = Mathf.Min(_maxPlayerHP,_playerHP);
+            _playerHUD.RefreshHearts(_playerHP);
+        }
+        else
+        {
+            _spiderHP++;
+            _maxSpiderHP = Mathf.Min(_maxSpiderHP, _spiderHP);
+            _spiderHUD.RefreshHearts(_spiderHP);
         }
     }
 
-    
-
-    public void EndGame(bool playerVictory)
+    public void EndGame(GameObject obj,bool playerVictory)
     {
         Debug.Log(playerVictory? "VICTORY!":"GAME OVER!");
+        Time.timeScale = 0;
+        _undertaker.Activate(obj, playerVictory);
     }
 }

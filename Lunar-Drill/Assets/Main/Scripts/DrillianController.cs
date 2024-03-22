@@ -232,7 +232,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         // Health Reduce
         _spriteIterator.Hit();
-        FindObjectOfType<GameManager>().PlayerHP -= 1;
+        FindObjectOfType<GameManager>().Hit(gameObject, true);
 
         // invincible
         _isInvincible = true;
