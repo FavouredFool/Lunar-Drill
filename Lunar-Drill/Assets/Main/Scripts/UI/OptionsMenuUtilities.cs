@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class OptionsMenuUtilities : MonoBehaviour
 {
@@ -14,8 +16,11 @@ public class OptionsMenuUtilities : MonoBehaviour
 
     //--- Exposed Fields ------------------------
 
+    [SerializeField] private GameObject _mainMenuPanel; // Contains main menu buttons
     [SerializeField] private GameObject _optionsPanel; // Panel containing option UI
     [SerializeField] private GameObject _firstSelected; // Object that should be first selected
+
+    [SerializeField] [Range(0, 3)] float _pullTime;
 
     [SerializeField] private Slider _masterSlider; // The UI slider that corresponds to the master volume.
     [SerializeField] private Slider _musicSlider; // The UI slider that corresponds to the music volume.
@@ -40,26 +45,70 @@ public class OptionsMenuUtilities : MonoBehaviour
     //--- Public Methods ------------------------
 
     /* Opens and closes options panel. */
-    public void Toggle()
+
+    public void HandleToggleInput(InputAction.CallbackContext context)
     {
-        if (_isOpen)
+        if (!context.performed) return;
+
+        Toggle(false);
+    }
+
+    /* Toggles options. main=true -> called from main menu, main=false -> called from game*/
+    public void Toggle(bool main)
+    {
+
+        if (main)
         {
-            _optionsPanel.SetActive(false);
-            Time.timeScale = 1;
+            if (_isOpen)
+            {
+
+                _optionsPanel.transform.DOMoveX(Screen.width * 1.5f, _pullTime).SetUpdate(true);
+                DOVirtual.DelayedCall(_pullTime, () => _optionsPanel.SetActive(false)).SetUpdate(true);
+
+                _mainMenuPanel.SetActive(true);
+                _mainMenuPanel.transform.DOMoveX(Screen.width / 2, _pullTime).SetUpdate(true);
+
+                Time.timeScale = 1;
+            }
+            else
+            {
+                _optionsPanel.SetActive(true);
+                _optionsPanel.transform.DOMoveX(Screen.width / 2, _pullTime).SetUpdate(true);
+
+                _mainMenuPanel.transform.DOMoveX(-Screen.width/2, _pullTime).SetUpdate(true);
+                DOVirtual.DelayedCall(_pullTime, () => _mainMenuPanel.SetActive(false)).SetUpdate(true);
+
+                var eventSystem = EventSystem.current;
+                eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
+            }
+            _isOpen = !_isOpen;
         }
         else
         {
-            _optionsPanel.SetActive(true);
-            var eventSystem = EventSystem.current;
-            eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
+            if (_isOpen)
+            {
+
+                _optionsPanel.transform.DOMoveY(Screen.width * 1.5f, _pullTime).SetUpdate(true);
+                DOVirtual.DelayedCall(_pullTime, () => _optionsPanel.SetActive(false)).SetUpdate(true);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                _optionsPanel.SetActive(true);
+                _optionsPanel.transform.DOMoveY(Screen.width / 2, _pullTime).SetUpdate(true);
+
+                var eventSystem = EventSystem.current;
+                eventSystem.SetSelectedGameObject(_firstSelected, new BaseEventData(eventSystem));
+            }
+            _isOpen = !_isOpen;
         }
-        _isOpen = !_isOpen;
+
     }
 
     /* Switches the scene to main menu scene. */
     public void ToMainMenu(string sceneName)
     {
-        Toggle();
+        Toggle(false);
         Debug.Log(sceneName);
         SceneManager.LoadScene(sceneName);
     }
