@@ -7,7 +7,7 @@ public class LunaAudioSource : MonoBehaviour, IAudioSubscriber<LunaHitLaser>, IA
     AudioSource _audioSource;
 
     [Header("Audio Laser Hit  Options")]
-    [SerializeField] AudioClip _hitByLaserClip = null; // Clips for when Drillian is hit by the laser.
+    [SerializeField] AudioClip _hitByLaserClip = null; // Clips for when Luna is hit by the laser.
     [SerializeField, Range(0, 1f)] float _hitByLaserVolume = 1.0f; // Volume of Laser 
     [Header("Audio Hit by  Spider Options")]
     [SerializeField] AudioClip _hitByDrillianClip = null; // Clips for when Luna takes damage caused by Drillian.
