@@ -20,12 +20,16 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+#if !UNITY_EDITOR
         DOTween.To(() => _zoomT, e => _zoomT = e, 1, _zoomTime).SetUpdate(true).SetEase(Ease.InOutSine);
+#endif
     }
+
 
     void Update()
     {
-        //Debug.Log(_zoomT);
+#if !UNITY_EDITOR
         _camera.orthographicSize = DOVirtual.EasedValue(_startZoom, _endZoom, _zoomT, Ease.Linear);
+#endif
     }
 }

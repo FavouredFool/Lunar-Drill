@@ -183,7 +183,6 @@ MonoBehaviour:
   _energyDecrease: 0.175
   _laserCharge: {fileID: 8672350994022337839}
   _energyCollect: {fileID: 2561919243444736616}
-  _energyCollectDelay: 0.2
 --- !u!114 &5807452418047519785
 MonoBehaviour:
   m_ObjectHideFlags: 0

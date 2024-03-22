@@ -128,8 +128,9 @@ public class OreController : MonoBehaviour
         if (spawner)
             spawner.RemoveOre(this);
 
-        _moveTween = transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
-            .OnComplete(() => Destroy(gameObject,0.1f));
+        _moveTween = transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
+
+        Destroy(gameObject, 5f);
     }
 
 

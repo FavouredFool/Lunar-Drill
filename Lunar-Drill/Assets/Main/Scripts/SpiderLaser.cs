@@ -11,6 +11,7 @@ public class SpiderLaser : MonoBehaviour
     //--- Exposed Fields ------------------------
 
     [Header("Laser")]
+    [SerializeField] SpriteRenderer[] _laserSlimVisuals;
     [SerializeField] SpriteRenderer[] _laserVisuals;
     [SerializeField] BoxCollider2D _laserCollider;
     [SerializeField][Range(0.1f, 10f)] float _laserMaxThickness;
@@ -46,15 +47,19 @@ public class SpiderLaser : MonoBehaviour
         _laserChargeInner.SetBool("Alive", true);
         _laserChargeInner.SendEvent("Charge");
 
-        _laserVisuals.ForEach(e => e.size = new Vector2(_laserMinThickness, e.size.y));
-        _laserVisuals.ForEach(e => e.enabled = true);
+        _laserVisuals.ForEach(e => e.enabled = false);
+        _laserSlimVisuals.ForEach(e => e.enabled = true);
 
-        foreach (SpriteRenderer spriteRenderer in _laserVisuals)
+        foreach (SpriteRenderer spriteRenderer in _laserSlimVisuals)
         {
             DOTween.To(() => spriteRenderer.color, x => spriteRenderer.color = x, Color.clear, _preLaserDuration).SetEase(Ease.InFlash, 12, 0);
         }
         
         yield return new WaitForSeconds(_preLaserDuration);
+
+        _laserSlimVisuals.ForEach(e => e.enabled = false);
+        _laserVisuals.ForEach(e => e.enabled = true);
+        _laserVisuals.ForEach(e => e.size = new Vector2(_laserMinThickness, e.size.y));
 
         Sequence thicknessTweens = DOTween.Sequence();
 

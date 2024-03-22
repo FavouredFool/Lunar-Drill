@@ -4,11 +4,6 @@ using UnityEngine.InputSystem;
 
 public class LunaControllerMarker : MonoBehaviour
 {
-    //--- Exposed Fields ------------------------
-
-    [SerializeField][Range(2, 5)] float _outerOrbitRange;
-    
-
     //--- Private Fields ------------------------
 
     Vector2 _goalDirection;
@@ -23,7 +18,7 @@ public class LunaControllerMarker : MonoBehaviour
         _visual = GetComponent<Line>();
     }
 
-    public void LateUpdate()
+    public void FixedUpdate()
     {
         SetMarkerPosition();
         SetMarkerRotation();
@@ -56,7 +51,7 @@ public class LunaControllerMarker : MonoBehaviour
         float angle = Vector2.SignedAngle(Vector2.up, _goalDirection);
 
         Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
-        Vector2 position = rotatedVector * _outerOrbitRange;
+        Vector2 position = rotatedVector * Utilities.OuterOrbit;
 
         transform.position = position;
     }
