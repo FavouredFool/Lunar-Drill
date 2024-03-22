@@ -515,7 +515,6 @@ GameObject:
   - component: {fileID: 2959387675002243286}
   - component: {fileID: 4232740741643118685}
   - component: {fileID: 7789952854695683764}
-  - component: {fileID: 7421272861663543323}
   - component: {fileID: 3159748911939790253}
   m_Layer: 13
   m_Name: KillCam
@@ -605,14 +604,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &7421272861663543323
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5983896416126098159}
-  m_Enabled: 1
 --- !u!114 &3159748911939790253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,7 +1103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4085835390566628310
 Transform:
   m_ObjectHideFlags: 0
