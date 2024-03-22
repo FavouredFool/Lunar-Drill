@@ -59,6 +59,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     Tweener _laserStartTween;
     Tweener _laserEndTween;
     bool _currentlyLasering = false;
+    bool _laseringLastFrame = false;
     float _distanceFromOrbit = 0f;
     float _laserStartPoint = 0f;
     float _laserEndPoint = 0f;
@@ -92,12 +93,15 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     public void FixedUpdate()
     {
+        LunaSound();
         DecreaseEnergy();
         SetLaserSize();
         CalculateDistanceFromOrbit();
         CalculateOrbitRotation();
         SetLunaPosition();
         SetLunaRotation();
+
+        _laseringLastFrame = _currentlyLasering;
     }
 
 
@@ -112,6 +116,17 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         SetGoalDirectionInput(e.context);
     }
 
+    public void LunaSound()
+    {
+        if (_currentlyLasering)
+        {
+            AudioController.Fire(new LunaLaserFiring(LunaLaserFiring.LaserState.LaserFiring, EnergyT));
+        }
+        else if (_laseringLastFrame)
+        {
+            AudioController.Fire(new LunaLaserFiring(LunaLaserFiring.LaserState.LaserStopped, EnergyT));
+        }
+    }
 
     public void SetLaserSize()
     {
@@ -341,11 +356,11 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
                 if (Utilities.LayerMaskContainsLayer(_drillian, collision.gameObject.layer))
                 {
-                    AudioController.Fire(new DrillianHitSpider(""));
+                    AudioController.Fire(new LunaHitDrillian(""));
                 }
                 else if (Utilities.LayerMaskContainsLayer(_laser, collision.gameObject.layer))
                 {
-                    AudioController.Fire(new DrillianHitLaser(""));
+                    AudioController.Fire(new LunaHitLaser(""));
                 }
 
             }
