@@ -9433,8 +9433,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: The Undertaker
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7421272861663543323, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+    - target: {fileID: 7609450279003870790, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
