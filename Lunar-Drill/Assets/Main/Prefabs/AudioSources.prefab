@@ -624,7 +624,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8bacbeb1e25a0b94f85c124cf5143d49, type: 3}
   - {fileID: 8300000, guid: a91521e81cd60c04e8ead53bc74d8792, type: 3}
   _oreCrackedVolume: 0.2
-  _hitByLaserClip: {fileID: 8300000, guid: 845455a88f41af649bebbc0e7bd973c3, type: 3}
+  _hitByLaserClip: {fileID: 8300000, guid: e5e3e6fdde2672740987b2ea9e887ed7, type: 3}
   _hitByLaserVolume: 0.5
   _hitBySpiderClip: {fileID: 8300000, guid: e5e3e6fdde2672740987b2ea9e887ed7, type: 3}
   _hitBySpiderVolume: 0.5
