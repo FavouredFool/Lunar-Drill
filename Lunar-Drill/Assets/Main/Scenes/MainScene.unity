@@ -267,17 +267,17 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_PointAction: {fileID: 1889948327912557319, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_MoveAction: {fileID: -676023401027977860, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_SubmitAction: {fileID: -2587051048848966751, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_CancelAction: {fileID: 28992119661106280, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_LeftClickAction: {fileID: 4876941826665042390, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_MiddleClickAction: {fileID: -4979654300445489206, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_RightClickAction: {fileID: 8353640965140096998, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_ScrollWheelAction: {fileID: 7584842782142074619, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_TrackedDevicePositionAction: {fileID: -5960511265083121388, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 2168866004483552820, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
@@ -1113,6 +1113,46 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c2020f35-150a-447c-878f-04d594b9cca9
     m_ActionName: Singleplayer/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 428467d9-9752-481f-bf2f-deb4c3e43516
+    m_ActionName: Menu Selection/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85750ce7-8188-4817-94cb-27ac9dcfc471
+    m_ActionName: Menu Selection/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d66a07a-8457-439a-90de-28d89f072145
+    m_ActionName: Menu Selection/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9c2897f9-a4c6-4f6b-8aa4-0de3ca192537
+    m_ActionName: Menu Selection/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4518b08f-30c7-45d0-a4c9-e5d4c90127ff
+    m_ActionName: Menu Selection/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a03ca32f-a874-479d-ba7a-75eb49c2a4c0
+    m_ActionName: Menu Selection/Navigate[/DualShock4GamepadHID/leftStick/up,/XInputControllerWindows/leftStick/up,/SwitchProControllerHID/leftStick/up,/DualShock4GamepadHID/rightStick/up,/XInputControllerWindows/rightStick/up,/SwitchProControllerHID/rightStick/up,/DualShock4GamepadHID/leftStick/down,/XInputControllerWindows/leftStick/down,/SwitchProControllerHID/leftStick/down,/DualShock4GamepadHID/rightStick/down,/XInputControllerWindows/rightStick/down,/SwitchProControllerHID/rightStick/down,/DualShock4GamepadHID/leftStick/left,/XInputControllerWindows/leftStick/left,/SwitchProControllerHID/leftStick/left,/DualShock4GamepadHID/rightStick/left,/XInputControllerWindows/rightStick/left,/SwitchProControllerHID/rightStick/left,/DualShock4GamepadHID/leftStick/right,/XInputControllerWindows/leftStick/right,/SwitchProControllerHID/leftStick/right,/DualShock4GamepadHID/rightStick/right,/XInputControllerWindows/rightStick/right,/SwitchProControllerHID/rightStick/right,/DualShock4GamepadHID/dpad,/XInputControllerWindows/dpad,/SwitchProControllerHID/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2d4f3423-ded4-406e-bd15-5ee33fa2b897
+    m_ActionName: Menu Selection/Submit[/Keyboard/enter,/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth,/SwitchProControllerHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8dc9e772-a62a-40d1-b606-95602f597862
+    m_ActionName: Menu Selection/Cancel[/Keyboard/escape,/DualShock4GamepadHID/buttonEast,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0681c832-6c69-4c18-a674-758d98553d61
+    m_ActionName: Menu Selection/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e1637ea-3eb2-4f85-9d69-c20ab0266e6d
+    m_ActionName: Menu Selection/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Pause Menu
