@@ -12,7 +12,7 @@ public class PlayerInfoDisplay : MonoBehaviour
     [SerializeField] GameObject _select;
     [SerializeField] GameObject _ready;
 
-    PlayerConnectController.ChosenCharacter _chosenCharacter; // Character that is displayed by this Info Display
+    ChosenCharacter _chosenCharacter; // Character that is displayed by this Info Display
     bool _characterReady = false;
 
     private void Awake()
@@ -33,19 +33,19 @@ public class PlayerInfoDisplay : MonoBehaviour
         }
 
 
-        if(_chosenCharacter == PlayerConnectController.ChosenCharacter.drillian)
+        if(_chosenCharacter == ChosenCharacter.drillian)
         {
             transform.position =  _DrillianPosition.position;
             
         }
-        else if(_chosenCharacter == PlayerConnectController.ChosenCharacter.luna)
+        else if(_chosenCharacter == ChosenCharacter.luna)
         {
             transform.position = _LunaPosition.position;
 
         }
     }
 
-    public void ChosenCharacterChanged(PlayerConnectController.ChosenCharacter ch)
+    public void ChosenCharacterChanged(ChosenCharacter ch)
     {
         _chosenCharacter = ch;
         UpdateDisplay();

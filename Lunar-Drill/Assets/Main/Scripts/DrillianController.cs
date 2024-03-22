@@ -143,7 +143,12 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         IsBurrowed = transform.position.magnitude <= Utilities.PlanetRadius;
 
         if (previous != IsBurrowed)
-            Rumble.DrillianRumble(IsBurrowed);
+        {
+            if (IsBurrowed)
+                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
+            else
+                Rumble.main?.RemovePermanentRumble(ChosenCharacter.drillian, new Vector2(0.3f, 0.6f));
+        }
     }
 
     void ApplyGravity()

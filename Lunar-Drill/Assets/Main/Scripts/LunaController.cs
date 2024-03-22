@@ -230,7 +230,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.SendEvent("Charge");
         _laserCharge.SetBool("Alive", true);
 
-        Rumble.LunaRumble(true);
+        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.3f,0.6f));
     }
 
     void EndLasering()
@@ -250,7 +250,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.Stop();
         _laserCharge.SetBool("Alive", false);
 
-        Rumble.LunaRumble(false);
+        Rumble.main?.RemovePermanentRumble(ChosenCharacter.luna, new Vector2(0.3f, 0.6f));
     }
 
     void DecreaseEnergy()

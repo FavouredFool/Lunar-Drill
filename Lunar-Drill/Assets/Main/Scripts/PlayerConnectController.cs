@@ -8,14 +8,6 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerConnectController : MonoBehaviour
 {
 
-    // Enum to save which character is chosen by this Player connect Controller.
-    public enum ChosenCharacter
-    {
-        drillian,
-        luna,
-        singleplayer
-    }
-
 
     private bool _ready = false; // Bool to save whether or not the player is ready to play!
 
@@ -132,7 +124,7 @@ public class PlayerConnectController : MonoBehaviour
                     Debug.Log("Disabled INput");
                 }
                 _input.SwitchCurrentActionMap("Luna");
-                Rumble.AddGamepad(_input,ChosenCharacter.luna);
+                Rumble.main?.AddGamepad(_input,ChosenCharacter.luna);
             }
 
         }
@@ -150,7 +142,7 @@ public class PlayerConnectController : MonoBehaviour
 
                 }
                 _input.SwitchCurrentActionMap("Drillian");
-                Rumble.AddGamepad(_input, ChosenCharacter.luna);
+                Rumble.main?.AddGamepad(_input, ChosenCharacter.luna);
             }
         }
         else
@@ -187,7 +179,7 @@ public class PlayerConnectController : MonoBehaviour
                 {
                     _input.SwitchCurrentActionMap("Connect");
                 }
-                Rumble.AddGamepad(_input, ChosenCharacter.singleplayer);
+                Rumble.main?.AddGamepad(_input, ChosenCharacter.singleplayer);
             }
         }
         
@@ -202,4 +194,11 @@ public class PlayerConnectController : MonoBehaviour
 
     
 
+}
+
+public enum ChosenCharacter
+{
+    drillian,
+    luna,
+    singleplayer
 }
