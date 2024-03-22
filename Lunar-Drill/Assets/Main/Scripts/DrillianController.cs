@@ -75,6 +75,10 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         transform.rotation = Quaternion.Euler(0, 0, 60);
     }
 
+    private void OnDestroy()
+    {
+        InputBus.Unsubscribe(this);
+    }
 
     public void FixedUpdate()
     {

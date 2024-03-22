@@ -82,6 +82,12 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         transform.rotation = Quaternion.Euler(0, 0, -60);
     }
 
+    private void OnDestroy()
+    {
+        InputBus.Unsubscribe<LunaMoveGoal>(this);
+        InputBus.Unsubscribe<LunaShoot>(this);
+    }
+
     public void FixedUpdate()
     {
         DecreaseEnergy();
