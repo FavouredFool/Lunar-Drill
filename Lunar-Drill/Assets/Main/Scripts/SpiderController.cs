@@ -199,32 +199,6 @@ public class SpiderController : MonoBehaviour
         _goalRotation = Quaternion.Euler(0, 0, angle) * transform.position.normalized;
     }
 
-    IEnumerator RotateCircle()
-    {
-
-        while (true)
-        {
-            yield return null;
-
-            if (IsVulnerable) continue;
-
-            _goalRotation = Quaternion.Euler(0, 0, 45) * Vector2.up;
-
-            yield return new WaitForSeconds(2f);
-
-            _goalRotation = Quaternion.Euler(0, 0, 135) * Vector2.up;
-
-            yield return new WaitForSeconds(2f);
-
-            _goalRotation = Quaternion.Euler(0, 0, 225) * Vector2.up;
-
-            yield return new WaitForSeconds(2f);
-
-            _goalRotation = Quaternion.Euler(0, 0, 315) * Vector2.up;
-
-            yield return new WaitForSeconds(2f);
-        }
-    }
 
     void CalculateOrbitRotation()
     {
@@ -290,6 +264,9 @@ public class SpiderController : MonoBehaviour
 
     void GetDamaged()
     {
+        // Sound
+        AudioController.Fire(new SpiderHit(""));
+
         //Damage
         _spriteIterator.Hit();
         FindObjectOfType<GameManager>().Hit(gameObject,false);

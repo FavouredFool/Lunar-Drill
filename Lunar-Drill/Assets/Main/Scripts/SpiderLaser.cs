@@ -26,7 +26,7 @@ public class SpiderLaser : MonoBehaviour
     [SerializeField] VisualEffect _laserChargeOuter;
     [SerializeField] VisualEffect _laserChargeInner;
 
-    public bool isActive { get; private set; }=false;
+    public bool IsActive { get; private set; }=false;
 
     //--- Private Fields ------------------------
 
@@ -46,7 +46,7 @@ public class SpiderLaser : MonoBehaviour
     {
         if (_spider.IsVulnerable) yield break;
 
-        isActive = true;
+        IsActive = true;
 
         // VFX
         _laserChargeOuter.SetFloat("Charge Time", _preLaserDuration);
@@ -88,6 +88,8 @@ public class SpiderLaser : MonoBehaviour
         thicknessTweens.Append(thicknessTween0);
         thicknessTweens.Join(thicknessTween1);
 
+        AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserFiring));
+
         bool canBreak = false;
         thicknessTweens.OnComplete(() => {
 
@@ -113,7 +115,9 @@ public class SpiderLaser : MonoBehaviour
         _laserChargeInner.SetBool("Alive", false);
         _laserChargeInner.Stop();
 
-        isActive = false;
+        AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserStopped));
+
+        IsActive = false;
     }
 
 

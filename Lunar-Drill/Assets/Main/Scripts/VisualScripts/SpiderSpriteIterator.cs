@@ -27,7 +27,7 @@ public class SpiderSpriteIterator : MonoBehaviour
 
     int lastMoveSign = 1;
 
-    bool isLaser => laserController.isActive;
+    bool isLaser => laserController.IsActive;
 
     float fraction => 1f / fps;
     float angleStep => rotTime / fraction;
