@@ -29,6 +29,7 @@ public class SpiderController : MonoBehaviour
     [SerializeField] HealthPickup _healthPickupBlueprint;
 
     public int MoveSign { get; private set; } = 0;
+    public float InvinvibilityTime => _invincibleTime;
     public float OverheatT { get; set; } = 0;
     public bool IsVulnerable { get; set; } = false;
     public bool IsInvincible { get; set; } = false;
@@ -280,7 +281,7 @@ public class SpiderController : MonoBehaviour
     {
         //Damage
         _spriteIterator.Hit();
-        FindObjectOfType<GameManager>().SpiderHP -= 1;
+        FindObjectOfType<GameManager>().Hit(gameObject,false);
 
         IsVulnerable = false;
         IsInvincible = true;

@@ -293,7 +293,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         // Health Reduce
         _spriteIterator.Hit();
-        FindObjectOfType<GameManager>().PlayerHP -= 1;
+        FindObjectOfType<GameManager>().Hit(gameObject, true);
 
         // invincible
         _isInvincible = true;
@@ -311,7 +311,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         GameManager manager = FindObjectOfType<GameManager>();
 
-        manager.PlayerHP = Mathf.Min(4, manager.PlayerHP + 1);
+        manager.Heal(gameObject, true);
     }
 
     void GainEnergy()

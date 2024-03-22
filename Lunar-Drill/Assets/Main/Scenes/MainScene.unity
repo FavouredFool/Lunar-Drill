@@ -128,7 +128,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
   m_PrefabInstance: {fileID: 845659925}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 845659926}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8db206047d94c3649a123607ef8b8716, type: 3}
@@ -3345,6 +3345,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698992364}
   m_CullTransparentMesh: 1
+--- !u!114 &715114503 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+  m_PrefabInstance: {fileID: 8116365772247272033}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466c1f39cfcc278418f2cc864719d574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &741241429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3774,6 +3785,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+--- !u!1 &789863300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5337368519830427384, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+  m_PrefabInstance: {fileID: 789863299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &793722113
 GameObject:
   m_ObjectHideFlags: 0
@@ -4029,6 +4045,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+--- !u!1 &845659926 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2649280870426949734, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+  m_PrefabInstance: {fileID: 845659925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &875117217
 GameObject:
   m_ObjectHideFlags: 0
@@ -5643,6 +5664,7 @@ MonoBehaviour:
   - {fileID: 649527214}
   _countdownTextfield: {fileID: 1245350319}
   _timeManager: {fileID: 984790318}
+  _undertaker: {fileID: 715114503}
   _playerHUD: {fileID: 1583684827}
   _spiderHUD: {fileID: 214407246}
   _maxPlayerHP: 4
@@ -6120,6 +6142,46 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c2020f35-150a-447c-878f-04d594b9cca9
     m_ActionName: Singleplayer/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 428467d9-9752-481f-bf2f-deb4c3e43516
+    m_ActionName: Menu Selection/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85750ce7-8188-4817-94cb-27ac9dcfc471
+    m_ActionName: Menu Selection/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d66a07a-8457-439a-90de-28d89f072145
+    m_ActionName: Menu Selection/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9c2897f9-a4c6-4f6b-8aa4-0de3ca192537
+    m_ActionName: Menu Selection/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4518b08f-30c7-45d0-a4c9-e5d4c90127ff
+    m_ActionName: Menu Selection/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a03ca32f-a874-479d-ba7a-75eb49c2a4c0
+    m_ActionName: Menu Selection/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2d4f3423-ded4-406e-bd15-5ee33fa2b897
+    m_ActionName: Menu Selection/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8dc9e772-a62a-40d1-b606-95602f597862
+    m_ActionName: Menu Selection/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0681c832-6c69-4c18-a674-758d98553d61
+    m_ActionName: Menu Selection/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e1637ea-3eb2-4f85-9d69-c20ab0266e6d
+    m_ActionName: Menu Selection/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Luna
@@ -9629,9 +9691,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1989054594}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 775249137}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 990399612}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 1948594155}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 1368627421}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[5]
+      value: 
+      objectReference: {fileID: 8388676952011129150}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[6]
+      value: 
+      objectReference: {fileID: 789863300}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[7]
+      value: 
+      objectReference: {fileID: 845659926}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[8]
+      value: 
+      objectReference: {fileID: 973502828}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.data[9]
+      value: 
+      objectReference: {fileID: 519420028}
     - target: {fileID: 7609450279003870790, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: m_Name
       value: The Undertaker
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609450279003870790, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9695,6 +9801,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+--- !u!1 &8388676952011129150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2234265607896831609, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+  m_PrefabInstance: {fileID: 8388676952011129149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8736392819379510101
 PrefabInstance:
   m_ObjectHideFlags: 0
