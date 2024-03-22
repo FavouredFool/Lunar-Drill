@@ -4258,12 +4258,20 @@ PrefabInstance:
       value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: _maxGravityStrength
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: _laserCollision.m_Bits
       value: 1088
       objectReference: {fileID: 0}
     - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: _spiderCollision.m_Bits
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: _timeTillMaxGravityOutside
+      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6373,7 +6381,19 @@ MonoBehaviour:
     m_ActionId: 495d7b70-17d8-422c-b088-c702e351dc1a
     m_ActionName: Connect/Ready[/Mouse/leftButton,/Pen/tip,/SwitchProControllerHID/buttonEast]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1368627427}
+        m_TargetAssemblyTypeName: LunaControllerMarker, Assembly-CSharp
+        m_MethodName: SetGoalDirectionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 46dde74b-3159-4941-90e3-023c540bda67
     m_ActionName: Singleplayer/MoveGoal[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -6426,7 +6446,7 @@ MonoBehaviour:
     m_ActionName: Menu Selection/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Luna
+  m_DefaultActionMap: Singleplayer
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1368627427
