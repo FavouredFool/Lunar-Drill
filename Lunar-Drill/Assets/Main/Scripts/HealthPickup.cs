@@ -9,7 +9,7 @@ public class HealthPickup : MonoBehaviour
     
     public void Start()
     {
-        DOTween.To(() => transform.position, x => transform.position = x, transform.position.normalized * Utilities.OuterOrbit, _timeTillOrbit).SetEase(Ease.OutSine);
+        DOTween.To(() => transform.position, x => transform.position = x, transform.position.normalized * Utilities.OuterOrbit, _timeTillOrbit).SetEase(Ease.OutSine).SetUpdate(true);
     }
 
     public void DestroyPickup()
