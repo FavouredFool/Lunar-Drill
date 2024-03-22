@@ -56,6 +56,7 @@ public class OreSpawner : MonoBehaviour
     {
         OreController ore = Instantiate(_oreBlueprint, transform);
         ore.transform.position = GetSpawnPosition();
+        ore.transform.rotation = Quaternion.LookRotation(Vector3.forward, Random.insideUnitSphere.normalized);
         _activeOres.Add(ore);
     }
 

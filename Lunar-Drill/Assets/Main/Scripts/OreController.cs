@@ -20,9 +20,21 @@ public class OreController : MonoBehaviour
     [SerializeField][Range(0.1f, 90f)] float _shootOutAngle;
 
     [Header("Visuals")]
-    [SerializeField] Disc _oreVisuals;
+    [SerializeField] SpriteRenderer _oreVisuals;
     [SerializeField] Color _burrowedColor;
     [SerializeField] Color _flyingColor;
+
+    [SerializeField] Sprite
+        _embedded,
+        _collected,
+        _energy;
+
+    [SerializeField] float fps = 6;
+    [SerializeField] float rotTime = 2;
+
+    float timer = 0;
+    float fraction => 1f / fps;
+    float angleStep => rotTime / fraction;
 
 
     public enum OreState { BURROWED, FOLLOWING, FLYING  };
@@ -41,7 +53,23 @@ public class OreController : MonoBehaviour
     public void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _oreVisuals.Color = _burrowedColor;
+        _oreVisuals.sprite = _embedded;
+        _oreVisuals.transform.Rotate(Vector3.forward, Random.Range(0,360));
+    }
+
+    private void Update()
+    {
+        if (_oreState != OreState.BURROWED)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= fraction)
+            {
+                timer = 0;
+
+                _oreVisuals.transform.Rotate(Vector3.forward, angleStep);
+            }
+        }
     }
 
     public void LateUpdate()
@@ -83,26 +111,25 @@ public class OreController : MonoBehaviour
 
         // Doesnt use rigidbodies so that i can tween it properly
         transform.position = _followDrillian.transform.position;
-        _oreVisuals.Color = _flyingColor;
 
         Vector2 goalDirection = Quaternion.Euler(0,0,Random.Range(-_shootOutAngle, _shootOutAngle)) * _followDrillian.transform.up;
         Vector2 goalPosition = ((Vector2)_followDrillian.transform.position + goalDirection * (_outerRadius - _planetRadius)).normalized * _outerRadius;
 
-        _moveTween = DOTween.To(() => (Vector2)transform.position, x => transform.position = x, goalPosition, _durationTillOnOuterRadius).SetEase(Ease.OutSine);
+        _moveTween = DOTween.To(() => (Vector2)transform.position, x => transform.position = x, goalPosition, _durationTillOnOuterRadius).SetEase(Ease.OutSine)
+            .OnComplete(() => {
+                _oreVisuals.sprite = _energy;
+            });
     }
 
     public void DestroyOre()
     {
-        if (_moveTween != null && _moveTween.IsActive())
-        {
-            _moveTween.Kill();
-        }
-
         OreSpawner spawner = transform.parent.GetComponent<OreSpawner>();
-        Assert.IsNotNull(spawner);
-        spawner.RemoveOre(this);
 
-        Destroy(gameObject);
+        if (spawner)
+            spawner.RemoveOre(this);
+
+        _moveTween = transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
+            .OnComplete(() => Destroy(gameObject,0.1f));
     }
 
 
@@ -113,6 +140,8 @@ public class OreController : MonoBehaviour
         _followDrillian = collision.gameObject.GetComponent<DrillianController>();
 
         Assert.IsNotNull(_followDrillian);
+
+        _oreVisuals.sprite = _collected;
 
         _oreState = OreState.FOLLOWING;
         _followDrillian.FollowingOres.Add(this);

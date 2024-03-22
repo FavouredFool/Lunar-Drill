@@ -273,6 +273,7 @@ public class SpiderController : MonoBehaviour
     void IncreaseHeat()
     {
         OverheatT = Mathf.Clamp01(OverheatT + _overheatGain * Time.deltaTime);
+        _spriteIterator.ShieldHit(0.5f);
     }
 
     void GetDamaged()

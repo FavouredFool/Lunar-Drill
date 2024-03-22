@@ -4,6 +4,8 @@ using UnityEngine;
 public class HealthPickup : MonoBehaviour
 {
     [SerializeField][Range(0.1f, 5f)] float _timeTillOrbit;
+
+    Tween pulseTween;
     
     public void Start()
     {
