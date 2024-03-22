@@ -137,17 +137,6 @@
                 },
                 {
                     "name": "",
-                    "id": "ed97c35c-2d65-4692-b926-b0190097d854",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4f002847-2ee5-4fcd-9131-f23746781929",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
@@ -718,6 +707,39 @@
                     "name": "",
                     "id": "4d086761-305b-4600-b7de-5b918b163e0b",
                     "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea1dd1aa-9c99-4cb1-b857-becf8d7bdc23",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3e8b675-e42c-4c74-83dc-45f430db035b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7d62ce6-e298-46ec-8bb4-ffb9717af897",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
