@@ -103,10 +103,22 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator LaserMovement()
     {
-        int random = Random.Range(0, 3);
+        int moveAmount;
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager.SpiderHP == gameManager.SpiderMaxHP)
+        {
+            moveAmount = 1;
+        }
+        else
+        {
+            moveAmount = 3;
+        }
+
+        int random = Random.Range(0, moveAmount);
         if (random == 0)
         {
-            yield return ShootLuna();
+            yield return SimpleMovement();
         }
         else if (random == 1) 
         {
@@ -114,7 +126,7 @@ public class SpiderController : MonoBehaviour
         }
         else
         {
-            yield return SimpleMovement();
+            yield return ShootLuna();
         }
 
         yield return new WaitForSeconds(2f);

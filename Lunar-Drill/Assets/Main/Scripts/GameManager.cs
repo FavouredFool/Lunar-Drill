@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
     int _playerHP;
     int _spiderHP;
 
+    public int PlayerHP => _playerHP;
+    public int SpiderHP => _spiderHP;
+    public int PlayerMaxHP => _maxPlayerHP;
+    public int SpiderMaxHP => _maxSpiderHP;
+
     public bool inCutscene { get; private set; } = false;
 
     public void Awake()

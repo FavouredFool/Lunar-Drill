@@ -5814,7 +5814,7 @@ MonoBehaviour:
   _playerHUD: {fileID: 1583684827}
   _spiderHUD: {fileID: 214407246}
   _maxPlayerHP: 4
-  _maxSpiderHP: 4
+  _maxSpiderHP: 3
 --- !u!4 &1301515984
 Transform:
   m_ObjectHideFlags: 0
