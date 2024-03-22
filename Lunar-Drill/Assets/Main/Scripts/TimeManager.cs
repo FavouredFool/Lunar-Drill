@@ -9,10 +9,11 @@ public class TimeManager : MonoBehaviour
     public static TimeManager main;
     [SerializeField] OptionsMenuUtilities optionsMenu;
     [SerializeField] GameManager gameManager;
+    [SerializeField] Undertaker undertaker;
 
     [SerializeField] float currentTimeScale;
 
-    bool isPaused => optionsMenu._isOpen||gameManager.inCutscene;
+    bool isPaused => optionsMenu._isOpen||gameManager.inCutscene||undertaker.isActive;
 
     Tween timeScaleTween;
 

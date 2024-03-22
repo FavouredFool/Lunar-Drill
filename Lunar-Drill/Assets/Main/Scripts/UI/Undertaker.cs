@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class Undertaker : MonoBehaviour
@@ -19,7 +20,7 @@ public class Undertaker : MonoBehaviour
     {
         transform.position = target.transform.position;
         gameObject.SetActive(true);
-        target.transform.rotation= Quaternion.Euler(0,0,0);
+        target.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, (isPlayer ? 180 : 0) + 20 * (Random.value < 0.5f ? -1 : 1));
         target.transform.localScale = Vector3.one * 1.5f;
 
         foreach (GameObject g in disabledObjects)
@@ -47,6 +48,13 @@ public class Undertaker : MonoBehaviour
         }
 
         anim.SetTrigger("GO");
+
+        DOVirtual.DelayedCall(3f,() => Continue());
+    }
+
+    public void Continue()
+    {
+        SceneManager.LoadScene("MainMenuScene");
     }
 }
 
