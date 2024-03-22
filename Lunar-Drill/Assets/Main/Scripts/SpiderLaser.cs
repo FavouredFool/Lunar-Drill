@@ -44,6 +44,8 @@ public class SpiderLaser : MonoBehaviour
 
     public IEnumerator ShootLaser()
     {
+        if (_spider.IsVulnerable) yield break;
+
         isActive = true;
 
         // VFX
