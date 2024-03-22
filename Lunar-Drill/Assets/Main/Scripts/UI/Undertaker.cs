@@ -54,6 +54,7 @@ public class Undertaker : MonoBehaviour
 
     public void Continue()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("MainMenuScene");
     }
 }

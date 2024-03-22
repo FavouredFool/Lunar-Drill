@@ -36,7 +36,7 @@ public class PlayerConnectController : MonoBehaviour
     //--- Private Fields ------------------------
     PlayerInput _input; // Input. Needed to assign the User to the Character
     
-    ChosenCharacter _character = ChosenCharacter.singleplayer; // The Character Chosen by the User attributed to this Gameobject.
+    [SerializeField] ChosenCharacter _character = ChosenCharacter.singleplayer; // The Character Chosen by the User attributed to this Gameobject.
 
 
     // --- Public Functions. 
@@ -55,8 +55,14 @@ public class PlayerConnectController : MonoBehaviour
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
         
-        SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) =>Destroy(gameObject);
+        SceneManager.sceneLoaded += LateDestroy;
         SwitchActionMapToCharacter();
+    }
+
+    private void LateDestroy(Scene scene, LoadSceneMode mode)
+    {
+        Destroy(gameObject);
+        SceneManager.sceneLoaded -= LateDestroy;
     }
 
     public void OnSwap(InputAction.CallbackContext context) // Allow the player(s) to swap their characters. Does nothing when ready.

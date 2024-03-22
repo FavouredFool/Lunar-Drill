@@ -108,6 +108,7 @@ public class OptionsMenuUtilities : MonoBehaviour
     /* Switches the scene to main menu scene. */
     public void ToMainMenu(string sceneName)
     {
+        Time.timeScale = 1;
         Toggle(false);
         Debug.Log(sceneName);
         SceneManager.LoadScene(sceneName);

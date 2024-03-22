@@ -17,4 +17,11 @@ public static class InputBus
             foreach (var sub in subs)
                 ((IInputSubscriber<T>)sub).OnEventHappened(e);
     }
+
+    public static void Unsubscribe<T>(IInputSubscriber<T> sub) where T : IInputSignal // Method for a Subscriber to unsubscribe from the Audio Controller
+    {
+        if (!subscribers.ContainsKey(typeof(T)))
+            return;
+        subscribers[typeof(T)].Remove(sub);
+    }
 }
