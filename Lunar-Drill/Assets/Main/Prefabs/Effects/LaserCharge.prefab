@@ -55,6 +55,9 @@ VisualEffect:
       - m_Value: 0.25
         m_Name: Charge Size
         m_Overridden: 1
+      - m_Value: 0.125
+        m_Name: Charge Time
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -117,7 +120,7 @@ VFXRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
 --- !u!114 &9215448203790727514
 MonoBehaviour:
   m_ObjectHideFlags: 0
