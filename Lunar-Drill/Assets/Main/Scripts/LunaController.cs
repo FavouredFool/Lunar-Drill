@@ -93,13 +93,13 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     public void FixedUpdate()
     {
-        LunaSound();
         DecreaseEnergy();
         SetLaserSize();
         CalculateDistanceFromOrbit();
         CalculateOrbitRotation();
         SetLunaPosition();
         SetLunaRotation();
+        LunaSound();
 
         _laseringLastFrame = _currentlyLasering;
     }
