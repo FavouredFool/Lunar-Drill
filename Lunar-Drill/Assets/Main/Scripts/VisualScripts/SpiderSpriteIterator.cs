@@ -18,8 +18,10 @@ public class SpiderSpriteIterator : MonoBehaviour
     [SerializeField] float fps = 6;
     [SerializeField] float rotTime = 2;
 
+    // VFX
     bool _vfxActive = false;
     [SerializeField] VisualEffect _energyLoss;
+    [SerializeField] Texture2D _energyLossPink, _energyLossRed;
 
     float timer = 0;
 
@@ -62,6 +64,19 @@ public class SpiderSpriteIterator : MonoBehaviour
             crest.rotation = Quaternion.LookRotation(Vector3.forward, transform.position.normalized);
 
         // Shield vfx
+
+        if (isShield) 
+        {
+            if (controller.OverheatT <= 0.8f)
+            {
+                _energyLoss.SetTexture("Main Texture", _energyLossPink);
+            }
+            else
+            {
+                _energyLoss.SetTexture("Main Texture", _energyLossRed);
+            }
+        }
+
         if (isShield && !_vfxActive)
         {
             _energyLoss.SendEvent("Discharge");

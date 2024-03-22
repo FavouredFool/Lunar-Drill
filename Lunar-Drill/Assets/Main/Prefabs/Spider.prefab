@@ -213,6 +213,8 @@ MonoBehaviour:
   fps: 6
   rotTime: 2
   _energyLoss: {fileID: 32682472928292329}
+  _energyLossPink: {fileID: 2800000, guid: f887a35361a832e458bf03f57feb16e3, type: 3}
+  _energyLossRed: {fileID: 2800000, guid: 1e938e4ee75390b4698c784ef1436c54, type: 3}
   _hitSprite: {fileID: 21300000, guid: 216a83dc72275074085e23ed353ae775, type: 3}
   _stunSprite: {fileID: 21300000, guid: 74a7d99e6b9918f4cb4db5a6c78b3937, type: 3}
   _idleSprite: {fileID: 21300000, guid: 0287cf16040a2ef4e974c3218e2503c8, type: 3}
