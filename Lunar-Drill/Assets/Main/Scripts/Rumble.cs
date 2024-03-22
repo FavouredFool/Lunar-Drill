@@ -55,29 +55,41 @@ public class Rumble : MonoBehaviour
         {
             case ChosenCharacter.drillian:
                 drillian = map.user;
+
+                foreach (var a in drillian.pairedDevices)
+                {
+                    if (a is Gamepad)
+                        (a as Gamepad).SetMotorSpeeds(0.1f, 0.3f);
+                }
+
                 break;
             case ChosenCharacter.luna:
                 luna = map.user;
+
+                foreach (var a in luna.pairedDevices)
+                {
+                    if (a is Gamepad)
+                        (a as Gamepad).SetMotorSpeeds(0.1f, 0.3f);
+                }
                 break;
             default:
                 drillian = map.user;
                 luna = map.user;
                 isSingleplayer = true;
-                break;
-        }
 
-        if (drillian != null)
-            foreach (var a in drillian.pairedDevices)
-            {
-                if (a is Gamepad)
-                    (a as Gamepad).SetMotorSpeeds(0.1f, 0.3f);
-            }
-        if (luna != null)
-            foreach (var a in luna.pairedDevices)
-            {
-                if (a is Gamepad)
-                    (a as Gamepad).SetMotorSpeeds(0.1f, 0.3f);
-            }
+                foreach (var a in drillian.pairedDevices)
+                {
+                    if (a is Gamepad)
+                        (a as Gamepad).SetMotorSpeeds(0.1f, 0.3f);
+                }
+
+                foreach (var a in luna.pairedDevices)
+                {
+                    if (a is Gamepad)
+                        (a as Gamepad).SetMotorSpeeds(0.1f, 0.3f);
+                }
+                break;
+        }            
     }
 
     public void AddRumble(ChosenCharacter c, Vector2 vec, float time=-1) //Negative time is Permanent
