@@ -7,7 +7,6 @@ public class SpiderController : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField] bool _constantlyRotating = false;
     [SerializeField][Range(0.01f, 1f)] float _rotationSpeed = 5f;
 
     [Header("Movement Smoothing")]
@@ -55,7 +54,7 @@ public class SpiderController : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(DetermineMoves());
+        StartCoroutine(MoveLoop());
     }
 
     public void FixedUpdate()
@@ -70,6 +69,17 @@ public class SpiderController : MonoBehaviour
 
 
     //--- Private Methods ------------------------
+
+
+    IEnumerator MoveLoop()
+    {
+        while (true)
+        {
+            yield return null;
+            if (IsVulnerable) yield return null;
+            yield return LaserMovement();
+        }
+    }
 
     void EvaluateOverheat()
     {
@@ -90,47 +100,30 @@ public class SpiderController : MonoBehaviour
         }
     }
 
-    IEnumerator DetermineMoves()
-    {
-        if (_constantlyRotating)
-        {
-            StartCoroutine(RotateCircle());
-            yield break;
-        }
-
-        yield return new WaitForSeconds(2f);
-
-        StartCoroutine(LaserMovement());
-    }
 
     IEnumerator LaserMovement()
     {
-        while (true)
+        int random = Random.Range(0, 3);
+        if (random == 0)
         {
-            yield return null;
-
-            if (IsVulnerable) continue;
-
-            int random = Random.Range(0, 3);
-            if (random == 0)
-            {
-                yield return ShootLuna();
-            }
-            else if (random == 1) 
-            {
-                yield return ShootRandom();
-            }
-            else
-            {
-                yield return SimpleMovement();
-            }
-
-            yield return new WaitForSeconds(2f);
+            yield return ShootLuna();
         }
+        else if (random == 1) 
+        {
+            yield return ShootRandom();
+        }
+        else
+        {
+            yield return SimpleMovement();
+        }
+
+        yield return new WaitForSeconds(2f);
     }
 
     IEnumerator ShootRandom()
     {
+        if (IsVulnerable) yield break;
+
         _goalRotation = Random.insideUnitCircle.normalized;
 
         yield return new WaitForSeconds(Random.Range(0.5f, 2f));
@@ -225,6 +218,8 @@ public class SpiderController : MonoBehaviour
     {
         if (_goalRotation.magnitude < 0.1f) return;
 
+        if (IsVulnerable) return;
+
         Vector2 currentDirection = transform.position.normalized;
 
         float angle = Vector2.Angle(currentDirection, _goalRotation);
@@ -258,6 +253,8 @@ public class SpiderController : MonoBehaviour
 
     void SetSpiderPosition()
     {
+        if (IsVulnerable) return;
+
         float angle = _orbitRotationT.Remap(0, 1, 0, 360);
 
         Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
@@ -268,6 +265,8 @@ public class SpiderController : MonoBehaviour
 
     void SetSpiderRotation()
     {
+        if (IsVulnerable) return;
+
         _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, transform.position));
     }
 
