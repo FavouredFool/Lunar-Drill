@@ -57,7 +57,7 @@ public class SelectScreenHandling : MonoBehaviour
     // Function to start the Countdown to load another Scene
     IEnumerator StartCountdown()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.75f);
         SceneManager.LoadScene(_nextScene);
     }
 }
