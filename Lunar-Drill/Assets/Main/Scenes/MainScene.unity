@@ -2325,6 +2325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP_UI (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5141588206772480916, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2742,6 +2746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP_UI (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5141588206772480916, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2839,6 +2847,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de77c621dbbda04684a93cf1c59e6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &592824943
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 905820887146235027, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_Name
+      value: AudioSources
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
 --- !u!1 &595938879
 GameObject:
   m_ObjectHideFlags: 0
@@ -3131,6 +3196,10 @@ PrefabInstance:
     - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Name
       value: HP_UI (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5141588206772480916, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Pivot.x
@@ -4020,6 +4089,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP_UI (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5141588206772480916, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4339,6 +4412,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP_UI (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5141588206772480916, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4518,6 +4595,10 @@ PrefabInstance:
     - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Name
       value: HP_UI (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5141588206772480916, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Pivot.x
@@ -4989,6 +5070,10 @@ PrefabInstance:
     - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Name
       value: HP_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954439292466901964, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5141588206772480916, guid: 660072acc5c492343b3f55f5d68353be, type: 3}
       propertyPath: m_Pivot.x
@@ -10110,3 +10195,4 @@ SceneRoots:
   - {fileID: 1989054596}
   - {fileID: 8736392819379510101}
   - {fileID: 8116365772247272033}
+  - {fileID: 592824943}
