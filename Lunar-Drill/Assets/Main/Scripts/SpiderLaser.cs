@@ -30,7 +30,14 @@ public class SpiderLaser : MonoBehaviour
 
     //--- Private Fields ------------------------
 
+    SpiderController _spider;
 
+    //--- Unity Methods ------------------------
+
+    public void Awake()
+    {
+        _spider = GetComponent<SpiderController>();
+    }
 
 
     //--- Public Methods ------------------------
@@ -54,8 +61,15 @@ public class SpiderLaser : MonoBehaviour
         {
             DOTween.To(() => spriteRenderer.color, x => spriteRenderer.color = x, Color.clear, _preLaserDuration).SetEase(Ease.InFlash, 12, 0);
         }
-        
-        yield return new WaitForSeconds(_preLaserDuration);
+
+        float waitStart = Time.time;
+
+        while (Time.time - waitStart < _preLaserDuration)
+        {
+            // If vulnerable, break out earlier
+            if (_spider.IsVulnerable) break;
+            yield return null;
+        }
 
         _laserSlimVisuals.ForEach(e => e.enabled = false);
         _laserVisuals.ForEach(e => e.enabled = true);
@@ -70,7 +84,14 @@ public class SpiderLaser : MonoBehaviour
 
         thicknessTweens.OnComplete(() => _laserCollider.enabled = true);
 
-        yield return new WaitForSeconds(_laserDuration);
+        float waitStart2 = Time.time;
+
+        while (Time.time - waitStart2 < _laserDuration)
+        {
+            // If vulnerable, break out earlier
+            if (_spider.IsVulnerable) break;
+            yield return null;
+        }
 
         _laserVisuals.ForEach(e => e.enabled = false);
         _laserCollider.enabled = false;

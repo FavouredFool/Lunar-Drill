@@ -5668,7 +5668,7 @@ MonoBehaviour:
   _undertaker: {fileID: 715114503}
   _playerHUD: {fileID: 1583684827}
   _spiderHUD: {fileID: 214407246}
-  _maxPlayerHP: 1
+  _maxPlayerHP: 4
   _maxSpiderHP: 4
 --- !u!4 &1301515984
 Transform:
