@@ -28,6 +28,8 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     [Header("Collision")]
     [SerializeField] LayerMask _damageCollisions;
+    [SerializeField] LayerMask _drillian;
+    [SerializeField] LayerMask _laser;
     [SerializeField] LayerMask _ores;
     [SerializeField] LayerMask _health;
     [SerializeField] [Range(0f, 5f)] float _invincibleTime;
@@ -336,6 +338,16 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
             if (!_isInvincible)
             {
                 GetHit();
+
+                if (Utilities.LayerMaskContainsLayer(_drillian, collision.gameObject.layer))
+                {
+                    AudioController.Fire(new DrillianHitSpider(""));
+                }
+                else if (Utilities.LayerMaskContainsLayer(_laser, collision.gameObject.layer))
+                {
+                    AudioController.Fire(new DrillianHitLaser(""));
+                }
+
             }
         }
         else if (Utilities.LayerMaskContainsLayer(_ores, collision.gameObject.layer))
