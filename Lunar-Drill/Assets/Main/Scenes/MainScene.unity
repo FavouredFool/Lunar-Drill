@@ -4581,7 +4581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ebe6ea74adaa347b936ef5123aa203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsMenu: {fileID: 0}
+  optionsMenu: {fileID: 753987827}
   gameManager: {fileID: 1301515983}
   currentTimeScale: 1
 --- !u!1 &990399612
@@ -5643,8 +5643,8 @@ MonoBehaviour:
   - {fileID: 649527214}
   _countdownTextfield: {fileID: 1245350319}
   _timeManager: {fileID: 984790318}
-  _playerHUD: {fileID: 0}
-  _spiderHUD: {fileID: 0}
+  _playerHUD: {fileID: 1583684827}
+  _spiderHUD: {fileID: 214407246}
   _maxPlayerHP: 4
   _maxSpiderHP: 4
 --- !u!4 &1301515984
@@ -9633,12 +9633,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: The Undertaker
       objectReference: {fileID: 0}
-    - target: {fileID: 7609450279003870790, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7421272861663543323, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
