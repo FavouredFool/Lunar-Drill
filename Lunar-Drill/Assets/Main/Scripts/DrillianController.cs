@@ -145,9 +145,15 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         if (previous != IsBurrowed)
         {
             if (IsBurrowed)
+            {
                 Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
+                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.5f, 0.5f),0.1f);
+            }
             else
+            {
                 Rumble.main?.RemovePermanentRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
+                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.5f, 0.5f), 0.1f);
+            }
         }
     }
 
@@ -262,6 +268,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
 
         FollowingOres.Clear();
+
+        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.9f, 1f), 0.1f);
     }
 
     void EvaluateCollision(Collider2D collision)

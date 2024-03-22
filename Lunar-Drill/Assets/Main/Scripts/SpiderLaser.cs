@@ -48,6 +48,10 @@ public class SpiderLaser : MonoBehaviour
 
         IsActive = true;
 
+        //Rumble
+        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.1f, 0.2f));
+        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.2f));
+
         // VFX
         _laserChargeOuter.SetFloat("Charge Time", _preLaserDuration);
         _laserChargeOuter.SetBool("Alive", true);
@@ -99,6 +103,13 @@ public class SpiderLaser : MonoBehaviour
 
         float waitStart2 = Time.time;
 
+        //Rumble
+        Rumble.main?.RemovePermanentRumble(ChosenCharacter.luna, new Vector2(0f, 0.1f));
+        Rumble.main?.RemovePermanentRumble(ChosenCharacter.drillian, new Vector2(0f, 0.1f));
+
+        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.1f, 0.3f));
+        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
+
         while (Time.time - waitStart2 < _laserDuration)
         {
             // If vulnerable, break out earlier
@@ -114,6 +125,10 @@ public class SpiderLaser : MonoBehaviour
         _laserChargeOuter.Stop();
         _laserChargeInner.SetBool("Alive", false);
         _laserChargeInner.Stop();
+
+        //Rumble
+        Rumble.main?.RemovePermanentRumble(ChosenCharacter.luna, new Vector2(0.1f, 0.3f));
+        Rumble.main?.RemovePermanentRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
 
         AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserStopped));
 
