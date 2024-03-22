@@ -7,15 +7,15 @@ public class LunaLaserAudioSource : MonoBehaviour, IAudioSubscriber<LunaLaserFir
     AudioSource _audioSource;
 
     [Header("Audio Luna Laser Fire Options")]
-    [SerializeField] AudioClip _hitByLaserClip = null; // Clips for when Luna shoots the laser.
-    [SerializeField, Range(0, 1f)] float _hitByLaserVolume = 1.0f; // Volume of Laser 
+    [SerializeField] AudioClip _shootLaserClip = null; // Clips for when Luna shoots the laser.
+    [SerializeField, Range(0, 1f)] float _shootLaserVolume = 1.0f; // Volume of Laser 
     [SerializeField] Vector2 _laserPitchRange = new Vector2(0.5f, 1.5f); // Pitch, first when on low energy latter on high energy
 
     public void OnAudioEvent(LunaLaserFiring audioEvent)
     {
         if (!_audioSource.isPlaying && audioEvent.CurrentState == LunaLaserFiring.LaserState.LaserFiring)
         {
-            _audioSource.clip = _hitByLaserClip;
+            _audioSource.clip = _shootLaserClip;
             _audioSource.Play();
         }
         _audioSource.pitch = Mathf.Lerp(_laserPitchRange[0], _laserPitchRange[1], audioEvent.LaserEnergyRemaining);
