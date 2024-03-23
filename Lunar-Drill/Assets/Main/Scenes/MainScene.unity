@@ -10177,10 +10177,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: sources.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: sources.Array.data[0]
       value: 
       objectReference: {fileID: 1255932171}
@@ -10196,10 +10192,6 @@ PrefabInstance:
       propertyPath: sources.Array.data[3]
       value: 
       objectReference: {fileID: 853957208}
-    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: disabledObjects.Array.size
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[0]
       value: 
@@ -10263,10 +10255,6 @@ PrefabInstance:
     - target: {fileID: 7609450279003870790, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: m_Name
       value: The Undertaker
-      objectReference: {fileID: 0}
-    - target: {fileID: 7609450279003870790, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
