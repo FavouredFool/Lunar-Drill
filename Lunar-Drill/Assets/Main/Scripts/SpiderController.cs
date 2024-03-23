@@ -2,30 +2,36 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SpiderController : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField][Range(0.01f, 1f)] float _rotationSpeed = 5f;
+    [SerializeField] [Range(0.01f, 1f)] float _rotationSpeed = 5f;
 
     [Header("Movement Smoothing")]
-    [SerializeField][Range(0.1f, 100f)] float _movementStartAngleThreshold;
-    [SerializeField][Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
+    [SerializeField] [Range(0.1f, 100f)] float _movementStartAngleThreshold;
+    [SerializeField] [Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
     [SerializeField] LayerMask _lunaLaser;
     [SerializeField] LayerMask _drillian;
 
     [Header("Overheat")]
-    [SerializeField][Range(0.01f, 1)] float _overheatGain = 0.25f;
-    [SerializeField][Range(0.01f, 1)] float _overheatLoss = 0.05f;
+    [SerializeField] [Range(0.01f, 1)] float _overheatGain = 0.25f;
+    [SerializeField] [Range(0.01f, 1)] float _overheatLoss = 0.05f;
 
     [Header("Sprites")]
     [SerializeField] SpriteRenderer[] _spriteRenderers;
     [SerializeField] SpiderSpriteIterator _spriteIterator;
 
     [Header("Hit")]
-    [SerializeField][Range(0.01f, 5f)] float _invincibleTime = 5f;
+    [SerializeField] [Range(0.01f, 5f)] float _invincibleTime = 5f;
     [SerializeField] HealthPickup _healthPickupBlueprint;
+
+    [Header("VFX")]
+    [SerializeField] VisualEffect _energyLoss;
+    [SerializeField] Texture2D _energyLossRed;
+    bool _vfxActive = false;
 
     public int MoveSign { get; private set; } = 0;
     public float InvinvibilityTime => _invincibleTime;
@@ -50,6 +56,9 @@ public class SpiderController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _spiderLaser = GetComponent<SpiderLaser>();
+
+        // VFX
+        _energyLoss.SetTexture("Main Texture", _energyLossRed);
     }
 
     public void Start()
@@ -65,6 +74,8 @@ public class SpiderController : MonoBehaviour
 
         SetSpiderPosition();
         SetSpiderRotation();
+
+        VulnerableVFX();
     }
 
 
@@ -123,7 +134,7 @@ public class SpiderController : MonoBehaviour
         {
             yield return SimpleMovement();
         }
-        else if (random == 1) 
+        else if (random == 1)
         {
             yield return ShootRandom();
         }
@@ -193,7 +204,7 @@ public class SpiderController : MonoBehaviour
         if (lunaController == null) throw new System.Exception();
 
         return Vector2.SignedAngle(transform.position.normalized, lunaController.transform.position.normalized) >= 0;
-        
+
     }
 
     void GoalMoveOpposite(bool clockwise)
@@ -272,7 +283,7 @@ public class SpiderController : MonoBehaviour
 
         //Damage
         _spriteIterator.Hit();
-        FindObjectOfType<GameManager>().Hit(gameObject,false);
+        FindObjectOfType<GameManager>().Hit(gameObject, false);
 
         IsVulnerable = false;
         IsInvincible = true;
@@ -285,8 +296,8 @@ public class SpiderController : MonoBehaviour
             spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 48, 0.75f);
         }
 
-        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.7f, 0.8f),0.2f);
-        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.7f, 0.8f),0.2f);
+        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.7f, 0.8f), 0.2f);
+        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.7f, 0.8f), 0.2f);
 
         Rumble.main?.RemovePermanentRumble(ChosenCharacter.luna, new Vector2(0f, 0.1f));
         Rumble.main?.RemovePermanentRumble(ChosenCharacter.drillian, new Vector2(0f, 0.1f));
@@ -312,4 +323,19 @@ public class SpiderController : MonoBehaviour
             GetDamaged();
         }
     }
+
+    private void VulnerableVFX()
+    {
+        if (IsVulnerable && !_vfxActive)
+        {
+            _energyLoss.SendEvent("Discharge");
+            _vfxActive = !_vfxActive;
+        }
+        else if (!IsVulnerable && _vfxActive)
+        {
+            _energyLoss.Stop();
+            _vfxActive = !_vfxActive;
+        }
+    }
+
 }
