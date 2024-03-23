@@ -33,15 +33,7 @@ public class BackgroundMusic : MonoBehaviour
 
     private void Awake()
     {
-        // Singelton
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
+        
 
         DontDestroyOnLoad(this);
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -59,6 +51,17 @@ public class BackgroundMusic : MonoBehaviour
         if (!_backgroundAudioSource.isPlaying)
         {
             _backgroundAudioSource.Play();
+        }
+
+        // Singelton
+        if (_instance != null && _instance != this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
         }
     }
 }
