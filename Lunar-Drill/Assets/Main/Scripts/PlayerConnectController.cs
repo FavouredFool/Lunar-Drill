@@ -13,6 +13,8 @@ public class PlayerConnectController : MonoBehaviour
         _readyDown = false,
         _swapDown = false;
 
+    public bool Tiggle { get; set; } = false;
+
     public UnityEvent<bool> ReadyStateChanged = new();
     public UnityEvent<bool> SwapStateChanged = new();
     public UnityEvent<ChosenCharacter> ChosenCharacterChanged = new();
@@ -56,7 +58,6 @@ public class PlayerConnectController : MonoBehaviour
     // When the Scene is loaded then we assign the player input to the character
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
         SceneManager.sceneLoaded -= OnSceneLoaded;
         
         SceneManager.sceneLoaded += LateDestroy;
@@ -76,20 +77,7 @@ public class PlayerConnectController : MonoBehaviour
         else if (context.canceled)
             SwapDown = false;
 
-        //if ((!context.started) || Ready)
-        //    return;
-
-        //if(_character == ChosenCharacter.drillian)
-        //{
-        //    ChosenCharacterChanged.Invoke(ChosenCharacter.luna);
-        //    _character = ChosenCharacter.luna;
-
-        //}
-        //else if(_character == ChosenCharacter.luna)
-        //{
-        //    ChosenCharacterChanged.Invoke(ChosenCharacter.drillian);
-        //    _character = ChosenCharacter.drillian;
-        //}
+        Tiggle = context.performed;
     }
 
     public void OnReady(InputAction.CallbackContext context) // Allow the player(s) to get ready. (And rewerse the readyness)
@@ -98,6 +86,8 @@ public class PlayerConnectController : MonoBehaviour
             ReadyDown = true;
         else if (context.canceled)
             ReadyDown = false;
+
+        Tiggle = context.performed;
     }
     public void SetCharacter(ChosenCharacter c)
     {

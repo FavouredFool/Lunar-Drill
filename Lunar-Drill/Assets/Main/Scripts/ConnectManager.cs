@@ -74,19 +74,36 @@ public class ConnectManager : MonoBehaviour
 
         bool p1, p2;
 
+        //Play
         if (AllPlayerReady(out p1, out p2)) ReadyTime += Time.deltaTime;
         else ReadyTime = 0;
         UI.RefreshReady(p1, p2, ReadyTime);
 
         if (AgreeTime <= ReadyTime)
+        {
             Play();
+            return;
+        }
 
+        //Swap
         if (isMultiplayer && AllPlayerSwap(out p1, out p2)) SwapTime += Time.deltaTime;
         else SwapTime = 0;
         UI.RefreshSwap(p1, p2, SwapTime);
 
         if (isMultiplayer && AgreeTime <= SwapTime)
             Swap();
+
+        //Tiggle
+        if (connectedPlayers.Count > 0 && connectedPlayers[0].Tiggle)
+        {
+            connectedPlayers[0].Tiggle = false;
+            UI.Tiggle(true);
+        }
+        if (connectedPlayers.Count > 1 && connectedPlayers[1].Tiggle)
+        {
+            connectedPlayers[1].Tiggle = false;
+            UI.Tiggle(false);
+        }
     }
 
     public void Swap()
@@ -108,12 +125,17 @@ public class ConnectManager : MonoBehaviour
         SwapTime = 0;
 
         Debug.Log("SWAP");
+
+        IsControlled = true;
+        DOVirtual.DelayedCall(0.43f, () =>
+        {
+            IsControlled = false;
+        });
+
     }
     public void Play()
     {
         if (NumberConnectedPlayers == 0) return;
-
-        IsControlled = true;
 
         UI.Play();
 
@@ -121,7 +143,8 @@ public class ConnectManager : MonoBehaviour
 
         Debug.Log("PLAY");
 
-        DOVirtual.DelayedCall(0.5f, () => SceneManager.LoadScene("MainScene"));
+        IsControlled = true;
+        DOVirtual.DelayedCall(0.1f, () => SceneManager.LoadScene("MainScene"));
     }
 
     public void PlayerJoined(PlayerInput input)
