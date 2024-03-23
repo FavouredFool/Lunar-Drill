@@ -18,7 +18,7 @@ public class SpiderAudioSource : MonoBehaviour, IAudioSubscriber<SpiderHit>, IAu
 
     public void OnAudioEvent(SpiderHit audioEvent)
     {
-        _audioSource.PlayOneShot(_hitClip, _shootLaserVolume);
+        _audioSource.PlayOneShot(_hitClip, _hitVolume);
     }
 
     public void OnAudioEvent(SpiderLaserFiring audioEvent)
@@ -26,6 +26,7 @@ public class SpiderAudioSource : MonoBehaviour, IAudioSubscriber<SpiderHit>, IAu
         if (!_audioSource.isPlaying && audioEvent.CurrentState == SpiderLaserFiring.LaserState.LaserFiring)
         {
             _audioSource.clip = _shootLaserClip;
+            _audioSource.volume = _hitVolume;
             _audioSource.Play();
         }
         if (audioEvent.CurrentState == SpiderLaserFiring.LaserState.LaserStopped)

@@ -773,9 +773,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a91521e81cd60c04e8ead53bc74d8792, type: 3}
   _oreCrackedVolume: 0.2
   _hitByLaserClip: {fileID: 8300000, guid: e5e3e6fdde2672740987b2ea9e887ed7, type: 3}
-  _hitByLaserVolume: 0.5
+  _hitByLaserVolume: 0.8
   _hitBySpiderClip: {fileID: 8300000, guid: e5e3e6fdde2672740987b2ea9e887ed7, type: 3}
-  _hitBySpiderVolume: 0.5
+  _hitBySpiderVolume: 0.8
 --- !u!1 &5899278367595752882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _drillingClip: {fileID: 8300000, guid: ec3c927b5ae0c6047a62249136307a89, type: 3}
-  _drillVolume: 0.5
+  _drillVolume: 0.7
 --- !u!1 &9034059613139455068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitClip: {fileID: 8300000, guid: 1c208f7265838c742889bf48ea679b03, type: 3}
-  _hitVolume: 0.35
+  _hitVolume: 0.5
   _shootLaserClip: {fileID: 8300000, guid: 95c825e4a12b0cd4fa2fcea5a90c1de1, type: 3}
   _shootLaserVolume: 0.35
   _laserPitchRange: {x: 1, y: 1}
