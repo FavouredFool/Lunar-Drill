@@ -341,7 +341,7 @@ public class SpiderController : MonoBehaviour
 
         while (Vector2.Dot(_goalRotation, transform.position.normalized) < 0.95f && !IsVulnerable)
         {
-            Debug.Log(Vector2.Dot(_goalRotation, transform.position.normalized));
+           // Debug.Log(Vector2.Dot(_goalRotation, transform.position.normalized));
             yield return new WaitForEndOfFrame();
         }
     }
@@ -468,6 +468,9 @@ public class SpiderController : MonoBehaviour
         {
             _regenerateVulnerableTween.Kill();
         }
+
+        // Camera shake
+        CamShake.Instance.ShakeCamera();
 
         // Sound
         AudioController.Fire(new SpiderHit(""));
