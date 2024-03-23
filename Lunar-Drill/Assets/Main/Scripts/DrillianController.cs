@@ -342,6 +342,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             _drillImpactOut.SendEvent("Shoot");
 
             AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStopped));
+            AudioController.Fire(new DrillianChangeMode(""));
         }
         else if (IsBurrowed && !LastFrameIsBurrowed)
         {
@@ -350,6 +351,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             _drillImpactIn.SendEvent("Shoot");
 
             AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStarted));
+            AudioController.Fire(new DrillianChangeMode(""));
         }
     }
 

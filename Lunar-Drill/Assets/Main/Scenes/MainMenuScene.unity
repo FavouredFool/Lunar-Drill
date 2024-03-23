@@ -1071,7 +1071,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &190026490
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1084,7 +1084,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1531477952326790665, guid: 82aa0fa4c148ef14ba698101eaef717c, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1181,8 +1181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backgroundAudioSource: {fileID: 190026490}
-  _lobbyTrack: {fileID: 8300000, guid: 68b256556e7810745b3c0aa4850c416d, type: 3}
-  _gameTrack: {fileID: 8300000, guid: 74951487aa6a71d40a23d3c10adf2c89, type: 3}
+  _lobbyTrack: {fileID: 8300000, guid: 74951487aa6a71d40a23d3c10adf2c89, type: 3}
+  _gameTrack: {fileID: 8300000, guid: 68b256556e7810745b3c0aa4850c416d, type: 3}
 --- !u!4 &190026492
 Transform:
   m_ObjectHideFlags: 0
@@ -6299,6 +6299,10 @@ PrefabInstance:
     - target: {fileID: 905820887146235027, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
       propertyPath: m_Name
       value: AudioSources
+      objectReference: {fileID: 0}
+    - target: {fileID: 5642009506415407897, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: _selectVolume
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
       propertyPath: m_LocalPosition.x
