@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootLaserClip: {fileID: 8300000, guid: b61fd058c98cc0740ac2be83ec7facb6, type: 3}
-  _shootLaserVolume: 0.25
+  _shootLaserVolume: 0.15
   _laserPitchRange: {x: 1.5, y: 2}
 --- !u!1 &398334254351945520
 GameObject:
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedClip: {fileID: 8300000, guid: b64995188b378714d942bfa1995dd8fc, type: 3}
-  _selectVolume: 0.5
+  _selectVolume: 0.2
   _selectPitchVariations:
   - 1
   - 1.1
@@ -777,7 +777,7 @@ MonoBehaviour:
   _hitBySpiderClip: {fileID: 8300000, guid: e5e3e6fdde2672740987b2ea9e887ed7, type: 3}
   _hitBySpiderVolume: 0.8
   _changingModeClip: {fileID: 8300000, guid: bb4157b7d1129814abae1d7be2edf19d, type: 3}
-  _changingModeVolume: 0.5
+  _changingModeVolume: 0.15
 --- !u!1 &5899278367595752882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _drillingClip: {fileID: 8300000, guid: ec3c927b5ae0c6047a62249136307a89, type: 3}
-  _drillVolume: 0.7
+  _drillVolume: 0.3
 --- !u!1 &9034059613139455068
 GameObject:
   m_ObjectHideFlags: 0

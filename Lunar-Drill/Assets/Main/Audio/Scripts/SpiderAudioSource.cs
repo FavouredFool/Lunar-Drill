@@ -28,7 +28,7 @@ public class SpiderAudioSource : MonoBehaviour, IAudioSubscriber<SpiderHit>, IAu
         if (!_audioSource.isPlaying && audioEvent.CurrentState == SpiderLaserFiring.LaserState.LaserFiring)
         {
             _audioSource.clip = _shootLaserClip;
-            _audioSource.volume = _hitVolume;
+            _audioSource.volume = _shootLaserVolume;
             _audioSource.Play();
         }
         if (audioEvent.CurrentState == SpiderLaserFiring.LaserState.LaserStopped)
