@@ -95,6 +95,10 @@ public class SpiderSpriteIterator : MonoBehaviour
 
         energyBarAlpha += (energyBarVisible ? 2 : -2) * Time.deltaTime;
         energyBarAlpha = Mathf.Clamp01(energyBarAlpha);
+        UpdateEnergyBar();
+    }
+    void UpdateEnergyBar()
+    {
         foreach (Disc d in barDiscs)
         {
             Color c = d.Color;
@@ -125,6 +129,9 @@ public class SpiderSpriteIterator : MonoBehaviour
           {
               scaleTween = spriteRenderer.transform.DOScale(initialScale, 0.1f).SetUpdate(true).SetEase(Ease.OutSine);
           });
+
+        energyBarAlpha = 0;
+        UpdateEnergyBar();
     }
 
     public void CancelStun()

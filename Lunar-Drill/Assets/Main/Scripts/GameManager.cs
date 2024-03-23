@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     {
         SetHealth(_maxPlayerHP, true);
         SetHealth(_maxSpiderHP, false);
+        if(_undertaker.gameObject.activeSelf)
+        _undertaker.gameObject.SetActive(false);
     }
 
     public void Start()
