@@ -432,7 +432,7 @@ public class SpiderController : MonoBehaviour
 
     void GoalMoveOpposite(bool clockwise, float angle)
     {
-        float angleToMoveTo = clockwise ? -angle : angle;
+        float angleToMoveTo = clockwise ? angle : -angle;
         _goalRotation = Quaternion.Euler(0, 0, angleToMoveTo) * transform.position.normalized;
     }
 
