@@ -476,6 +476,8 @@ MonoBehaviour:
   _hitByLaserVolume: 0.5
   _hitByDrillianClip: {fileID: 8300000, guid: 9ac6976f5931bec4d8e1a38a5404b8f2, type: 3}
   _hitByDrillianVolume: 0.5
+  _energyPickupClip: {fileID: 8300000, guid: 93e567dd96489b54aa068afa3212a126, type: 3}
+  _energyPickupVolume: 0.2
 --- !u!1 &2330679970939009553
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,16 +772,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427e4ada29c5a72498d5aa3349d532e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameClip: {fileID: 0}
-  _gameVolume: 1
-  _overClip: {fileID: 0}
-  _overVolume: 1
-  _lunarClip: {fileID: 0}
-  _lunarVolume: 1
-  _drillClip: {fileID: 0}
-  _drillVolume: 1
-  _shingClip: {fileID: 0}
-  _shingVolume: 1
+  _gameClip: {fileID: 8300000, guid: 004d3255bba5d3d48960f790c07e10c5, type: 3}
+  _gameVolume: 0.7
+  _overClip: {fileID: 8300000, guid: 52250e109c64edd42b258a1a3dcf31d4, type: 3}
+  _overVolume: 0.7
+  _lunarClip: {fileID: 8300000, guid: 1e41a27e5088bee4a9db35849e9038ff, type: 3}
+  _lunarVolume: 0.7
+  _drillClip: {fileID: 8300000, guid: 9269d7e2fa92ddc4cb71b6e31564b65e, type: 3}
+  _drillVolume: 0.7
+  _shingClip: {fileID: 8300000, guid: 9a4287e0a8cbeca49a869d85cfcad22c, type: 3}
+  _shingVolume: 0.7
 --- !u!1 &9034059613139455068
 GameObject:
   m_ObjectHideFlags: 0

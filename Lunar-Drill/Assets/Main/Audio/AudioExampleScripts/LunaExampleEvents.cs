@@ -16,6 +16,10 @@ public class LunaExampleEvents : MonoBehaviour
     {
         AudioController.Fire(new LunaHitDrillian($"Triggered by {this}"));
     }
+    public void TriggerLunaEnergyPickup()
+    {
+        AudioController.Fire(new LunaEnergyPickup($"Triggered by {this}"));
+    }
 
     public void TriggerLunaShoot(bool isActive, float energy)
     {

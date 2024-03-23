@@ -4,8 +4,24 @@ using UnityEngine;
 
 public class EndScreenEvents : MonoBehaviour
 {
-    public void TriggerDrillianSpiderHit()
+    public void TriggerGame()
     {
-        AudioController.Fire(new DrillianHitSpider("Caused by Button"));
+        AudioController.Fire(new EndSceneGame("Caused by Button"));
+    }
+    public void TriggerOver()
+    {
+        AudioController.Fire(new EndSceneOver("Caused by Button"));
+    }
+    public void TriggerLunar()
+    {
+        AudioController.Fire(new EndSceneLunar("Caused by Button"));
+    }
+    public void TriggerDrill()
+    {
+        AudioController.Fire(new EndSceneDrill("Caused by Button"));
+    }
+    public void TriggerSlish()
+    {
+        AudioController.Fire(new EndSceneShing("Caused by Button"));
     }
 }
