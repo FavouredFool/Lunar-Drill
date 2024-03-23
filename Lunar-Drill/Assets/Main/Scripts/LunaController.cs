@@ -197,6 +197,8 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         {
             _goalDirection = readValue.normalized;
         }
+
+        FindObjectOfType<LunaControllerMarker>().SetGoalDirectionInput(readValue);
     }
 
 
