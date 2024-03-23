@@ -245,7 +245,7 @@ public class SpiderController : MonoBehaviour
         {
             return Wait();
         }
-        else if (randomT > 0.6f)
+        else if (randomT > 0.65f)
         {
             return Movement(80, 170);
         }
@@ -378,8 +378,8 @@ public class SpiderController : MonoBehaviour
         // Start PreLaser
 
         StartCoroutine(_spiderLaser.ShootLaser());
-        yield return Movement(90, 179);
-        yield return Movement(35, 120);
+        yield return Movement(120, 179);
+        yield return Movement(45, 90);
         _spiderLaser.StopLaser();
 
         yield return new WaitForSeconds(Random.Range(1f, 2.5f));
