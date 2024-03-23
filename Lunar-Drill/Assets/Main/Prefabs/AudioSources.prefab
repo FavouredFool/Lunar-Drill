@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _drillingClip: {fileID: 8300000, guid: ec3c927b5ae0c6047a62249136307a89, type: 3}
-  _drillVolume: 1
+  _drillVolume: 0.5
 --- !u!1 &9034059613139455068
 GameObject:
   m_ObjectHideFlags: 0
