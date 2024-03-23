@@ -139,6 +139,7 @@ MonoBehaviour:
   _spriteIterator: {fileID: 7756796454352137033}
   _invincibleTime: 5
   _healthPickupBlueprint: {fileID: 9097799415653815186, guid: af248468a2be6c546a196074a40c7b35, type: 3}
+  _regenerateTime: 10
   _energyLoss: {fileID: 7893748010579441460}
   _energyLossRed: {fileID: 2800000, guid: 1e938e4ee75390b4698c784ef1436c54, type: 3}
 --- !u!114 &8535113388948585094

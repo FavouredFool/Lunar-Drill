@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Shapes;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class OverheatBar : MonoBehaviour
 {
@@ -26,7 +27,19 @@ public class OverheatBar : MonoBehaviour
     {
         if (_spiderController == null) throw new System.Exception();
 
-        _bar.AngRadiansStart = DOVirtual.EasedValue(Mathf.Deg2Rad * _barStartValue, Mathf.Deg2Rad * _barEndValue, 1-_spiderController.OverheatT, Ease.Linear);
+        float tValue;
+
+
+        if (_spiderController.IsVulnerable)
+        {
+            tValue = _spiderController.RegenerateT;
+        }
+        else
+        {
+            tValue = 1 - _spiderController.OverheatT;
+        }
+
+        _bar.AngRadiansStart = DOVirtual.EasedValue(Mathf.Deg2Rad * _barStartValue, Mathf.Deg2Rad * _barEndValue, tValue, Ease.Linear);
 
         _bar.enabled = !Mathf.Approximately(_bar.AngRadiansStart, _bar.AngRadiansEnd);
     }
