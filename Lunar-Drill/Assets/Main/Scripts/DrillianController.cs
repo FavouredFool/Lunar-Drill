@@ -97,7 +97,28 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
         ShootDrillImpactParticles();
 
+        UpdateOres();
+
         LastFrameIsBurrowed = IsBurrowed;
+    }
+
+    public void UpdateOres()
+    {
+        Transform previous = transform;
+        for (int i = 0; i < FollowingOres.Count; i++)
+        {
+            Transform ore = FollowingOres[i].transform;
+
+            Vector2
+                prevPos = previous.position,
+                myPos = ore.position,
+                targetPos = prevPos + (myPos - prevPos).normalized * OreDistance,
+                smoothPos = Vector2.Lerp(myPos, targetPos, 0.7f);
+
+            ore.position = smoothPos;
+
+            previous = ore;
+        }
     }
 
     //--- Public Methods ------------------------
@@ -324,4 +345,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             _drillImpactIn.SendEvent("Shoot");
         }
     }
+
+
 }

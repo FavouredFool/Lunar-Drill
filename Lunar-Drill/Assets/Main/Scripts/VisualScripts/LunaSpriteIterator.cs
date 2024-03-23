@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Shapes;
 
 public class LunaSpriteIterator : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class LunaSpriteIterator : MonoBehaviour
     Tween scaleTween;
     float initialScale;
 
+    [SerializeField] Disc[] barDiscs;
+    bool energyBarVisible => controller.CurrentlyLasering || controller.EnergyGained || controller.EnergyFull;
+    float energyBarAlpha;
+
     private void Awake()
     {
         initialScale = spriteRenderer.transform.localScale.x;
@@ -41,6 +46,15 @@ public class LunaSpriteIterator : MonoBehaviour
             index = index % sprites.Length;
 
             spriteRenderer.sprite = sprites[index];
+        }
+
+        energyBarAlpha += (energyBarVisible?2:-2)*Time.deltaTime;
+        energyBarAlpha = Mathf.Clamp01(energyBarAlpha);
+        foreach (Disc d in barDiscs)
+        {
+            Color c = d.Color;
+            c.a = energyBarAlpha;
+            d.Color = c;
         }
     }
 

@@ -1,5 +1,7 @@
 using DG.Tweening;
 using Shapes;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -74,14 +76,13 @@ public class OreController : MonoBehaviour
         }
     }
 
-    public void LateUpdate()
-    {
-        if (_oreState == OreState.FOLLOWING)
-        {
-            MoveToFollow();
-        }
-            
-    }
+    //public void LateUpdate()
+    //{
+    //    if (_oreState == OreState.FOLLOWING)
+    //    {
+    //        MoveToFollow();
+    //    }
+    //}
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -152,10 +153,13 @@ public class OreController : MonoBehaviour
         Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.5f, 0.6f), 0.1f);
     }
 
-    void MoveToFollow()
-    {
-        Vector2 oreOffset = (_followDrillian.FollowingOres.IndexOf(this) + 1) * _followDrillian.OreDistance * -_followDrillian.transform.up;
+    //void MoveToFollow()
+    //{
+    //    List<OreController> ores = _followDrillian.FollowingOres;
+    //    int index= ores.IndexOf(this);
+    //    Transform
+    //    Vector2 oreOffset = (_followDrillian.FollowingOres.IndexOf(this) + 1) * _followDrillian.OreDistance * -_followDrillian.transform.up;
 
-        _rigidbody.MovePosition(((Vector2)_followDrillian.transform.position) + oreOffset);
-    }
+    //    _rigidbody.MovePosition(((Vector2)_followDrillian.transform.position) + oreOffset);
+    //}
 }

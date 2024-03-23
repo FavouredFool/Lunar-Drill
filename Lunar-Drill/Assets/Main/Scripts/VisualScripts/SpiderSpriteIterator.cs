@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Shapes;
 using UnityEngine.VFX;
 
 public class SpiderSpriteIterator : MonoBehaviour
@@ -34,6 +35,10 @@ public class SpiderSpriteIterator : MonoBehaviour
 
     Tween scaleTween;
     float initialScale;
+
+    [SerializeField] Disc[] barDiscs;
+    bool energyBarVisible => isShield||controller.IsShieldCritical;
+    float energyBarAlpha;
 
     private void Awake()
     {
@@ -86,6 +91,15 @@ public class SpiderSpriteIterator : MonoBehaviour
         {
             _energyLoss.Stop();
             _vfxActive = !_vfxActive;
+        }
+
+        energyBarAlpha += (energyBarVisible ? 2 : -2) * Time.deltaTime;
+        energyBarAlpha = Mathf.Clamp01(energyBarAlpha);
+        foreach (Disc d in barDiscs)
+        {
+            Color c = d.Color;
+            c.a = energyBarAlpha;
+            d.Color = c;
         }
     }
 
