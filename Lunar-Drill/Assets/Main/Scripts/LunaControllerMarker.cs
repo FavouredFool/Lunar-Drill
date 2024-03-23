@@ -27,11 +27,9 @@ public class LunaControllerMarker : MonoBehaviour
 
     //--- Public Methods ------------------------
 
-    public void SetGoalDirectionInput(InputAction.CallbackContext context)
+    public void SetGoalDirectionInput(Vector2 direction)
     {
-        if (!context.performed) return;
-
-        _goalDirection = context.ReadValue<Vector2>();
+        _goalDirection = direction;
     }
 
 

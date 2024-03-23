@@ -266,6 +266,17 @@
                     "action": "MoveGoal",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "24f93d29-f372-42f8-8784-dd02ab67eb8e",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveGoal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -404,6 +415,17 @@
                     "action": "MoveDirection",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "e30774e9-d07c-4272-86de-80eae265dbab",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
