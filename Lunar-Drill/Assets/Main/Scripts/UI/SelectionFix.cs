@@ -8,11 +8,14 @@ public class SelectionFix : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
+    public GameObject startTest;
+
     //--- Private Fields ------------------------
 
     private GameObject _lastSelected; // Object that was last selected, will automatically be selected if nothing is selected anymore
     private Vector3 _lastMousePosition;
 
+    private bool _cameFromBackButton = false;
 
     //--- Unity Methods ------------------------
 
@@ -23,6 +26,12 @@ public class SelectionFix : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.currentSelectedGameObject == startTest)
+        {
+            Debug.Log("jup");
+        }
+
+
         // Cheaty way to always have something selected
         var eventSystem = EventSystem.current;
         if (eventSystem.currentSelectedGameObject == null)
@@ -32,32 +41,47 @@ public class SelectionFix : MonoBehaviour
 
         _lastSelected = eventSystem.currentSelectedGameObject;
 
-
-        if (_lastMousePosition != Input.mousePosition)
+        if (!_cameFromBackButton)
         {
-
-            // THis part is from https://forum.unity.com/threads/option-to-select-element-on-mouseover.1214904/ by HunterAhlquist
-            List<RaycastResult> results = new List<RaycastResult>();
-            var pointerEventData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
-            EventSystem.current.RaycastAll(pointerEventData, results);
-            foreach (var r in results)
+            if (_lastMousePosition != Input.mousePosition)
             {
-                if (r.gameObject && r.gameObject.TryGetComponent(out Selectable sel))
+
+                // THis part is from https://forum.unity.com/threads/option-to-select-element-on-mouseover.1214904/ by HunterAhlquist
+                List<RaycastResult> results = new List<RaycastResult>();
+                var pointerEventData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
+                EventSystem.current.RaycastAll(pointerEventData, results);
+                foreach (var r in results)
                 {
-                    if (sel.interactable)
+                    if (r.gameObject && r.gameObject.TryGetComponent(out Selectable sel))
                     {
-                        EventSystem.current.SetSelectedGameObject(r.gameObject);
-                        _lastSelected = EventSystem.current.currentSelectedGameObject;
-                        break;
+                        if (sel.interactable)
+                        {
+                            EventSystem.current.SetSelectedGameObject(r.gameObject);
+                            _lastSelected = EventSystem.current.currentSelectedGameObject;
+                            break;
+                        }
                     }
                 }
-            }
 
-            _lastMousePosition = Input.mousePosition;
+                _lastMousePosition = Input.mousePosition;
+            }
         }
     }
 
     //--- Public Methods ------------------------
 
+    public void CameFromBackButton()
+    {
+        _cameFromBackButton = true;
+        StartCoroutine(OnCameFromBackButton());
+    }
+
+
     //--- Private Methods ------------------------
+
+    private IEnumerator OnCameFromBackButton()
+    {
+        yield return new WaitForSecondsRealtime(0.3f);
+        _cameFromBackButton = false;
+    }
 }
