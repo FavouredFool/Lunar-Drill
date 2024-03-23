@@ -134,7 +134,7 @@ public class SpiderController : MonoBehaviour
         switch (spiderState)
         {
             case SpiderState.Level1:
-                return GetLevel1Ability();
+                return GetLevel2Ability();
             case SpiderState.Level2:
                 return GetLevel2Ability();
             case SpiderState.Level3:
@@ -143,7 +143,7 @@ public class SpiderController : MonoBehaviour
                 return GetLevel4Ability();
         }
 
-        return Movement();
+        return Movement(30, 150);
     }
 
     IEnumerator GetLevel1Ability()
@@ -159,7 +159,7 @@ public class SpiderController : MonoBehaviour
         }
         else
         {
-            return Movement();
+            return Movement(30, 150);
         }
     }
 
@@ -178,7 +178,7 @@ public class SpiderController : MonoBehaviour
         }
         else if (randomT > 0.5f)
         {
-            return Movement();
+            return Movement(30, 150);
         }
         else if (randomT > 0.15f)
         {
@@ -206,7 +206,7 @@ public class SpiderController : MonoBehaviour
         }
         else if (randomT > 0.6f)
         {
-            return Movement();
+            return Movement(30, 150);
         }
         else if (randomT > 0.3f)
         {
@@ -239,7 +239,7 @@ public class SpiderController : MonoBehaviour
         }
         else if (randomT > 0.75f)
         {
-            return Movement();
+            return Movement(30, 150);
         }
         else if (randomT > 0.5f)
         {
@@ -298,22 +298,6 @@ public class SpiderController : MonoBehaviour
         yield return new WaitForEndOfFrame();
     }
 
-    IEnumerator ShootRandom()
-    {
-        if (IsVulnerable) yield break;
-
-        _goalRotation = Random.insideUnitCircle.normalized;
-
-        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
-
-        StartCoroutine(_spiderLaser.ShootLaser());
-
-        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
-
-        _goalRotation = Random.insideUnitCircle.normalized;
-
-        yield return new WaitForSeconds(5f);
-    }
 
     IEnumerator ShootLuna()
     {
@@ -344,11 +328,11 @@ public class SpiderController : MonoBehaviour
         }
     }
 
-    IEnumerator Movement()
+    IEnumerator Movement(float innerAngle, float outerAngle)
     {
         _goalRotation = Random.insideUnitCircle.normalized;
 
-        while (Vector2.Angle(transform.position.normalized, _goalRotation) < 45 || Vector2.Angle(transform.position.normalized, _goalRotation) > 135)
+        while (Vector2.Angle(transform.position.normalized, _goalRotation) < innerAngle || Vector2.Angle(transform.position.normalized, _goalRotation) > outerAngle)
         {
             _goalRotation = Random.insideUnitCircle.normalized;
         }
@@ -362,12 +346,24 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator RandomLaser()
     {
-        yield return null;
+
+        _goalRotation = Random.insideUnitCircle.normalized;
+
+        // Start PreLaser
+
+        StartCoroutine(_spiderLaser.ShootLaser());
+        yield return Movement(90, 179);
+        yield return Movement(35, 60);
+        yield return Movement(35, 120);
+        yield return Movement(35, 179);
+        _spiderLaser.StopLaser();
+
+        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
     }
 
     IEnumerator LunaLaser()
     {
-        yield return null;
+        yield return Movement(10, 15);
     }
 
     IEnumerator BlinkLaser()

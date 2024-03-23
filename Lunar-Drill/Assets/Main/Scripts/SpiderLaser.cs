@@ -20,13 +20,14 @@ public class SpiderLaser : MonoBehaviour
 
     [Header("Timings")]
     [SerializeField][Range(0.1f, 10f)] float _preLaserDuration;
-    [SerializeField][Range(0.1f, 10f)] float _laserDuration;
 
     [Header("VFX")]
     [SerializeField] VisualEffect _laserChargeOuter;
     [SerializeField] VisualEffect _laserChargeInner;
 
     public bool IsActive { get; private set; }=false;
+
+    bool _breakOut = false;
 
     //--- Private Fields ------------------------
 
@@ -47,6 +48,7 @@ public class SpiderLaser : MonoBehaviour
         if (_spider.IsVulnerable) yield break;
 
         IsActive = true;
+        _breakOut = false;
 
         //Rumble
         Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.1f, 0.2f));
@@ -70,7 +72,7 @@ public class SpiderLaser : MonoBehaviour
 
         float waitStart = Time.time;
 
-        while (Time.time - waitStart < _preLaserDuration)
+        while ((Time.time - waitStart < _preLaserDuration) || _breakOut)
         {
             // If vulnerable, break out earlier
             if (_spider.IsVulnerable)
@@ -110,10 +112,10 @@ public class SpiderLaser : MonoBehaviour
         Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.1f, 0.3f));
         Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
 
-        while (Time.time - waitStart2 < _laserDuration)
+        while (true)
         {
             // If vulnerable, break out earlier
-            if (_spider.IsVulnerable && canBreak) break;
+            if ((_spider.IsVulnerable && canBreak) || _breakOut) break;
             yield return new WaitForEndOfFrame();
         }
 
@@ -132,7 +134,13 @@ public class SpiderLaser : MonoBehaviour
 
         AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserStopped));
 
+        _breakOut = true;
         IsActive = false;
+    }
+
+    public void StopLaser()
+    {
+        _breakOut = true;
     }
 
 
