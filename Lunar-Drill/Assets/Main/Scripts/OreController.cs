@@ -51,6 +51,9 @@ public class OreController : MonoBehaviour
     Rigidbody2D _rigidbody;
     Tween _moveTween;
 
+    float decayTime;
+    float starTime = float.PositiveInfinity;
+
 
     //--- Unity Methods ------------------------
 
@@ -72,6 +75,13 @@ public class OreController : MonoBehaviour
                 timer = 0;
 
                 _oreVisuals.transform.Rotate(Vector3.forward, angleStep);
+            }
+        }
+        if (_oreState == OreState.FLYING)
+        {
+            if (Time.time - starTime > 45)
+            {
+                DestroyOre();
             }
         }
     }
@@ -121,6 +131,7 @@ public class OreController : MonoBehaviour
         _moveTween = DOTween.To(() => (Vector2)transform.position, x => transform.position = x, goalPosition, _durationTillOnOuterRadius).SetEase(Ease.OutSine)
             .OnComplete(() => {
                 _oreVisuals.sprite = _energy;
+                starTime = Time.time;
             });
     }
 
@@ -132,6 +143,7 @@ public class OreController : MonoBehaviour
             spawner.RemoveOre(this);
 
         _moveTween = transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
+
 
         Destroy(gameObject, 5f);
     }
