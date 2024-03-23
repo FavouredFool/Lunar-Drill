@@ -32,4 +32,9 @@ public class DrillianEvents : MonoBehaviour
     {
         AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStopped));
     }
+
+    public void DrillianModeChange()
+    {
+        AudioController.Fire(new DrillianChangeMode(""));
+    }
 }

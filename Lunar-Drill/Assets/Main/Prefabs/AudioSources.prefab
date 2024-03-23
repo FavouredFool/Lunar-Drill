@@ -776,6 +776,8 @@ MonoBehaviour:
   _hitByLaserVolume: 0.8
   _hitBySpiderClip: {fileID: 8300000, guid: e5e3e6fdde2672740987b2ea9e887ed7, type: 3}
   _hitBySpiderVolume: 0.8
+  _changingModeClip: {fileID: 8300000, guid: bb4157b7d1129814abae1d7be2edf19d, type: 3}
+  _changingModeVolume: 0.5
 --- !u!1 &5899278367595752882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,3 +1218,5 @@ MonoBehaviour:
   _shootLaserClip: {fileID: 8300000, guid: 95c825e4a12b0cd4fa2fcea5a90c1de1, type: 3}
   _shootLaserVolume: 0.35
   _laserPitchRange: {x: 1, y: 1}
+  _chargeClip: {fileID: 8300000, guid: 9437252ed05e3694393ec61a32dba896, type: 3}
+  _chargeVolume: 0.35

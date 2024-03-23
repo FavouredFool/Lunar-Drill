@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrillianAudioSource : MonoBehaviour, IAudioSubscriber<OreCrackedAudioEvent>, IAudioSubscriber<DrillianHitLaser>, IAudioSubscriber<DrillianHitSpider>
+public class DrillianAudioSource : MonoBehaviour, IAudioSubscriber<OreCrackedAudioEvent>, IAudioSubscriber<DrillianHitLaser>, IAudioSubscriber<DrillianHitSpider>, IAudioSubscriber<DrillianChangeMode>
 {
     AudioSource _audioSource;
 
@@ -15,6 +15,9 @@ public class DrillianAudioSource : MonoBehaviour, IAudioSubscriber<OreCrackedAud
     [Header("Audio Hit by  Spider Options")]
     [SerializeField] AudioClip _hitBySpiderClip = null; // Clips for when Drillian takes damage when hitting the spider.
     [SerializeField, Range(0, 1f)] float _hitBySpiderVolume = 1.0f; // Volume of Spider hit
+    [Header("Audio Change Mode")]
+    [SerializeField] AudioClip _changingModeClip = null; // Clips for when Drillian takes damage when hitting the spider.
+    [SerializeField, Range(0, 1f)] float _changingModeVolume = 0.5f; // Volume of Spider hit
 
 
     public void OnAudioEvent(OreCrackedAudioEvent audioEvent)
@@ -32,19 +35,25 @@ public class DrillianAudioSource : MonoBehaviour, IAudioSubscriber<OreCrackedAud
         _audioSource.PlayOneShot(_hitBySpiderClip,_hitBySpiderVolume);
     }
 
+    public void OnAudioEvent(DrillianChangeMode audioEvent)
+    {
+        _audioSource.PlayOneShot(_changingModeClip, _changingModeVolume);
+    }
+
     void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
         AudioController.Subscribe<OreCrackedAudioEvent>(this);
         AudioController.Subscribe<DrillianHitSpider>(this);
         AudioController.Subscribe<DrillianHitLaser>(this);
+        AudioController.Subscribe<DrillianChangeMode>(this);
     }
 
     private void OnDestroy()
     {
         AudioController.Unsubscribe<OreCrackedAudioEvent>(this);
         AudioController.Unsubscribe<DrillianHitLaser>(this);
-        AudioController.Unsubscribe<DrillianHitSpider>(this);
+        AudioController.Unsubscribe<DrillianChangeMode>(this);
     }
 
 }
