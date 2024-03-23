@@ -1,6 +1,7 @@
+
+
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -61,6 +62,8 @@ public class SpiderController : MonoBehaviour
     Vector2 _goalRotation = Vector2.zero;
     Tween _regenerateVulnerableTween;
     SpiderSpeed _spiderSpeed = SpiderSpeed.MID;
+    Tween _hasJustBeenHitTween;
+    bool _hasJustBeenHit = false;
 
 
     //--- Unity Methods ------------------------
@@ -308,6 +311,7 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator Wait()
     {
+        if (_hasJustBeenHit) yield break;
         Debug.Log("WAIT");
 
         float duration = Random.Range(1.5f, 3.5f);
@@ -349,6 +353,7 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator RandomLaserLong()
     {
+        if (_hasJustBeenHit) yield break;
         Debug.Log("LASERLONG");
 
         _spiderSpeed = SpiderSpeed.MID;
@@ -369,6 +374,8 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator RandomLaserShort()
     {
+        if (_hasJustBeenHit) yield break;
+
         Debug.Log("LASERSHORT");
 
         _spiderSpeed = SpiderSpeed.MID;
@@ -387,6 +394,8 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator LunaLaser()
     {
+        if (_hasJustBeenHit) yield break;
+
         Debug.Log("LUNALASER");
 
         _spiderSpeed = SpiderSpeed.MID;
@@ -538,6 +547,9 @@ public class SpiderController : MonoBehaviour
         OverheatT = 0;
         SpawnHP();
         DOVirtual.DelayedCall(4, () => IsInvincible = false, false);
+
+        _hasJustBeenHit = true;
+        DOVirtual.DelayedCall(2, () => _hasJustBeenHit = false);
 
         foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
         {
