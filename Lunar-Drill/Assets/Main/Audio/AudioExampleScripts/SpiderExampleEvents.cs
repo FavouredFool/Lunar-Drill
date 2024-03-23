@@ -17,4 +17,12 @@ public class SpiderExampleEvents : MonoBehaviour
     {
         AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserStopped));
     }
+    public void VulnurableStarting()
+    {
+        AudioController.Fire(new SpiderVulnurable(SpiderVulnurable.VulnurableState.SpiderVulnurable));
+    }
+    public void VulnurableStopping()
+    {
+        AudioController.Fire(new SpiderVulnurable(SpiderVulnurable.VulnurableState.SpiderInvulnurable));
+    }
 }
