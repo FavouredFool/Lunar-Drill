@@ -6,62 +6,62 @@ using UnityEngine.SceneManagement;
 
 public class PlayerSelectCanvas : MonoBehaviour
 {
-    //--- Exposed Fields ------------------------
+    ////--- Exposed Fields ------------------------
 
-    [SerializeField][Range(0f, 100f)] float _sideMovementDelta;
+    //[SerializeField][Range(0f, 100f)] float _sideMovementDelta;
 
-    [SerializeField] SelectScreenHandling _selectScreenHandling;
+    //[SerializeField] SelectScreenHandling _selectScreenHandling;
 
-    public enum PlayerSelectState { CONNECT, PREPARE };
+    //public enum PlayerSelectState { CONNECT, PREPARE };
 
-    //--- Properties ------------------------
+    ////--- Properties ------------------------
 
-    public bool IsConnectState { get; private set; } = true;
-
-
-    //--- Private Fields ------------------------
-
-    RectTransform rectTransform;
+    //public bool IsConnectState { get; private set; } = true;
 
 
-    //--- Unity Methods ------------------------
+    ////--- Private Fields ------------------------
 
-    public void Awake()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        _selectScreenHandling.Starting.AddListener(() => ChangeConnected(true));
-        _selectScreenHandling.StoppingGameStart.AddListener(() => ChangeConnected(false));
-    }
+    //RectTransform rectTransform;
 
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SwapStates();
+    ////--- Unity Methods ------------------------
+
+    //public void Awake()
+    //{
+    //    rectTransform = GetComponent<RectTransform>();
+    //    _selectScreenHandling.Starting.AddListener(() => ChangeConnected(true));
+    //    _selectScreenHandling.StoppingGameStart.AddListener(() => ChangeConnected(false));
+    //}
+
+
+    //public void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        SwapStates();
             
-        }
-    }
+    //    }
+    //}
 
-    //--- Public Methods ------------------------
+    ////--- Public Methods ------------------------
 
-    public void MoveToSide()
-    {
-        float endPosition = IsConnectState ? _sideMovementDelta : 0;
+    //public void MoveToSide()
+    //{
+    //    float endPosition = IsConnectState ? _sideMovementDelta : 0;
 
-        rectTransform.DOLocalMoveX(endPosition, 1).SetEase(Ease.InOutQuint);
-    }
+    //    rectTransform.DOLocalMoveX(endPosition, 1).SetEase(Ease.InOutQuint);
+    //}
 
-    public void SwapStates()
-    {
-        IsConnectState = !IsConnectState;
-        MoveToSide();
-    }
+    //public void SwapStates()
+    //{
+    //    IsConnectState = !IsConnectState;
+    //    MoveToSide();
+    //}
 
-    public void ChangeConnected(bool newState)
-    {
-        IsConnectState = newState;
-        MoveToSide();
-    }
+    //public void ChangeConnected(bool newState)
+    //{
+    //    IsConnectState = newState;
+    //    MoveToSide();
+    //}
 
 }
