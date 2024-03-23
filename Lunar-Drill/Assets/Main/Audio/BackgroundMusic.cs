@@ -8,6 +8,9 @@ public class BackgroundMusic : MonoBehaviour
     [SerializeField] AudioSource _backgroundAudioSource;
     [SerializeField] AudioClip _lobbyTrack, _gameTrack;
 
+    private static BackgroundMusic _instance;
+    public static BackgroundMusic Instance { get => _instance; }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if(scene.name == "MainMenuScene")
@@ -30,6 +33,16 @@ public class BackgroundMusic : MonoBehaviour
 
     private void Awake()
     {
+        // Singelton
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
         DontDestroyOnLoad(this);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
