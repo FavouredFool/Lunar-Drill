@@ -32,10 +32,12 @@ public class SpiderController : MonoBehaviour
     [SerializeField] [Range(0.01f, 5f)] float _invincibleTime = 5f;
     [SerializeField] HealthPickup _healthPickupBlueprint;
     [SerializeField][Range(0.01f, 20f)] float _regenerateTime = 5f;
+    [SerializeField] Transform _pickupParent;
 
     [Header("VFX")]
     [SerializeField] VisualEffect _energyLoss;
     [SerializeField] Texture2D _energyLossRed;
+
 
     public enum SpiderState { Level1, Level2, Level3, Level4 };
     public enum SpiderSpeed { SLOW, MID, FAST };
@@ -565,7 +567,7 @@ public class SpiderController : MonoBehaviour
 
     void SpawnHP()
     {
-        Instantiate(_healthPickupBlueprint, transform.position, Quaternion.LookRotation(Vector3.forward, transform.position.normalized));
+        Instantiate(_healthPickupBlueprint, transform.position, Quaternion.LookRotation(Vector3.forward, transform.position.normalized),_pickupParent);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
