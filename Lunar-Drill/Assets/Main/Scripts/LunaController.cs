@@ -70,6 +70,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     bool _isInvincible = false;
 
+    [SerializeField] LunaControllerMarker _lunaControllMarker;
 
     //--- Unity Methods ------------------------
 
@@ -202,7 +203,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
             _goalDirection = readValue.normalized;
         }
 
-        FindObjectOfType<LunaControllerMarker>().SetGoalDirectionInput(readValue);
+        _lunaControllMarker.SetGoalDirectionInput(readValue);
     }
 
 

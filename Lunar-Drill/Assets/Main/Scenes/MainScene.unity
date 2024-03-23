@@ -2677,10 +2677,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cam: {fileID: 519420031}
-  _shakeDuration: 0.5
-  _shakeStrength: {x: 1, y: 1, z: 1}
-  _shakeVibrato: 20
-  _shakeRandomness: 42.2
+  _shakeDuration: 0.2
+  _shakeStrength: {x: 0.5, y: 0.5, z: 0.5}
+  _shakeVibrato: 30
+  _shakeRandomness: 90
   _shakeFadeOut: 1
 --- !u!1 &531625934
 GameObject:
@@ -4266,6 +4266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -45
       objectReference: {fileID: 0}
+    - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: _lunaControllMarker
+      value: 
+      objectReference: {fileID: 1368627427}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -39,8 +39,7 @@ public class CamShake : MonoBehaviour
 
     public void ShakeCamera()
     {
-        Debug.Log(_shakeStrength);
-        _cam.DOShakePosition(_shakeDuration,_shakeStrength,_shakeVibrato,_shakeRandomness,_shakeFadeOut,ShakeRandomnessMode.Harmonic);
+        _cam.DOShakePosition(_shakeDuration,_shakeStrength,_shakeVibrato,_shakeRandomness,_shakeFadeOut,ShakeRandomnessMode.Harmonic).SetUpdate(true);
     }
 
     //--- Private Methods ------------------------
