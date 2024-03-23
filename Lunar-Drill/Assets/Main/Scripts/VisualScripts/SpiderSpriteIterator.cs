@@ -37,7 +37,7 @@ public class SpiderSpriteIterator : MonoBehaviour
     float initialScale;
 
     [SerializeField] Disc[] barDiscs;
-    bool energyBarVisible => isShield || controller.IsShieldCritical;
+    bool energyBarVisible => (isShield || controller.IsShieldCritical) && !controller.IsVulnerable && !controller.IsInvincible;
     float energyBarAlpha;
 
     private void Awake()
