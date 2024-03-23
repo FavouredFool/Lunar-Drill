@@ -131,7 +131,7 @@ MonoBehaviour:
   _drillian:
     serializedVersion: 2
     m_Bits: 256
-  _overheatGain: 0.2
+  _overheatGain: 0.175
   _overheatLoss: 0.01
   _spriteRenderers:
   - {fileID: 2297733279568171791}
