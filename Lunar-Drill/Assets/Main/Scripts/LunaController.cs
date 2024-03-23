@@ -382,11 +382,11 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         {
             if (Mathf.Approximately(EnergyT, 1)) return;
 
-            GainEnergy();
-
             // VFX
             if (!collision.gameObject.GetComponent<OreController>().Collected)
             {
+                GainEnergy();
+
                 _energyCollect.SendEvent("Collect");
 
                 AudioController.Fire(new LunaEnergyPickup(""));

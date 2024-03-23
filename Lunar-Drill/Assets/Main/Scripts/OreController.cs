@@ -144,7 +144,6 @@ public class OreController : MonoBehaviour
 
         _moveTween = transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
 
-
         Destroy(gameObject, 5f);
     }
 
