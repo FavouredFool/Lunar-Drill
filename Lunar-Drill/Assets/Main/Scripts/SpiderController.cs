@@ -469,6 +469,9 @@ public class SpiderController : MonoBehaviour
             _regenerateVulnerableTween.Kill();
         }
 
+        // Camera shake
+        CamShake.Instance.ShakeCamera();
+
         // Sound
         AudioController.Fire(new SpiderHit(""));
 
