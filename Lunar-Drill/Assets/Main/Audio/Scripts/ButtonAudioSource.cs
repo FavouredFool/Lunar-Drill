@@ -33,15 +33,15 @@ public class ButtonAudioSource : MonoBehaviour, IAudioSubscriber<MenuSelectAudio
             return;
         }
         _audioSource.volume = _selectVolume;
+        Debug.Log("Select");
         _audioSource.pitch = _selectPitchVariations[Random.Range(0,_selectPitchVariations.Count-1)];
-        _audioSource.PlayOneShot(_selectedClip);
+        _audioSource.PlayOneShot(_selectedClip, _selectVolume);
 
     }
     public void OnAudioEvent(MenuClickAudio audioEvent)
     {
         _audioSource.Stop();
-        _audioSource.volume = _confirmVolume;
-        _audioSource.PlayOneShot(_confirmClip);
+        _audioSource.PlayOneShot(_confirmClip, _confirmVolume);
         _allowSelectPlay = false;
         StartCoroutine(StartSelectCooldown());
     }
