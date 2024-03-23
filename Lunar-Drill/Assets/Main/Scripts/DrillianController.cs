@@ -168,7 +168,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             if (IsBurrowed)
             {
                 Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
-                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.5f, 0.5f),0.1f);
+                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.5f, 0.5f), 0.1f);
             }
             else
             {
@@ -340,12 +340,16 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             _drillImpactOut.SetVector3("StartPosition", transform.position);
             _drillImpactOut.SetVector3("DrillianUp", transform.up);
             _drillImpactOut.SendEvent("Shoot");
+
+            AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStopped));
         }
         else if (IsBurrowed && !LastFrameIsBurrowed)
         {
             _drillImpactIn.SetVector3("StartPosition", transform.position);
             _drillImpactIn.SetVector3("DrillianUp", transform.up);
             _drillImpactIn.SendEvent("Shoot");
+
+            AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStarted));
         }
     }
 

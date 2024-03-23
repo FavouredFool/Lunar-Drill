@@ -525,12 +525,16 @@ public class SpiderController : MonoBehaviour
             _energyLoss.SendEvent("Discharge");
             _energyLoss.SetBool("Alive", true);
             _vfxActive = !_vfxActive;
+
+            AudioController.Fire(new SpiderVulnurable(SpiderVulnurable.VulnurableState.SpiderVulnurable));
         }
         else if (!IsVulnerable && _vfxActive)
         {
             _energyLoss.Stop();
             _energyLoss.SetBool("Alive", false);
             _vfxActive = !_vfxActive;
+
+            AudioController.Fire(new SpiderVulnurable(SpiderVulnurable.VulnurableState.SpiderInvulnurable));
         }
     }
 

@@ -386,6 +386,9 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
             if (!collision.gameObject.GetComponent<OreController>().Collected)
             {
                 _energyCollect.SendEvent("Collect");
+
+                AudioController.Fire(new LunaEnergyPickup(""));
+
                 collision.gameObject.GetComponent<OreController>().Collected = true;
             }
             
