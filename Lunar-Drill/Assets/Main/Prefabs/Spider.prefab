@@ -304,7 +304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0541081b8f0724891a309c5fce66cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: 0.1
+  _slowRotationSpeed: 0.075
+  _midRotationSpeed: 0.1
+  _fastRotationSpeed: 0.125
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
   _lunaLaser:
@@ -349,7 +351,6 @@ MonoBehaviour:
   _laserMinThickness: 0.05
   _thickeningTimeSeconds: 0.25
   _preLaserDuration: 3
-  _laserDuration: 2
   _laserChargeOuter: {fileID: 5262700585689840376}
   _laserChargeInner: {fileID: 8059702006138095253}
 --- !u!50 &3790611985934121596
