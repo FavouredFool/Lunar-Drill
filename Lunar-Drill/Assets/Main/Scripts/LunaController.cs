@@ -70,6 +70,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     bool _isInvincible = false;
 
+    [SerializeField] LunaControllerMarker _lunaControllMarker;
 
     //--- Unity Methods ------------------------
 
@@ -202,7 +203,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
             _goalDirection = readValue.normalized;
         }
 
-        FindObjectOfType<LunaControllerMarker>().SetGoalDirectionInput(readValue);
+        _lunaControllMarker.SetGoalDirectionInput(readValue);
     }
 
 
@@ -324,6 +325,9 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     void GetHit()
     {
+        // Camera shake
+        CamShake.Instance.ShakeCamera();
+
         // Health Reduce
         _spriteIterator.Hit();
         FindObjectOfType<GameManager>().Hit(gameObject, true);
@@ -382,6 +386,9 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
             if (!collision.gameObject.GetComponent<OreController>().Collected)
             {
                 _energyCollect.SendEvent("Collect");
+
+                AudioController.Fire(new LunaEnergyPickup(""));
+
                 collision.gameObject.GetComponent<OreController>().Collected = true;
             }
             

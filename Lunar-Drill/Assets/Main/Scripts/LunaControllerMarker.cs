@@ -7,7 +7,7 @@ public class LunaControllerMarker : MonoBehaviour
     //--- Private Fields ------------------------
 
     Vector2 _goalDirection;
-    Line _visual;
+    GameObject _visual;
 
 
     //--- Unity Methods ------------------------
@@ -15,7 +15,7 @@ public class LunaControllerMarker : MonoBehaviour
     public void Awake()
     {
         _goalDirection = Vector2.zero;
-        _visual = GetComponent<Line>();
+        _visual = transform.GetChild(0).gameObject;
     }
 
     public void FixedUpdate()
@@ -39,11 +39,11 @@ public class LunaControllerMarker : MonoBehaviour
     {
         if (_goalDirection.magnitude < 0.1f)
         {
-            _visual.enabled = false;
+            _visual.SetActive(false);
         }
         else
         {
-            _visual.enabled = true;
+            _visual.SetActive(true);
         }
 
         float angle = Vector2.SignedAngle(Vector2.up, _goalDirection);

@@ -23,4 +23,13 @@ public class DrillianEvents : MonoBehaviour
     {
         AudioController.Fire(new DrillianHitSpider("Caused by Button"));
     }
+
+    public void DrillingStarting()
+    {
+        AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStarted));
+    }
+    public void DrillingStopping()
+    {
+        AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStopped));
+    }
 }

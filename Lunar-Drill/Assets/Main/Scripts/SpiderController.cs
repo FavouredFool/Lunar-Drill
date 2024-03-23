@@ -8,7 +8,10 @@ public class SpiderController : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField] [Range(0.01f, 1f)] float _rotationSpeed = 5f;
+    [Header("Speed")]
+    [SerializeField] [Range(0.01f, 10f)] float _slowRotationSpeed = 0.5f;
+    [SerializeField] [Range(0.01f, 10f)] float _midRotationSpeed = 1f;
+    [SerializeField] [Range(0.01f, 10f)] float _fastRotationSpeed = 5f;
 
     [Header("Movement Smoothing")]
     [SerializeField] [Range(0.1f, 100f)] float _movementStartAngleThreshold;
@@ -32,6 +35,10 @@ public class SpiderController : MonoBehaviour
     [Header("VFX")]
     [SerializeField] VisualEffect _energyLoss;
     [SerializeField] Texture2D _energyLossRed;
+
+    public enum SpiderState { Level1, Level2, Level3, Level4 };
+    public enum SpiderSpeed { SLOW, MID, FAST };
+
     bool _vfxActive = false;
 
     public int MoveSign { get; private set; } = 0;
@@ -53,6 +60,7 @@ public class SpiderController : MonoBehaviour
     bool _mustReachThresholdForMovement = false;
     Vector2 _goalRotation = Vector2.zero;
     Tween _regenerateVulnerableTween;
+    SpiderSpeed _spiderSpeed = SpiderSpeed.MID;
 
 
     //--- Unity Methods ------------------------
@@ -128,77 +136,281 @@ public class SpiderController : MonoBehaviour
         }
     }
 
+    IEnumerator GetNextAbility(SpiderState spiderState)
+    {
+        switch (spiderState)
+        {
+            case SpiderState.Level1:
+                return GetLevel1Ability();
+            case SpiderState.Level2:
+                return GetLevel2Ability();
+            case SpiderState.Level3:
+                return GetLevel3Ability();
+            case SpiderState.Level4:
+                return GetLevel4Ability();
+        }
+
+        return Movement(80, 170);
+    }
+
+    IEnumerator GetLevel1Ability()
+    {
+        // Stand: 20%
+        // Movement: 80%
+
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.8f)
+        {
+            return Wait();
+        }
+        else
+        {
+            return Movement(80, 170);
+        }
+    }
+
+    IEnumerator GetLevel2Ability()
+    {
+        // Stand: 20% Chance
+        // Movement: 40% Chance
+        // RandomLaserShort: 30% Chance
+        // LunaLaser: 10% Chance
+
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.8f)
+        {
+            return Wait();
+        }
+        else if (randomT > 0.4f)
+        {
+            return Movement(80, 170);
+        }
+        else if (randomT > 0.1f)
+        {
+            return RandomLaserShort();
+        }
+        else
+        {
+            return LunaLaser();
+        }
+    }
+
+    IEnumerator GetLevel3Ability()
+    {
+        // Stand: 10% Chance
+        // Movement: 50% Chance
+        // RandomLaserShort: 20% Chance
+        // RandomLaserLong: 15% Chance
+        // LunaLaser: 15% Chance
+        // BlinkLaser: 10% Chance
+
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.9f)
+        {
+            return Wait();
+        }
+        else if (randomT > 0.4f)
+        {
+            return Movement(80, 170);
+        }
+        else if (randomT > 0.3f)
+        {
+            return RandomLaserShort();
+        }
+        else if (randomT > 0.15f)
+        {
+            return RandomLaserLong();
+        }
+        else
+        {
+            return LunaLaser();
+        }
+    }
+
+
+    IEnumerator GetLevel4Ability()
+    {
+        // Stand: 05% Chance
+        // Movement: 35% Chance
+        // RandomLaserShort: 20% Chance
+        // RandomLaserLong: 20% Chance
+        // LunaLaser: 20% Chance
+
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.95f)
+        {
+            return Wait();
+        }
+        else if (randomT > 0.6f)
+        {
+            return Movement(80, 170);
+        }
+        else if (randomT > 0.4f)
+        {
+            return RandomLaserShort();
+        }
+        else if (randomT > 0.2f)
+        {
+            return RandomLaserLong();
+        }
+        else
+        {
+            return LunaLaser();
+        }
+    }
 
     IEnumerator LaserMovement()
     {
-        int moveAmount;
-
         GameManager gameManager = FindObjectOfType<GameManager>();
-        if (gameManager.SpiderHP == gameManager.SpiderMaxHP)
+
+        SpiderState spiderState;
+
+        int spiderHP = gameManager.SpiderHP;
+
+        if (spiderHP == gameManager.SpiderMaxHP)
         {
-            moveAmount = 1;
+            spiderState = SpiderState.Level1;
+        }
+        else if (spiderHP == gameManager.SpiderMaxHP - 1)
+        {
+            spiderState = SpiderState.Level2;
+        }
+        else if (spiderHP == gameManager.SpiderHP - 2)
+        {
+            spiderState = SpiderState.Level3;
         }
         else
         {
-            moveAmount = 3;
+            spiderState = SpiderState.Level4;
         }
 
-        int random = Random.Range(0, moveAmount);
-        if (random == 0)
-        {
-            yield return SimpleMovement();
-        }
-        else if (random == 1)
-        {
-            yield return ShootRandom();
-        }
-        else
-        {
-            yield return ShootLuna();
-        }
+        // the spiders brains
 
-        yield return new WaitForSeconds(2f);
+        // Each Move should be seperate, no interplay between moves
+        // moves should be randomized with changing percentage-chances (weights)
+
+        // Also its based on spiders HP
+        // 4 Spider HP total
+        // First HP is tutorial -> Only Movement
+        // Second HP is opposite-luna lasers + randomized lasers
+        // Third HP starts with laser-blink once, and afterwards is like second HP
+        // Fourth HP is everything-everywhere-all-at-once (with a high chance of blink)
+
+        yield return GetNextAbility(spiderState);
+
+
+        yield return new WaitForEndOfFrame();
     }
 
-    IEnumerator ShootRandom()
+    IEnumerator Wait()
     {
-        if (IsVulnerable) yield break;
+        Debug.Log("WAIT");
+
+        float duration = Random.Range(1.5f, 3.5f);
+
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration || IsVulnerable)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    IEnumerator Movement(float innerAngle, float outerAngle)
+    {
+        Debug.Log("MOVEMENT");
+
+        _spiderSpeed = SpiderSpeed.MID;
 
         _goalRotation = Random.insideUnitCircle.normalized;
 
-        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
+        while (Vector2.Angle(transform.position.normalized, _goalRotation) < innerAngle || Vector2.Angle(transform.position.normalized, _goalRotation) > outerAngle)
+        {
+            _goalRotation = Random.insideUnitCircle.normalized;
+        }
+
+        yield return MoveToPosition(SpiderSpeed.MID);
+    }
+
+    IEnumerator MoveToPosition(SpiderSpeed speed)
+    {
+
+        _spiderSpeed = speed;
+
+        while (Vector2.Dot(_goalRotation, transform.position.normalized) < 0.99f && !IsVulnerable)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    IEnumerator RandomLaserLong()
+    {
+        Debug.Log("LASERLONG");
+
+        _spiderSpeed = SpiderSpeed.MID;
+
+        _goalRotation = Random.insideUnitCircle.normalized;
+
+        // Start PreLaser
 
         StartCoroutine(_spiderLaser.ShootLaser());
+        yield return Movement(90, 179);
+        yield return Movement(35, 60);
+        yield return Movement(35, 120);
+        yield return Movement(35, 179);
+        _spiderLaser.StopLaser();
 
-        yield return new WaitForSeconds(Random.Range(0.5f, 2f));
+        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
+    }
+
+    IEnumerator RandomLaserShort()
+    {
+        Debug.Log("LASERSHORT");
+
+        _spiderSpeed = SpiderSpeed.MID;
 
         _goalRotation = Random.insideUnitCircle.normalized;
 
-        yield return new WaitForSeconds(5f);
+        // Start PreLaser
+
+        StartCoroutine(_spiderLaser.ShootLaser());
+        yield return Movement(90, 179);
+        yield return Movement(35, 120);
+        _spiderLaser.StopLaser();
+
+        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
     }
 
-    IEnumerator ShootLuna()
+    IEnumerator LunaLaser()
     {
+        Debug.Log("LUNALASER");
+
+        _spiderSpeed = SpiderSpeed.MID;
+
         GoalMoveOppositeOfLuna();
 
-        // Hier brächte ich logik die checkt wann ich angekommen bin
-        yield return new WaitForSeconds(Random.Range(2f, 4f));
+        // increase speed drastically
+        yield return MoveToPosition(SpiderSpeed.FAST);
 
         StartCoroutine(_spiderLaser.ShootLaser());
+        
+        // Verfolge Luna
+        GoalMoveOpposite(LunaIsClockwise(), 179);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return MoveToPosition(SpiderSpeed.MID);
 
-        // check ob luna links oder rechts ist
-        GoalMoveOpposite(LunaIsClockwise());
+        // Verfolge Luna weiter
+        GoalMoveOpposite(LunaIsClockwise(), Random.Range(60, 120));
 
-        yield return new WaitForSeconds(Random.Range(2f, 4f));
-    }
+        yield return MoveToPosition(SpiderSpeed.MID);
 
-    IEnumerator SimpleMovement()
-    {
-        _goalRotation = Random.insideUnitCircle.normalized;
+        _spiderLaser.StopLaser();
 
-        yield return new WaitForSeconds(Random.Range(2f, 6f));
+        yield return new WaitForSeconds(Random.Range(2f, 3.5f));
     }
 
     void GoalMoveOppositeOfLuna()
@@ -218,13 +430,12 @@ public class SpiderController : MonoBehaviour
         if (lunaController == null) throw new System.Exception();
 
         return Vector2.SignedAngle(transform.position.normalized, lunaController.transform.position.normalized) >= 0;
-
     }
 
-    void GoalMoveOpposite(bool clockwise)
+    void GoalMoveOpposite(bool clockwise, float angle)
     {
-        float angle = clockwise ? 181 : 179;
-        _goalRotation = Quaternion.Euler(0, 0, angle) * transform.position.normalized;
+        float angleToMoveTo = clockwise ? angle : -angle;
+        _goalRotation = Quaternion.Euler(0, 0, angleToMoveTo) * transform.position.normalized;
     }
 
 
@@ -255,8 +466,23 @@ public class SpiderController : MonoBehaviour
             MoveSign = -(int)Mathf.Sign(_goalRotation.x * currentDirection.y - _goalRotation.y * currentDirection.x);
         }
 
+        float rotationSpeed;
+
+        switch (_spiderSpeed)
+        {
+            case SpiderSpeed.SLOW:
+                rotationSpeed = _slowRotationSpeed;
+                break;
+            case SpiderSpeed.FAST:
+                rotationSpeed = _fastRotationSpeed;
+                break;
+            default:
+                rotationSpeed = _midRotationSpeed;
+                break;
+        }
+
         // increase
-        _orbitRotationT += MoveSign * _rotationSpeed * Time.deltaTime;
+        _orbitRotationT += MoveSign * rotationSpeed * Time.deltaTime;
 
         // guard
         if (_orbitRotationT >= 1)
@@ -287,7 +513,7 @@ public class SpiderController : MonoBehaviour
     void IncreaseHeat()
     {
         OverheatT = Mathf.Clamp01(OverheatT + _overheatGain * Time.deltaTime);
-        _spriteIterator.ShieldHit(0.5f);
+        _spriteIterator.ShieldHit(0.1f);
     }
 
     void GetDamaged()
@@ -296,6 +522,9 @@ public class SpiderController : MonoBehaviour
         {
             _regenerateVulnerableTween.Kill();
         }
+
+        // Camera shake
+        CamShake.Instance.ShakeCamera();
 
         // Sound
         AudioController.Fire(new SpiderHit(""));
@@ -348,12 +577,18 @@ public class SpiderController : MonoBehaviour
         if (IsVulnerable && !_vfxActive)
         {
             _energyLoss.SendEvent("Discharge");
+            _energyLoss.SetBool("Alive", true);
             _vfxActive = !_vfxActive;
+
+            AudioController.Fire(new SpiderVulnurable(SpiderVulnurable.VulnurableState.SpiderVulnurable));
         }
         else if (!IsVulnerable && _vfxActive)
         {
             _energyLoss.Stop();
+            _energyLoss.SetBool("Alive", false);
             _vfxActive = !_vfxActive;
+
+            AudioController.Fire(new SpiderVulnurable(SpiderVulnurable.VulnurableState.SpiderInvulnurable));
         }
     }
 

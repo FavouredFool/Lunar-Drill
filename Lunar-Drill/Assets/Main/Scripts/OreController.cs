@@ -145,6 +145,8 @@ public class OreController : MonoBehaviour
 
         Assert.IsNotNull(_followDrillian);
 
+        AudioController.Fire(new OreCrackedAudioEvent(_followDrillian.FollowingOres.Count));
+
         _oreVisuals.sprite = _collected;
 
         _oreState = OreState.FOLLOWING;

@@ -1,5 +1,5 @@
 using System;
-// Event that signals that Luna was hit by the laser (of the spider).
+// Event that signals that the laser (of the spider) changed its state.
 
 public class SpiderLaserFiring : IAudioEvent
 {

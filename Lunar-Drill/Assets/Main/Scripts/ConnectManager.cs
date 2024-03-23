@@ -8,7 +8,6 @@ public class ConnectManager : MonoBehaviour
 {
     [SerializeField] SelectScreen UI;
 
-
     public List<PlayerConnectController> connectedPlayers = new();
     List<PlayerInput> playerInputs;
 

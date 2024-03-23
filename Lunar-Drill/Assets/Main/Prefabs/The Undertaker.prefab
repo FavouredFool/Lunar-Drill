@@ -1264,6 +1264,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   anim: {fileID: 4464461138185906490}
   topBar: {fileID: 2200373161189646189}
   bottomBar: {fileID: 986164477982411396}
@@ -1282,6 +1285,11 @@ MonoBehaviour:
   col_lilac: {r: 0.7960785, g: 0, b: 0.9960785, a: 1}
   col_magenta: {r: 0.9960785, g: 0, b: 0.41960788, a: 1}
   timer: {fileID: 4460981240496164635}
+  sources:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7886366476940114519
 GameObject:
   m_ObjectHideFlags: 0

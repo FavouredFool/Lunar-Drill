@@ -17,6 +17,8 @@ public class Undertaker : MonoBehaviour
 
     [SerializeField] TMP_Text timer;
 
+    [SerializeField] AudioSource[] sources;
+
     public void Awake()
     {
         timer.text = "";
@@ -26,7 +28,11 @@ public class Undertaker : MonoBehaviour
 
     public void Activate(GameObject target, bool isPlayer)
     {
+        foreach (AudioSource s in sources)
+            s.Pause();
+
         TimeManager.main.Freeze();
+
         transform.position = target.transform.position;
         gameObject.SetActive(true);
         target.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, (isPlayer ? 180 : 0) + 20 * (Random.value < 0.5f ? -1 : 1));
@@ -58,6 +64,19 @@ public class Undertaker : MonoBehaviour
 
         anim.SetTrigger("GO");
 
+        DOVirtual.DelayedCall(0.2f, () =>
+        {
+            if (isPlayer) AudioController.Fire(new EndSceneLunar(""));
+            else AudioController.Fire(new EndSceneGame(""));
+        });
+        DOVirtual.DelayedCall(0.3f, () => AudioController.Fire(new EndSceneShing("")));
+        DOVirtual.DelayedCall(0.5f, () => AudioController.Fire(new EndSceneShing("")));
+        DOVirtual.DelayedCall(1.1f, () =>
+        {
+            if (isPlayer) AudioController.Fire(new EndSceneDrill(""));
+            else AudioController.Fire(new EndSceneOver(""));
+        });
+
         DOVirtual.DelayedCall(2f, () =>
         {
             GameManager gameManager = FindObjectOfType<GameManager>();
@@ -65,7 +84,7 @@ public class Undertaker : MonoBehaviour
             timer.text = time;
         });
 
-        DOVirtual.DelayedCall(6f,() => Continue());
+        DOVirtual.DelayedCall(6f, () => Continue());
     }
 
     public void Continue()
