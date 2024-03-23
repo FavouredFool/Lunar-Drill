@@ -1267,6 +1267,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   anim: {fileID: 4464461138185906490}
   topBar: {fileID: 2200373161189646189}
   bottomBar: {fileID: 986164477982411396}

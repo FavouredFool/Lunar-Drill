@@ -345,6 +345,8 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         GameManager manager = FindObjectOfType<GameManager>();
 
+        AudioController.Fire(new LunaEnergyPickup(""));
+
         manager.Heal(gameObject, true);
         Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.6f, 0.7f));
     }

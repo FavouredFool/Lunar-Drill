@@ -49,6 +49,7 @@ public class SpiderLaser : MonoBehaviour
 
         IsActive = true;
         _breakOut = false;
+        AudioController.Fire(new SpiderLaserCharging(SpiderLaserCharging.ChargeState.ChargingStarted));
 
         //Rumble
         Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.1f, 0.2f));
@@ -94,6 +95,7 @@ public class SpiderLaser : MonoBehaviour
         thicknessTweens.Append(thicknessTween0);
         thicknessTweens.Join(thicknessTween1);
 
+        AudioController.Fire(new SpiderLaserCharging(SpiderLaserCharging.ChargeState.ChargingStopped));
         AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserFiring));
 
         bool canBreak = false;
