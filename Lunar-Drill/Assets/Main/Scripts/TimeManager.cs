@@ -13,7 +13,8 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] float currentTimeScale;
 
-    bool isPaused => optionsMenu._isOpen||gameManager.inCutscene||undertaker.isActive;
+    bool freeze;
+    bool isPaused => freeze|| optionsMenu._isOpen||gameManager.inCutscene||undertaker.isActive;
 
     Tween timeScaleTween;
 
@@ -43,5 +44,18 @@ public class TimeManager : MonoBehaviour
             .SetEase(Ease.InExpo)
             .SetUpdate(true)
             .OnUpdate(() => RefreshTimeScale());
+    }
+
+    public void Freeze()
+    {
+        freeze = true;
+        currentTimeScale = 0;
+        Time.timeScale = 0;
+        timeScaleTween.Kill();
+    }
+
+    private void OnDestroy()
+    {
+        Time.timeScale = 1;
     }
 }

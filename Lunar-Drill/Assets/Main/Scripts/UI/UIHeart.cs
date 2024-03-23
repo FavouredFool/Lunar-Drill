@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class UIHeart : MonoBehaviour
 {
-    [SerializeField] Image spriteRenderer;
+    [SerializeField] Image image;
 
     bool _on = false;
 
@@ -27,15 +27,13 @@ public class UIHeart : MonoBehaviour
 
         if (on)
         {
-            scaleTween = transform.DOScale(1,0.33f).SetEase(Ease.OutBack).SetUpdate(true);
+            image.color = Color.white;
+            scaleTween = transform.DOPunchScale(Vector3.one*0.33f,0.33f).SetEase(Ease.OutBack).SetUpdate(true);
         }
         else
         {
-            scaleTween = transform.DOScale(1.5f, 0.4f).SetEase(Ease.OutBounce).SetUpdate(true)
-                .OnComplete(() =>
-                {
-                    scaleTween = transform.DOScale(0, 0.2f).SetEase(Ease.InBack).SetUpdate(true);
-                });
+            image.color = Color.Lerp(Color.gray,Color.black,0.5f);
+            scaleTween = transform.DOPunchScale(Vector3.one * 0.33f, 0.4f).SetEase(Ease.OutBounce).SetUpdate(true);
         }
     }
 }

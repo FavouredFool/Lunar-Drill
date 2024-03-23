@@ -26,6 +26,7 @@ public class Undertaker : MonoBehaviour
 
     public void Activate(GameObject target, bool isPlayer)
     {
+        TimeManager.main.Freeze();
         transform.position = target.transform.position;
         gameObject.SetActive(true);
         target.transform.GetChild(0).localRotation = Quaternion.Euler(0, 0, (isPlayer ? 180 : 0) + 20 * (Random.value < 0.5f ? -1 : 1));
@@ -73,4 +74,3 @@ public class Undertaker : MonoBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 }
-

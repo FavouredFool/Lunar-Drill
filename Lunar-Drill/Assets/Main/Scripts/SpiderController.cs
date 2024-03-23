@@ -41,6 +41,8 @@ public class SpiderController : MonoBehaviour
     public bool IsVulnerable { get; set; } = false;
     public bool IsInvincible { get; set; } = false;
     public bool IsNotHurtingOnTouch => IsVulnerable || IsInvincible;
+    public bool IsShieldCritical => OverheatT > 0.8f;
+
 
 
     //--- Private Fields ------------------------
@@ -354,5 +356,6 @@ public class SpiderController : MonoBehaviour
             _vfxActive = !_vfxActive;
         }
     }
+
 
 }

@@ -48,6 +48,10 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     public int MoveSign { get; private set; } = 0;
     public float EnergyT { get; private set; } = 0.33f;
+    public bool EnergyGained { get; private set; } = false;
+    public bool EnergyCritical => EnergyT < 0.05f;
+    public bool EnergyFull => EnergyT > 0.95f;
+    public bool CurrentlyLasering => _currentlyLasering;
 
 
     //--- Private Fields ------------------------
@@ -345,6 +349,8 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         EnergyT = Mathf.Clamp01(EnergyT + _energyIncrease);
         Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.4f, 0.5f),0.1f);
+        EnergyGained = true;
+        DOVirtual.DelayedCall(1f,() => { EnergyGained = false; });
     }
 
     void EvaluateCollision(Collider2D collision)
@@ -401,4 +407,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         EvaluateCollision(collision);
     }
+
+
 }
