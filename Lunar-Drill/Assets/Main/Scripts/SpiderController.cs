@@ -32,6 +32,9 @@ public class SpiderController : MonoBehaviour
     [Header("VFX")]
     [SerializeField] VisualEffect _energyLoss;
     [SerializeField] Texture2D _energyLossRed;
+
+    public enum SpiderState { Level1, Level2, Level3, Level4 };
+
     bool _vfxActive = false;
 
     public int MoveSign { get; private set; } = 0;
@@ -126,36 +129,173 @@ public class SpiderController : MonoBehaviour
         }
     }
 
+    IEnumerator GetNextAbility(SpiderState spiderState)
+    {
+        switch (spiderState)
+        {
+            case SpiderState.Level1:
+                return GetLevel1Ability();
+            case SpiderState.Level2:
+                return GetLevel2Ability();
+            case SpiderState.Level3:
+                return GetLevel3Ability();
+            case SpiderState.Level4:
+                return GetLevel4Ability();
+        }
+
+        return Movement();
+    }
+
+    IEnumerator GetLevel1Ability()
+    {
+        // Stand: 25%
+        // Movement: 75%
+
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.75f)
+        {
+            return Wait();
+        }
+        else
+        {
+            return Movement();
+        }
+    }
+
+    IEnumerator GetLevel2Ability()
+    {
+        // Stand: 20% Chance
+        // Movement: 30% Chance
+        // RandomLaser: 35% Chance
+        // LunaLaser: 15% Chance
+
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.85f)
+        {
+            return Wait();
+        }
+        else if (randomT > 0.5f)
+        {
+            return Movement();
+        }
+        else if (randomT > 0.15f)
+        {
+            return RandomLaser();
+        }
+        else
+        {
+            return LunaLaser();
+        }
+    }
+
+    IEnumerator GetLevel3Ability()
+    {
+        // Stand: 15% Chance
+        // Movement: 25% Chance
+        // RandomLaser: 30% Chance
+        // LunaLaser: 20% Chance
+        // BlinkLaser: 10% Chance
+
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.85f)
+        {
+            return Wait();
+        }
+        else if (randomT > 0.6f)
+        {
+            return Movement();
+        }
+        else if (randomT > 0.3f)
+        {
+            return RandomLaser();
+        }
+        else if (randomT > 0.1f)
+        {
+            return LunaLaser();
+        }
+        else
+        {
+            return BlinkLaser();
+        }
+    }
+
+
+    IEnumerator GetLevel4Ability()
+    {
+        // Stand: 05% Chance
+        // Movement: 20% Chance
+        // RandomLaser: 25% Chance
+        // LunaLaser: 25% Chance
+        // BlinkLaser: 25% Chance
+
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.95f)
+        {
+            return Wait();
+        }
+        else if (randomT > 0.75f)
+        {
+            return Movement();
+        }
+        else if (randomT > 0.5f)
+        {
+            return RandomLaser();
+        }
+        else if (randomT > 0.25f)
+        {
+            return LunaLaser();
+        }
+        else
+        {
+            return BlinkLaser();
+        }
+    }
 
     IEnumerator LaserMovement()
     {
-        int moveAmount;
-
         GameManager gameManager = FindObjectOfType<GameManager>();
-        if (gameManager.SpiderHP == gameManager.SpiderMaxHP)
+
+        SpiderState spiderState;
+
+        int spiderHP = gameManager.SpiderHP;
+
+        if (spiderHP == gameManager.SpiderMaxHP)
         {
-            moveAmount = 1;
+            spiderState = SpiderState.Level1;
+        }
+        else if (spiderHP == gameManager.SpiderMaxHP - 1)
+        {
+            spiderState = SpiderState.Level2;
+        }
+        else if (spiderHP == gameManager.SpiderHP - 2)
+        {
+            spiderState = SpiderState.Level3;
         }
         else
         {
-            moveAmount = 3;
+            spiderState = SpiderState.Level4;
         }
 
-        int random = Random.Range(0, moveAmount);
-        if (random == 0)
-        {
-            yield return SimpleMovement();
-        }
-        else if (random == 1)
-        {
-            yield return ShootRandom();
-        }
-        else
-        {
-            yield return ShootLuna();
-        }
+        // the spiders brains
 
-        yield return new WaitForSeconds(2f);
+        // Each Move should be seperate, no interplay between moves
+        // moves should be randomized with changing percentage-chances (weights)
+
+        // Also its based on spiders HP
+        // 4 Spider HP total
+        // First HP is tutorial -> Only Movement
+        // Second HP is opposite-luna lasers + randomized lasers
+        // Third HP starts with laser-blink once, and afterwards is like second HP
+        // Fourth HP is everything-everywhere-all-at-once (with a high chance of blink)
+
+        yield return GetNextAbility(spiderState);
+
+
+        yield return new WaitForEndOfFrame();
     }
 
     IEnumerator ShootRandom()
@@ -192,11 +332,47 @@ public class SpiderController : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(2f, 4f));
     }
 
-    IEnumerator SimpleMovement()
+    IEnumerator Wait()
+    {
+        float duration = Random.Range(1.5f, 3f);
+
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration || IsVulnerable)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    IEnumerator Movement()
     {
         _goalRotation = Random.insideUnitCircle.normalized;
 
-        yield return new WaitForSeconds(Random.Range(2f, 6f));
+        while (Vector2.Angle(transform.position.normalized, _goalRotation) < 45 || Vector2.Angle(transform.position.normalized, _goalRotation) > 135)
+        {
+            _goalRotation = Random.insideUnitCircle.normalized;
+        }
+
+        while (Vector2.Dot(_goalRotation, transform.position.normalized) < 0.95f && !IsVulnerable)
+        {
+            Debug.Log(Vector2.Dot(_goalRotation, transform.position.normalized));
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    IEnumerator RandomLaser()
+    {
+        yield return null;
+    }
+
+    IEnumerator LunaLaser()
+    {
+        yield return null;
+    }
+
+    IEnumerator BlinkLaser()
+    {
+        yield return null;
     }
 
     void GoalMoveOppositeOfLuna()
