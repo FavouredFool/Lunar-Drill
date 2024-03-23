@@ -33,31 +33,31 @@ public class SelectionFix : MonoBehaviour
 
         _lastSelected = eventSystem.currentSelectedGameObject;
 
-        if (!_cameFromBackButton)
-        {
-            if (_lastMousePosition != Input.mousePosition)
-            {
+        //if (!_cameFromBackButton)
+        //{
+        //    if (_lastMousePosition != Input.mousePosition)
+        //    {
 
-                // THis part is from https://forum.unity.com/threads/option-to-select-element-on-mouseover.1214904/ by HunterAhlquist
-                List<RaycastResult> results = new List<RaycastResult>();
-                var pointerEventData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
-                EventSystem.current.RaycastAll(pointerEventData, results);
-                foreach (var r in results)
-                {
-                    if (r.gameObject && r.gameObject.TryGetComponent(out Selectable sel))
-                    {
-                        if (sel.interactable)
-                        {
-                            EventSystem.current.SetSelectedGameObject(r.gameObject);
-                            _lastSelected = EventSystem.current.currentSelectedGameObject;
-                            break;
-                        }
-                    }
-                }
+        //        // THis part is from https://forum.unity.com/threads/option-to-select-element-on-mouseover.1214904/ by HunterAhlquist
+        //        List<RaycastResult> results = new List<RaycastResult>();
+        //        var pointerEventData = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
+        //        EventSystem.current.RaycastAll(pointerEventData, results);
+        //        foreach (var r in results)
+        //        {
+        //            if (r.gameObject && r.gameObject.TryGetComponent(out Selectable sel))
+        //            {
+        //                if (sel.interactable)
+        //                {
+        //                    EventSystem.current.SetSelectedGameObject(r.gameObject);
+        //                    _lastSelected = EventSystem.current.currentSelectedGameObject;
+        //                    break;
+        //                }
+        //            }
+        //        }
 
-                _lastMousePosition = Input.mousePosition;
-            }
-        }
+        //        _lastMousePosition = Input.mousePosition;
+        //    }
+        //}
     }
 
     //--- Public Methods ------------------------
