@@ -19,7 +19,7 @@ public class DrillianAudioSource : MonoBehaviour, IAudioSubscriber<OreCrackedAud
 
     public void OnAudioEvent(OreCrackedAudioEvent audioEvent)
     {
-        _audioSource.PlayOneShot(_oreCrackedClipPitches[Mathf.Min(audioEvent.PitchNumber,_oreCrackedClipPitches.Count)], _oreCrackedVolume);
+        _audioSource.PlayOneShot(_oreCrackedClipPitches[Mathf.Min(audioEvent.PitchNumber,_oreCrackedClipPitches.Count-1)], _oreCrackedVolume);
     }
 
     public void OnAudioEvent(DrillianHitLaser audioEvent)
