@@ -52,6 +52,7 @@ public class DrillianAudioSource : MonoBehaviour, IAudioSubscriber<OreCrackedAud
     private void OnDestroy()
     {
         AudioController.Unsubscribe<OreCrackedAudioEvent>(this);
+        AudioController.Unsubscribe<DrillianHitSpider>(this);
         AudioController.Unsubscribe<DrillianHitLaser>(this);
         AudioController.Unsubscribe<DrillianChangeMode>(this);
     }
