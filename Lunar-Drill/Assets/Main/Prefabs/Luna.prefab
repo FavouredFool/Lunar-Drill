@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557280340b81b1c4f8a94a99d3de3ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxRotationSpeed: 0.15
-  _slowLaseringPercent: 0.3
+  _maxRotationSpeed: 0.16
+  _slowLaseringPercent: 0.35
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
   _laserVisual: {fileID: 1848583452407653398}
@@ -218,7 +218,7 @@ MonoBehaviour:
   _invincibleTime: 3
   _spriteRenderer: {fileID: 3688287869893254816}
   _spriteIterator: {fileID: 8224682475587872733}
-  _energyIncrease: 0.075
+  _energyIncrease: 0.09
   _energyDecrease: 0.175
   _laserCharge: {fileID: 8672350994022337839}
   _energyCollect: {fileID: 2561919243444736616}
