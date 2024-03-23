@@ -18,6 +18,18 @@ public class SelectScreen : MonoBehaviour
     public GameObject P1Ready, P1Swap;
     public GameObject P2Ready, P2Swap;
 
+    [SerializeField] private GameObject _lunaMulti1, _drillianMulti1;
+    [SerializeField] private Vector3 _lunaMultiInPosition1, _drillianMultiInPosition1, _lunaMultiOutPosition1, _drillianMultiOutPosition1;
+
+    [SerializeField] private GameObject _lunaMulti2, _drillianMulti2;
+    [SerializeField] private Vector3 _lunaMultiInPosition2, _drillianMultiInPosition2, _lunaMultiOutPosition2, _drillianMultiOutPosition2;
+
+    [SerializeField] private GameObject _lunaSolo, _drillianSolo;
+    [SerializeField] private Vector3 _lunaSoloInPosition, _drillianSoloInPosition, _lunaSoloOutPosition, _drillianSoloOutPosition;
+
+    private bool _swapped = false;
+    private float _textMoveTime = 0.3f;
+
     public SpriteRenderer
         BG_Up_1, BG_Up_2, BG_Down;
 
@@ -31,6 +43,11 @@ public class SelectScreen : MonoBehaviour
         Luna_Up_Solo, Drillian_Up_Solo,
         Luna_Down, Drillian_Down;
 
+    private void Start()
+    {
+        _swapped = false;
+    }
+
     public void SetEmpty()
     {
         foreach (GameObject g in SoloObjects)
@@ -39,6 +56,14 @@ public class SelectScreen : MonoBehaviour
             g.SetActive(false);
         foreach (GameObject g in EmptyObjects)
             g.SetActive(true);
+
+        // Luna and Drillian Text
+        _lunaSolo.transform.DOLocalMove(_lunaSoloOutPosition, _textMoveTime).SetUpdate(true);
+        _drillianSolo.transform.DOLocalMove(_drillianSoloOutPosition, _textMoveTime).SetUpdate(true);
+        _lunaMulti1.transform.DOLocalMove(_lunaMultiOutPosition1, _textMoveTime).SetUpdate(true);
+        _drillianMulti1.transform.DOLocalMove(_drillianMultiOutPosition1, _textMoveTime).SetUpdate(true);
+        _lunaMulti2.transform.DOLocalMove(_lunaMultiOutPosition2, _textMoveTime).SetUpdate(true);
+        _drillianMulti2.transform.DOLocalMove(_drillianMultiOutPosition2, _textMoveTime).SetUpdate(true);
 
         //Background
         DOTween.Kill(BG_Up_1);
@@ -73,6 +98,14 @@ public class SelectScreen : MonoBehaviour
         foreach (GameObject g in SoloObjects)
             g.SetActive(true);
 
+        // Luna and Drillian Text
+        _lunaSolo.transform.DOLocalMove(_lunaSoloInPosition, _textMoveTime).SetUpdate(true);
+        _drillianSolo.transform.DOLocalMove(_drillianSoloInPosition, _textMoveTime).SetUpdate(true);
+        _lunaMulti1.transform.DOLocalMove(_lunaMultiOutPosition1, _textMoveTime).SetUpdate(true);
+        _drillianMulti1.transform.DOLocalMove(_drillianMultiOutPosition1, _textMoveTime).SetUpdate(true);
+        _lunaMulti2.transform.DOLocalMove(_lunaMultiOutPosition2, _textMoveTime).SetUpdate(true);
+        _drillianMulti2.transform.DOLocalMove(_drillianMultiOutPosition2, _textMoveTime).SetUpdate(true);
+
         //Background
         DOTween.Kill(BG_Up_1);
         DOTween.Kill(BG_Up_2);
@@ -105,6 +138,25 @@ public class SelectScreen : MonoBehaviour
             g.SetActive(false);
         foreach (GameObject g in MultiObjects)
             g.SetActive(true);
+
+        // Luna and Drillian Text
+        _lunaSolo.transform.DOLocalMove(_lunaSoloOutPosition, _textMoveTime).SetUpdate(true);
+        _drillianSolo.transform.DOLocalMove(_drillianSoloOutPosition, _textMoveTime).SetUpdate(true);
+        if (!_swapped)
+        {
+            _lunaMulti1.transform.DOLocalMove(_lunaMultiInPosition1, _textMoveTime).SetUpdate(true);
+            _drillianMulti1.transform.DOLocalMove(_drillianMultiInPosition1, _textMoveTime).SetUpdate(true);
+            _lunaMulti2.transform.DOLocalMove(_lunaMultiOutPosition2, _textMoveTime).SetUpdate(true);
+            _drillianMulti2.transform.DOLocalMove(_drillianMultiOutPosition2, _textMoveTime).SetUpdate(true);
+        }
+        else
+        {
+            _lunaMulti1.transform.DOLocalMove(_lunaMultiOutPosition1, _textMoveTime).SetUpdate(true);
+            _drillianMulti1.transform.DOLocalMove(_drillianMultiOutPosition1, _textMoveTime).SetUpdate(true);
+            _lunaMulti2.transform.DOLocalMove(_lunaMultiInPosition2, _textMoveTime).SetUpdate(true);
+            _drillianMulti2.transform.DOLocalMove(_drillianMultiInPosition2, _textMoveTime).SetUpdate(true);
+        }
+
 
         //Background
         DOTween.Kill(BG_Up_1);
@@ -147,7 +199,7 @@ public class SelectScreen : MonoBehaviour
         P1Ready.SetActive(p1);
         P2Ready.SetActive(p2);
 
-        ReadyIndicator.color = 
+        ReadyIndicator.color =
             Color.Lerp(Color.white, lilac, time / ConnectManager.AgreeTime);
         ReadySoloIndicator.color = ReadyIndicator.color;
     }
@@ -156,14 +208,14 @@ public class SelectScreen : MonoBehaviour
         P1Swap.SetActive(p1);
         P2Swap.SetActive(p2);
 
-        SwapIndicator.color = 
+        SwapIndicator.color =
             Color.Lerp(Color.white, lilac, time / ConnectManager.AgreeTime);
     }
 
     public void Play()
     {
         ReadyIndicator.color = magenta;
-        ReadySoloIndicator.color=magenta;
+        ReadySoloIndicator.color = magenta;
         P1Ready.SetActive(false);
         P2Ready.SetActive(false);
     }
@@ -172,6 +224,8 @@ public class SelectScreen : MonoBehaviour
         SwapIndicator.color = Color.white;
         P1Swap.SetActive(false);
         P2Swap.SetActive(false);
+
+        _swapped = !_swapped;
     }
 
     public void Tiggle(bool P1)
@@ -181,7 +235,7 @@ public class SelectScreen : MonoBehaviour
         {
             if (Luna_Up.localScale != Vector3.zero) Luna_Up.DOPunchScale(force, 0.2f, 0).SetEase(Ease.InBack);
             if (Luna_Up_Solo.localScale != Vector3.zero) Luna_Up_Solo.DOPunchScale(force, 0.2f, 0).SetEase(Ease.InBack);
-            if (Drillian_Up.localScale!=Vector3.zero) Drillian_Up.DOPunchScale(force, 0.2f, 0).SetEase(Ease.InBack);
+            if (Drillian_Up.localScale != Vector3.zero) Drillian_Up.DOPunchScale(force, 0.2f, 0).SetEase(Ease.InBack);
             if (Drillian_Up_Solo.localScale != Vector3.zero) Drillian_Up_Solo.DOPunchScale(force, 0.2f, 0).SetEase(Ease.InBack);
         }
         else
