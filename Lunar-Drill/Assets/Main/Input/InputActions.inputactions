@@ -158,6 +158,28 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "3011ef38-721c-4150-854f-4025177de24f",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b16abb37-e98e-44b6-8278-368356641e60",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "ArrowComposite",
                     "id": "1acf3b38-7c18-476f-8295-6afd79722769",
                     "path": "2DVector",
