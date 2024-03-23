@@ -8,8 +8,6 @@ public class SelectionFix : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    public GameObject startTest;
-
     //--- Private Fields ------------------------
 
     private GameObject _lastSelected; // Object that was last selected, will automatically be selected if nothing is selected anymore
@@ -26,12 +24,6 @@ public class SelectionFix : MonoBehaviour
 
     private void Update()
     {
-        if (EventSystem.current.currentSelectedGameObject == startTest)
-        {
-            Debug.Log("jup");
-        }
-
-
         // Cheaty way to always have something selected
         var eventSystem = EventSystem.current;
         if (eventSystem.currentSelectedGameObject == null)
