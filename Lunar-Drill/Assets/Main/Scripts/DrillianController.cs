@@ -272,6 +272,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     void GetHit()
     {
+        // Camera shake
+        CamShake.Instance.ShakeCamera();
+
         // Health Reduce
         _spriteIterator.Hit();
         FindObjectOfType<GameManager>().Hit(gameObject, true);
