@@ -985,7 +985,7 @@
                 },
                 {
                     "name": "Submit",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "2d4f3423-ded4-406e-bd15-5ee33fa2b897",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -994,7 +994,7 @@
                 },
                 {
                     "name": "Cancel",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "8dc9e772-a62a-40d1-b606-95602f597862",
                     "expectedControlType": "Button",
                     "processors": "",
