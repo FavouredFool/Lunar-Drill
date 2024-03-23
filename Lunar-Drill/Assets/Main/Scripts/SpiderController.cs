@@ -8,7 +8,10 @@ public class SpiderController : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
-    [SerializeField] [Range(0.01f, 1f)] float _rotationSpeed = 5f;
+    [Header("Speed")]
+    [SerializeField] [Range(0.01f, 10f)] float _slowRotationSpeed = 0.5f;
+    [SerializeField] [Range(0.01f, 10f)] float _midRotationSpeed = 1f;
+    [SerializeField] [Range(0.01f, 10f)] float _fastRotationSpeed = 5f;
 
     [Header("Movement Smoothing")]
     [SerializeField] [Range(0.1f, 100f)] float _movementStartAngleThreshold;
@@ -34,6 +37,7 @@ public class SpiderController : MonoBehaviour
     [SerializeField] Texture2D _energyLossRed;
 
     public enum SpiderState { Level1, Level2, Level3, Level4 };
+    public enum SpiderSpeed { SLOW, MID, FAST };
 
     bool _vfxActive = false;
 
@@ -54,6 +58,7 @@ public class SpiderController : MonoBehaviour
     bool _mustReachThresholdForMovement = false;
     Vector2 _goalRotation = Vector2.zero;
     Tween _regenerateVulnerableTween;
+    SpiderSpeed _spiderSpeed = SpiderSpeed.MID;
 
 
     //--- Unity Methods ------------------------
@@ -134,7 +139,7 @@ public class SpiderController : MonoBehaviour
         switch (spiderState)
         {
             case SpiderState.Level1:
-                return GetLevel2Ability();
+                return GetLevel1Ability();
             case SpiderState.Level2:
                 return GetLevel2Ability();
             case SpiderState.Level3:
@@ -298,24 +303,6 @@ public class SpiderController : MonoBehaviour
         yield return new WaitForEndOfFrame();
     }
 
-
-    IEnumerator ShootLuna()
-    {
-        GoalMoveOppositeOfLuna();
-
-        // Hier brächte ich logik die checkt wann ich angekommen bin
-        yield return new WaitForSeconds(Random.Range(2f, 4f));
-
-        StartCoroutine(_spiderLaser.ShootLaser());
-
-        yield return new WaitForSeconds(0.5f);
-
-        // check ob luna links oder rechts ist
-        GoalMoveOpposite(LunaIsClockwise());
-
-        yield return new WaitForSeconds(Random.Range(2f, 4f));
-    }
-
     IEnumerator Wait()
     {
         float duration = Random.Range(1.5f, 3f);
@@ -337,7 +324,14 @@ public class SpiderController : MonoBehaviour
             _goalRotation = Random.insideUnitCircle.normalized;
         }
 
-        while (Vector2.Dot(_goalRotation, transform.position.normalized) < 0.95f && !IsVulnerable)
+        yield return MoveToPosition(SpiderSpeed.MID);
+    }
+
+    IEnumerator MoveToPosition(SpiderSpeed speed)
+    {
+        _spiderSpeed = speed;
+
+        while (Vector2.Dot(_goalRotation, transform.position.normalized) < 0.99f && !IsVulnerable)
         {
             Debug.Log(Vector2.Dot(_goalRotation, transform.position.normalized));
             yield return new WaitForEndOfFrame();
@@ -346,7 +340,6 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator RandomLaser()
     {
-
         _goalRotation = Random.insideUnitCircle.normalized;
 
         // Start PreLaser
@@ -363,7 +356,24 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator LunaLaser()
     {
-        yield return Movement(10, 15);
+        GoalMoveOppositeOfLuna();
+
+        // increase speed drastically
+        yield return MoveToPosition(SpiderSpeed.FAST);
+
+        StartCoroutine(_spiderLaser.ShootLaser());
+        
+        // Verfolge Luna
+        GoalMoveOpposite(LunaIsClockwise(), 179);
+
+        yield return MoveToPosition(SpiderSpeed.MID);
+
+        // Verfolge Luna weiter
+        GoalMoveOpposite(LunaIsClockwise(), Random.Range(60, 120));
+
+        yield return MoveToPosition(SpiderSpeed.MID);
+
+        yield return new WaitForSeconds(Random.Range(2f, 3.5f));
     }
 
     IEnumerator BlinkLaser()
@@ -388,13 +398,12 @@ public class SpiderController : MonoBehaviour
         if (lunaController == null) throw new System.Exception();
 
         return Vector2.SignedAngle(transform.position.normalized, lunaController.transform.position.normalized) >= 0;
-
     }
 
-    void GoalMoveOpposite(bool clockwise)
+    void GoalMoveOpposite(bool clockwise, float angle)
     {
-        float angle = clockwise ? 181 : 179;
-        _goalRotation = Quaternion.Euler(0, 0, angle) * transform.position.normalized;
+        float angleToMoveTo = clockwise ? -angle : angle;
+        _goalRotation = Quaternion.Euler(0, 0, angleToMoveTo) * transform.position.normalized;
     }
 
 
@@ -425,8 +434,23 @@ public class SpiderController : MonoBehaviour
             MoveSign = -(int)Mathf.Sign(_goalRotation.x * currentDirection.y - _goalRotation.y * currentDirection.x);
         }
 
+        float rotationSpeed;
+
+        switch (_spiderSpeed)
+        {
+            case SpiderSpeed.SLOW:
+                rotationSpeed = _slowRotationSpeed;
+                break;
+            case SpiderSpeed.FAST:
+                rotationSpeed = _fastRotationSpeed;
+                break;
+            default:
+                rotationSpeed = _midRotationSpeed;
+                break;
+        }
+
         // increase
-        _orbitRotationT += MoveSign * _rotationSpeed * Time.deltaTime;
+        _orbitRotationT += MoveSign * rotationSpeed * Time.deltaTime;
 
         // guard
         if (_orbitRotationT >= 1)

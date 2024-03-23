@@ -10220,6 +10220,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: _midRotationSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: _fastRotationSpeed
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: _slowRotationSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2234265607896831609, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: m_Name
       value: Spider
