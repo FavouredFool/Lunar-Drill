@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public int SpiderMaxHP => _maxSpiderHP;
 
     public bool inCutscene { get; private set; } = false;
+    public float Timer { get; set; }
 
     public void Awake()
     {
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        Timer = Time.time;
+
 #if !UNITY_EDITOR
         StartCoroutine(StartSequence());
 #endif
