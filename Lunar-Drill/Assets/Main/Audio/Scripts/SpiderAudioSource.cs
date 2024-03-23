@@ -18,7 +18,7 @@ public class SpiderAudioSource : MonoBehaviour, IAudioSubscriber<SpiderHit>, IAu
 
     public void OnAudioEvent(SpiderHit audioEvent)
     {
-        _audioSource.PlayOneShot(_hitClip, _shootLaserVolume);
+        _audioSource.PlayOneShot(_hitClip, _hitVolume);
     }
 
     public void OnAudioEvent(SpiderLaserFiring audioEvent)
