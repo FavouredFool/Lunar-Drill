@@ -8,7 +8,7 @@ public class UIHeart : MonoBehaviour
 {
     [SerializeField] Image spriteRenderer;
 
-    bool _on = true;
+    bool _on = false;
 
     Tween scaleTween;
 

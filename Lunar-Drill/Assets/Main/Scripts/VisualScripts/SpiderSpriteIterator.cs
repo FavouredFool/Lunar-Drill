@@ -112,6 +112,13 @@ public class SpiderSpriteIterator : MonoBehaviour
               scaleTween = spriteRenderer.transform.DOScale(initialScale, 0.1f).SetUpdate(true).SetEase(Ease.OutSine);
           });
     }
+
+    public void CancelStun()
+    {
+        controlTime = 0;
+        animator.SetBool("stunned", false);
+    }
+
     public void Stun(float time)
     {
         Control(_stunSprite, time);

@@ -27,6 +27,7 @@ public class SpiderController : MonoBehaviour
     [Header("Hit")]
     [SerializeField] [Range(0.01f, 5f)] float _invincibleTime = 5f;
     [SerializeField] HealthPickup _healthPickupBlueprint;
+    [SerializeField][Range(0.01f, 20f)] float _regenerateTime = 5f;
 
     [Header("VFX")]
     [SerializeField] VisualEffect _energyLoss;
@@ -36,6 +37,7 @@ public class SpiderController : MonoBehaviour
     public int MoveSign { get; private set; } = 0;
     public float InvinvibilityTime => _invincibleTime;
     public float OverheatT { get; set; } = 0;
+    public float RegenerateT { get; set; } = 0;
     public bool IsVulnerable { get; set; } = false;
     public bool IsInvincible { get; set; } = false;
     public bool IsNotHurtingOnTouch => IsVulnerable || IsInvincible;
@@ -48,6 +50,7 @@ public class SpiderController : MonoBehaviour
     SpiderLaser _spiderLaser;
     bool _mustReachThresholdForMovement = false;
     Vector2 _goalRotation = Vector2.zero;
+    Tween _regenerateVulnerableTween;
 
 
     //--- Unity Methods ------------------------
@@ -101,6 +104,15 @@ public class SpiderController : MonoBehaviour
                 IsVulnerable = true;
 
                 _spriteIterator.Stun(float.MaxValue); //Change this to overheat time
+
+                RegenerateT = 0;
+                _regenerateVulnerableTween = DOTween.To(() => RegenerateT, e => RegenerateT = e, 1, _regenerateTime);
+                _regenerateVulnerableTween.OnComplete(() =>
+                {
+                    OverheatT = 0;
+                    IsVulnerable = false;
+                    _spriteIterator.CancelStun();
+                });
 
                 Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0f, 0.1f));
                 Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0f, 0.1f));
@@ -278,6 +290,11 @@ public class SpiderController : MonoBehaviour
 
     void GetDamaged()
     {
+        if (_regenerateVulnerableTween != null && _regenerateVulnerableTween.IsActive())
+        {
+            _regenerateVulnerableTween.Kill();
+        }
+
         // Sound
         AudioController.Fire(new SpiderHit(""));
 

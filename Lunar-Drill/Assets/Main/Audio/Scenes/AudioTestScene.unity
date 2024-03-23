@@ -2897,10 +2897,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioSources (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4307567159541496912, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
-      propertyPath: _shootLaserVolume
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.709173

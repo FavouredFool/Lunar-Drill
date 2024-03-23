@@ -9,19 +9,31 @@ public class PlayerConnectController : MonoBehaviour
 {
 
 
-    private bool _ready = false; // Bool to save whether or not the player is ready to play!
+    private bool
+        _readyDown = false,
+        _swapDown = false;
 
-    public UnityEvent<bool> ReadyStateChanged = new(); // Event to Signal that the Ready State has changed.
-    public UnityEvent<ChosenCharacter> ChosenCharacterChanged = new(); // Event to Signal that the Ready State has changed.
+    public UnityEvent<bool> ReadyStateChanged = new();
+    public UnityEvent<bool> SwapStateChanged = new();
+    public UnityEvent<ChosenCharacter> ChosenCharacterChanged = new();
 
     public ChosenCharacter Character { get => _character; }
-    public bool Ready
+    public bool ReadyDown
     {
-        get => _ready;
+        get => _readyDown;
         set
         {
-            _ready = value;
+            _readyDown = value;
             ReadyStateChanged.Invoke(value);
+        }
+    }
+    public bool SwapDown
+    {
+        get => _swapDown;
+        set
+        {
+            _swapDown = value;
+            SwapStateChanged.Invoke(value);
         }
     }
 
@@ -59,32 +71,43 @@ public class PlayerConnectController : MonoBehaviour
 
     public void OnSwap(InputAction.CallbackContext context) // Allow the player(s) to swap their characters. Does nothing when ready.
     {
-        if ((!context.started) || Ready)
-            return;
+        if (context.performed)
+            SwapDown = true;
+        else if (context.canceled)
+            SwapDown = false;
 
-        if(_character == ChosenCharacter.drillian)
-        {
-            ChosenCharacterChanged.Invoke(ChosenCharacter.luna);
-            _character = ChosenCharacter.luna;
-            
-        }
-        else if(_character == ChosenCharacter.luna)
-        {
-            ChosenCharacterChanged.Invoke(ChosenCharacter.drillian);
-            _character = ChosenCharacter.drillian;
-        }
+        //if ((!context.started) || Ready)
+        //    return;
+
+        //if(_character == ChosenCharacter.drillian)
+        //{
+        //    ChosenCharacterChanged.Invoke(ChosenCharacter.luna);
+        //    _character = ChosenCharacter.luna;
+
+        //}
+        //else if(_character == ChosenCharacter.luna)
+        //{
+        //    ChosenCharacterChanged.Invoke(ChosenCharacter.drillian);
+        //    _character = ChosenCharacter.drillian;
+        //}
     }
 
     public void OnReady(InputAction.CallbackContext context) // Allow the player(s) to get ready. (And rewerse the readyness)
     {
-        if (!context.started)
-            return;
-        Ready = !Ready;
+        if (context.performed)
+            ReadyDown = true;
+        else if (context.canceled)
+            ReadyDown = false;
+    }
+    public void SetCharacter(ChosenCharacter c)
+    {
+        ChosenCharacterChanged.Invoke(c);
+        _character = c;
     }
 
 
     // Luna Input Events
-    
+
     public void OnMoveGoal(InputAction.CallbackContext context)
     {
         InputBus.Fire(new LunaMoveGoal(context));
@@ -184,16 +207,6 @@ public class PlayerConnectController : MonoBehaviour
         }
         
     }
-
-    // Method to switch to "coop mode"
-    public void CoopReady()
-    {
-        ChosenCharacterChanged.Invoke(ChosenCharacter.luna);
-        _character = ChosenCharacter.luna;
-    }
-
-    
-
 }
 
 public enum ChosenCharacter
