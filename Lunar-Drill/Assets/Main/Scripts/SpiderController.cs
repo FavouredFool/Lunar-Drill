@@ -148,7 +148,7 @@ public class SpiderController : MonoBehaviour
                 return GetLevel4Ability();
         }
 
-        return Movement(30, 150);
+        return Movement(80, 170);
     }
 
     IEnumerator GetLevel1Ability()
@@ -164,30 +164,30 @@ public class SpiderController : MonoBehaviour
         }
         else
         {
-            return Movement(30, 150);
+            return Movement(80, 170);
         }
     }
 
     IEnumerator GetLevel2Ability()
     {
         // Stand: 20% Chance
-        // Movement: 30% Chance
-        // RandomLaser: 35% Chance
-        // LunaLaser: 15% Chance
+        // Movement: 40% Chance
+        // RandomLaserShort: 33% Chance
+        // LunaLaser: 7% Chance
 
         float randomT = Random.Range(0f, 1f);
 
-        if (randomT > 0.85f)
+        if (randomT > 0.8f)
         {
             return Wait();
         }
-        else if (randomT > 0.5f)
+        else if (randomT > 0.4f)
         {
-            return Movement(30, 150);
+            return Movement(80, 170);
         }
-        else if (randomT > 0.15f)
+        else if (randomT > 0.07f)
         {
-            return RandomLaser();
+            return RandomLaserShort();
         }
         else
         {
@@ -197,27 +197,32 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator GetLevel3Ability()
     {
-        // Stand: 15% Chance
-        // Movement: 25% Chance
-        // RandomLaser: 30% Chance
-        // LunaLaser: 20% Chance
+        // Stand: 10% Chance
+        // Movement: 30% Chance
+        // RandomLaserShort: 20% Chance
+        // RandomLaserLong: 15% Chance
+        // LunaLaser: 15% Chance
         // BlinkLaser: 10% Chance
 
         float randomT = Random.Range(0f, 1f);
 
-        if (randomT > 0.85f)
+        if (randomT > 0.9f)
         {
             return Wait();
         }
         else if (randomT > 0.6f)
         {
-            return Movement(30, 150);
+            return Movement(80, 170);
         }
-        else if (randomT > 0.3f)
+        else if (randomT > 0.45f)
         {
-            return RandomLaser();
+            return RandomLaserShort();
         }
-        else if (randomT > 0.1f)
+        else if (randomT > 0.22f)
+        {
+            return RandomLaserLong();
+        }
+        else  if (randomT > 0.1f)
         {
             return LunaLaser();
         }
@@ -244,11 +249,11 @@ public class SpiderController : MonoBehaviour
         }
         else if (randomT > 0.75f)
         {
-            return Movement(30, 150);
+            return Movement(80, 170);
         }
         else if (randomT > 0.5f)
         {
-            return RandomLaser();
+            return RandomLaserLong();
         }
         else if (randomT > 0.25f)
         {
@@ -305,6 +310,8 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator Wait()
     {
+        Debug.Log("WAIT");
+
         float duration = Random.Range(1.5f, 3f);
 
         float startTime = Time.time;
@@ -317,6 +324,10 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator Movement(float innerAngle, float outerAngle)
     {
+        Debug.Log("MOVEMENT");
+
+        _spiderSpeed = SpiderSpeed.MID;
+
         _goalRotation = Random.insideUnitCircle.normalized;
 
         while (Vector2.Angle(transform.position.normalized, _goalRotation) < innerAngle || Vector2.Angle(transform.position.normalized, _goalRotation) > outerAngle)
@@ -329,17 +340,21 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator MoveToPosition(SpiderSpeed speed)
     {
+
         _spiderSpeed = speed;
 
         while (Vector2.Dot(_goalRotation, transform.position.normalized) < 0.99f && !IsVulnerable)
         {
-            Debug.Log(Vector2.Dot(_goalRotation, transform.position.normalized));
             yield return new WaitForEndOfFrame();
         }
     }
 
-    IEnumerator RandomLaser()
+    IEnumerator RandomLaserLong()
     {
+        Debug.Log("LASERLONG");
+
+        _spiderSpeed = SpiderSpeed.MID;
+
         _goalRotation = Random.insideUnitCircle.normalized;
 
         // Start PreLaser
@@ -354,8 +369,30 @@ public class SpiderController : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(1f, 2.5f));
     }
 
+    IEnumerator RandomLaserShort()
+    {
+        Debug.Log("LASERSHORT");
+
+        _spiderSpeed = SpiderSpeed.MID;
+
+        _goalRotation = Random.insideUnitCircle.normalized;
+
+        // Start PreLaser
+
+        StartCoroutine(_spiderLaser.ShootLaser());
+        yield return Movement(90, 179);
+        yield return Movement(35, 120);
+        _spiderLaser.StopLaser();
+
+        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
+    }
+
     IEnumerator LunaLaser()
     {
+        Debug.Log("LUNALASER");
+
+        _spiderSpeed = SpiderSpeed.MID;
+
         GoalMoveOppositeOfLuna();
 
         // increase speed drastically
@@ -373,11 +410,17 @@ public class SpiderController : MonoBehaviour
 
         yield return MoveToPosition(SpiderSpeed.MID);
 
+        _spiderLaser.StopLaser();
+
         yield return new WaitForSeconds(Random.Range(2f, 3.5f));
     }
 
     IEnumerator BlinkLaser()
     {
+        Debug.Log("BLINK");
+
+        _spiderSpeed = SpiderSpeed.MID;
+
         yield return null;
     }
 

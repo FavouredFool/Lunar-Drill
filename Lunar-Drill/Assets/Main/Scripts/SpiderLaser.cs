@@ -115,7 +115,7 @@ public class SpiderLaser : MonoBehaviour
         while (true)
         {
             // If vulnerable, break out earlier
-            if ((_spider.IsVulnerable && canBreak) || _breakOut) break;
+            if ((_spider.IsVulnerable && canBreak) || (_breakOut && canBreak)) break;
             yield return new WaitForEndOfFrame();
         }
 
