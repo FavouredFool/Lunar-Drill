@@ -383,8 +383,17 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         }
         else if (Utilities.LayerMaskContainsLayer(_health, collision.gameObject.layer))
         {
-            GainHealth();
-            collision.gameObject.GetComponent<HealthPickup>().DestroyPickup();
+            HealthPickup health = collision.gameObject.GetComponent<HealthPickup>();
+
+            GameManager gameManager = FindObjectOfType<GameManager>();
+
+            if (!health.HasBeenPickedUp && gameManager.PlayerHP != gameManager.PlayerMaxHP)
+            {
+                health.HasBeenPickedUp = true;
+                GainHealth();
+                health.DestroyPickup();
+            }
+            
         }
     }
 

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
@@ -6,6 +7,7 @@ public class HealthPickup : MonoBehaviour
     [SerializeField][Range(0.1f, 5f)] float _timeTillOrbit;
 
     Tween pulseTween;
+    public bool HasBeenPickedUp = false;
     
     public void Start()
     {
@@ -14,6 +16,6 @@ public class HealthPickup : MonoBehaviour
 
     public void DestroyPickup()
     {
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 0.25f);
     }
 }
