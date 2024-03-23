@@ -148,12 +148,10 @@ public class SpiderSpriteIterator : MonoBehaviour
 
         animator.SetBool("stunned", true);
 
-        float pulseTime = 1 / 3;
-        int loops = Mathf.FloorToInt(time / pulseTime);
-        if (loops % 2 == 0) loops += 1;
-
-        scaleTween.Kill();
-        scaleTween = spriteRenderer.transform.DOScale(initialScale * 1.33f, pulseTime).SetEase(Ease.OutBack).SetLoops(loops, LoopType.Yoyo);
+        //scaleTween.Kill();
+        //scaleTween = spriteRenderer.transform.DOScale(initialScale * 1.33f, time).SetEase(Ease.OutBack);
+        //scaleTween.OnComplete(() => spriteRenderer.transform.localScale = initialScale * Vector3.one);
+        //DOVirtual.DelayedCall(pulseTime * loops + 0.05f, () => spriteRenderer.transform.localScale = initialScale * Vector3.one);
     }
 
     bool isShield => Time.time < shieldTime;
