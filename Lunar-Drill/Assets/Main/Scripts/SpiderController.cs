@@ -459,7 +459,7 @@ public class SpiderController : MonoBehaviour
     void IncreaseHeat()
     {
         OverheatT = Mathf.Clamp01(OverheatT + _overheatGain * Time.deltaTime);
-        _spriteIterator.ShieldHit(0.5f);
+        _spriteIterator.ShieldHit(0.1f);
     }
 
     void GetDamaged()
@@ -523,11 +523,13 @@ public class SpiderController : MonoBehaviour
         if (IsVulnerable && !_vfxActive)
         {
             _energyLoss.SendEvent("Discharge");
+            _energyLoss.SetBool("Alive", true);
             _vfxActive = !_vfxActive;
         }
         else if (!IsVulnerable && _vfxActive)
         {
             _energyLoss.Stop();
+            _energyLoss.SetBool("Alive", false);
             _vfxActive = !_vfxActive;
         }
     }

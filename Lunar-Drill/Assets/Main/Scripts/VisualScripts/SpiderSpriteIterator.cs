@@ -37,7 +37,7 @@ public class SpiderSpriteIterator : MonoBehaviour
     float initialScale;
 
     [SerializeField] Disc[] barDiscs;
-    bool energyBarVisible => isShield||controller.IsShieldCritical;
+    bool energyBarVisible => isShield || controller.IsShieldCritical;
     float energyBarAlpha;
 
     private void Awake()
@@ -70,7 +70,7 @@ public class SpiderSpriteIterator : MonoBehaviour
 
         // Shield vfx
 
-        if (isShield) 
+        if (isShield)
         {
             if (controller.OverheatT <= 0.8f)
             {
@@ -85,11 +85,13 @@ public class SpiderSpriteIterator : MonoBehaviour
         if (isShield && !_vfxActive)
         {
             _energyLoss.SendEvent("Discharge");
+            _energyLoss.SetBool("Alive", true);
             _vfxActive = !_vfxActive;
         }
         else if (!isShield && _vfxActive)
         {
             _energyLoss.Stop();
+            _energyLoss.SetBool("Alive", false);
             _vfxActive = !_vfxActive;
         }
 
