@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] TMP_Text[] _introTextfields;
-
-    [SerializeField] TMP_Text _countdownTextfield;
+    [SerializeField] List<GameObject> _introTextImages;
+    [SerializeField] List<GameObject> _countdownTextImages;
 
     [SerializeField] TimeManager _timeManager;
     [SerializeField] Undertaker _undertaker;
 
-    [SerializeField] HUDisplay
+    [SerializeField]
+    HUDisplay
         _playerHUD,
         _spiderHUD;
 
@@ -49,44 +50,54 @@ public class GameManager : MonoBehaviour
 
         inCutscene = true;
 
-        Assert.IsTrue(_introTextfields.Length == 4);
+        Assert.IsTrue(_introTextImages.Count == 4);
 
         yield return new WaitForSecondsRealtime(2f);
 
-        _introTextfields[0].gameObject.SetActive(true);
+        _introTextImages[0].SetActive(true);
 
         yield return new WaitForSecondsRealtime(2f);
 
-        _introTextfields[1].gameObject.SetActive(true);
+        _introTextImages[1].SetActive(true);
 
         yield return new WaitForSecondsRealtime(2f);
 
-        _introTextfields[2].gameObject.SetActive(true);
+        _introTextImages[2].SetActive(true);
 
         yield return new WaitForSecondsRealtime(2f);
 
-        _introTextfields[3].gameObject.SetActive(true);
+        _introTextImages[3].SetActive(true);
 
         yield return new WaitForSecondsRealtime(1f);
 
-        _countdownTextfield.gameObject.SetActive(true);
+        _introTextImages[3].SetActive(false);
 
-        for (int i = 3; i > 0; i--)
+        for (int i = 0; i < 3; i++)
         {
-            _countdownTextfield.text = i.ToString();
+            for (int j = 0; j < 3; j++)
+            {
+                if (j == i)
+                {
+                    _countdownTextImages[j].SetActive(true);
+                }
+                else
+                {
+                    _countdownTextImages[j].SetActive(false);
+                }
+            }
 
             yield return new WaitForSecondsRealtime(1f);
         }
 
-        _countdownTextfield.text = "GO!";
+        _countdownTextImages[2].SetActive(false);
+        _countdownTextImages[3].SetActive(true);
 
         yield return new WaitForSecondsRealtime(0.5f);
 
-        _introTextfields[0].gameObject.SetActive(false);
-        _introTextfields[1].gameObject.SetActive(false);
-        _introTextfields[2].gameObject.SetActive(false);
-        _introTextfields[3].gameObject.SetActive(false);
-        _countdownTextfield.gameObject.SetActive(false);
+        _introTextImages[0].SetActive(false);
+        _introTextImages[1].SetActive(false);
+        _introTextImages[2].SetActive(false);
+        _countdownTextImages[3].SetActive(false);
 
         inCutscene = false;
         Time.timeScale = 1;
@@ -130,7 +141,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        TimeManager.main.HitFrame(); 
+        TimeManager.main.HitFrame();
         //Add Screenshake?
     }
     public void Heal(GameObject obj, bool isPlayer)
@@ -138,7 +149,7 @@ public class GameManager : MonoBehaviour
         if (isPlayer)
         {
             _playerHP++;
-            _playerHP = Mathf.Min(_maxPlayerHP,_playerHP);
+            _playerHP = Mathf.Min(_maxPlayerHP, _playerHP);
             _playerHUD.RefreshHearts(_playerHP);
         }
         else
@@ -149,9 +160,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame(GameObject obj,bool playerVictory)
+    public void EndGame(GameObject obj, bool playerVictory)
     {
-        Debug.Log(playerVictory? "VICTORY!":"GAME OVER!");
+        Debug.Log(playerVictory ? "VICTORY!" : "GAME OVER!");
         Time.timeScale = 0;
         _undertaker.Activate(obj, playerVictory);
     }
