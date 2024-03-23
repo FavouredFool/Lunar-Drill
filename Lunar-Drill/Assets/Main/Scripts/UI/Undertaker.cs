@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TMPro;
 
 public class Undertaker : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class Undertaker : MonoBehaviour
     [SerializeField] SpriteRenderer topBar, bottomBar;
     [SerializeField] GameObject[] playerText, enemyText;
     [SerializeField] Color col_cyan, col_yellow, col_lilac, col_magenta;
+
+    [SerializeField] TMP_Text timer;
+
+    public void Awake()
+    {
+        timer.text = "";
+    }
 
     public bool isActive { get; private set; } = false;
 
@@ -49,7 +57,14 @@ public class Undertaker : MonoBehaviour
 
         anim.SetTrigger("GO");
 
-        DOVirtual.DelayedCall(3f,() => Continue());
+        DOVirtual.DelayedCall(2f, () =>
+        {
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            string time = System.TimeSpan.FromSeconds(Time.time - gameManager.Timer).ToString("mm\\:ss\\.ff");
+            timer.text = time;
+        });
+
+        DOVirtual.DelayedCall(6f,() => Continue());
     }
 
     public void Continue()
