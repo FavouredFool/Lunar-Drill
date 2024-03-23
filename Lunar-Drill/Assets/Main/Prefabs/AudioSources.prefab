@@ -1214,5 +1214,5 @@ MonoBehaviour:
   _hitClip: {fileID: 8300000, guid: 1c208f7265838c742889bf48ea679b03, type: 3}
   _hitVolume: 0.35
   _shootLaserClip: {fileID: 8300000, guid: 95c825e4a12b0cd4fa2fcea5a90c1de1, type: 3}
-  _shootLaserVolume: 0.6
+  _shootLaserVolume: 0.35
   _laserPitchRange: {x: 1, y: 1}

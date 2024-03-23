@@ -2502,6 +2502,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 973226009}
+        m_TargetAssemblyTypeName: SelectionFix, Assembly-CSharp
+        m_MethodName: CameFromBackButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &585248873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3631,6 +3643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5523696051478f040b90f5f3fa63f867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startTest: {fileID: 1009723720}
 --- !u!1 &993847364
 GameObject:
   m_ObjectHideFlags: 0
