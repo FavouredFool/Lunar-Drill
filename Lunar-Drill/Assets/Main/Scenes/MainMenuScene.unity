@@ -6439,10 +6439,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioSources
       objectReference: {fileID: 0}
-    - target: {fileID: 4853881507697767743, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
-      propertyPath: _drillVolume
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.709173
@@ -6482,10 +6478,6 @@ PrefabInstance:
     - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8375475853023840959, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
-      propertyPath: _changingModeVolume
-      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
