@@ -1,5 +1,207 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9200300441347819626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638510434295519516
+  FileSizes:
+  - Name: Desktop
+    Value: 1818
+  Exists: 1
+--- !u!114 &-9160368982375048417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Characters.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMOD/Lunar--Drill/Build/Desktop/Characters.bank
+  Name: Characters
+  StudioPath: bank:/Characters
+  lastModified: 638510436439328821
+  FileSizes:
+  - Name: Desktop
+    Value: 723520
+  Exists: 1
+--- !u!114 &-8908520030231825140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Spider/SpiderVulnurable
+  m_EditorClassIdentifier: 
+  Path: event:/Spider/SpiderVulnurable
+  Guid:
+    Data1: 1495448654
+    Data2: 1101475709
+    Data3: -510899571
+    Data4: 900714944
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -1857546023822800834}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8766484911684763396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Drilian/DrillianModeChange
+  m_EditorClassIdentifier: 
+  Path: event:/Drilian/DrillianModeChange
+  Guid:
+    Data1: 896970536
+    Data2: 1209202414
+    Data3: -1123424837
+    Data4: 770058243
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1348
+--- !u!114 &-4445411697290320207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Luna/EnergyPickup
+  m_EditorClassIdentifier: 
+  Path: event:/Luna/EnergyPickup
+  Guid:
+    Data1: 770846240
+    Data2: 1224970072
+    Data3: -260922694
+    Data4: 806601983
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 366
+--- !u!114 &-3100216595982350697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Confirm
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Confirm
+  Guid:
+    Data1: 1592508128
+    Data2: 1147135716
+    Data3: 1081493166
+    Data4: -1552669518
+  Banks:
+  - {fileID: 4695575326577322018}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 105
+--- !u!114 &-3036397130488663306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Select
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Select
+  Guid:
+    Data1: 1942969588
+    Data2: 1281897785
+    Data3: -414018159
+    Data4: -426734806
+  Banks:
+  - {fileID: 4695575326577322018}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 402
+--- !u!114 &-1857546023822800834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/SpiderVulnurable/VulnurableState
+  m_EditorClassIdentifier: 
+  Name: VulnurableState
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 366413841
+    data2: 3314478161
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Vulnurable
+  - Invulnurable
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,10 +214,471 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
-  EditorBanks: []
-  EditorEvents: []
+  EditorBanks:
+  - {fileID: -9200300441347819626}
+  - {fileID: -9160368982375048417}
+  - {fileID: 5769634084612278939}
+  - {fileID: 4975697842361402279}
+  - {fileID: 4695575326577322018}
+  EditorEvents:
+  - {fileID: 5651603738047351459}
+  - {fileID: 3860441820646702751}
+  - {fileID: 8189786795023379454}
+  - {fileID: -4445411697290320207}
+  - {fileID: -8766484911684763396}
+  - {fileID: -8908520030231825140}
+  - {fileID: 4329402941527189121}
+  - {fileID: 8975390689942718175}
+  - {fileID: 7793040004069012737}
+  - {fileID: 5556118911295857107}
+  - {fileID: 5660812926070493495}
+  - {fileID: 2893877741388825438}
+  - {fileID: 3819515140632133319}
+  - {fileID: 3690990082701301727}
+  - {fileID: 212034924061070438}
+  - {fileID: 1000054649266059094}
+  - {fileID: -3100216595982350697}
+  - {fileID: -3036397130488663306}
   EditorParameters: []
-  MasterBanks: []
-  StringsBanks: []
-  cacheTime: 0
+  MasterBanks:
+  - {fileID: 4975697842361402279}
+  StringsBanks:
+  - {fileID: -9200300441347819626}
+  cacheTime: 638510436439328821
   cacheVersion: 131617
+--- !u!114 &212034924061070438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/EndScreen/EndGame
+  m_EditorClassIdentifier: 
+  Path: event:/EndScreen/EndGame
+  Guid:
+    Data1: 821752288
+    Data2: 1267006861
+    Data3: -1137279594
+    Data4: 310434642
+  Banks:
+  - {fileID: 5769634084612278939}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1314
+--- !u!114 &1000054649266059094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/EndScreen/EndShing
+  m_EditorClassIdentifier: 
+  Path: event:/EndScreen/EndShing
+  Guid:
+    Data1: 1659669749
+    Data2: 1209787866
+    Data3: 101167504
+    Data4: -862487187
+  Banks:
+  - {fileID: 5769634084612278939}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1286
+--- !u!114 &2893877741388825438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/EndScreen/EndDrill
+  m_EditorClassIdentifier: 
+  Path: event:/EndScreen/EndDrill
+  Guid:
+    Data1: -71581089
+    Data2: 1267220671
+    Data3: -324497754
+    Data4: -992253236
+  Banks:
+  - {fileID: 5769634084612278939}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1034
+--- !u!114 &3690990082701301727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/EndScreen/EndOver
+  m_EditorClassIdentifier: 
+  Path: event:/EndScreen/EndOver
+  Guid:
+    Data1: -415048740
+    Data2: 1142732201
+    Data3: -2131343742
+    Data4: -552693595
+  Banks:
+  - {fileID: 5769634084612278939}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1742
+--- !u!114 &3819405766110564764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OreCrack/PitchNumber
+  m_EditorClassIdentifier: 
+  Name: PitchNumber
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 2152211173
+    data2: 738374102
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3819515140632133319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/EndScreen/EndLunar
+  m_EditorClassIdentifier: 
+  Path: event:/EndScreen/EndLunar
+  Guid:
+    Data1: -972760917
+    Data2: 1116796644
+    Data3: -1580900186
+    Data4: 1582068853
+  Banks:
+  - {fileID: 5769634084612278939}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1589
+--- !u!114 &3860441820646702751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Spider/SpiderLaserCharging
+  m_EditorClassIdentifier: 
+  Path: event:/Spider/SpiderLaserCharging
+  Guid:
+    Data1: 888372745
+    Data2: 1199747786
+    Data3: 2066028201
+    Data4: -894019355
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6250
+--- !u!114 &4329402941527189121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Drilian/DrillianHitSpider
+  m_EditorClassIdentifier: 
+  Path: event:/Drilian/DrillianHitSpider
+  Guid:
+    Data1: 1573941363
+    Data2: 1224912829
+    Data3: -563286599
+    Data4: 67986436
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 701
+--- !u!114 &4695575326577322018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Menu.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMOD/Lunar--Drill/Build/Desktop/Menu.bank
+  Name: Menu
+  StudioPath: bank:/Menu
+  lastModified: 638510434296010017
+  FileSizes:
+  - Name: Desktop
+    Value: 8768
+  Exists: 1
+--- !u!114 &4975697842361402279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638510434295499504
+  FileSizes:
+  - Name: Desktop
+    Value: 1036
+  Exists: 1
+--- !u!114 &5556118911295857107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Luna/LunaLaser
+  m_EditorClassIdentifier: 
+  Path: event:/Luna/LunaLaser
+  Guid:
+    Data1: -506747686
+    Data2: 1277884545
+    Data3: 1978622343
+    Data4: -1794343563
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 10270
+--- !u!114 &5651603738047351459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Spider/SpiderLaserFiring
+  m_EditorClassIdentifier: 
+  Path: event:/Spider/SpiderLaserFiring
+  Guid:
+    Data1: -2057096185
+    Data2: 1306188629
+    Data3: 256060039
+    Data4: 1307336288
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 20000
+--- !u!114 &5660812926070493495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Drilian/DrillianDrilling
+  m_EditorClassIdentifier: 
+  Path: event:/Drilian/DrillianDrilling
+  Guid:
+    Data1: 170196712
+    Data2: 1127950024
+    Data3: 1764743048
+    Data4: 570616830
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 13083
+--- !u!114 &5769634084612278939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/EndScreen.bank
+  m_EditorClassIdentifier: 
+  Path: ../FMOD/Lunar--Drill/Build/Desktop/EndScreen.bank
+  Name: EndScreen
+  StudioPath: bank:/EndScreen
+  lastModified: 638510434296559456
+  FileSizes:
+  - Name: Desktop
+    Value: 80032
+  Exists: 1
+--- !u!114 &7793040004069012737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Drilian/OreCrack
+  m_EditorClassIdentifier: 
+  Path: event:/Drilian/OreCrack
+  Guid:
+    Data1: -1449903913
+    Data2: 1114579560
+    Data3: 1029850532
+    Data4: 850217027
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3819405766110564764}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 148
+--- !u!114 &8189786795023379454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Spider/SpiderHit
+  m_EditorClassIdentifier: 
+  Path: event:/Spider/SpiderHit
+  Guid:
+    Data1: 1830096412
+    Data2: 1188991928
+    Data3: -2066287169
+    Data4: -1264511055
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2721
+--- !u!114 &8975390689942718175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Luna/LunaHitSpider
+  m_EditorClassIdentifier: 
+  Path: event:/Luna/LunaHitSpider
+  Guid:
+    Data1: -319679302
+    Data2: 1203865298
+    Data3: -788731001
+    Data4: 1649397991
+  Banks:
+  - {fileID: -9160368982375048417}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 697
