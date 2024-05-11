@@ -31,6 +31,6 @@ public class SpiderExampleEvents : MonoBehaviour
     }
     public void ChargingStopping()
     {
-        AudioController.Fire(new SpiderLaserCharging(SpiderLaserCharging.ChargeState.ChargingStarted));
+        AudioController.Fire(new SpiderLaserCharging(SpiderLaserCharging.ChargeState.ChargingStopped));
     }
 }

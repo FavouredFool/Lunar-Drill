@@ -2393,8 +2393,8 @@ GameObject:
   m_Component:
   - component: {fileID: 594087771}
   - component: {fileID: 594087770}
-  - component: {fileID: 594087769}
   - component: {fileID: 594087772}
+  - component: {fileID: 594087773}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2402,14 +2402,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &594087769
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594087768}
-  m_Enabled: 1
 --- !u!20 &594087770
 Camera:
   m_ObjectHideFlags: 0
@@ -2520,6 +2512,19 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &594087773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594087768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &620781823
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,6 +2805,51 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &642481339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9034059613139455068, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+  m_PrefabInstance: {fileID: 1918637742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &642481341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642481339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d259e9960bddae44fb975208bf6c70ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spiderHit:
+    Guid:
+      Data1: 1830096412
+      Data2: 1188991928
+      Data3: -2066287169
+      Data4: -1264511055
+    Path: event:/Spider/SpiderHit
+  _spiderLaserCharging:
+    Guid:
+      Data1: 888372745
+      Data2: 1199747786
+      Data3: 2066028201
+      Data4: -894019355
+    Path: event:/Spider/SpiderLaserCharging
+  _spiderLaserFiring:
+    Guid:
+      Data1: -2057096185
+      Data2: 1306188629
+      Data3: 256060039
+      Data4: 1307336288
+    Path: event:/Spider/SpiderLaserFiring
+  _spiderVulnurable:
+    Guid:
+      Data1: 1495448654
+      Data2: 1101475709
+      Data3: -510899571
+      Data4: 900714944
+    Path: event:/Spider/SpiderVulnurable
 --- !u!1 &775328233
 GameObject:
   m_ObjectHideFlags: 0
@@ -5561,6 +5611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioSources (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5269832461653274868, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6538347233193770419, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.709173
@@ -5601,10 +5655,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8375475853023840959, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+    - {fileID: 5269832461653274868, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+    - {fileID: 4368590868232090480, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+    - {fileID: 4152756684296293559, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+    - {fileID: 40241758399879243, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+    - {fileID: 7385002710813159084, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2330679970939009553, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2070500181}
+    - targetCorrespondingSourceObject: {fileID: 2055393137610119071, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2145631270}
+    - targetCorrespondingSourceObject: {fileID: 9034059613139455068, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 642481341}
   m_SourcePrefab: {fileID: 100100000, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
 --- !u!1 &2009232396
 GameObject:
@@ -6010,6 +6079,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050705300}
   m_CullTransparentMesh: 1
+--- !u!1 &2070500179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2330679970939009553, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+  m_PrefabInstance: {fileID: 1918637742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2070500181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070500179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21eb37a6a4555a14094b4c88eca5f0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OreCracked:
+    Guid:
+      Data1: -1449903913
+      Data2: 1114579560
+      Data3: 1029850532
+      Data4: 850217027
+    Path: event:/Drilian/OreCrack
+  DrillianHitLaser:
+    Guid:
+      Data1: 1573941363
+      Data2: 1224912829
+      Data3: -563286599
+      Data4: 67986436
+    Path: event:/Drilian/DrillianHitSpider
+  DrillianHitSpider:
+    Guid:
+      Data1: 1573941363
+      Data2: 1224912829
+      Data3: -563286599
+      Data4: 67986436
+    Path: event:/Drilian/DrillianHitSpider
+  DrillianChangeMode:
+    Guid:
+      Data1: 896970536
+      Data2: 1209202414
+      Data3: -1123424837
+      Data4: 770058243
+    Path: event:/Drilian/DrillianModeChange
+  DrillianDrilling:
+    Guid:
+      Data1: 170196712
+      Data2: 1127950024
+      Data3: 1764743048
+      Data4: 570616830
+    Path: event:/Drilian/DrillianDrilling
 --- !u!1 &2131257182
 GameObject:
   m_ObjectHideFlags: 0
@@ -6095,6 +6216,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1777023fa2b7db14c8fc2e658a07ab18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2145631268 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2055393137610119071, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+  m_PrefabInstance: {fileID: 1918637742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2145631270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145631268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ad5fbd379e28140800ffbc0c24d77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lunaHitLaser:
+    Guid:
+      Data1: -319679302
+      Data2: 1203865298
+      Data3: -788731001
+      Data4: 1649397991
+    Path: event:/Luna/LunaHitSpider
+  _lunaHitDrillian:
+    Guid:
+      Data1: -319679302
+      Data2: 1203865298
+      Data3: -788731001
+      Data4: 1649397991
+    Path: event:/Luna/LunaHitSpider
+  _lunaEnergyPickup:
+    Guid:
+      Data1: 770846240
+      Data2: 1224970072
+      Data3: -260922694
+      Data4: 806601983
+    Path: event:/Luna/EnergyPickup
+  _lunaLaserFiring:
+    Guid:
+      Data1: -506747686
+      Data2: 1277884545
+      Data3: 1978622343
+      Data4: -1794343563
+    Path: event:/Luna/LunaLaser
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

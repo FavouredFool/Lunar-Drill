@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638510434295519516
+  lastModified: 638510567420915739
   FileSizes:
   - Name: Desktop
-    Value: 1818
+    Value: 1920
   Exists: 1
 --- !u!114 &-9160368982375048417
 MonoBehaviour:
@@ -35,10 +35,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Characters.bank
   Name: Characters
   StudioPath: bank:/Characters
-  lastModified: 638510436439328821
+  lastModified: 638510567420795609
   FileSizes:
   - Name: Desktop
-    Value: 723520
+    Value: 726432
   Exists: 1
 --- !u!114 &-8908520030231825140
 MonoBehaviour:
@@ -63,11 +63,10 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
-  Parameters:
-  - {fileID: -1857546023822800834}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 750
 --- !u!114 &-8766484911684763396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +175,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 402
---- !u!114 &-1857546023822800834
+--- !u!114 &-1258243004943996860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,21 +185,47 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/SpiderVulnurable/VulnurableState
+  m_Name: parameter:/DrillianDrilling/Drillian Drill State
   m_EditorClassIdentifier: 
-  Name: VulnurableState
+  Name: Drillian Drill State
   StudioPath: 
   Min: 0
   Max: 1
-  Default: 0
+  Default: 1
   ID:
-    data1: 366413841
-    data2: 3314478161
+    data1: 2494805366
+    data2: 1592408881
   Type: 2
   IsGlobal: 0
   Labels:
-  - Vulnurable
-  - Invulnurable
+  - Drilling Started
+  - Drilling Stopped
+  Exists: 1
+--- !u!114 &-308853436285444943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/LunaLaser/Luna Laser Firing
+  m_EditorClassIdentifier: 
+  Name: Luna Laser Firing
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 2739010642
+    data2: 631475054
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Laser Firing
+  - Laser Stopped
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -244,7 +269,7 @@ MonoBehaviour:
   - {fileID: 4975697842361402279}
   StringsBanks:
   - {fileID: -9200300441347819626}
-  cacheTime: 638510436439328821
+  cacheTime: 638510567420915739
   cacheVersion: 131617
 --- !u!114 &212034924061070438
 MonoBehaviour:
@@ -273,6 +298,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1314
+--- !u!114 &376461971310041843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/LunaLaser/Luna Laser Charge
+  m_EditorClassIdentifier: 
+  Name: Luna Laser Charge
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 124602402
+    data2: 874557269
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &1000054649266059094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,7 +543,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638510434295499504
+  lastModified: 638510567420895722
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -522,10 +571,12 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
+  Parameters:
+  - {fileID: 376461971310041843}
+  - {fileID: -308853436285444943}
   MinDistance: 1
   MaxDistance: 20
-  Length: 10270
+  Length: 9162
 --- !u!114 &5651603738047351459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,10 +627,11 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
+  Parameters:
+  - {fileID: -1258243004943996860}
   MinDistance: 1
   MaxDistance: 20
-  Length: 13083
+  Length: 2000
 --- !u!114 &5769634084612278939
 MonoBehaviour:
   m_ObjectHideFlags: 0

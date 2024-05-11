@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="ParameterPreset" id="{49139364-bb66-4b74-9e25-4be1807a13f4}">
+	<object class="ParameterPreset" id="{509c77b3-68e9-49c8-88e6-9b148254c52c}">
 		<property name="name">
-			<value>VulnurableState</value>
+			<value>Luna Laser Firing</value>
 		</property>
 		<relationship name="folder">
 			<destination>{55915ae5-9f2f-4541-8a2c-9d7e64e40359}</destination>
 		</relationship>
 		<relationship name="parameter">
-			<destination>{6c13516f-0154-48f3-982e-87c28cd9b6db}</destination>
+			<destination>{00be0d27-d9f2-4e9a-9383-af90dd4dad9b}</destination>
 		</relationship>
 	</object>
-	<object class="GameParameter" id="{6c13516f-0154-48f3-982e-87c28cd9b6db}">
+	<object class="GameParameter" id="{00be0d27-d9f2-4e9a-9383-af90dd4dad9b}">
 		<property name="parameterType">
 			<value>2</value>
 		</property>
@@ -19,11 +19,11 @@
 			<value>2</value>
 		</property>
 		<property name="enumerationLabels">
-			<value>Vulnurable</value>
-			<value>Invulnurable</value>
+			<value>Laser Firing</value>
+			<value>Laser Stopped</value>
 		</property>
 		<property name="initialValue">
-			<value>0</value>
+			<value>1</value>
 		</property>
 	</object>
 </objects>
