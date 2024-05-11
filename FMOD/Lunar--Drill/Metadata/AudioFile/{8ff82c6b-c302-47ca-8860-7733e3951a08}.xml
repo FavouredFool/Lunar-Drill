@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{8ff82c6b-c302-47ca-8860-7733e3951a08}">
+		<property name="assetPath">
+			<value>Drillian/N_Drilling.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>13.083333333333334</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{45125faa-db6d-445a-afc2-d8831ea97e6c}</destination>
+		</relationship>
+	</object>
+</objects>

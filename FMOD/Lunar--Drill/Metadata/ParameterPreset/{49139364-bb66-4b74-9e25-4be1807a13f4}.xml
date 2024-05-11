@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{49139364-bb66-4b74-9e25-4be1807a13f4}">
+		<property name="name">
+			<value>VulnurableState</value>
+		</property>
+		<relationship name="folder">
+			<destination>{55915ae5-9f2f-4541-8a2c-9d7e64e40359}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{6c13516f-0154-48f3-982e-87c28cd9b6db}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{6c13516f-0154-48f3-982e-87c28cd9b6db}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Vulnurable</value>
+			<value>Invulnurable</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

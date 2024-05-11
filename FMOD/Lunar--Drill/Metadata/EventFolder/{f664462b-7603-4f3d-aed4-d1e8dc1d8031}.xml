@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{f664462b-7603-4f3d-aed4-d1e8dc1d8031}">
+		<property name="name">
+			<value>Drilian</value>
+		</property>
+		<relationship name="folder">
+			<destination>{0d4e2087-1283-4f6b-a944-a87f106dee7b}</destination>
+		</relationship>
+	</object>
+</objects>

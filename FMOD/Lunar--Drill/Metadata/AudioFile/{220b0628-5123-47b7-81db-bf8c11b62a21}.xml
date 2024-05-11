@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{220b0628-5123-47b7-81db-bf8c11b62a21}">
+		<property name="assetPath">
+			<value>Luna/N_LaserWideLuna.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>20</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{45125faa-db6d-445a-afc2-d8831ea97e6c}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{7a53895c-0794-40da-b053-51b8e0fe41f8}">
+		<property name="assetPath">
+			<value>Luna/N_LunaHitSizzle2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.71351473922902497</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{45125faa-db6d-445a-afc2-d8831ea97e6c}</destination>
+		</relationship>
+	</object>
+</objects>

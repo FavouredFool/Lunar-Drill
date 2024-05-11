@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{83ede2e1-7b22-420e-9300-14a6f3ec047b}">
+		<property name="assetPath">
+			<value>Spider/N_SpiderHit2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.7216780045351472</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{45125faa-db6d-445a-afc2-d8831ea97e6c}</destination>
+		</relationship>
+	</object>
+</objects>
