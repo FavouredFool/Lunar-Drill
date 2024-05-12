@@ -65,5 +65,13 @@ public class LunaAudioFMOD : MonoBehaviour,
         AudioController.Unsubscribe<LunaHitDrillian>(this);
         AudioController.Unsubscribe<LunaEnergyPickup>(this);
         AudioController.Unsubscribe<LunaLaserFiring>(this);
+
+        // Stop  audio if it is running
+        PLAYBACK_STATE ps;
+        _laser.getPlaybackState(out ps);
+        if (ps != PLAYBACK_STATE.STOPPED)
+        {
+            _laser.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
     }
 }

@@ -9,6 +9,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using FMODUnity;
+using FMOD.Studio;
 
 public class OptionsMenuUtilities : MonoBehaviour
 {
@@ -35,6 +37,9 @@ public class OptionsMenuUtilities : MonoBehaviour
     //--- Private Fields ------------------------
 
     private List<TMP_Dropdown.OptionData> _resolutions = new();
+    private Bus _masterBus;
+    private VCA _sfxVCA; 
+    private VCA _musicVCA;
 
     //--- Unity Methods ------------------------
 
@@ -43,6 +48,9 @@ public class OptionsMenuUtilities : MonoBehaviour
         _optionsPanel.SetActive(false); // Do not display options at beginning
         PopulateAudioOptions();
         PopulateDisplayOptions();
+        _masterBus = RuntimeManager.GetBus("bus:/");
+        _sfxVCA = RuntimeManager.GetVCA("vca:/SFX");
+        _musicVCA = RuntimeManager.GetVCA("vca:/Music");
     }
 
     //--- Public Methods ------------------------
@@ -64,17 +72,23 @@ public class OptionsMenuUtilities : MonoBehaviour
         {
             if (_isOpen) //Close it
             {
+                // Audio events:
+                AudioController.Fire(new MenuPauseAudio(MenuPauseAudio.PauseState.GameRunning)); // "Resumes" sfx audio. (well makes it loud again)
+
 
                 _optionsPanel.transform.DOLocalMove(_optionsMenuRest.localPosition, _pullTime).SetUpdate(true);
                 DOVirtual.DelayedCall(_pullTime, () => _optionsPanel.SetActive(false)).SetUpdate(true);
 
                 _mainMenuPanel.SetActive(true);
                 _mainMenuPanel.transform.DOLocalMove(Vector3.zero, _pullTime).SetUpdate(true);
-
                 Time.timeScale = 1;
+                
             }
             else //Open it
             {
+                // Audio
+                AudioController.Fire(new MenuPauseAudio(MenuPauseAudio.PauseState.GamePaused)); // "pauses" sfx audio. (well makes it quiet again)
+
                 _optionsPanel.SetActive(true);
                 _optionsPanel.transform.DOLocalMove(Vector3.zero, _pullTime).SetUpdate(true);
 
@@ -90,6 +104,9 @@ public class OptionsMenuUtilities : MonoBehaviour
         {
             if (_isOpen) //Close it
             {
+                // Audio
+                AudioController.Fire(new MenuPauseAudio(MenuPauseAudio.PauseState.GameRunning)); // "pauses" sfx audio. (well makes it quiet again)
+
 
                 _optionsPanel.transform.DOLocalMove(_optionsMenuRest.localPosition, _pullTime).SetUpdate(true);
                 DOVirtual.DelayedCall(_pullTime, () => _optionsPanel.SetActive(false)).SetUpdate(true);
@@ -97,6 +114,9 @@ public class OptionsMenuUtilities : MonoBehaviour
             }
             else //Open it
             {
+                // Audio
+                AudioController.Fire(new MenuPauseAudio(MenuPauseAudio.PauseState.GamePaused)); // "pauses" sfx audio. (well makes it quiet again)
+
                 _optionsPanel.SetActive(true);
                 _optionsPanel.transform.DOLocalMove(Vector3.zero, _pullTime).SetUpdate(true);
 
@@ -127,23 +147,18 @@ public class OptionsMenuUtilities : MonoBehaviour
     {
         _masterSlider.onValueChanged.AddListener(changeMasterVolume);
         float _currentMasterVolume;
-        if (_audioMixer.GetFloat("MasterVolume", out _currentMasterVolume))
-            _masterSlider.value = Mathf.Pow(2, (_currentMasterVolume / 10));
+        _masterBus.getVolume(out _currentMasterVolume);
+        _masterSlider.value = _currentMasterVolume;
+
         _musicSlider.onValueChanged.AddListener(changeMusicVolume);
         float _currentMusicVolume;
-        if (_audioMixer.GetFloat("PreMusicVolume", out _currentMusicVolume))
-        {
-            _musicSlider.value = Mathf.Pow(2, (_currentMusicVolume / 10));
-            _audioMixer.SetFloat("PostMusicVolume", _currentMusicVolume); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+        _musicVCA.getVolume(out _currentMusicVolume);
+        _musicSlider.value = _currentMusicVolume;
 
-        }
         _sfxSlider.onValueChanged.AddListener(changeFXVolume);
         float _currentSfxVolume;
-        if (_audioMixer.GetFloat("PreSFXVolume", out _currentSfxVolume))
-        {
-            _audioMixer.SetFloat("PreSFXVolume", _currentSfxVolume);
-            _sfxSlider.value = Mathf.Pow(2, (_currentSfxVolume / 10));
-        }
+        _sfxVCA.getVolume(out _currentSfxVolume);
+        _sfxSlider.value = _currentSfxVolume;
 
     }
 
@@ -211,20 +226,18 @@ public class OptionsMenuUtilities : MonoBehaviour
     /* Function to change the Master Volume */
     public void changeMasterVolume(float value)
     {
-        _audioMixer.SetFloat("MasterVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+        _masterBus.setVolume(value);
     }
 
     /* Function to change the MUsic Volume */
     public void changeMusicVolume(float value)
     {
-        _audioMixer.SetFloat("PreMusicVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
-        _audioMixer.SetFloat("PostMusicVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+        _musicVCA.setVolume(value);
     }
     /* Function to change the FX Volume */
     public void changeFXVolume(float value)
     {
-        _audioMixer.SetFloat("PreSFXVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
-        _audioMixer.SetFloat("PostSFXVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
+        _sfxVCA.setVolume(value);
     }
 
 }

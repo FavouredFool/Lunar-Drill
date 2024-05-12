@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638510567420915739
+  lastModified: 638511299576802078
   FileSizes:
   - Name: Desktop
-    Value: 1920
+    Value: 2522
   Exists: 1
 --- !u!114 &-9160368982375048417
 MonoBehaviour:
@@ -35,10 +35,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Characters.bank
   Name: Characters
   StudioPath: bank:/Characters
-  lastModified: 638510567420795609
+  lastModified: 638511299576338065
   FileSizes:
   - Name: Desktop
-    Value: 726432
+    Value: 728896
   Exists: 1
 --- !u!114 &-8908520030231825140
 MonoBehaviour:
@@ -94,6 +94,32 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1348
+--- !u!114 &-7564347613375051449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Pause/Paused
+  m_EditorClassIdentifier: 
+  Name: Paused
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2617151638
+    data2: 1220137821
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Game Running
+  - Game Paused
+  Exists: 1
 --- !u!114 &-4445411697290320207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +201,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 402
+--- !u!114 &-2014701158837131523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/Pause
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Pause
+  Guid:
+    Data1: -1633325757
+    Data2: 1161782552
+    Data3: 1586442398
+    Data4: -1640033353
+  Banks:
+  - {fileID: 4695575326577322018}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -7564347613375051449}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &-1258243004943996860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,12 +318,15 @@ MonoBehaviour:
   - {fileID: 1000054649266059094}
   - {fileID: -3100216595982350697}
   - {fileID: -3036397130488663306}
+  - {fileID: 4203655525616699498}
+  - {fileID: 5444723710999869580}
+  - {fileID: -2014701158837131523}
   EditorParameters: []
   MasterBanks:
   - {fileID: 4975697842361402279}
   StringsBanks:
   - {fileID: -9200300441347819626}
-  cacheTime: 638510567420915739
+  cacheTime: 638511299577227527
   cacheVersion: 131617
 --- !u!114 &212034924061070438
 MonoBehaviour:
@@ -481,6 +538,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 6250
+--- !u!114 &4203655525616699498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/MuteNonPriority
+  m_EditorClassIdentifier: 
+  Path: snapshot:/MuteNonPriority
+  Guid:
+    Data1: 1721549164
+    Data2: 1174872252
+    Data3: 955562416
+    Data4: -446879976
+  Banks:
+  - {fileID: -9160368982375048417}
+  - {fileID: 4975697842361402279}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &4329402941527189121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,10 +608,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Menu.bank
   Name: Menu
   StudioPath: bank:/Menu
-  lastModified: 638510434296010017
+  lastModified: 638511299577227527
   FileSizes:
   - Name: Desktop
-    Value: 8768
+    Value: 10944
   Exists: 1
 --- !u!114 &4975697842361402279
 MonoBehaviour:
@@ -543,11 +628,39 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638510567420895722
+  lastModified: 638511299576782059
   FileSizes:
   - Name: Desktop
-    Value: 1036
+    Value: 4176
   Exists: 1
+--- !u!114 &5444723710999869580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/PauseSFX
+  m_EditorClassIdentifier: 
+  Path: snapshot:/PauseSFX
+  Guid:
+    Data1: -897736792
+    Data2: 1130083992
+    Data3: -1835931772
+    Data4: -1960904457
+  Banks:
+  - {fileID: 4975697842361402279}
+  - {fileID: 4695575326577322018}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &5556118911295857107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,10 +760,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/EndScreen.bank
   Name: EndScreen
   StudioPath: bank:/EndScreen
-  lastModified: 638510434296559456
+  lastModified: 638511299576691952
   FileSizes:
   - Name: Desktop
-    Value: 80032
+    Value: 80128
   Exists: 1
 --- !u!114 &7793040004069012737
 MonoBehaviour:

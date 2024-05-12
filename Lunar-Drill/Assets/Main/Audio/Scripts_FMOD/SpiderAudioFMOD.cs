@@ -93,5 +93,24 @@ public class SpiderAudioFMOD : MonoBehaviour,
         AudioController.Unsubscribe<SpiderLaserCharging>(this);
         AudioController.Unsubscribe<SpiderLaserFiring>(this);
         AudioController.Unsubscribe<SpiderVulnurable>(this);
+
+        // Stop  audio if it is running
+        PLAYBACK_STATE ps;
+        _spiderLaserChargingInstance.getPlaybackState(out ps);
+        if (ps != PLAYBACK_STATE.STOPPED)
+        {
+            _spiderLaserChargingInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+        _spiderLaserFiringInstance.getPlaybackState(out ps);
+        if (ps != PLAYBACK_STATE.STOPPED)
+        {
+            _spiderLaserFiringInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+        _spiderVulnurableInstance.getPlaybackState(out ps);
+        if (ps != PLAYBACK_STATE.STOPPED)
+        {
+            _spiderVulnurableInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+
     }
 }

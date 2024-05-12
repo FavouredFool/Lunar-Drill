@@ -10565,6 +10565,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
+      propertyPath: disabledObjects.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1989054594}
@@ -10591,19 +10595,19 @@ PrefabInstance:
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[6]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 845659926}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[7]
       value: 
-      objectReference: {fileID: 845659926}
+      objectReference: {fileID: 973502828}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[8]
       value: 
-      objectReference: {fileID: 973502828}
+      objectReference: {fileID: 519420028}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[9]
       value: 
-      objectReference: {fileID: 519420028}
+      objectReference: {fileID: 0}
     - target: {fileID: 7609450279003870790, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: m_Name
       value: The Undertaker

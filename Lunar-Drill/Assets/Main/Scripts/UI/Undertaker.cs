@@ -28,8 +28,9 @@ public class Undertaker : MonoBehaviour
 
     public void Activate(GameObject target, bool isPlayer)
     {
-        foreach (AudioSource s in sources)
-            s.Pause();
+        // To do: Pause Audio
+        //foreach (AudioSource s in sources)
+        //    s.Pause();
 
         TimeManager.main.Freeze();
 

@@ -82,5 +82,13 @@ public class DrillianAudioFMOD : MonoBehaviour,
         AudioController.Unsubscribe<DrillianHitLaser>(this);
         AudioController.Unsubscribe<DrillianChangeMode>(this);
         AudioController.Unsubscribe<DrillianDrilling>(this);
+
+        // Stop  audio if it is running
+        PLAYBACK_STATE ps;
+        _drilling.getPlaybackState(out ps);
+        if (ps != PLAYBACK_STATE.STOPPED)
+        {
+            _drilling.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
     }
 }

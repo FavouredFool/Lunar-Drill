@@ -46,6 +46,9 @@
 		</relationship>
 	</object>
 	<object class="MixerInput" id="{e76a5cc6-95a9-4e51-ac55-100487ac3e47}">
+		<relationship name="masters">
+			<destination>{2fb2f373-7449-4df6-9913-313d884ee821}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{1922830d-7e6e-4265-9526-48d7370de9a5}</destination>
 		</relationship>
@@ -53,12 +56,12 @@
 			<destination>{ce4d1459-43f5-4de2-952a-986643c8fb84}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{acdf19f6-1e4d-43ba-bf46-07af540d761b}</destination>
+			<destination>{52a0b139-6595-49a9-88f4-f78f655cebd4}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{9d874b68-ddeb-4d43-a5d3-74001156bad3}">
 		<property name="triggerCooldown">
-			<value>320</value>
+			<value>100</value>
 		</property>
 	</object>
 	<object class="MarkerTrack" id="{e527a172-d82e-499d-b47c-0b196ece9c12}" />
@@ -68,6 +71,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{56e3bc58-8428-4ce4-a900-e78232907909}">
+		<property name="volume">
+			<value>-19</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{a8b75e27-f4a8-40f3-9e8b-792726a0308e}</destination>
 		</relationship>
