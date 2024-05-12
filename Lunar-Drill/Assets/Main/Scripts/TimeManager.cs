@@ -7,14 +7,14 @@ public class TimeManager : MonoBehaviour
 {
     public static float hitFrameTime = 0.5f;
     public static TimeManager main;
-    [SerializeField] OptionsMenuUtilities optionsMenu;
+    [SerializeField] MainMenuUIManager mainMenu;
     [SerializeField] GameManager gameManager;
     [SerializeField] Undertaker undertaker;
 
     [SerializeField] float currentTimeScale;
 
     bool freeze;
-    bool isPaused => freeze|| optionsMenu._isOpen||gameManager.inCutscene||undertaker.isActive;
+    bool isPaused => freeze || mainMenu.IsOpen || gameManager.inCutscene || undertaker.isActive; // TODO: adjust here once options menu in game is done
 
     Tween timeScaleTween;
 

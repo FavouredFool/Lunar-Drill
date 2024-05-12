@@ -13,12 +13,12 @@ public class BackgroundMusic : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "MainMenuScene")
+        if (scene.name == "MainMenuScene")
         {
             _backgroundAudioSource.clip = _lobbyTrack;
         }
 
-        if(scene.name == "MainScene")
+        if (scene.name == "MainScene")
         {
             _backgroundAudioSource.clip = _gameTrack;
         }
@@ -28,12 +28,12 @@ public class BackgroundMusic : MonoBehaviour
             _backgroundAudioSource.Play();
         }
 
-      
+
     }
 
     private void Awake()
     {
-        
+
 
         DontDestroyOnLoad(this);
         SceneManager.sceneLoaded += OnSceneLoaded;
