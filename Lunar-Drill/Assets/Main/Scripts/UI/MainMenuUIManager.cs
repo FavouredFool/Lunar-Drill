@@ -25,19 +25,43 @@ public class MainMenuUIManager : MonoBehaviour
 
     [SerializeField] [Range(0, 3)] float _pullTime;
 
+    [Header("Blend to Game")]
+    [SerializeField] private GameObject _backgroundBlend;
+    [SerializeField] private GameObject _laser;
+    [SerializeField] private GameObject _laserEnd;
+    [SerializeField] private GameObject _luna;
+
+    [SerializeField] private Vector3 _laserSecondPosition;
+    [SerializeField] private Vector3 _laserEndSecondPosition;
+    [SerializeField] private Vector3 _lunaSecondPosition;
+
+    [SerializeField] private float _blendTime = 1f;
+
     // --- Public Fields ------------------------
     public bool IsOpen = false;
 
     //--- Private Fields ------------------------
 
+    private Image _backgroundBlendImage;
+
     //--- Unity Methods ------------------------
+
+    private void Awake()
+    {
+        _backgroundBlendImage = _backgroundBlend.GetComponent<Image>();
+    }
 
     //--- Public Methods ------------------------
 
-    /* Switches the scene to main game scene. */
+    /* Switches the scene to main game scene and plays little transition animation. */
     public void StartGame(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        _backgroundBlend.SetActive(true);
+        _backgroundBlendImage.DOFade(1, _blendTime - 0.2f).SetUpdate(true); // Fade background to black
+
+        _laser.transform.DOLocalMove(_laserSecondPosition, _blendTime).SetUpdate(true); // Laser 
+        _laserEnd.transform.DOLocalMove(_laserEndSecondPosition, _blendTime).SetUpdate(true); // Laser end
+        _luna.transform.DOLocalMove(_lunaSecondPosition, _blendTime).OnComplete(() => SceneManager.LoadScene(sceneName)).SetUpdate(true); // Luna and switching to game scene
     }
 
     /* Quits the application. */
