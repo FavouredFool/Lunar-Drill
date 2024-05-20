@@ -6,7 +6,8 @@ using DG.Tweening;
 
 public class ConnectManager : MonoBehaviour
 {
-    [SerializeField] SelectScreen UI;
+    //[SerializeField] SelectScreen UI;
+    [SerializeField] private SelectMenuUIManager _uiManager;
 
     public List<PlayerConnectController> connectedPlayers = new();
     List<PlayerInput> playerInputs;
@@ -64,7 +65,7 @@ public class ConnectManager : MonoBehaviour
     public void Awake()
     {
         playerInputs = new();
-        UI.SetEmpty();
+        //UI.SetEmpty();
     }
 
     private void Update()
@@ -76,7 +77,7 @@ public class ConnectManager : MonoBehaviour
         //Play
         if (AllPlayerReady(out p1, out p2)) ReadyTime += Time.deltaTime;
         else ReadyTime = 0;
-        UI.RefreshReady(p1, p2, ReadyTime);
+        //UI.RefreshReady(p1, p2, ReadyTime);
 
         if (AgreeTime <= ReadyTime)
         {
@@ -87,7 +88,7 @@ public class ConnectManager : MonoBehaviour
         //Swap
         if (isMultiplayer && AllPlayerSwap(out p1, out p2)) SwapTime += Time.deltaTime;
         else SwapTime = 0;
-        UI.RefreshSwap(p1, p2, SwapTime);
+        //UI.RefreshSwap(p1, p2, SwapTime);
 
         if (isMultiplayer && AgreeTime <= SwapTime)
             Swap();
@@ -96,12 +97,12 @@ public class ConnectManager : MonoBehaviour
         if (connectedPlayers.Count > 0 && connectedPlayers[0].Tiggle)
         {
             connectedPlayers[0].Tiggle = false;
-            UI.Tiggle(true);
+            //UI.Tiggle(true);
         }
         if (connectedPlayers.Count > 1 && connectedPlayers[1].Tiggle)
         {
             connectedPlayers[1].Tiggle = false;
-            UI.Tiggle(false);
+            //UI.Tiggle(false);
         }
     }
 
@@ -118,8 +119,8 @@ public class ConnectManager : MonoBehaviour
         connectedPlayers[0].SetCharacter(MultiplayerLunaUp ? ChosenCharacter.luna : ChosenCharacter.drillian);
         connectedPlayers[1].SetCharacter(MultiplayerLunaUp ? ChosenCharacter.drillian : ChosenCharacter.luna);
 
-        UI.Swap();
-        UI.SetMulti(MultiplayerLunaUp);
+        //UI.Swap();
+        //UI.SetMulti(MultiplayerLunaUp);
 
         SwapTime = 0;
 
@@ -136,7 +137,7 @@ public class ConnectManager : MonoBehaviour
     {
         if (NumberConnectedPlayers == 0) return;
 
-        UI.Play();
+        //UI.Play();
 
         ReadyTime = 0;
 
@@ -159,14 +160,14 @@ public class ConnectManager : MonoBehaviour
             if (connectedPlayers.Count == 1)
             {
                 connectedPlayers[0].SetCharacter(ChosenCharacter.singleplayer);
-                UI.SetSolo();
+                //UI.SetSolo();
             }
             if (connectedPlayers.Count == 2)
             {
                 connectedPlayers[0].SetCharacter(ChosenCharacter.luna);
                 connectedPlayers[1].SetCharacter(ChosenCharacter.drillian);
 
-                UI.SetMulti(MultiplayerLunaUp);
+                //UI.SetMulti(MultiplayerLunaUp);
             }
         }
     }
