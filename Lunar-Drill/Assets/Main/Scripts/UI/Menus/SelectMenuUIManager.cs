@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SelectMenuUIManager : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
+    [Header("Colors")]
+    [SerializeField] private Color _cyan;
+    [SerializeField] private Color _yellow;
 
     [Header("Animated Laser")]
     [SerializeField] private GameObject _laser;
@@ -27,7 +31,17 @@ public class SelectMenuUIManager : MonoBehaviour
     [SerializeField] private GameObject _multiPromptSwap;
     [SerializeField] private GameObject _multiP1;
     [SerializeField] private GameObject _multiP2;
+    [SerializeField] private GameObject _multiP1PlayPrompt;
+    [SerializeField] private GameObject _multiP2PlayPrompt;
+    [SerializeField] private GameObject _multiP1SwapPrompt;
+    [SerializeField] private GameObject _multiP2SwapPrompt;
+    [SerializeField] private GameObject _multiP1Luna;
+    [SerializeField] private GameObject _multiP1Drillian;
+    [SerializeField] private GameObject _multiP2Luna;
+    [SerializeField] private GameObject _multiP2Drillian;
     [SerializeField] private GameObject _multiPromptBackground;
+    [SerializeField] private Image _multiPromptBackgroundCyan;
+    [SerializeField] private Image _multiPromptBackgroundYellow;
 
     // --- Public Fields ------------------------
 
@@ -89,25 +103,39 @@ public class SelectMenuUIManager : MonoBehaviour
     public void Play()
     {
         _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _startLaserHeight), _laserStartTime).SetDelay(.2f).OnComplete(() => SceneManager.LoadScene("MainScene")).SetUpdate(true); // Scale up till white
+        _multiPromptPlay.SetActive(false); // Turn off elements that would be in the way
+        _multiPromptSwap.SetActive(false);
     }
 
-    public void RefreshReady(bool p1, bool p2, float time)
+    public void RefreshMulti(bool p1Play, bool p1Swap, bool p2Play, bool p2Swap)
     {
-        //P1Ready.SetActive(p1);
-        //P2Ready.SetActive(p2);
-
-        //ReadyIndicator.color =
-        //    Color.Lerp(Color.white, lilac, time / ConnectManager.AgreeTime);
-        //ReadySoloIndicator.color = ReadyIndicator.color;
+        _multiP1PlayPrompt.SetActive(p1Play);
+        _multiP1SwapPrompt.SetActive(p1Swap);
+        _multiP2PlayPrompt.SetActive(p2Play);
+        _multiP2SwapPrompt.SetActive(p2Swap);
     }
 
-    public void RefreshSwap(bool p1, bool p2, float time)
+    public void Swap(bool p1Luna)
     {
-        //P1Swap.SetActive(p1);
-        //P2Swap.SetActive(p2);
-
-        //SwapIndicator.color =
-        //    Color.Lerp(Color.white, lilac, time / ConnectManager.AgreeTime);
+        if (p1Luna)
+        {
+            _multiPromptBackgroundCyan.color = _cyan;
+            _multiPromptBackgroundYellow.color = _yellow;
+            _multiP1Luna.SetActive(true);
+            _multiP1Drillian.SetActive(false);
+            _multiP2Luna.SetActive(false);
+            _multiP2Drillian.SetActive(true);
+        }
+        else
+        {
+            _multiPromptBackgroundCyan.color = _yellow;
+            _multiPromptBackgroundYellow.color = _cyan;
+            _multiP1Luna.SetActive(false);
+            _multiP1Drillian.SetActive(true);
+            _multiP2Luna.SetActive(true);
+            _multiP2Drillian.SetActive(false);
+        }
     }
+
     //--- Private Methods ------------------------
 }
