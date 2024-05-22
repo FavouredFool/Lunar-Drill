@@ -6,13 +6,15 @@ using DG.Tweening;
 
 public class ConnectManager : MonoBehaviour
 {
-    //[SerializeField] SelectScreen UI;
+    bool oldUsed = false;
+    [SerializeField] SelectScreen UI;
     [SerializeField] private SelectMenuUIManager _uiManager;
 
     public List<PlayerConnectController> connectedPlayers = new();
     List<PlayerInput> playerInputs;
 
-    public int NumberConnectedPlayers {
+    public int NumberConnectedPlayers
+    {
         get
         {
             return connectedPlayers.Count;
@@ -24,7 +26,7 @@ public class ConnectManager : MonoBehaviour
     public bool MultiplayerLunaUp { get; set; } = true;
     public bool IsControlled { get; set; } = false;
 
-    public const float AgreeTime = 1f;
+    public const float AgreeTime = .5f;
 
     public float ReadyTime { get; private set; } = 0;
     public float SwapTime { get; private set; } = 0;
@@ -65,7 +67,7 @@ public class ConnectManager : MonoBehaviour
     public void Awake()
     {
         playerInputs = new();
-        //UI.SetEmpty();
+        if (oldUsed) UI.SetEmpty();
     }
 
     private void Update()
@@ -77,7 +79,8 @@ public class ConnectManager : MonoBehaviour
         //Play
         if (AllPlayerReady(out p1, out p2)) ReadyTime += Time.deltaTime;
         else ReadyTime = 0;
-        //UI.RefreshReady(p1, p2, ReadyTime);
+        if (oldUsed) UI.RefreshReady(p1, p2, ReadyTime);
+        if (!oldUsed) _uiManager.RefreshReady(p1, p2, ReadyTime);
 
         if (AgreeTime <= ReadyTime)
         {
@@ -88,7 +91,8 @@ public class ConnectManager : MonoBehaviour
         //Swap
         if (isMultiplayer && AllPlayerSwap(out p1, out p2)) SwapTime += Time.deltaTime;
         else SwapTime = 0;
-        //UI.RefreshSwap(p1, p2, SwapTime);
+        if (oldUsed) UI.RefreshSwap(p1, p2, SwapTime);
+        if (!oldUsed) _uiManager.RefreshSwap(p1, p2, SwapTime);
 
         if (isMultiplayer && AgreeTime <= SwapTime)
             Swap();
@@ -97,12 +101,12 @@ public class ConnectManager : MonoBehaviour
         if (connectedPlayers.Count > 0 && connectedPlayers[0].Tiggle)
         {
             connectedPlayers[0].Tiggle = false;
-            //UI.Tiggle(true);
+            if (oldUsed) UI.Tiggle(true);
         }
         if (connectedPlayers.Count > 1 && connectedPlayers[1].Tiggle)
         {
             connectedPlayers[1].Tiggle = false;
-            //UI.Tiggle(false);
+            if (oldUsed) UI.Tiggle(false);
         }
     }
 
@@ -119,8 +123,8 @@ public class ConnectManager : MonoBehaviour
         connectedPlayers[0].SetCharacter(MultiplayerLunaUp ? ChosenCharacter.luna : ChosenCharacter.drillian);
         connectedPlayers[1].SetCharacter(MultiplayerLunaUp ? ChosenCharacter.drillian : ChosenCharacter.luna);
 
-        //UI.Swap();
-        //UI.SetMulti(MultiplayerLunaUp);
+        if (oldUsed) UI.Swap();
+        if (oldUsed) UI.SetMulti(MultiplayerLunaUp);
 
         SwapTime = 0;
 
@@ -137,14 +141,15 @@ public class ConnectManager : MonoBehaviour
     {
         if (NumberConnectedPlayers == 0) return;
 
-        //UI.Play();
+        if (oldUsed) UI.Play();
+        if (!oldUsed) _uiManager.Play();
 
         ReadyTime = 0;
 
         Debug.Log("PLAY");
 
         IsControlled = true;
-        DOVirtual.DelayedCall(0.1f, () => SceneManager.LoadScene("MainScene"));
+        //DOVirtual.DelayedCall(0.1f, () => SceneManager.LoadScene("MainScene"));
     }
 
     public void PlayerJoined(PlayerInput input)
@@ -160,14 +165,16 @@ public class ConnectManager : MonoBehaviour
             if (connectedPlayers.Count == 1)
             {
                 connectedPlayers[0].SetCharacter(ChosenCharacter.singleplayer);
-                //UI.SetSolo();
+                if (oldUsed) UI.SetSolo();
+                if (!oldUsed) _uiManager.SetSolo();
             }
             if (connectedPlayers.Count == 2)
             {
                 connectedPlayers[0].SetCharacter(ChosenCharacter.luna);
                 connectedPlayers[1].SetCharacter(ChosenCharacter.drillian);
 
-                //UI.SetMulti(MultiplayerLunaUp);
+                if (oldUsed) UI.SetMulti(MultiplayerLunaUp);
+                if (!oldUsed) _uiManager.SetMulti();
             }
         }
     }
