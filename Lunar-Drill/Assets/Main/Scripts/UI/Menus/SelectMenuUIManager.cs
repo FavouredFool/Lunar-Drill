@@ -1,7 +1,7 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -18,13 +18,20 @@ public class SelectMenuUIManager : MonoBehaviour
     [SerializeField] private Vector3 _laserP1PromptPos;
     [SerializeField] private Vector3 _laserMiddlePos;
     [SerializeField] private float _startLaserHeight = 1360;
+    [SerializeField] private float _optionsLaserHeight = 1080;
+    [SerializeField] private float _optionsLaserHeightDown = 1900;
 
     [Header("Animation Times")]
-    [SerializeField] private float _awakeTime = .5f;
-    [SerializeField] private float _setSoloTime = .5f;
-    [SerializeField] private float _playTime = .5f;
-    [SerializeField] private float _setMultiTime = .5f;
-    [SerializeField] private float _swapTime = .5f;
+    [SerializeField] public float AwakeTime = .5f;
+    [SerializeField] public float SetSoloTime = .5f;
+    [SerializeField] public float PlayTime = .5f;
+    [SerializeField] public float SetMultiTime = .5f;
+    [SerializeField] public float SwapTime = .5f;
+    [SerializeField] public float OptionsTime = .3f;
+
+    [Header("Options Functionality")]
+    [SerializeField] private GameObject _optionsMenuContainer;
+    [SerializeField] private GameObject _optionsMenuFirstSelect;
 
     [Header("Solo")]
     [SerializeField] private GameObject _p1ConnectPrompt;
@@ -80,7 +87,9 @@ public class SelectMenuUIManager : MonoBehaviour
     [SerializeField] private Vector3 _drillianBottomP1;
     [SerializeField] private Vector3 _drillianBottomP2;
     [SerializeField] private Vector3 _drillianBottomP3;
+
     // --- Public Fields ------------------------
+    public bool IsOpen = false; // are options open
 
     //--- Private Fields ------------------------
     private RectTransform _laserRect;
@@ -101,9 +110,9 @@ public class SelectMenuUIManager : MonoBehaviour
         _multiPromptBackgroundCyanImage = _multiPromptBackgroundCyan.GetComponent<Image>();
         _multiPromptBackgroundYellowImage = _multiPromptBackgroundYellow.GetComponent<Image>();
 
-        _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _normalLaserHeight), _awakeTime).SetDelay(.2f).SetUpdate(true); // Scale down
-        _laser.transform.DOLocalMove(_laserP1PromptPos, _awakeTime).SetDelay(.2f).SetUpdate(true); // Move down
-        _p1ConnectPromptCanvasGroup.DOFade(1, _awakeTime).SetDelay(.2f + _awakeTime / 2).SetUpdate(true); // Fade P1 connect prompt in
+        _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _normalLaserHeight), AwakeTime).SetDelay(.2f).SetUpdate(true); // Scale down
+        _laser.transform.DOLocalMove(_laserP1PromptPos, AwakeTime).SetDelay(.2f).SetUpdate(true); // Move down
+        _p1ConnectPromptCanvasGroup.DOFade(1, AwakeTime).SetDelay(.2f + AwakeTime / 2).SetUpdate(true); // Fade P1 connect prompt in
     }
 
     //--- Public Methods ------------------------
@@ -112,29 +121,30 @@ public class SelectMenuUIManager : MonoBehaviour
     public void SetSolo()
     {
         //Laser
-        _laser.transform.DOLocalMove(_laserMiddlePos, _setSoloTime).SetUpdate(true); // Move to middle
+        _laser.transform.DOLocalMove(_laserMiddlePos, SetSoloTime).SetUpdate(true); // Move to middle
 
         // P2 Connect prompt
-        _p2ConnectPromptCanvasGroup.DOFade(1, _setSoloTime).SetUpdate(true); // Fade P2 connect prompt in
+        _p2ConnectPromptCanvasGroup.DOFade(1, SetSoloTime).SetUpdate(true); // Fade P2 connect prompt in
 
         // Solo Part
         _p1ConnectPromptCanvasGroup.alpha = 0; // Remove P1 connect prompt
-        _soloPromptCanvasGroup.DOFade(1, _setSoloTime).SetUpdate(true); // Fade solo prompt in
+        _soloPromptCanvasGroup.DOFade(1, SetSoloTime).SetUpdate(true); // Fade solo prompt in
         _soloPromptBackground.SetActive(true); // Background
-        _soloPromptBackgroundCyan.transform.DOLocalMove(new Vector3(-541, 0, 0), _setSoloTime).SetUpdate(true);
-        _soloPromptBackgroundYellow.transform.DOLocalMove(new Vector3(500, 0, 0), _setSoloTime).SetUpdate(true);
-        DOVirtual.DelayedCall(_setSoloTime / 2, () =>
+        _soloPromptBackgroundCyan.transform.DOLocalMove(new Vector3(-541, 0, 0), SetSoloTime).SetUpdate(true);
+        _soloPromptBackgroundYellow.transform.DOLocalMove(new Vector3(500, 0, 0), SetSoloTime).SetUpdate(true);
+        DOVirtual.DelayedCall(SetSoloTime / 2, () =>
           {
               _soloCharacters.SetActive(true); // Solo characters
-              _soloLuna.transform.DOLocalMove(_soloLunaEndPos, _setSoloTime / 2).OnComplete(() =>
-                   _soloLuna.transform.DOShakePosition(_setSoloTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true)
+              _soloLuna.transform.DOLocalMove(_soloLunaEndPos, SetSoloTime / 2).OnComplete(() =>
+                   _soloLuna.transform.DOShakePosition(SetSoloTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true)
                 ).SetUpdate(true);
-              _soloDrillian.transform.DOLocalMove(_soloDillianEndPos, _setSoloTime / 2).OnComplete(() =>
-                  _soloDrillian.transform.DOShakePosition(_setSoloTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true)
+              _soloDrillian.transform.DOLocalMove(_soloDillianEndPos, SetSoloTime / 2).OnComplete(() =>
+                  _soloDrillian.transform.DOShakePosition(SetSoloTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true)
               ).SetUpdate(true);
           });
     }
 
+    /* Sets up and animates UI for when the second player joins the game. */
     public void SetMulti()
     {
         // P2 Connect prompt
@@ -142,50 +152,52 @@ public class SelectMenuUIManager : MonoBehaviour
 
         // Solo elements & Backgorund
         _soloPromptCanvasGroup.alpha = 0; // Remove solo prompt 
-        _soloPromptBackgroundCyan.transform.DOLocalMove(Vector3.zero, _setMultiTime)
+        _soloPromptBackgroundCyan.transform.DOLocalMove(Vector3.zero, SetMultiTime)
             .OnComplete(() => { _soloPromptBackground.SetActive(false); _multiPromptBackgroundCyan.SetActive(true); })
             .SetUpdate(true); // Cyan top
         _multiPromptBackgroundYellow.SetActive(true);
-        _multiPromptBackgroundYellow.transform.DOLocalMove(_multiPromptBackgroundYellowEndPos, _setMultiTime).SetUpdate(true); // Yellow bottom
+        _multiPromptBackgroundYellow.transform.DOLocalMove(_multiPromptBackgroundYellowEndPos, SetMultiTime).SetUpdate(true); // Yellow bottom
 
         // Characters
-        _soloLuna.transform.DOLocalMove(_multiP1LunaStartPos, _setMultiTime / 2).SetUpdate(true);
-        _soloLuna.GetComponent<RectTransform>().DOSizeDelta(_multiP1LunaStartSize, _setMultiTime / 2).SetUpdate(true);
-        _soloLuna.transform.DORotate(_multiP1LunaStartRot, _setMultiTime / 2).SetUpdate(true);
-        DOVirtual.DelayedCall(_setMultiTime / 2, () =>
+        _soloLuna.transform.DOLocalMove(_multiP1LunaStartPos, SetMultiTime / 2).SetUpdate(true);
+        _soloLuna.GetComponent<RectTransform>().DOSizeDelta(_multiP1LunaStartSize, SetMultiTime / 2).SetUpdate(true);
+        _soloLuna.transform.DORotate(_multiP1LunaStartRot, SetMultiTime / 2).SetUpdate(true);
+        DOVirtual.DelayedCall(SetMultiTime / 2, () =>
            {
                _soloLuna.SetActive(false);
                _multiP1Luna.SetActive(true);
-               _multiP1Luna.transform.DOShakePosition(_setMultiTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true);
+               _multiP1Luna.transform.DOShakePosition(SetMultiTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true);
            });
-        _soloDrillian.transform.DOLocalMove(_multiP2DrillianStartPos, _setMultiTime / 2).SetUpdate(true);
-        _soloDrillian.GetComponent<RectTransform>().DOSizeDelta(_multiP2DrillianStartSize, _setMultiTime / 2).SetUpdate(true);
-        _soloDrillian.transform.DORotate(_multiP2DrillianStartRot, _setMultiTime / 2).SetUpdate(true);
-        DOVirtual.DelayedCall(_setMultiTime / 2, () =>
+        _soloDrillian.transform.DOLocalMove(_multiP2DrillianStartPos, SetMultiTime / 2).SetUpdate(true);
+        _soloDrillian.GetComponent<RectTransform>().DOSizeDelta(_multiP2DrillianStartSize, SetMultiTime / 2).SetUpdate(true);
+        _soloDrillian.transform.DORotate(_multiP2DrillianStartRot, SetMultiTime / 2).SetUpdate(true);
+        DOVirtual.DelayedCall(SetMultiTime / 2, () =>
         {
             _soloDrillian.SetActive(false);
             _multiP2Drillian.SetActive(true);
-            _multiP2Drillian.transform.DOShakePosition(_setMultiTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true);
+            _multiP2Drillian.transform.DOShakePosition(SetMultiTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true);
         });
 
         // Multi elements
         _multiPromptPlay.SetActive(true);
-        _multiPromptPlay.transform.DOLocalMove(_multiPromptPlayEndPos, _setMultiTime).SetUpdate(true);
+        _multiPromptPlay.transform.DOLocalMove(_multiPromptPlayEndPos, SetMultiTime).SetUpdate(true);
         _multiPromptSwap.SetActive(true);
-        _multiPromptSwap.transform.DOLocalMove(_multiPromptSwapEndPos, _setMultiTime).SetUpdate(true);
+        _multiPromptSwap.transform.DOLocalMove(_multiPromptSwapEndPos, SetMultiTime).SetUpdate(true);
         _multiP1.SetActive(true);
-        _multiP1.transform.DOLocalMove(_multiP1EndPos, _setMultiTime).SetUpdate(true);
+        _multiP1.transform.DOLocalMove(_multiP1EndPos, SetMultiTime).SetUpdate(true);
         _multiP2.SetActive(true);
-        _multiP2.transform.DOLocalMove(_multiP2EndPos, _setMultiTime).SetUpdate(true);
+        _multiP2.transform.DOLocalMove(_multiP2EndPos, SetMultiTime).SetUpdate(true);
     }
 
+    /* Opens main scene. Animates UI. */
     public void Play()
     {
-        _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _startLaserHeight), _playTime).OnComplete(() => SceneManager.LoadScene("MainScene")).SetUpdate(true); // Scale up till white
-        _multiPromptPlay.transform.DOLocalMove(_multiPromptPlayStartPos, _playTime / 3).SetUpdate(true); // Move prompts out of the way
-        _multiPromptSwap.transform.DOLocalMove(_multiPromptSwapStartPos, _playTime / 3).SetUpdate(true);
+        _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _startLaserHeight), PlayTime).OnComplete(() => SceneManager.LoadScene("MainScene")).SetUpdate(true); // Scale up till white
+        _multiPromptPlay.transform.DOLocalMove(_multiPromptPlayStartPos, PlayTime / 3).SetUpdate(true); // Move prompts out of the way
+        _multiPromptSwap.transform.DOLocalMove(_multiPromptSwapStartPos, PlayTime / 3).SetUpdate(true);
     }
 
+    /* Refreshes UI play and swap statues of players. */
     public void RefreshMulti(bool p1Play, bool p1Swap, bool p2Play, bool p2Swap)
     {
         _multiP1PlayPrompt.SetActive(p1Play);
@@ -194,6 +206,7 @@ public class SelectMenuUIManager : MonoBehaviour
         _multiP2SwapPrompt.SetActive(p2Swap);
     }
 
+    /* Swaps UI for players regarding which character they are playing as. */
     public void Swap(bool p1Luna)
     {
         if (p1Luna)
@@ -201,25 +214,25 @@ public class SelectMenuUIManager : MonoBehaviour
             _multiPromptBackgroundCyanImage.color = _cyan;
             _multiPromptBackgroundYellowImage.color = _yellow;
 
-            _multiP2Luna.transform.DOLocalMove(_lunaBottomP3, _swapTime)
+            _multiP2Luna.transform.DOLocalMove(_lunaBottomP3, SwapTime)
            .OnComplete(() =>
            {
                _multiP1Luna.SetActive(true);
-               _multiP1Luna.transform.DOShakePosition(_swapTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true);
+               _multiP1Luna.transform.DOShakePosition(SwapTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true);
                _multiP2Luna.SetActive(false);
                _multiP2Luna.transform.localPosition = _lunaBottomP1;
            })
            .SetUpdate(true);
 
-            _multiP1Drillian.transform.DOLocalMove(_drillianTopP3, _swapTime / 2)
+            _multiP1Drillian.transform.DOLocalMove(_drillianTopP3, SwapTime / 2)
             .OnComplete(() =>
             {
                 _multiP1Drillian.SetActive(false);
                 _multiP1Drillian.transform.localPosition = _drillianTopP1;
                 _multiP2Drillian.SetActive(true);
-                _multiP2Drillian.transform.DOLocalMove(_drillianBottomP2, _swapTime / 2).
+                _multiP2Drillian.transform.DOLocalMove(_drillianBottomP2, SwapTime / 2).
                 OnComplete(() =>
-                _multiP2Drillian.transform.DOShakePosition(_swapTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true))
+                _multiP2Drillian.transform.DOShakePosition(SwapTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true))
                 .SetUpdate(true);
             })
             .SetUpdate(true);
@@ -229,36 +242,78 @@ public class SelectMenuUIManager : MonoBehaviour
             _multiPromptBackgroundCyanImage.color = _yellow;
             _multiPromptBackgroundYellowImage.color = _cyan;
 
-            _multiP1Luna.transform.DOLocalMove(_lunaTopP2, _swapTime / 2)
+            _multiP1Luna.transform.DOLocalMove(_lunaTopP2, SwapTime / 2)
             .OnComplete(() =>
             {
                 _multiP1Luna.SetActive(false);
                 _multiP1Luna.transform.localPosition = _lunaTopP1;
                 _multiP2Luna.SetActive(true);
-                _multiP2Luna.transform.DOLocalMove(_lunaBottomP2, _swapTime / 2)
-                .OnComplete(() => _multiP2Luna.transform.DOShakePosition(_swapTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true))
+                _multiP2Luna.transform.DOLocalMove(_lunaBottomP2, SwapTime / 2)
+                .OnComplete(() => _multiP2Luna.transform.DOShakePosition(SwapTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true))
                 .SetUpdate(true);
             })
             .SetUpdate(true);
 
-            _multiP2Drillian.transform.DOLocalMove(_drillianBottomP3, _swapTime / 2)
+            _multiP2Drillian.transform.DOLocalMove(_drillianBottomP3, SwapTime / 2)
            .OnComplete(() =>
            {
                _multiP2Drillian.SetActive(false);
                _multiP2Drillian.transform.localPosition = _drillianBottomP1;
                _multiP1Drillian.SetActive(true);
-               _multiP1Drillian.transform.DOLocalMove(_drillianTopP2, _swapTime / 2).
+               _multiP1Drillian.transform.DOLocalMove(_drillianTopP2, SwapTime / 2).
                OnComplete(() =>
-               _multiP1Drillian.transform.DOShakePosition(_swapTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true))
+               _multiP1Drillian.transform.DOShakePosition(SwapTime, strength: new Vector3(15, 15, 0), vibrato: 5, randomness: 90, snapping: false, fadeOut: true).SetUpdate(true))
                .SetUpdate(true);
            })
            .SetUpdate(true);
-
-            //_multiP1Luna.SetActive(false);
-            //_multiP1Drillian.SetActive(true);
-            //_multiP2Luna.SetActive(true);
-            //_multiP2Drillian.SetActive(false);
         }
+    }
+
+    /* Opens and closes options. */
+    public void HandleToggleInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        ToggleOptions();
+    }
+
+    /* Toggles options in th emain menu. */
+    public void ToggleOptions()
+    {
+        if (IsOpen) //Close it
+        {
+            _optionsMenuContainer.SetActive(false); // Options off
+            _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _normalLaserHeight), OptionsTime).SetUpdate(true); // Scale down
+
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(null, new BaseEventData(eventSystem)); // Select nothing 
+        }
+        else //Open it
+        {
+            if (_p1ConnectPromptCanvasGroup.alpha == 1)
+            {
+                _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _optionsLaserHeightDown), OptionsTime)
+               .OnComplete(() => _optionsMenuContainer.SetActive(true))
+               .SetUpdate(true); // Scaling up, showing options
+            }
+            else
+            {
+                _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _optionsLaserHeight), OptionsTime)
+               .OnComplete(() => _optionsMenuContainer.SetActive(true))
+               .SetUpdate(true); // Scaling up, showing options
+            }
+
+
+            var eventSystem = EventSystem.current;
+            eventSystem.SetSelectedGameObject(_optionsMenuFirstSelect, new BaseEventData(eventSystem));  // Select for controller support
+        }
+        IsOpen = !IsOpen;
+    }
+
+    /* Switches the scene. */
+    public void SwitchScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
     //--- Private Methods ------------------------

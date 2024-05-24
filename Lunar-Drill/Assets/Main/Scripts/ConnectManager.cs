@@ -7,10 +7,7 @@ using DG.Tweening;
 public class ConnectManager : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
-
-    bool oldUsed = false;
     [Header("UI")]
-    [SerializeField] SelectScreen UI;
     [SerializeField] private SelectMenuUIManager _uiManager;
 
     // --- Public Fields ------------------------
@@ -29,11 +26,6 @@ public class ConnectManager : MonoBehaviour
     public bool MultiplayerLunaUp { get; set; } = true;
     public bool IsControlled { get; set; } = false;
 
-    public const float AgreeTime = .5f;
-
-    public float ReadyTime { get; private set; } = 0;
-    public float SwapTime { get; private set; } = 0;
-
     //--- Private Fields ------------------------
     private List<PlayerInput> playerInputs; // Inputs
 
@@ -49,12 +41,13 @@ public class ConnectManager : MonoBehaviour
     public void Awake()
     {
         playerInputs = new();
-        if (oldUsed) UI.SetEmpty();
     }
 
     private void Update()
     {
         if (IsControlled) return;
+        if (_uiManager.IsOpen) return;
+
 
         // P1 has to end their action to make a new one
         if (_p1NewActionRequired)
@@ -70,119 +63,76 @@ public class ConnectManager : MonoBehaviour
             if (!connectedPlayers[1].ReadyDown && !connectedPlayers[1].SwapDown) _p2NewActionRequired = false;
         }
 
-
-
-        bool p1, p2;
-
-        //Play
-        if (oldUsed)
+        // If in Singleplayer and user presses ready button, start game.
+        if (isSingleplayer)
         {
-            if (AllPlayerReady(out p1, out p2)) ReadyTime += Time.deltaTime;
-            else ReadyTime = 0;
-            if (oldUsed) UI.RefreshReady(p1, p2, ReadyTime);
-
-            if (AgreeTime <= ReadyTime)
+            if (!_p1NewActionRequired && connectedPlayers[0].ReadyDown)
             {
                 Play();
                 return;
             }
-
-            //Swap
-            if (isMultiplayer && AllPlayerSwap(out p1, out p2)) SwapTime += Time.deltaTime;
-            else SwapTime = 0;
-            if (oldUsed) UI.RefreshSwap(p1, p2, SwapTime);
-
-            if (isMultiplayer && AgreeTime <= SwapTime)
-                Swap();
         }
-        else
+        else if (isMultiplayer)
         {
-            // If in Singleplayer and user presses ready button, start game.
-            if (isSingleplayer)
+            // --- Interpreting inputs ---
+            if (!_p1NewActionRequired && connectedPlayers[0].SwapDown) // P1 changes ready to swap status
             {
-                if (!_p1NewActionRequired && connectedPlayers[0].ReadyDown)
+                if (_p1Swap) _p1Swap = false;
+                else
                 {
-                    Play();
-                    return;
+                    _p1Play = false; // Can't be ready to play if ready to swap
+                    _p1Swap = true;
                 }
+                _p1NewActionRequired = true; // Require new action so same action is not performed multiple times
             }
-            else if (isMultiplayer)
+            if (!_p1NewActionRequired && connectedPlayers[0].ReadyDown) // P1 changes ready to play status
             {
-                // --- Interpreting inputs ---
-                if (!_p1NewActionRequired && connectedPlayers[0].SwapDown) // P1 changes ready to swap status
+                if (_p1Play) _p1Play = false;
+                else
                 {
-                    if (_p1Swap) _p1Swap = false;
-                    else
-                    {
-                        _p1Play = false; // Can't be ready to play if ready to swap
-                        _p1Swap = true;
-                    }
-                    _p1NewActionRequired = true; // Require new action so same action is not performed multiple times
+                    _p1Swap = false; // Can't be ready to swap if ready to play
+                    _p1Play = true;
                 }
-                if (!_p1NewActionRequired && connectedPlayers[0].ReadyDown) // P1 changes ready to play status
+                _p1NewActionRequired = true; // Require new action so same action is not performed multiple times
+            }
+            if (!_p2NewActionRequired && connectedPlayers[1].SwapDown) // P2 changes ready to swap status
+            {
+                if (_p2Swap) _p2Swap = false;
+                else
                 {
-                    if (_p1Play) _p1Play = false;
-                    else
-                    {
-                        _p1Swap = false; // Can't be ready to swap if ready to play
-                        _p1Play = true;
-                    }
-                    _p1NewActionRequired = true; // Require new action so same action is not performed multiple times
+                    _p2Play = false; // Can't be ready to play if ready to swap
+                    _p2Swap = true;
                 }
-                if (!_p2NewActionRequired && connectedPlayers[1].SwapDown) // P2 changes ready to swap status
+                _p2NewActionRequired = true; // Require new action so same action is not performed multiple times
+            }
+            if (!_p2NewActionRequired && connectedPlayers[1].ReadyDown) // P2 changes ready to play status
+            {
+                if (_p2Play) _p2Play = false;
+                else
                 {
-                    if (_p2Swap) _p2Swap = false;
-                    else
-                    {
-                        _p2Play = false; // Can't be ready to play if ready to swap
-                        _p2Swap = true;
-                    }
-                    _p2NewActionRequired = true; // Require new action so same action is not performed multiple times
+                    _p2Swap = false; // Can't be ready to swap if ready to play
+                    _p2Play = true;
                 }
-                if (!_p2NewActionRequired && connectedPlayers[1].ReadyDown) // P2 changes ready to play status
-                {
-                    if (_p2Play) _p2Play = false;
-                    else
-                    {
-                        _p2Swap = false; // Can't be ready to swap if ready to play
-                        _p2Play = true;
-                    }
-                    _p2NewActionRequired = true; // Require new action so same action is not performed multiple times
-                }
+                _p2NewActionRequired = true; // Require new action so same action is not performed multiple times
+            }
 
+            _uiManager.RefreshMulti(_p1Play, _p1Swap, _p2Play, _p2Swap); // Refreshing UI
 
-                _uiManager.RefreshMulti(_p1Play, _p1Swap, _p2Play, _p2Swap); // Refreshing UI
-
-                // --- Swap if both ready (favor swapping over playing) ---
-                if (_p1Swap && _p2Swap)
-                {
-                    Swap();
-                    _p1Swap = false; // Not ready to swap anymore
-                    _p2Swap = false;
-                    return;
-                }
-                // --- Play if both ready ---
-                if (_p1Play && _p2Play)
-                {
-                    Play();
-                    return;
-                }
-
+            // --- Swap if both ready (favor swapping over playing) ---
+            if (_p1Swap && _p2Swap)
+            {
+                Swap();
+                _p1Swap = false; // Not ready to swap anymore
+                _p2Swap = false;
+                return;
+            }
+            // --- Play if both ready ---
+            if (_p1Play && _p2Play)
+            {
+                Play();
+                return;
             }
         }
-
-        // What is this doing? 
-        ////Tiggle 
-        //if (connectedPlayers.Count > 0 && connectedPlayers[0].Tiggle)
-        //{
-        //    connectedPlayers[0].Tiggle = false;
-        //    if (oldUsed) UI.Tiggle(true);
-        //}
-        //if (connectedPlayers.Count > 1 && connectedPlayers[1].Tiggle)
-        //{
-        //    connectedPlayers[1].Tiggle = false;
-        //    if (oldUsed) UI.Tiggle(false);
-        //}
     }
 
     //--- Public Methods ------------------------
@@ -232,35 +182,28 @@ public class ConnectManager : MonoBehaviour
         connectedPlayers[0].SetCharacter(MultiplayerLunaUp ? ChosenCharacter.luna : ChosenCharacter.drillian);
         connectedPlayers[1].SetCharacter(MultiplayerLunaUp ? ChosenCharacter.drillian : ChosenCharacter.luna);
 
-        if (oldUsed) UI.Swap();
-        if (oldUsed) UI.SetMulti(MultiplayerLunaUp);
-        if (!oldUsed) _uiManager.Swap(MultiplayerLunaUp);
-
-        SwapTime = 0;
-
-        Debug.Log("SWAP");
+        _uiManager.Swap(MultiplayerLunaUp); // Update UI
 
         // Block input evaluation for time of UI animation
         IsControlled = true;
-        DOVirtual.DelayedCall(0.7f, () =>
+        DOVirtual.DelayedCall(_uiManager.SwapTime, () =>
         {
             IsControlled = false;
         });
+        // Refresh UI
+        DOVirtual.DelayedCall(_uiManager.SwapTime / 2, () =>
+         {
+             _uiManager.RefreshMulti(_p1Play, _p1Swap, _p2Play, _p2Swap);
+         });
 
     }
     public void Play()
     {
         if (NumberConnectedPlayers == 0) return;
 
-        if (oldUsed) UI.Play();
-        if (!oldUsed) _uiManager.Play();
-
-        ReadyTime = 0;
-
-        Debug.Log("PLAY");
+        _uiManager.Play();
 
         IsControlled = true;
-        //DOVirtual.DelayedCall(0.1f, () => SceneManager.LoadScene("MainScene"));
     }
 
     public void PlayerJoined(PlayerInput input)
@@ -276,11 +219,17 @@ public class ConnectManager : MonoBehaviour
             if (connectedPlayers.Count == 1)
             {
                 connectedPlayers[0].SetCharacter(ChosenCharacter.singleplayer);
-                if (oldUsed) UI.SetSolo();
-                if (!oldUsed) _uiManager.SetSolo();
+                _uiManager.SetSolo();
 
                 // Make sure game does not get started by same action that joins player
                 _p1NewActionRequired = true;
+
+                // Block input evaluation for time of UI animation
+                IsControlled = true;
+                DOVirtual.DelayedCall(_uiManager.SetSoloTime, () =>
+                {
+                    IsControlled = false;
+                });
             }
             if (connectedPlayers.Count == 2)
             {
@@ -290,16 +239,15 @@ public class ConnectManager : MonoBehaviour
                 // Make sure p2 ready to play gets not set by same action that joins player
                 _p2NewActionRequired = true;
 
-                if (oldUsed) UI.SetMulti(MultiplayerLunaUp);
-                if (!oldUsed) _uiManager.SetMulti();
+                _uiManager.SetMulti();
+
+                // Block input evaluation for time of UI animation
+                IsControlled = true;
+                DOVirtual.DelayedCall(_uiManager.SetMultiTime, () =>
+                {
+                    IsControlled = false;
+                });
             }
         }
-
-        // Block input evaluation for time of UI animation
-        IsControlled = true;
-        DOVirtual.DelayedCall(0.7f, () =>
-        {
-            IsControlled = false;
-        });
     }
 }

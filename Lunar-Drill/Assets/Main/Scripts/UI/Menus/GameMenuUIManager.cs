@@ -20,8 +20,6 @@ public class GameMenuUIManager : MonoBehaviour
     [SerializeField] float _laserInTime = 0.05f;
     [SerializeField] float _laserExpandTime = 0.1f;
 
-
-
     // --- Public Fields ------------------------
     public bool IsOpen = false;
 
