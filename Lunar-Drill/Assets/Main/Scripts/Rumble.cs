@@ -106,7 +106,7 @@ public class Rumble : MonoBehaviour
     public Profile RumbleBoth(float level, float excentricity = 1, float duration = -1)
     {
         (float, float) frequency = InputToFrequency(level, excentricity);
-        Profile profile = new Profile(frequency.Item1, frequency.Item2, duration < 0 ? duration : Time.time + duration);
+        Profile profile = new Profile(frequency.Item1, frequency.Item2, duration < 0 ? duration : Time.unscaledTime + duration);
         drillianRumble.Add(profile);
         lunaRumble.Add(profile);
 
@@ -117,7 +117,7 @@ public class Rumble : MonoBehaviour
     public Profile RumbleDrillian(float level, float excentricity=1, float duration = -1)
     {
         (float, float) frequency = InputToFrequency(level, excentricity);
-        Profile profile = new Profile(frequency.Item1, frequency.Item2, duration < 0 ? duration : Time.time + duration);
+        Profile profile = new Profile(frequency.Item1, frequency.Item2, duration < 0 ? duration : Time.unscaledTime + duration);
         drillianRumble.Add(profile);
 
         RefreshAllRumble();
@@ -127,7 +127,7 @@ public class Rumble : MonoBehaviour
     public Profile RumbleLuna(float level, float excentricity=1, float duration = -1)
     {
         (float, float) frequency = InputToFrequency(level, excentricity);
-        Profile profile = new Profile(frequency.Item1, frequency.Item2, duration < 0 ? duration : Time.time + duration);
+        Profile profile = new Profile(frequency.Item1, frequency.Item2, duration < 0 ? duration : Time.unscaledTime + duration);
         lunaRumble.Add(profile);
 
         RefreshAllRumble();
@@ -164,7 +164,7 @@ public class Rumble : MonoBehaviour
         {
             Profile rp = rumble[i];
 
-            if (rp.endTime<0||Time.time<rp.endTime)
+            if (rp.endTime<0||Time.unscaledTime<rp.endTime)
             {
                 combined.lowFrequency = Mathf.Max(combined.lowFrequency, rp.lowFrequency);
                 combined.highFrequency = Mathf.Max(combined.lowFrequency, combined.highFrequency, rp.highFrequency);
@@ -189,6 +189,19 @@ public class Rumble : MonoBehaviour
             lunaRumble.Remove(profile);
     }
     public void SetRumble(Gamepad gamepad, Profile rumble) => gamepad?.SetMotorSpeeds(rumble.lowFrequency, rumble.highFrequency);
+    
+    public void ClearAndStopAllRumble()
+    {
+        drillianRumble.Clear();
+        lunaRumble?.Clear();
+        StopAllRumble();
+    }
+    public void StopAllRumble()
+    {
+        StopRumble(drillianGamepad);
+        StopRumble(lunaGamepad);
+        StopRumble(sharedGamepad);
+    }
     public void StopRumble(Gamepad gamepad)=> gamepad?.SetMotorSpeeds(0, 0);
 
 
@@ -198,9 +211,7 @@ public class Rumble : MonoBehaviour
     }
     private void OnDisable()
     {
-        StopRumble(drillianGamepad);
-        StopRumble(lunaGamepad);
-        StopRumble(sharedGamepad);
+        StopAllRumble();
     }
 
     //private IEnumerator DoRumble(Gamepad gamepad, float lowFrequency, float highFrequency, float duration)

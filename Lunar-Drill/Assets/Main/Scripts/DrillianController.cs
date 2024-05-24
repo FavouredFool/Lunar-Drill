@@ -170,12 +170,12 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             if (IsBurrowed)
             {
                 Rumble.main?.RumbleDrillian(3, 2, 0.2f);
-                permanentRumble = Rumble.main?.RumbleDrillian(0, 0.5f);
+                Rumble.main?.RumbleDrillian(0, 1f, 0.33f);
+                Rumble.main?.RumbleDrillian(0, 0.25f, 0.66f);
             }
             else
             {
                 Rumble.main?.RumbleDrillian(3, 1f, 0.1f);
-                if(permanentRumble!=null) Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
             }
         }
     }

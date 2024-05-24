@@ -67,6 +67,7 @@ public class GameMenuUIManager : MonoBehaviour
             eventSystem.SetSelectedGameObject(null, new BaseEventData(eventSystem)); // Select nothing 
 
             Time.timeScale = 1;
+            Rumble.main?.gameObject.SetActive(true);
         }
         else //Open it
         {
@@ -80,6 +81,7 @@ public class GameMenuUIManager : MonoBehaviour
 
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(_optionsMenuFirstSelect, new BaseEventData(eventSystem));  // Select for controller support
+            Rumble.main?.gameObject.SetActive(false);
         }
         IsOpen = !IsOpen;
     }

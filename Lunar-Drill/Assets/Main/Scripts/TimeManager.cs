@@ -24,7 +24,7 @@ public class TimeManager : MonoBehaviour
         currentTimeScale = 1;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         RefreshTimeScale();
     }
