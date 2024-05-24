@@ -240,8 +240,9 @@ public class ConnectManager : MonoBehaviour
 
         Debug.Log("SWAP");
 
+        // Block input evaluation for time of UI animation
         IsControlled = true;
-        DOVirtual.DelayedCall(0.43f, () =>
+        DOVirtual.DelayedCall(0.7f, () =>
         {
             IsControlled = false;
         });
@@ -293,5 +294,12 @@ public class ConnectManager : MonoBehaviour
                 if (!oldUsed) _uiManager.SetMulti();
             }
         }
+
+        // Block input evaluation for time of UI animation
+        IsControlled = true;
+        DOVirtual.DelayedCall(0.7f, () =>
+        {
+            IsControlled = false;
+        });
     }
 }
