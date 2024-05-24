@@ -163,7 +163,7 @@ public class OreController : MonoBehaviour
         _oreState = OreState.FOLLOWING;
         _followDrillian.FollowingOres.Add(this);
 
-        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.5f, 0.6f), 0.1f);
+        Rumble.main?.RumbleDrillian(1,1,0.1f);
     }
 
     //void MoveToFollow()

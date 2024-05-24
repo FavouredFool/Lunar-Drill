@@ -155,7 +155,7 @@ public class PlayerConnectController : MonoBehaviour
 
                 }
                 _input.SwitchCurrentActionMap("Drillian");
-                Rumble.main?.AddGamepad(_input, ChosenCharacter.luna);
+                Rumble.main?.AddGamepad(_input, ChosenCharacter.drillian);
             }
         }
         else
