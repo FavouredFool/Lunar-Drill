@@ -8,6 +8,7 @@ using DG.Tweening;
 public class Rumble : MonoBehaviour
 {
     public static Rumble main;
+    public static bool rumbleEnabled = true;
 
     public UnityEngine.InputSystem.Users.InputUser
         shared, 
@@ -144,6 +145,8 @@ public class Rumble : MonoBehaviour
 
     private void RefreshAllRumble()
     {
+        if (!enabled) return;
+
         if (isSingleplayer)
         {
             RefreshRumble(GetGamepad(ChosenCharacter.singleplayer), sharedRumble);

@@ -94,6 +94,12 @@ public class OptionsMenuUtilities : MonoBehaviour
         }
         CameraAdjuster.main.Adjust();
     }
+    /* Toggles vobration. */
+    private void ChangeVibration(bool on)
+    {
+        Rumble.rumbleEnabled = on;
+        Rumble.main?.ClearAndStopAllRumble();
+    }
 
     /* Function to change the Master Volume */
     public void changeMasterVolume(float value)
