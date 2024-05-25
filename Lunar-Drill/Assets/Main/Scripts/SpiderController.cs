@@ -67,6 +67,7 @@ public class SpiderController : MonoBehaviour
     Tween _hasJustBeenHitTween;
     bool _hasJustBeenHit = false;
 
+    Rumble.Profile permanentRumble = null;
 
     //--- Unity Methods ------------------------
 
@@ -129,10 +130,10 @@ public class SpiderController : MonoBehaviour
                     _spriteIterator.CancelStun();
                 });
 
-                Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0f, 0.1f));
-                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0f, 0.1f));
 
-                // stop current move??
+                // stop current move?? (before applying new rumble)
+
+                permanentRumble = Rumble.main?.RumbleBoth(1, 0);
             }
         }
         else
@@ -558,11 +559,8 @@ public class SpiderController : MonoBehaviour
             spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 48, 0.75f);
         }
 
-        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.7f, 0.8f), 0.2f);
-        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.7f, 0.8f), 0.2f);
-
-        Rumble.main?.RemovePermanentRumble(ChosenCharacter.luna, new Vector2(0f, 0.1f));
-        Rumble.main?.RemovePermanentRumble(ChosenCharacter.drillian, new Vector2(0f, 0.1f));
+        Rumble.main?.RumbleBoth(5, 1f, 0.3f);
+        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
     }
 
     void SpawnHP()

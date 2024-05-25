@@ -7,14 +7,14 @@ public class TimeManager : MonoBehaviour
 {
     public static float hitFrameTime = 0.5f;
     public static TimeManager main;
-    [SerializeField] OptionsMenuUtilities optionsMenu;
+    [SerializeField] GameMenuUIManager gameMenuUIManager;
     [SerializeField] GameManager gameManager;
     [SerializeField] Undertaker undertaker;
 
     [SerializeField] float currentTimeScale;
 
     bool freeze;
-    bool isPaused => freeze|| optionsMenu._isOpen||gameManager.inCutscene||undertaker.isActive;
+    bool isPaused => freeze || gameMenuUIManager.IsOpen || gameManager.inCutscene || undertaker.isActive;
 
     Tween timeScaleTween;
 
@@ -24,7 +24,7 @@ public class TimeManager : MonoBehaviour
         currentTimeScale = 1;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         RefreshTimeScale();
     }

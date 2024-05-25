@@ -70,7 +70,10 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     bool _isInvincible = false;
 
+    Rumble.Profile permanentRumble = null;
+
     [SerializeField] LunaControllerMarker _lunaControllMarker;
+
 
     //--- Unity Methods ------------------------
 
@@ -151,8 +154,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
         _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
         _laserVisual.End = new Vector3(0, _laserEndPoint, 0);
-
-
     }
 
     public void CalculateDistanceFromOrbit()
@@ -237,7 +238,8 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.SendEvent("Charge");
         _laserCharge.SetBool("Alive", true);
 
-        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.4f,0.5f));
+        Rumble.main?.RumbleLuna(3, 0.5f,0.1f);
+        permanentRumble = Rumble.main?.RumbleLuna(1, 0.5f);
     }
 
     void EndLasering()
@@ -257,7 +259,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.Stop();
         _laserCharge.SetBool("Alive", false);
 
-        Rumble.main?.RemovePermanentRumble(ChosenCharacter.luna, new Vector2(0.4f, 0.5f));
+        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
     }
 
     void DecreaseEnergy()
@@ -327,6 +329,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         // Camera shake
         CamShake.Instance.ShakeCamera();
+        Rumble.main?.RumbleLuna(4, 2, 0.2f);
 
         // Health Reduce
         _spriteIterator.Hit();
@@ -337,8 +340,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         // Set invincible to false after one second
         DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
         _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
-
-        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.9f, 1f), 0.1f);
     }
 
     void GainHealth()
@@ -348,13 +349,13 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         AudioController.Fire(new LunaEnergyPickup(""));
 
         manager.Heal(gameObject, true);
-        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.6f, 0.7f));
+        Rumble.main?.RumbleLuna(1, 2, 0.1f);
     }
 
     void GainEnergy()
     {
         EnergyT = Mathf.Clamp01(EnergyT + _energyIncrease);
-        Rumble.main?.AddRumble(ChosenCharacter.luna, new Vector2(0.4f, 0.5f),0.1f);
+        Rumble.main?.RumbleLuna(1, 1, 0.1f);
         EnergyGained = true;
         DOVirtual.DelayedCall(1f,() => { EnergyGained = false; });
     }

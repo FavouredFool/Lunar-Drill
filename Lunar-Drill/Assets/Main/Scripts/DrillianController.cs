@@ -66,6 +66,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     bool _vfxIgnore = true;
 
+    Rumble.Profile permanentRumble = null;
+
     //--- Unity Methods ------------------------
 
     public void Awake()
@@ -167,13 +169,13 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         {
             if (IsBurrowed)
             {
-                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
-                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.5f, 0.5f), 0.1f);
+                Rumble.main?.RumbleDrillian(3, 2, 0.2f);
+                Rumble.main?.RumbleDrillian(0, 1f, 0.33f);
+                Rumble.main?.RumbleDrillian(0, 0.25f, 0.66f);
             }
             else
             {
-                Rumble.main?.RemovePermanentRumble(ChosenCharacter.drillian, new Vector2(0.1f, 0.3f));
-                Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.5f, 0.5f), 0.1f);
+                Rumble.main?.RumbleDrillian(3, 1f, 0.1f);
             }
         }
     }
@@ -274,6 +276,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         // Camera shake
         CamShake.Instance.ShakeCamera();
+        Rumble.main?.RumbleDrillian(4, 2, 0.2f);
 
         // Health Reduce
         _spriteIterator.Hit();
@@ -292,8 +295,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
 
         FollowingOres.Clear();
-
-        Rumble.main?.AddRumble(ChosenCharacter.drillian, new Vector2(0.9f, 1f), 0.1f);
     }
 
     void EvaluateCollision(Collider2D collision)
