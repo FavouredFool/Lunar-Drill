@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638522507539349855
+  lastModified: 638522524146956778
   FileSizes:
   - Name: Desktop
     Value: 2614
@@ -35,7 +35,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Characters.bank
   Name: Characters
   StudioPath: bank:/Characters
-  lastModified: 638522507539209726
+  lastModified: 638522524146946763
   FileSizes:
   - Name: Desktop
     Value: 728800
@@ -328,7 +328,7 @@ MonoBehaviour:
   - {fileID: 4975697842361402279}
   StringsBanks:
   - {fileID: -9200300441347819626}
-  cacheTime: 638522507540038756
+  cacheTime: 638522524146996809
   cacheVersion: 131617
 --- !u!114 &212034924061070438
 MonoBehaviour:
@@ -450,7 +450,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638522507540038756
+  lastModified: 638522524146996809
   FileSizes:
   - Name: Desktop
     Value: 560032
@@ -657,7 +657,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Menu.bank
   Name: Menu
   StudioPath: bank:/Menu
-  lastModified: 638522507539580066
+  lastModified: 638522524146966789
   FileSizes:
   - Name: Desktop
     Value: 11104
@@ -677,7 +677,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638522507539329839
+  lastModified: 638522524146956778
   FileSizes:
   - Name: Desktop
     Value: 5652
@@ -809,7 +809,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/EndScreen.bank
   Name: EndScreen
   StudioPath: bank:/EndScreen
-  lastModified: 638522502657692961
+  lastModified: 638522524146956778
   FileSizes:
   - Name: Desktop
     Value: 80128
