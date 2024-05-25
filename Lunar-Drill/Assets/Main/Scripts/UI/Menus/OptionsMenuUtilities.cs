@@ -25,6 +25,7 @@ public class OptionsMenuUtilities : MonoBehaviour
     {
         PopulateAudioOptions();
         PopulateDisplayOptions();
+        PopulateVibrationOptions();
     }
 
     //--- Public Methods ------------------------
@@ -36,11 +37,11 @@ public class OptionsMenuUtilities : MonoBehaviour
      */
     private void PopulateAudioOptions()
     {
-        _masterSlider.onValueChanged.AddListener(changeMasterVolume);
+        _masterSlider.onValueChanged.AddListener(ChangeMasterVolume);
         float _currentMasterVolume;
         if (_audioMixer.GetFloat("MasterVolume", out _currentMasterVolume))
             _masterSlider.value = Mathf.Pow(2, (_currentMasterVolume / 10));
-        _musicSlider.onValueChanged.AddListener(changeMusicVolume);
+        _musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
         float _currentMusicVolume;
         if (_audioMixer.GetFloat("PreMusicVolume", out _currentMusicVolume))
         {
@@ -48,7 +49,7 @@ public class OptionsMenuUtilities : MonoBehaviour
             _audioMixer.SetFloat("PostMusicVolume", _currentMusicVolume); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
 
         }
-        _sfxSlider.onValueChanged.AddListener(changeFXVolume);
+        _sfxSlider.onValueChanged.AddListener(ChangeFXVolume);
         float _currentSfxVolume;
         if (_audioMixer.GetFloat("PreSFXVolume", out _currentSfxVolume))
         {
@@ -81,6 +82,13 @@ public class OptionsMenuUtilities : MonoBehaviour
         }
     }
 
+    /* Populates vibration options with default values. */
+    private void PopulateVibrationOptions()
+    {
+        _vibrationSetting.isOn = Rumble.rumbleEnabled;
+        _vibrationSetting.onValueChanged.AddListener(ChangeVibration);
+    }
+
     /* Toggles full screen mode. */
     private void ChangeFullScreen(bool on)
     {
@@ -94,27 +102,29 @@ public class OptionsMenuUtilities : MonoBehaviour
         }
         CameraAdjuster.main.Adjust();
     }
+
     /* Toggles vobration. */
     private void ChangeVibration(bool on)
     {
         Rumble.rumbleEnabled = on;
+        Debug.Log(Rumble.rumbleEnabled);
         Rumble.main?.ClearAndStopAllRumble();
     }
 
     /* Function to change the Master Volume */
-    public void changeMasterVolume(float value)
+    public void ChangeMasterVolume(float value)
     {
         _audioMixer.SetFloat("MasterVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
     }
 
     /* Function to change the MUsic Volume */
-    public void changeMusicVolume(float value)
+    public void ChangeMusicVolume(float value)
     {
         _audioMixer.SetFloat("PreMusicVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
         _audioMixer.SetFloat("PostMusicVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
     }
     /* Function to change the FX Volume */
-    public void changeFXVolume(float value)
+    public void ChangeFXVolume(float value)
     {
         _audioMixer.SetFloat("PreSFXVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
         _audioMixer.SetFloat("PostSFXVolume", Mathf.Log(value, 2) * 10f); // Uses a logarithmic Scaling since that is more in line with our perception. (e.g. -10 db corresponds roughly to haling the  preceived noise)
