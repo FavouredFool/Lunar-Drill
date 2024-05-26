@@ -579,6 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 190026492}
   - component: {fileID: 190026493}
+  - component: {fileID: 190026494}
   m_Layer: 0
   m_Name: Background Music
   m_TagString: Untagged
@@ -620,6 +621,24 @@ MonoBehaviour:
       Data3: -1942110017
       Data4: 397936830
     Path: event:/Music/Music-General-Track
+--- !u!114 &190026494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190026489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadEvent: 1
+  UnloadEvent: 2
+  Banks:
+  - Music
+  CollisionTag: 
+  PreloadSamples: 1
 --- !u!1 &198878852
 GameObject:
   m_ObjectHideFlags: 0
@@ -3733,13 +3752,6 @@ MonoBehaviour:
   _audioMixer: {fileID: 24100000, guid: 82aa0fa4c148ef14ba698101eaef717c, type: 2}
   _fsSetting: {fileID: 353133169}
   _vibrationSetting: {fileID: 596156707}
-  _test:
-    Guid:
-      Data1: 1592508128
-      Data2: 1147135716
-      Data3: 1081493166
-      Data4: -1552669518
-    Path: event:/UI/Confirm
 --- !u!1 &990651949
 GameObject:
   m_ObjectHideFlags: 0

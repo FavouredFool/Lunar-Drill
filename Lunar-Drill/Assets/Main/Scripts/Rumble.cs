@@ -8,8 +8,8 @@ using DG.Tweening;
 public class Rumble : MonoBehaviour
 {
     public static Rumble main;
-    public static bool rumbleDisabled;
-    public static bool rumblePaused;
+    public static bool rumbleDisabled = false;
+    public static bool rumblePaused = false;
     public static bool AllowRumble => !rumbleDisabled && !rumblePaused;
 
     public UnityEngine.InputSystem.Users.InputUser
@@ -59,8 +59,6 @@ public class Rumble : MonoBehaviour
         else
         {
             main = this;
-            rumblePaused = false;
-            rumbleDisabled = false;
             DontDestroyOnLoad(gameObject);
         }
     }
