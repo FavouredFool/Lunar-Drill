@@ -30,7 +30,7 @@ public class SerializedSettings
         FullScreen = Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen;
 
         // Get Rumble Setting
-        Vibration = Rumble.rumbleEnabled;
+        Vibration = !Rumble.rumbleDisabled;
     }
     public void Deserialize()
     {
@@ -46,6 +46,6 @@ public class SerializedSettings
         Screen.fullScreenMode = FullScreen ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
 
         // Set Rumble Setting
-        Rumble.rumbleEnabled = Vibration;
+        Rumble.rumbleDisabled = !Vibration;
     }
 }

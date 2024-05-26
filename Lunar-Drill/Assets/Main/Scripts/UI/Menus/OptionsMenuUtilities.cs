@@ -89,7 +89,7 @@ public class OptionsMenuUtilities : MonoBehaviour
     /* Populates vibration options with default values. */
     private void PopulateVibrationOptions()
     {
-        _vibrationSetting.isOn = Rumble.rumbleEnabled;
+        _vibrationSetting.isOn = !Rumble.rumbleDisabled;
         _vibrationSetting.onValueChanged.AddListener(ChangeVibration);
     }
 
@@ -110,8 +110,7 @@ public class OptionsMenuUtilities : MonoBehaviour
     /* Toggles vobration. */
     private void ChangeVibration(bool on)
     {
-        Rumble.rumbleEnabled = on;
-        Debug.Log(Rumble.rumbleEnabled);
+        Rumble.rumbleDisabled = !on;
         Rumble.main?.ClearAndStopAllRumble();
     }
 
