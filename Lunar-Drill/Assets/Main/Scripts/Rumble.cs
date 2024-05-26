@@ -8,7 +8,9 @@ using DG.Tweening;
 public class Rumble : MonoBehaviour
 {
     public static Rumble main;
-    public static bool rumbleEnabled = true;
+    public static bool rumbleDisabled;
+    public static bool rumblePaused;
+    public static bool AllowRumble => !rumbleDisabled && !rumblePaused;
 
     public UnityEngine.InputSystem.Users.InputUser
         shared, 
@@ -57,6 +59,8 @@ public class Rumble : MonoBehaviour
         else
         {
             main = this;
+            rumblePaused = false;
+            rumbleDisabled = false;
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -145,7 +149,7 @@ public class Rumble : MonoBehaviour
 
     private void RefreshAllRumble()
     {
-        if (!enabled) return;
+        if (!AllowRumble) return;
 
         if (isSingleplayer)
         {
@@ -159,7 +163,7 @@ public class Rumble : MonoBehaviour
     }
     public void RefreshRumble(Gamepad gamepad, List<Profile> rumble)
     {
-        if (gamepad == null) return;
+        if (gamepad == null || !AllowRumble) return;
 
         Profile combined = new Profile(0,0,0);
 
@@ -179,7 +183,6 @@ public class Rumble : MonoBehaviour
                 i--;
             }
         }
-        Debug.Log(gamepad.name+" | "+combined.lowFrequency+" "+combined.highFrequency);
         SetRumble(gamepad,combined);
     }
     public void RemoveRumbleAnywhere(Profile profile)
@@ -191,7 +194,15 @@ public class Rumble : MonoBehaviour
         if (lunaRumble.Contains(profile))
             lunaRumble.Remove(profile);
     }
-    public void SetRumble(Gamepad gamepad, Profile rumble) => gamepad?.SetMotorSpeeds(rumble.lowFrequency, rumble.highFrequency);
+    public void SetRumble(Gamepad gamepad, Profile rumble)
+    {
+        Debug.Log("RUMBLE on " + gamepad);
+        if (!AllowRumble)
+        {
+            Debug.LogError("Rumble set while disabled!");
+        }
+        gamepad?.SetMotorSpeeds(rumble.lowFrequency, rumble.highFrequency);
+    }
     
     public void ClearAndStopAllRumble()
     {

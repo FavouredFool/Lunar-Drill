@@ -41,6 +41,9 @@ public class GameMenuUIManager : MonoBehaviour
     /* Switches the scene. */
     public void SwitchScene(string sceneName)
     {
+        Rumble.rumblePaused = false;
+        Rumble.rumbleDisabled = false;
+        Rumble.main?.ClearAndStopAllRumble();
         SceneManager.LoadScene(sceneName);
     }
 
@@ -67,7 +70,8 @@ public class GameMenuUIManager : MonoBehaviour
             eventSystem.SetSelectedGameObject(null, new BaseEventData(eventSystem)); // Select nothing 
 
             Time.timeScale = 1;
-            Rumble.main?.gameObject.SetActive(true);
+            Rumble.rumblePaused = false;
+            Rumble.main?.StopAllRumble();
         }
         else //Open it
         {
@@ -81,7 +85,9 @@ public class GameMenuUIManager : MonoBehaviour
 
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(_optionsMenuFirstSelect, new BaseEventData(eventSystem));  // Select for controller support
-            Rumble.main?.gameObject.SetActive(false);
+
+            Rumble.rumblePaused = true;
+            Rumble.main?.StopAllRumble();
         }
         IsOpen = !IsOpen;
     }
