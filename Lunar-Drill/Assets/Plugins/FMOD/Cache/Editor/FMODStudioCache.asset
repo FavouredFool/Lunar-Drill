@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638522524146956778
+  lastModified: 638523300914243839
   FileSizes:
   - Name: Desktop
-    Value: 2614
+    Value: 2782
   Exists: 1
 --- !u!114 &-9160368982375048417
 MonoBehaviour:
@@ -35,10 +35,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Characters.bank
   Name: Characters
   StudioPath: bank:/Characters
-  lastModified: 638522524146946763
+  lastModified: 638523302693202372
   FileSizes:
   - Name: Desktop
-    Value: 728800
+    Value: 732000
   Exists: 1
 --- !u!114 &-8908520030231825140
 MonoBehaviour:
@@ -323,12 +323,14 @@ MonoBehaviour:
   - {fileID: 5444723710999869580}
   - {fileID: -2014701158837131523}
   - {fileID: 646877314133646330}
+  - {fileID: 3050074073051656674}
+  - {fileID: 8265908832715983033}
   EditorParameters: []
   MasterBanks:
   - {fileID: 4975697842361402279}
   StringsBanks:
   - {fileID: -9200300441347819626}
-  cacheTime: 638522524146996809
+  cacheTime: 638523302693202372
   cacheVersion: 131617
 --- !u!114 &212034924061070438
 MonoBehaviour:
@@ -450,7 +452,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638522524146996809
+  lastModified: 638523187281148690
   FileSizes:
   - Name: Desktop
     Value: 560032
@@ -482,6 +484,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1034
+--- !u!114 &3050074073051656674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/End Scene
+  m_EditorClassIdentifier: 
+  Path: event:/UI/End Scene
+  Guid:
+    Data1: -1373833831
+    Data2: 1151027837
+    Data3: -1015432521
+    Data4: -592698770
+  Banks:
+  - {fileID: 5769634084612278939}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 5590141508971852501}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &3690990082701301727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,7 +687,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Menu.bank
   Name: Menu
   StudioPath: bank:/Menu
-  lastModified: 638522524146966789
+  lastModified: 638523299522696359
   FileSizes:
   - Name: Desktop
     Value: 11104
@@ -677,10 +707,10 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638522524146956778
+  lastModified: 638523300914226346
   FileSizes:
   - Name: Desktop
-    Value: 5652
+    Value: 7082
   Exists: 1
 --- !u!114 &5444723710999869580
 MonoBehaviour:
@@ -701,8 +731,8 @@ MonoBehaviour:
     Data3: -1835931772
     Data4: -1960904457
   Banks:
-  - {fileID: 4975697842361402279}
   - {fileID: 4695575326577322018}
+  - {fileID: 4975697842361402279}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -739,6 +769,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 9162
+--- !u!114 &5590141508971852501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/End Scene/Active
+  m_EditorClassIdentifier: 
+  Name: Active
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1215381952
+    data2: 166258854
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &5651603738047351459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,10 +816,11 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
+  Parameters:
+  - {fileID: 5881720547508192458}
   MinDistance: 1
   MaxDistance: 20
-  Length: 20000
+  Length: 15817
 --- !u!114 &5660812926070493495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,10 +864,34 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/EndScreen.bank
   Name: EndScreen
   StudioPath: bank:/EndScreen
-  lastModified: 638522524146956778
+  lastModified: 638523299521490040
   FileSizes:
   - Name: Desktop
-    Value: 80128
+    Value: 82304
+  Exists: 1
+--- !u!114 &5881720547508192458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/SpiderLaserFiring/LaserState
+  m_EditorClassIdentifier: 
+  Name: LaserState
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 492489115
+    data2: 474260414
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &7793040004069012737
 MonoBehaviour:
@@ -869,6 +948,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2721
+--- !u!114 &8265908832715983033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/EndScreen
+  m_EditorClassIdentifier: 
+  Path: snapshot:/EndScreen
+  Guid:
+    Data1: 778439071
+    Data2: 1262169214
+    Data3: -18613629
+    Data4: -1385865853
+  Banks:
+  - {fileID: 5769634084612278939}
+  - {fileID: 4975697842361402279}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &8975390689942718175
 MonoBehaviour:
   m_ObjectHideFlags: 0

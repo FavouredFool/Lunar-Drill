@@ -198,6 +198,13 @@ MonoBehaviour:
       Data3: 1586442398
       Data4: -1640033353
     Path: event:/UI/Pause
+  _endSceneEvent:
+    Guid:
+      Data1: 778439071
+      Data2: 1262169214
+      Data3: -18613629
+      Data4: -1385865853
+    Path: snapshot:/EndScreen
 --- !u!1 &2055393137610119071
 GameObject:
   m_ObjectHideFlags: 0

@@ -96,6 +96,7 @@
 		</relationship>
 	</object>
 	<object class="SnapshotModule" id="{cd170254-4c69-4475-80c4-9ed6a5119d12}">
+		<property name="name" />
 		<property name="intensity">
 			<value>0</value>
 		</property>

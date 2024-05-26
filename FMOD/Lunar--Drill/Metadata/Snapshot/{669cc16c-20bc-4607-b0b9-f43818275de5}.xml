@@ -27,6 +27,7 @@
 			<destination>{461f8d7c-5791-42cc-9524-7491015c8e0f}</destination>
 			<destination>{57140cd8-b83d-42d8-8860-5b78574bd459}</destination>
 			<destination>{034fc2b2-5525-484b-bfac-797d0382cad6}</destination>
+			<destination>{e13ec311-39fb-4f8d-9ac6-6e575270a75c}</destination>
 		</relationship>
 		<relationship name="snapshotTracks">
 			<destination>{7b9d1971-dd2a-4b0c-9d50-255dd9987f75}</destination>
@@ -57,7 +58,7 @@
 			<value>frequencyA</value>
 		</property>
 		<property name="value">
-			<value>49.7680855</value>
+			<value>2948.47095</value>
 		</property>
 		<relationship name="automatableObject">
 			<destination>{91a4ba7e-d51e-4511-937a-f13e8a56c58d}</destination>
@@ -68,7 +69,7 @@
 			<value>qualityA</value>
 		</property>
 		<property name="value">
-			<value>0.665137947</value>
+			<value>0.623275876</value>
 		</property>
 		<relationship name="automatableObject">
 			<destination>{91a4ba7e-d51e-4511-937a-f13e8a56c58d}</destination>
@@ -90,7 +91,7 @@
 			<value>frequencyB</value>
 		</property>
 		<property name="value">
-			<value>42.1662827</value>
+			<value>46.7688141</value>
 		</property>
 		<relationship name="automatableObject">
 			<destination>{91a4ba7e-d51e-4511-937a-f13e8a56c58d}</destination>
@@ -101,7 +102,7 @@
 			<value>qualityB</value>
 		</property>
 		<property name="value">
-			<value>0.665137947</value>
+			<value>0.751586199</value>
 		</property>
 		<relationship name="automatableObject">
 			<destination>{91a4ba7e-d51e-4511-937a-f13e8a56c58d}</destination>
@@ -118,6 +119,17 @@
 			<destination>{91a4ba7e-d51e-4511-937a-f13e8a56c58d}</destination>
 		</relationship>
 	</object>
+	<object class="SnapshotProperty" id="{e13ec311-39fb-4f8d-9ac6-6e575270a75c}">
+		<property name="propertyName">
+			<value>gain</value>
+		</property>
+		<property name="value">
+			<value>-4.5</value>
+		</property>
+		<relationship name="automatableObject">
+			<destination>{741534c1-0d35-456d-9690-39c93307468e}</destination>
+		</relationship>
+	</object>
 	<object class="SnapshotTrack" id="{7b9d1971-dd2a-4b0c-9d50-255dd9987f75}">
 		<relationship name="mixerStrip">
 			<destination>{5f265acf-f831-4304-a291-ee5bf600e29d}</destination>
@@ -132,6 +144,9 @@
 		<property name="nameOfPropertyBeingModulated">
 			<value>snapshotIntensity</value>
 		</property>
+		<property name="attackTime">
+			<value>220</value>
+		</property>
 		<property name="peakValue">
 			<value>100</value>
 		</property>
@@ -139,7 +154,10 @@
 			<value>100</value>
 		</property>
 		<property name="releaseTime">
-			<value>920</value>
+			<value>320</value>
+		</property>
+		<property name="finalValue">
+			<value>8.88888931</value>
 		</property>
 	</object>
 </objects>

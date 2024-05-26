@@ -87,7 +87,7 @@ public class MainMenuUIManager : MonoBehaviour
     public void HandleToggleInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-
+ 
         ToggleOptions();
     }
 
@@ -103,6 +103,9 @@ public class MainMenuUIManager : MonoBehaviour
             eventSystem.SetSelectedGameObject(_mainMenuFirstSelect, new BaseEventData(eventSystem)); // Select for controller support
 
             Time.timeScale = 1; // TODO: figure out why that needed to be here but =0 is nowhere to be found
+
+            // Save the settings:
+            SettingSaver.Save();
         }
         else //Open it
         {

@@ -383,6 +383,11 @@ Transform:
   - {fileID: 17610889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &178520237 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 905820887146235027, guid: 88c112bc378067b4f86cbfb5a1ec3c42, type: 3}
+  m_PrefabInstance: {fileID: 592824943}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &203376879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4715,7 +4720,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1789868007}
-  - component: {fileID: 1789868006}
+  - component: {fileID: 1789868008}
   m_Layer: 0
   m_Name: Audio Listener
   m_TagString: Untagged
@@ -4723,14 +4728,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1789868006
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789868005}
-  m_Enabled: 1
 --- !u!4 &1789868007
 Transform:
   m_ObjectHideFlags: 0
@@ -4746,6 +4743,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1789868008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789868005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &1837708331
 GameObject:
   m_ObjectHideFlags: 0
@@ -9241,7 +9251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[0]
@@ -9294,7 +9304,7 @@ PrefabInstance:
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[12]
       value: 
-      objectReference: {fileID: 8736392819379510103}
+      objectReference: {fileID: 178520237}
     - target: {fileID: 6884943036014779213, guid: 4829565bc933e1d4199f615570c96ebf, type: 3}
       propertyPath: disabledObjects.Array.data[13]
       value: 

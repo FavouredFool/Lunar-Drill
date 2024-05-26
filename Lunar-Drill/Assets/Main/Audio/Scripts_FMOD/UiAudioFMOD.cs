@@ -4,16 +4,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UiAudioFMOD : MonoBehaviour, IAudioSubscriber<MenuSelectAudio>, IAudioSubscriber<MenuClickAudio>, IAudioSubscriber<MenuPauseAudio>
+public class UiAudioFMOD : MonoBehaviour,
+    IAudioSubscriber<MenuSelectAudio>,
+    IAudioSubscriber<MenuClickAudio>, 
+    IAudioSubscriber<MenuPauseAudio>,
+    IAudioSubscriber<EndSceneStateChange>
 {
     [SerializeField]
     EventReference _selectEvent;
     [SerializeField]
-    EventReference _clickEvent; 
+    EventReference _clickEvent;
     [SerializeField]
     EventReference _pauseEvent;
+    [SerializeField]
+    EventReference _endSceneEvent;
 
     EventInstance _pauseEventInstance;
+    EventInstance _endSceneEventInstance;
 
     public void OnAudioEvent(MenuSelectAudio audioEvent)
     {
@@ -46,24 +53,47 @@ public class UiAudioFMOD : MonoBehaviour, IAudioSubscriber<MenuSelectAudio>, IAu
         }
     }
 
+    public void OnAudioEvent(EndSceneStateChange audioEvent)
+    {
+        if (audioEvent.state == EndSceneStateChange.State.EndScreenActive)
+        {
+
+            _pauseEventInstance.setParameterByName("Active", 1);
+        }
+        else
+        {
+            _pauseEventInstance.setParameterByName("Active", 0);
+        }
+    }
+
     void Awake()
     {
         AudioController.Subscribe<MenuSelectAudio>(this);
         AudioController.Subscribe<MenuClickAudio>(this);
         AudioController.Subscribe<MenuPauseAudio>(this);
+        AudioController.Subscribe<EndSceneStateChange>(this);
         _pauseEventInstance = RuntimeManager.CreateInstance(_pauseEvent);
+        _endSceneEventInstance = RuntimeManager.CreateInstance(_pauseEvent);
+        _endSceneEventInstance.start();
     }
     void OnDestroy()
     {
         AudioController.Unsubscribe<MenuSelectAudio>(this);
         AudioController.Unsubscribe<MenuClickAudio>(this);
         AudioController.Unsubscribe<MenuPauseAudio>(this);
+        AudioController.Unsubscribe<EndSceneStateChange>(this);
 
         PLAYBACK_STATE ps;
         _pauseEventInstance.getPlaybackState(out ps);
         if (ps != PLAYBACK_STATE.STOPPED)
         {
             _pauseEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+
+        _endSceneEventInstance.getPlaybackState(out ps);
+        if (ps != PLAYBACK_STATE.STOPPED)
+        {
+            _endSceneEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
 
     }

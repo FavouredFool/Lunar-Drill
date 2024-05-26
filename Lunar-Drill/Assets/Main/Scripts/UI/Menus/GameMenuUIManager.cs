@@ -68,6 +68,12 @@ public class GameMenuUIManager : MonoBehaviour
 
             Time.timeScale = 1;
             Rumble.main?.gameObject.SetActive(true);
+
+            // Change audio accordingly ("resume audio")
+            AudioController.Fire<MenuPauseAudio>(new MenuPauseAudio(MenuPauseAudio.PauseState.GameRunning));
+
+            // Save the settings:
+            SettingSaver.Save();
         }
         else //Open it
         {
@@ -82,6 +88,10 @@ public class GameMenuUIManager : MonoBehaviour
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(_optionsMenuFirstSelect, new BaseEventData(eventSystem));  // Select for controller support
             Rumble.main?.gameObject.SetActive(false);
+
+            // Change audio accordingly ("pause audio")
+            AudioController.Fire<MenuPauseAudio>(new MenuPauseAudio(MenuPauseAudio.PauseState.GamePaused));
+
         }
         IsOpen = !IsOpen;
     }

@@ -28,10 +28,9 @@ public class Undertaker : MonoBehaviour
 
     public void Activate(GameObject target, bool isPlayer)
     {
+        //Pause / mute audio
+        AudioController.Fire(new EndSceneStateChange(EndSceneStateChange.State.EndScreenActive));
 
-        // To do: Pause Audio
-        //foreach (AudioSource s in sources)
-        //    s.Pause();
         Rumble.main?.ClearAndStopAllRumble();
 
 
@@ -100,6 +99,7 @@ public class Undertaker : MonoBehaviour
 
     public void Continue()
     {
+        AudioController.Fire(new EndSceneStateChange(EndSceneStateChange.State.EndScreenInactive));
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("MainMenuScene");
     }

@@ -46,15 +46,14 @@ public class SpiderAudioFMOD : MonoBehaviour,
 
     public void OnAudioEvent(SpiderLaserFiring audioEvent)
     {
-        PLAYBACK_STATE ps;
-        _spiderLaserFiringInstance.getPlaybackState(out ps);
-        if (ps != PLAYBACK_STATE.PLAYING && audioEvent.CurrentState == SpiderLaserFiring.LaserState.LaserFiring)
+        
+        if (audioEvent.CurrentState == SpiderLaserFiring.LaserState.LaserFiring)
         {
-            _spiderLaserFiringInstance.start();
+            _spiderLaserFiringInstance.setParameterByName("LaserState", 1);
         }
-        else if (ps != PLAYBACK_STATE.STOPPED)
+        else
         {
-            _spiderLaserFiringInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            _spiderLaserFiringInstance.setParameterByName("LaserState", 0);
         }
     }
 
@@ -84,6 +83,7 @@ public class SpiderAudioFMOD : MonoBehaviour,
         _spiderLaserChargingInstance = RuntimeManager.CreateInstance(_spiderLaserCharging);
         _spiderLaserFiringInstance = RuntimeManager.CreateInstance(_spiderLaserFiring);
         _spiderVulnurableInstance = RuntimeManager.CreateInstance(_spiderVulnurable);
+        _spiderLaserFiringInstance.start();
     }
 
 

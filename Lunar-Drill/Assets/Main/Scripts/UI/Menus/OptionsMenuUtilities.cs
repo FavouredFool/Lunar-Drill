@@ -8,8 +8,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using FMODUnity;
-using FMOD.Studio;
 
 public class OptionsMenuUtilities : MonoBehaviour
 {
@@ -30,12 +28,13 @@ public class OptionsMenuUtilities : MonoBehaviour
 
     private void Awake()
     {
-        PopulateAudioOptions();
-        PopulateDisplayOptions();
-        PopulateVibrationOptions();
+        SettingSaver.Load();
         _masterBus = RuntimeManager.GetBus("bus:/");
         _sfxVCA = RuntimeManager.GetVCA("vca:/SFX");
         _musicVCA = RuntimeManager.GetVCA("vca:/Music");
+        PopulateAudioOptions();
+        PopulateDisplayOptions();
+        PopulateVibrationOptions();
     }
 
     //--- Public Methods ------------------------
@@ -48,7 +47,7 @@ public class OptionsMenuUtilities : MonoBehaviour
     private void PopulateAudioOptions()
     {
         _masterSlider.onValueChanged.AddListener(ChangeMasterVolume);
-        float _currentMasterVolume;
+        float _currentMasterVolume = 1;
         _masterBus.getVolume(out _currentMasterVolume);
         _masterSlider.value = _currentMasterVolume;
 
@@ -120,6 +119,9 @@ public class OptionsMenuUtilities : MonoBehaviour
     public void ChangeMasterVolume(float value)
     {
         _masterBus.setVolume(value);
+        float _currentMasterVolume = 1;
+        _masterBus.getVolume(out _currentMasterVolume);
+        Debug.Log($"Master Volume: {_currentMasterVolume}");
     }
 
     /* Function to change the MUsic Volume */

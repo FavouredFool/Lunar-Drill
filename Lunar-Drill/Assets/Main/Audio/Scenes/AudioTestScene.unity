@@ -688,8 +688,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 151151052}
-  - component: {fileID: 151151051}
   - component: {fileID: 151151050}
+  - component: {fileID: 151151053}
   m_Layer: 0
   m_Name: Background Music
   m_TagString: Untagged
@@ -793,21 +793,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &151151051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151151049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92343bda1de726a489d8fb91acf11127, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _backgroundAudioSource: {fileID: 151151050}
-  _lobbyTrack: {fileID: 8300000, guid: 68b256556e7810745b3c0aa4850c416d, type: 3}
-  _gameTrack: {fileID: 8300000, guid: 74951487aa6a71d40a23d3c10adf2c89, type: 3}
 --- !u!4 &151151052
 Transform:
   m_ObjectHideFlags: 0
@@ -823,6 +808,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &151151053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151151049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0786e00696bb9a54c8eedd53306a2f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _musicEvent:
+    Guid:
+      Data1: -735290276
+      Data2: 1100131689
+      Data3: -1942110017
+      Data4: 397936830
+    Path: event:/Music/Music-General-Track
 --- !u!1 &157402702
 GameObject:
   m_ObjectHideFlags: 0

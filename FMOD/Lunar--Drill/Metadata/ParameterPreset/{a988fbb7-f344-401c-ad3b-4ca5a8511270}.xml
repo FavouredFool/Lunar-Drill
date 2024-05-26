@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{a988fbb7-f344-401c-ad3b-4ca5a8511270}">
+		<property name="name">
+			<value>LaserState</value>
+		</property>
+		<relationship name="folder">
+			<destination>{55915ae5-9f2f-4541-8a2c-9d7e64e40359}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5abb605e-4e2d-4bd6-a024-94f48a951afb}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5abb605e-4e2d-4bd6-a024-94f48a951afb}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>15</value>
+		</property>
+	</object>
+</objects>
