@@ -59,7 +59,13 @@ public class GameMenuUIManager : MonoBehaviour
     /* Toggles options in th emain menu. */
     public void ToggleOptions()
     {
-        if (IsOpen) //Close it
+        SetOptions(!IsOpen);
+    }
+    public void SetOptions(bool open)
+    {
+        if (open == IsOpen) return;
+
+        if (!open) //Close it
         {
             _optionsMenuContainer.SetActive(false); // Options off
             _laserRect.DOSizeDelta(new Vector2(_laserRect.sizeDelta.x, _laserMinHeight), _laserExpandTime).SetUpdate(true); // Scale down
@@ -78,8 +84,6 @@ public class GameMenuUIManager : MonoBehaviour
 
             // Save the settings:
             SettingSaver.Save();
-
-
         }
         else //Open it
         {
@@ -99,9 +103,8 @@ public class GameMenuUIManager : MonoBehaviour
 
             Rumble.rumblePaused = true;
             Rumble.main?.StopAllRumble();
-
         }
-        IsOpen = !IsOpen;
+        IsOpen = open;
     }
 
     //--- Private Methods ------------------------
