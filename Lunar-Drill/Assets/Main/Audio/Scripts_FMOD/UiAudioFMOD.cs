@@ -58,11 +58,11 @@ public class UiAudioFMOD : MonoBehaviour,
         if (audioEvent.state == EndSceneStateChange.State.EndScreenActive)
         {
 
-            _pauseEventInstance.setParameterByName("Active", 1);
+            _endSceneEventInstance.setParameterByName("Active", 1);
         }
         else
         {
-            _pauseEventInstance.setParameterByName("Active", 0);
+            _endSceneEventInstance.setParameterByName("Active", 0);
         }
     }
 
@@ -73,7 +73,7 @@ public class UiAudioFMOD : MonoBehaviour,
         AudioController.Subscribe<MenuPauseAudio>(this);
         AudioController.Subscribe<EndSceneStateChange>(this);
         _pauseEventInstance = RuntimeManager.CreateInstance(_pauseEvent);
-        _endSceneEventInstance = RuntimeManager.CreateInstance(_pauseEvent);
+        _endSceneEventInstance = RuntimeManager.CreateInstance(_endSceneEvent);
         _endSceneEventInstance.start();
     }
     void OnDestroy()
