@@ -45,8 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c47eb4dae52584ea37287e0d8a6510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionalPauseMenu: {fileID: 0}
   anyInputAction: {fileID: 4700285617278173545, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
   forcePlayInputAction: {fileID: -1630915979053715072, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
+  returnSceneIndex: 0
   secondsUntilReplay: 15
 --- !u!1 &8336919095955607130
 GameObject:
@@ -88,7 +90,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8336919095955607130}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 0a819bd3059b6ce4faedcaf86cf8dc4f, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: c294632d05cb02f47aa6633508ffff5e, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}

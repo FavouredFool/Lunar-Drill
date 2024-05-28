@@ -3657,6 +3657,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimeoutManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4054556198884411459, guid: 2aba1bb0efea5ac4998fc94344c564c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8116326851310561172, guid: 2aba1bb0efea5ac4998fc94344c564c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
