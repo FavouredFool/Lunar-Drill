@@ -190,6 +190,90 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c2020f35-150a-447c-878f-04d594b9cca9
     m_ActionName: Singleplayer/Shoot[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast,/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest,/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth,/Keyboard/enter,/Keyboard/space,/XInputControllerWindows/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6263970602297081459}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7be0317a-f601-4c4a-925b-542d519cc7b4
+    m_ActionName: Luna/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6263970602297081459}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 18582611-4ef6-477c-b0ee-57dd009cbb75
+    m_ActionName: Drillian/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd7985d6-d58d-4a39-aad7-c7a56a93e45a
+    m_ActionName: Singleplayer/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 428467d9-9752-481f-bf2f-deb4c3e43516
+    m_ActionName: Menu Selection/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85750ce7-8188-4817-94cb-27ac9dcfc471
+    m_ActionName: Menu Selection/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d66a07a-8457-439a-90de-28d89f072145
+    m_ActionName: Menu Selection/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9c2897f9-a4c6-4f6b-8aa4-0de3ca192537
+    m_ActionName: Menu Selection/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4518b08f-30c7-45d0-a4c9-e5d4c90127ff
+    m_ActionName: Menu Selection/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a03ca32f-a874-479d-ba7a-75eb49c2a4c0
+    m_ActionName: Menu Selection/Navigate[/DualShock4GamepadHID/leftStick/up,/XInputControllerWindows/leftStick/up,/DualSenseGamepadHID/leftStick/up,/DualShock4GamepadHID/rightStick/up,/XInputControllerWindows/rightStick/up,/DualSenseGamepadHID/rightStick/up,/DualShock4GamepadHID/leftStick/down,/XInputControllerWindows/leftStick/down,/DualSenseGamepadHID/leftStick/down,/DualShock4GamepadHID/rightStick/down,/XInputControllerWindows/rightStick/down,/DualSenseGamepadHID/rightStick/down,/DualShock4GamepadHID/leftStick/left,/XInputControllerWindows/leftStick/left,/DualSenseGamepadHID/leftStick/left,/DualShock4GamepadHID/rightStick/left,/XInputControllerWindows/rightStick/left,/DualSenseGamepadHID/rightStick/left,/DualShock4GamepadHID/leftStick/right,/XInputControllerWindows/leftStick/right,/DualSenseGamepadHID/leftStick/right,/DualShock4GamepadHID/rightStick/right,/XInputControllerWindows/rightStick/right,/DualSenseGamepadHID/rightStick/right,/DualShock4GamepadHID/dpad,/XInputControllerWindows/dpad,/DualSenseGamepadHID/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2d4f3423-ded4-406e-bd15-5ee33fa2b897
+    m_ActionName: Menu Selection/Submit[/Keyboard/enter,/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth,/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8dc9e772-a62a-40d1-b606-95602f597862
+    m_ActionName: Menu Selection/Cancel[/Keyboard/escape,/DualShock4GamepadHID/buttonEast,/XInputControllerWindows/buttonEast,/DualSenseGamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0681c832-6c69-4c18-a674-758d98553d61
+    m_ActionName: Menu Selection/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e1637ea-3eb2-4f85-9d69-c20ab0266e6d
+    m_ActionName: Menu Selection/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3a5485b9-01bc-49ef-baf9-5fe9b75a9840
+    m_ActionName: Timeout/AnyInput[/Keyboard/anyKey,/DualShock4GamepadHID/buttonEast,/XInputControllerWindows/buttonEast,/DualSenseGamepadHID/buttonEast,/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth,/DualSenseGamepadHID/buttonSouth,/DualShock4GamepadHID/buttonWest,/XInputControllerWindows/buttonWest,/DualSenseGamepadHID/buttonWest,/DualShock4GamepadHID/buttonNorth,/XInputControllerWindows/buttonNorth,/DualSenseGamepadHID/buttonNorth,/DualShock4GamepadHID/start,/XInputControllerWindows/start,/DualSenseGamepadHID/start,/DualShock4GamepadHID/select,/XInputControllerWindows/select,/DualSenseGamepadHID/select,/DualShock4GamepadHID/dpad/down,/XInputControllerWindows/dpad/down,/DualSenseGamepadHID/dpad/down,/DualShock4GamepadHID/dpad/left,/XInputControllerWindows/dpad/left,/DualSenseGamepadHID/dpad/left,/DualShock4GamepadHID/dpad/right,/XInputControllerWindows/dpad/right,/DualSenseGamepadHID/dpad/right,/DualShock4GamepadHID/dpad/up,/XInputControllerWindows/dpad/up,/DualSenseGamepadHID/dpad/up,/DualShock4GamepadHID/leftShoulder,/XInputControllerWindows/leftShoulder,/DualSenseGamepadHID/leftShoulder,/DualShock4GamepadHID/rightShoulder,/XInputControllerWindows/rightShoulder,/DualSenseGamepadHID/rightShoulder,/DualShock4GamepadHID/leftTrigger,/XInputControllerWindows/leftTrigger,/DualSenseGamepadHID/leftTrigger,/DualShock4GamepadHID/rightTrigger,/XInputControllerWindows/rightTrigger,/DualSenseGamepadHID/rightTrigger,/DualShock4GamepadHID/leftStickPress,/XInputControllerWindows/leftStickPress,/DualSenseGamepadHID/leftStickPress,/DualShock4GamepadHID/rightStickPress,/XInputControllerWindows/rightStickPress,/DualSenseGamepadHID/rightStickPress,/Mouse/leftButton,/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 47c0f96e-620a-42f7-ad38-a600bcf45ca2
+    m_ActionName: Timeout/ForcePlay[/Keyboard/0]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Connect
@@ -208,6 +292,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReadyStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  SwapStateChanged:
     m_PersistentCalls:
       m_Calls: []
   ChosenCharacterChanged:

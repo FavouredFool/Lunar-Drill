@@ -53,9 +53,6 @@ public class SpiderLaser : MonoBehaviour
         _breakOut = false;
         AudioController.Fire(new SpiderLaserCharging(SpiderLaserCharging.ChargeState.ChargingStarted));
 
-        //Rumble
-        permanentRumble = Rumble.main?.RumbleBoth(0,1);
-
         // VFX
         _laserChargeOuter.SetFloat("Charge Time", _preLaserDuration);
         _laserChargeOuter.SetBool("Alive", true);
@@ -110,7 +107,7 @@ public class SpiderLaser : MonoBehaviour
 
         //Rumble
         Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
-        permanentRumble = Rumble.main?.RumbleBoth(0.5f, 1);
+        permanentRumble = Rumble.main?.RumbleBoth(0, 1);
 
         while (true)
         {

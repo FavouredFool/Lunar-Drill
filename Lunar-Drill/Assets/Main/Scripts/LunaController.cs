@@ -88,6 +88,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _rigidbody = GetComponent<Rigidbody2D>();
         InputBus.Subscribe<LunaMoveGoal>(this);
         InputBus.Subscribe<LunaShoot>(this);
+        
 
         transform.position = Quaternion.Euler(0, 0, 120) * Vector2.up * Utilities.OuterOrbit;
         transform.rotation = Quaternion.Euler(0, 0, -60);
@@ -123,6 +124,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         SetGoalDirectionInput(e.context);
     }
+
 
     public void LunaSound()
     {
@@ -205,6 +207,15 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         }
 
         _lunaControllMarker.SetGoalDirectionInput(readValue);
+    }
+
+    public void PauseInput(InputAction.CallbackContext context)
+    {
+        Debug.Log("PAUSE");
+        if (context.performed)
+        {
+            InputBus.Fire(new Pause(context));
+        }
     }
 
 

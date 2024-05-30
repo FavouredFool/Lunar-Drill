@@ -116,6 +116,11 @@ public class PlayerConnectController : MonoBehaviour
         InputBus.Fire(new DrillianMoveDirection(context));
     }
 
+    //Shared Events
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        InputBus.Fire(new Pause(context));
+    }
 
 
     //Method to activate the correct action map

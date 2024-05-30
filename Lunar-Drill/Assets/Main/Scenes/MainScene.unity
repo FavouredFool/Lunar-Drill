@@ -180,7 +180,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 129321634}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &17610890
 MonoBehaviour:
@@ -380,7 +380,6 @@ Transform:
   - {fileID: 1368627422}
   - {fileID: 1948594156}
   - {fileID: 626392374}
-  - {fileID: 17610889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &178520237 stripped
@@ -2407,6 +2406,54 @@ PrefabInstance:
       propertyPath: m_Name
       value: Luna
       objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 17610890}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionId
+      value: 3a5485b9-01bc-49ef-baf9-5fe9b75a9840
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
+      value: 47c0f96e-620a-42f7-ad38-a600bcf45ca2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionId
+      value: 7be0317a-f601-4c4a-925b-542d519cc7b4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionId
+      value: 18582611-4ef6-477c-b0ee-57dd009cbb75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionId
+      value: bd7985d6-d58d-4a39-aad7-c7a56a93e45a
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionName
+      value: Timeout/AnyInput[/Keyboard/anyKey,/DualShock4GamepadHID/buttonEast,/XInputControllerWindows/buttonEast,/DualSenseGamepadHID/buttonEast,/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth,/DualSenseGamepadHID/buttonSouth,/DualShock4GamepadHID/buttonWest,/XInputControllerWindows/buttonWest,/DualSenseGamepadHID/buttonWest,/DualShock4GamepadHID/buttonNorth,/XInputControllerWindows/buttonNorth,/DualSenseGamepadHID/buttonNorth,/DualShock4GamepadHID/start,/XInputControllerWindows/start,/DualSenseGamepadHID/start,/DualShock4GamepadHID/select,/XInputControllerWindows/select,/DualSenseGamepadHID/select,/DualShock4GamepadHID/dpad/down,/XInputControllerWindows/dpad/down,/DualSenseGamepadHID/dpad/down,/DualShock4GamepadHID/dpad/left,/XInputControllerWindows/dpad/left,/DualSenseGamepadHID/dpad/left,/DualShock4GamepadHID/dpad/right,/XInputControllerWindows/dpad/right,/DualSenseGamepadHID/dpad/right,/DualShock4GamepadHID/dpad/up,/XInputControllerWindows/dpad/up,/DualSenseGamepadHID/dpad/up,/DualShock4GamepadHID/leftShoulder,/XInputControllerWindows/leftShoulder,/DualSenseGamepadHID/leftShoulder,/DualShock4GamepadHID/rightShoulder,/XInputControllerWindows/rightShoulder,/DualSenseGamepadHID/rightShoulder,/DualShock4GamepadHID/leftTrigger,/XInputControllerWindows/leftTrigger,/DualSenseGamepadHID/leftTrigger,/DualShock4GamepadHID/rightTrigger,/XInputControllerWindows/rightTrigger,/DualSenseGamepadHID/rightTrigger,/DualShock4GamepadHID/leftStickPress,/XInputControllerWindows/leftStickPress,/DualSenseGamepadHID/leftStickPress,/DualShock4GamepadHID/rightStickPress,/XInputControllerWindows/rightStickPress,/DualSenseGamepadHID/rightStickPress,/Mouse/leftButton,/Mouse/rightButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
+      value: Timeout/ForcePlay[/Keyboard/0]
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionName
+      value: Luna/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionName
+      value: Drillian/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionName
+      value: Singleplayer/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+      objectReference: {fileID: 0}
     - target: {fileID: 6865908681980204696, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.1
@@ -2594,6 +2641,66 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 17610890}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionId
+      value: 3a5485b9-01bc-49ef-baf9-5fe9b75a9840
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
+      value: 47c0f96e-620a-42f7-ad38-a600bcf45ca2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionId
+      value: 7be0317a-f601-4c4a-925b-542d519cc7b4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionId
+      value: 18582611-4ef6-477c-b0ee-57dd009cbb75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionId
+      value: bd7985d6-d58d-4a39-aad7-c7a56a93e45a
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionName
+      value: Timeout/AnyInput[/Keyboard/anyKey,/DualShock4GamepadHID/buttonEast,/XInputControllerWindows/buttonEast,/DualSenseGamepadHID/buttonEast,/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth,/DualSenseGamepadHID/buttonSouth,/DualShock4GamepadHID/buttonWest,/XInputControllerWindows/buttonWest,/DualSenseGamepadHID/buttonWest,/DualShock4GamepadHID/buttonNorth,/XInputControllerWindows/buttonNorth,/DualSenseGamepadHID/buttonNorth,/DualShock4GamepadHID/start,/XInputControllerWindows/start,/DualSenseGamepadHID/start,/DualShock4GamepadHID/select,/XInputControllerWindows/select,/DualSenseGamepadHID/select,/DualShock4GamepadHID/dpad/down,/XInputControllerWindows/dpad/down,/DualSenseGamepadHID/dpad/down,/DualShock4GamepadHID/dpad/left,/XInputControllerWindows/dpad/left,/DualSenseGamepadHID/dpad/left,/DualShock4GamepadHID/dpad/right,/XInputControllerWindows/dpad/right,/DualSenseGamepadHID/dpad/right,/DualShock4GamepadHID/dpad/up,/XInputControllerWindows/dpad/up,/DualSenseGamepadHID/dpad/up,/DualShock4GamepadHID/leftShoulder,/XInputControllerWindows/leftShoulder,/DualSenseGamepadHID/leftShoulder,/DualShock4GamepadHID/rightShoulder,/XInputControllerWindows/rightShoulder,/DualSenseGamepadHID/rightShoulder,/DualShock4GamepadHID/leftTrigger,/XInputControllerWindows/leftTrigger,/DualSenseGamepadHID/leftTrigger,/DualShock4GamepadHID/rightTrigger,/XInputControllerWindows/rightTrigger,/DualSenseGamepadHID/rightTrigger,/DualShock4GamepadHID/leftStickPress,/XInputControllerWindows/leftStickPress,/DualSenseGamepadHID/leftStickPress,/DualShock4GamepadHID/rightStickPress,/XInputControllerWindows/rightStickPress,/DualSenseGamepadHID/rightStickPress,/Mouse/leftButton,/Mouse/rightButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
+      value: Timeout/ForcePlay[/Keyboard/0]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionName
+      value: Luna/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionName
+      value: Drillian/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionName
+      value: Singleplayer/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372043916927778522, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DrillianController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2649280870426949734, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_Name
       value: Drillian
@@ -5363,7 +5470,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1989054596}
-  - component: {fileID: 1989054595}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -5371,124 +5477,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1989054595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1989054594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: c145146e1c0bda941930fdab4d81bbfe, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d13cc91d-605a-4023-ac59-d8ee138d331b
-    m_ActionName: Luna/MoveGoal[/DualShock4GamepadHID/leftStick,/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bcb30632-91a4-4e31-bc74-6015b7202ad0
-    m_ActionName: Luna/Shoot[/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth,/DualShock4GamepadHID/buttonEast,/XInputControllerWindows/buttonEast,/DualShock4GamepadHID/buttonWest,/XInputControllerWindows/buttonWest,/DualShock4GamepadHID/buttonNorth,/XInputControllerWindows/buttonNorth,/Keyboard/enter,/Keyboard/space,/DualShock4GamepadHID/leftTrigger,/XInputControllerWindows/leftTrigger,/DualShock4GamepadHID/rightTrigger,/XInputControllerWindows/rightTrigger]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 753987829}
-        m_TargetAssemblyTypeName: GameMenuUIManager, Assembly-CSharp
-        m_MethodName: HandleToggleInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 478c4450-3483-4010-be8a-28abbd83b308
-    m_ActionName: Pause Menu/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/XInputControllerWindows/start]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2c5e1403-3afc-4e64-9ba4-2cf5b54a9b49
-    m_ActionName: Drillian/MoveDirection[/DualShock4GamepadHID/leftStick,/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e812c6a3-4103-4554-a650-c6d7949cc58b
-    m_ActionName: Connect/Swap[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID/start]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 495d7b70-17d8-422c-b088-c702e351dc1a
-    m_ActionName: Connect/Ready[/Mouse/leftButton,/Pen/tip,/SwitchProControllerHID/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 46dde74b-3159-4941-90e3-023c540bda67
-    m_ActionName: Singleplayer/MoveGoal[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b7c3c70b-0541-4359-b448-7f3a6020c8d1
-    m_ActionName: Singleplayer/MoveDirection[/SwitchProControllerHID/rightStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c2020f35-150a-447c-878f-04d594b9cca9
-    m_ActionName: Singleplayer/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 428467d9-9752-481f-bf2f-deb4c3e43516
-    m_ActionName: Menu Selection/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 85750ce7-8188-4817-94cb-27ac9dcfc471
-    m_ActionName: Menu Selection/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6d66a07a-8457-439a-90de-28d89f072145
-    m_ActionName: Menu Selection/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9c2897f9-a4c6-4f6b-8aa4-0de3ca192537
-    m_ActionName: Menu Selection/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4518b08f-30c7-45d0-a4c9-e5d4c90127ff
-    m_ActionName: Menu Selection/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a03ca32f-a874-479d-ba7a-75eb49c2a4c0
-    m_ActionName: Menu Selection/Navigate[/DualShock4GamepadHID/leftStick/up,/XInputControllerWindows/leftStick/up,/SwitchProControllerHID/leftStick/up,/DualShock4GamepadHID/rightStick/up,/XInputControllerWindows/rightStick/up,/SwitchProControllerHID/rightStick/up,/DualShock4GamepadHID/leftStick/down,/XInputControllerWindows/leftStick/down,/SwitchProControllerHID/leftStick/down,/DualShock4GamepadHID/rightStick/down,/XInputControllerWindows/rightStick/down,/SwitchProControllerHID/rightStick/down,/DualShock4GamepadHID/leftStick/left,/XInputControllerWindows/leftStick/left,/SwitchProControllerHID/leftStick/left,/DualShock4GamepadHID/rightStick/left,/XInputControllerWindows/rightStick/left,/SwitchProControllerHID/rightStick/left,/DualShock4GamepadHID/leftStick/right,/XInputControllerWindows/leftStick/right,/SwitchProControllerHID/leftStick/right,/DualShock4GamepadHID/rightStick/right,/XInputControllerWindows/rightStick/right,/SwitchProControllerHID/rightStick/right,/DualShock4GamepadHID/dpad,/XInputControllerWindows/dpad,/SwitchProControllerHID/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2d4f3423-ded4-406e-bd15-5ee33fa2b897
-    m_ActionName: Menu Selection/Submit[/Keyboard/enter,/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth,/SwitchProControllerHID/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8dc9e772-a62a-40d1-b606-95602f597862
-    m_ActionName: Menu Selection/Cancel[/Keyboard/escape,/DualShock4GamepadHID/buttonEast,/XInputControllerWindows/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0681c832-6c69-4c18-a674-758d98553d61
-    m_ActionName: Menu Selection/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5e1637ea-3eb2-4f85-9d69-c20ab0266e6d
-    m_ActionName: Menu Selection/TrackedDeviceOrientation
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Pause Menu
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!4 &1989054596
 Transform:
   m_ObjectHideFlags: 0
@@ -9966,6 +9954,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 17610889}
   - {fileID: 670284829}
   - {fileID: 1301515984}
   - {fileID: 984790317}

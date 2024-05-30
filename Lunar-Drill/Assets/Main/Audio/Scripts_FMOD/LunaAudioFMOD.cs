@@ -44,7 +44,7 @@ public class LunaAudioFMOD : MonoBehaviour,
         {
             _laser.start();
         }
-        Debug.Log($"Laser {audioEvent.CurrentState}, Energy {audioEvent.LaserEnergyRemaining}");
+        //Debug.Log($"Laser {audioEvent.CurrentState}, Energy {audioEvent.LaserEnergyRemaining}");
         _laser.setParameterByName("Luna Laser Firing", (int)audioEvent.CurrentState);
         _laser.setParameterByName("Luna Laser Charge", audioEvent.LaserEnergyRemaining);
     }

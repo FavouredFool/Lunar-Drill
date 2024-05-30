@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameMenuUIManager : MonoBehaviour
+public class GameMenuUIManager : MonoBehaviour, IInputSubscriber<Pause>
 {
     //--- Exposed Fields ------------------------
 
@@ -19,6 +19,7 @@ public class GameMenuUIManager : MonoBehaviour
     [SerializeField] private float _laserMinHeight, _laserMaxHeight;
     [SerializeField] float _laserInTime = 0.05f;
     [SerializeField] float _laserExpandTime = 0.1f;
+
 
     // --- Public Fields ------------------------
     public bool IsOpen = false;
@@ -34,6 +35,13 @@ public class GameMenuUIManager : MonoBehaviour
     {
         _laserRect = _laser.GetComponent<RectTransform>();
         _backgroundPanelImage = _optionsBackgroundPanel.GetComponent<Image>();
+
+        InputBus.Subscribe<Pause>(this);
+    }
+
+    private void OnDestroy()
+    {
+        InputBus.Unsubscribe<Pause>(this);
     }
 
     //--- Public Methods ------------------------
@@ -47,7 +55,10 @@ public class GameMenuUIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-
+    public void OnEventHappened(Pause e) // Event to use Input System
+    {
+        HandleToggleInput(e.context);
+    }
     /* Opens and closes options. */
     public void HandleToggleInput(InputAction.CallbackContext context)
     {
