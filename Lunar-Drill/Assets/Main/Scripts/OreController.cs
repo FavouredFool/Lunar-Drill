@@ -108,6 +108,7 @@ public class OreController : MonoBehaviour
             if (_oreState == OreState.FLYING)
             {
                 DestroyOre();
+                Collected = true;
             }
         }
     }
