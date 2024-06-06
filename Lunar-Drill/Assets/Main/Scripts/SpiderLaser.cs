@@ -137,6 +137,7 @@ public class SpiderLaser : MonoBehaviour
     public void StopLaser()
     {
         _breakOut = true;
+        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
     }
 
 
