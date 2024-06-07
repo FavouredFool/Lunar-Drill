@@ -67,7 +67,6 @@ public class SpiderController : MonoBehaviour
     Tween _hasJustBeenHitTween;
     bool _hasJustBeenHit = false;
 
-    Rumble.Profile permanentRumble = null;
 
     //--- Unity Methods ------------------------
 
@@ -130,10 +129,7 @@ public class SpiderController : MonoBehaviour
                     _spriteIterator.CancelStun();
                 });
 
-
-                // stop current move?? (before applying new rumble)
-
-                permanentRumble = Rumble.main?.RumbleBoth(1, 0);
+                _spiderLaser.StopLaser();
             }
         }
         else
@@ -560,7 +556,6 @@ public class SpiderController : MonoBehaviour
         }
 
         Rumble.main?.RumbleBoth(5, 1f, 0.3f);
-        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
     }
 
     void SpawnHP()
