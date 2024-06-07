@@ -11,10 +11,11 @@ public class MainMenuUIManager : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
 
+    [Header("Cross Dependecies")]
+    [SerializeField] private HighlightTextOutlines _highlightTextOutlines;
+
     [Header("Main Menu")]
     [SerializeField] private List<GameObject> _mainMenuButtons;
-    [SerializeField] private List<TMP_Text> _mainMenuButtonsTexts;
-    [SerializeField] private List<Color> _mainMenuButtonsHighlightColors;
 
     [Header("Options Functionality")]
     [SerializeField] private RectTransform _mainMenuContainer;
@@ -55,8 +56,11 @@ public class MainMenuUIManager : MonoBehaviour
 
         var eventSystem = EventSystem.current;
         eventSystem.SetSelectedGameObject(_mainMenuFirstSelect, new BaseEventData(eventSystem)); // Select for controller support
+    }
 
-        HighlightOutline(0); // assume first menu button is first selected
+    private void Start()
+    {
+        _highlightTextOutlines.HighlightOutline(0); // assume first menu button is first selected
     }
 
     //--- Public Methods ------------------------
@@ -90,28 +94,11 @@ public class MainMenuUIManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(_mainMenuButtons[idx], new BaseEventData(eventSystem));
     }
 
-
-    /* Sets outline color of Main Menu Button given by index in list. */
-    public void HighlightOutline(int idx)
-    {
-        _mainMenuButtonsTexts[idx].gameObject.SetActive(false); // have to do this, cause idk
-        _mainMenuButtonsTexts[idx].outlineColor = _mainMenuButtonsHighlightColors[idx];
-        _mainMenuButtonsTexts[idx].gameObject.SetActive(true);
-    }
-
-    /* Sets outline color of Main Menu Button given by index in list. */
-    public void NoHighlightOutline(int idx)
-    {
-        _mainMenuButtonsTexts[idx].gameObject.SetActive(false); // have to do this, cause idk
-        _mainMenuButtonsTexts[idx].outlineColor = _mainMenuButtonsHighlightColors[3];
-        _mainMenuButtonsTexts[idx].gameObject.SetActive(true);
-    }
-
     /* Opens and closes options. */
     public void HandleToggleInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
- 
+
         ToggleOptions();
     }
 
@@ -126,7 +113,7 @@ public class MainMenuUIManager : MonoBehaviour
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(_mainMenuFirstSelect, new BaseEventData(eventSystem)); // Select for controller support
 
-            HighlightOutline(0); // assume first menu button is first selected
+            _highlightTextOutlines.HighlightOutline(0); // assume first menu button is first selected
 
             Time.timeScale = 1; // TODO: figure out why that needed to be here but =0 is nowhere to be found
 
