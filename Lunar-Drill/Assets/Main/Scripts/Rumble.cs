@@ -194,7 +194,7 @@ public class Rumble : MonoBehaviour
     }
     public void SetRumble(Gamepad gamepad, Profile rumble)
     {
-        Debug.Log("RUMBLE on " + gamepad);
+        //Debug.Log("RUMBLE on " + gamepad);
         if (!AllowRumble)
         {
             Debug.LogError("Rumble set while disabled!");
