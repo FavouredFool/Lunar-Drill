@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class ConnectManager : MonoBehaviour
+public class Depricated_ConnectManager : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
     [Header("UI")]
     [SerializeField] private SelectMenuUIManager _uiManager;
 
     // --- Public Fields ------------------------
-    public List<PlayerConnectController> connectedPlayers = new();
+    public List<Depricated_PlayerConnectController> connectedPlayers = new();
 
     public int NumberConnectedPlayers
     {
@@ -143,7 +143,7 @@ public class ConnectManager : MonoBehaviour
         bool Down = true;
         for (int i = 0; i < connectedPlayers.Count; i++)
         {
-            PlayerConnectController c = connectedPlayers[i];
+            Depricated_PlayerConnectController c = connectedPlayers[i];
             bool isDown = c.ReadyDown;
             if (i == 0) p1 = isDown;
             else p2 = isDown;
@@ -159,7 +159,7 @@ public class ConnectManager : MonoBehaviour
         bool Down = true;
         for (int i = 0; i < connectedPlayers.Count; i++)
         {
-            PlayerConnectController c = connectedPlayers[i];
+            Depricated_PlayerConnectController c = connectedPlayers[i];
             bool isDown = c.SwapDown;
             if (i == 0) p1 = isDown;
             else p2 = isDown;
@@ -173,7 +173,7 @@ public class ConnectManager : MonoBehaviour
     {
         if (!isMultiplayer) return;
 
-        PlayerConnectController
+        Depricated_PlayerConnectController
             p1 = connectedPlayers[0],
             p2 = connectedPlayers[1];
 
@@ -209,7 +209,7 @@ public class ConnectManager : MonoBehaviour
     public void PlayerJoined(PlayerInput input)
     {
         playerInputs.Add(input);
-        PlayerConnectController playerConnectInfo = input.gameObject.GetComponent<PlayerConnectController>();
+        Depricated_PlayerConnectController playerConnectInfo = input.gameObject.GetComponent<Depricated_PlayerConnectController>();
 
         if (playerConnectInfo != null)
         {
@@ -218,7 +218,7 @@ public class ConnectManager : MonoBehaviour
 
             if (connectedPlayers.Count == 1)
             {
-                connectedPlayers[0].SetCharacter(ChosenCharacter.singleplayer);
+                connectedPlayers[0].SetCharacter(ChosenCharacter.both);
                 _uiManager.SetSolo();
 
                 // Make sure game does not get started by same action that joins player

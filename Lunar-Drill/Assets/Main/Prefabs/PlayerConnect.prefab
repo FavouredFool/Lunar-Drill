@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4435502170698515778}
   - component: {fileID: -3667416700400296773}
-  - component: {fileID: -6263970602297081459}
+  - component: {fileID: -336447311194700004}
   m_Layer: 0
   m_Name: PlayerConnect
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -60,9 +60,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
+      - m_Target: {fileID: -336447311194700004}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnMoveGoal
+        m_MethodName: OnMoveLuna
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -76,9 +76,9 @@ MonoBehaviour:
     m_ActionName: Luna/MoveGoal[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
+      - m_Target: {fileID: -336447311194700004}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnShoot
+        m_MethodName: OnActiveLuna
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -92,9 +92,9 @@ MonoBehaviour:
     m_ActionName: Luna/Shoot[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID/buttonNorth,/Keyboard/enter,/Keyboard/space,/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
+      - m_Target: {fileID: -336447311194700004}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnMoveDirection
+        m_MethodName: OnMoveDrillian
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -107,46 +107,10 @@ MonoBehaviour:
     m_ActionId: 2c5e1403-3afc-4e64-9ba4-2cf5b54a9b49
     m_ActionName: Drillian/MoveDirection[/SwitchProControllerHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 478c4450-3483-4010-be8a-28abbd83b308
-    m_ActionName: Pause Menu/Pause[/Keyboard/escape,/SwitchProControllerHID/start]
-  - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
+      - m_Target: {fileID: -336447311194700004}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnSwap
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e812c6a3-4103-4554-a650-c6d7949cc58b
-    m_ActionName: Connect/New action[/Keyboard/anyKey]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
-        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnReady
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 495d7b70-17d8-422c-b088-c702e351dc1a
-    m_ActionName: Connect/Ready[/Mouse/leftButton,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
-        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnMoveGoal
+        m_MethodName: OnMoveLuna
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -160,9 +124,9 @@ MonoBehaviour:
     m_ActionName: Singleplayer/MoveGoal[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
+      - m_Target: {fileID: -336447311194700004}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnMoveDirection
+        m_MethodName: OnMoveDrillian
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -176,9 +140,9 @@ MonoBehaviour:
     m_ActionName: Singleplayer/MoveDirection[/XInputControllerWindows/rightStick,/XInputControllerWindows1/rightStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
+      - m_Target: {fileID: -336447311194700004}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnShoot
+        m_MethodName: OnActiveLuna
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -192,9 +156,9 @@ MonoBehaviour:
     m_ActionName: Singleplayer/Shoot[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast,/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest,/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth,/Keyboard/enter,/Keyboard/space,/XInputControllerWindows/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
+      - m_Target: {fileID: -336447311194700004}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnPause
+        m_MethodName: OnInputPause
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -208,9 +172,9 @@ MonoBehaviour:
     m_ActionName: Luna/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6263970602297081459}
+      - m_Target: {fileID: -336447311194700004}
         m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
-        m_MethodName: OnPause
+        m_MethodName: OnInputPause
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -223,7 +187,19 @@ MonoBehaviour:
     m_ActionId: 18582611-4ef6-477c-b0ee-57dd009cbb75
     m_ActionName: Drillian/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnInputPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: bd7985d6-d58d-4a39-aad7-c7a56a93e45a
     m_ActionName: Singleplayer/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/DualSenseGamepadHID/start,/XInputControllerWindows/start]
   - m_PersistentCalls:
@@ -274,12 +250,256 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 47c0f96e-620a-42f7-ad38-a600bcf45ca2
     m_ActionName: Timeout/ForcePlay[/Keyboard/0]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnActiveDrillian
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f7d15240-594a-4b83-a4b4-d1c5f1c449b4
+    m_ActionName: Drillian/Active[/DualSenseGamepadHID/rightShoulder,/DualSenseGamepadHID/rightTrigger,/DualSenseGamepadHID/leftShoulder,/DualSenseGamepadHID/leftTrigger,/DualSenseGamepadHID/buttonSouth,/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID/buttonNorth,/DualSenseGamepadHID/dpad/down,/DualSenseGamepadHID/dpad/left,/DualSenseGamepadHID/dpad/right,/DualSenseGamepadHID/dpad/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnActiveDrillian
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6cdebe5c-df9d-44a4-a663-b65751c0ed36
+    m_ActionName: Singleplayer/ActiveDrillian[/DualSenseGamepadHID/rightShoulder,/DualSenseGamepadHID/rightTrigger,/DualSenseGamepadHID/buttonSouth,/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnLunaInputNorth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cd63a037-aefe-4f73-b980-35ec95cd5698
+    m_ActionName: Luna/North[/DualSenseGamepadHID/buttonNorth,/DualSenseGamepadHID/dpad/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnLunaInputEast
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fd4c4582-d73a-43bd-af64-c132800a0a52
+    m_ActionName: Luna/East[/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnLunaInputSouth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7aed7391-86ce-4fea-a255-0ef77a22ba3f
+    m_ActionName: Luna/South[/DualSenseGamepadHID/buttonSouth,/DualSenseGamepadHID/dpad/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnLunaInputWest
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: adf72e89-d9cf-47d6-b1a0-e9dde6f8178d
+    m_ActionName: Luna/West[/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID/leftStick/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnDrillianInputNorth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 76063e0e-ec64-402d-b894-775936efa5a7
+    m_ActionName: Drillian/North[/DualSenseGamepadHID/buttonNorth,/DualSenseGamepadHID/dpad/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnDrillianInputEast
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5832dd73-6078-44b1-b7b5-2096fd1ec027
+    m_ActionName: Drillian/East[/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnDrillianInputSouth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d50e9387-4df1-48ad-8a5b-28a4e394ae0b
+    m_ActionName: Drillian/South[/DualSenseGamepadHID/buttonSouth,/DualSenseGamepadHID/dpad/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnDrillianInputWest
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5b9075ee-7be9-469e-8890-df616caeeaaa
+    m_ActionName: Drillian/West[/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID/leftStick/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnBothInputNorth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 15a66a97-2b27-42d7-b66e-24e5f60c0c4f
+    m_ActionName: Singleplayer/North[/DualSenseGamepadHID/buttonNorth,/DualSenseGamepadHID/dpad/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnBothInputEast
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a80eea3a-3a4e-413a-96f1-75cc0d046cc1
+    m_ActionName: Singleplayer/East[/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnBothInputSouth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9607cb48-8086-461b-b750-180ec8e95b32
+    m_ActionName: Singleplayer/South[/DualSenseGamepadHID/buttonSouth,/DualSenseGamepadHID/dpad/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnBothInputWest
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e15a76fd-6b07-412c-8f7a-34b0e499ca05
+    m_ActionName: Singleplayer/West[/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID/leftStick/left]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9a8799f6-f0c8-415e-8c39-a0db2f76c1c5
+    m_ActionName: Singleplayer/ActiveBoth[/DualSenseGamepadHID/dpad/up,/DualSenseGamepadHID/dpad/right,/DualSenseGamepadHID/dpad/left,/DualSenseGamepadHID/dpad/down,/DualSenseGamepadHID/leftTrigger,/DualSenseGamepadHID/leftShoulder,/DualSenseGamepadHID/rightShoulder,/DualSenseGamepadHID/rightTrigger,/DualSenseGamepadHID/buttonSouth,/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnTest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9d79bf79-9619-46c3-8207-7e8b60932564
+    m_ActionName: Connect/Connect[/DualSenseGamepadHID/dpad/up,/SwitchProControllerHID/dpad/up,/DualSenseGamepadHID/dpad/right,/SwitchProControllerHID/dpad/right,/DualSenseGamepadHID/dpad/left,/SwitchProControllerHID/dpad/left,/DualSenseGamepadHID/dpad/down,/SwitchProControllerHID/dpad/down,/DualSenseGamepadHID/leftTrigger,/SwitchProControllerHID/leftTrigger,/DualSenseGamepadHID/leftShoulder,/SwitchProControllerHID/leftShoulder,/DualSenseGamepadHID/rightShoulder,/SwitchProControllerHID/rightShoulder,/DualSenseGamepadHID/rightTrigger,/SwitchProControllerHID/rightTrigger,/DualSenseGamepadHID/buttonSouth,/SwitchProControllerHID/buttonSouth,/DualSenseGamepadHID/buttonEast,/SwitchProControllerHID/buttonEast,/DualSenseGamepadHID/buttonWest,/SwitchProControllerHID/buttonWest,/DualSenseGamepadHID/buttonNorth,/SwitchProControllerHID/buttonNorth,/DualSenseGamepadHID/leftStickPress,/SwitchProControllerHID/leftStickPress,/DualSenseGamepadHID/rightStickPress,/SwitchProControllerHID/rightStickPress]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Connect
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &-6263970602297081459
+--- !u!114 &-336447311194700004
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,16 +508,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3814233244604319396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13840bdb195c3364faeb3927222cc2d8, type: 3}
+  m_Script: {fileID: 11500000, guid: f896aa67c77a2aa4e98899f72dedd35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadyStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  SwapStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  ChosenCharacterChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  _character: 2

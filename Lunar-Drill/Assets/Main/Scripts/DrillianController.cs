@@ -145,10 +145,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             InputBus.Fire(new Pause(context));
         }
     }
-    public void TEST(InputAction.CallbackContext context)
-    {
-        Debug.LogWarning("HEUREKA!");
-    }
 
     //--- Private Methods ------------------------
 

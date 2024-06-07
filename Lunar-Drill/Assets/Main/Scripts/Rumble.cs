@@ -92,7 +92,7 @@ public class Rumble : MonoBehaviour
     }
     public Gamepad GetGamepad(ChosenCharacter c)
     {
-        if (isSingleplayer) c = ChosenCharacter.singleplayer;
+        if (isSingleplayer) c = ChosenCharacter.both;
 
         switch (c)
         {
@@ -151,7 +151,7 @@ public class Rumble : MonoBehaviour
 
         if (isSingleplayer)
         {
-            RefreshRumble(GetGamepad(ChosenCharacter.singleplayer), sharedRumble);
+            RefreshRumble(GetGamepad(ChosenCharacter.both), sharedRumble);
         }
         else
         {
