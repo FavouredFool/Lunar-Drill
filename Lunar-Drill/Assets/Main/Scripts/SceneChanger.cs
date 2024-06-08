@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
+    public static SceneChanger instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void LoadScene0_MainMenu() => LoadScene(SceneIdentity.MainMenu);
     public void LoadScene1_PlayerConnect() => LoadScene(SceneIdentity.PlayerConnect);
     public void LoadScene2_PlayerSelect() => LoadScene(SceneIdentity.PlayerSelect);

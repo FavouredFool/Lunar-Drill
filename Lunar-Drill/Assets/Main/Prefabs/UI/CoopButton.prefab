@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5950864629068640843
 RectTransform:
   m_ObjectHideFlags: 0
@@ -182,6 +182,7 @@ RectTransform:
   - {fileID: 6677813329957741019}
   - {fileID: 5950864629068640843}
   - {fileID: 7358763887842548501}
+  - {fileID: 4591686053499886258}
   m_Father: {fileID: 4154033371620127662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -189,6 +190,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2475555658252258638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4591686053499886258}
+  - component: {fileID: 4598447711003124381}
+  - component: {fileID: 2656396752251586726}
+  m_Layer: 5
+  m_Name: Single
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &4591686053499886258
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475555658252258638}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 663843713688386759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4598447711003124381
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475555658252258638}
+  m_CullTransparentMesh: 1
+--- !u!114 &2656396752251586726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475555658252258638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: a40aa8b4cb8bfac4ab7cb90b203c31f6, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2495579484071081640
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6677813329957741019
 RectTransform:
   m_ObjectHideFlags: 0
@@ -469,7 +545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3276540541098147503
 RectTransform:
   m_ObjectHideFlags: 0
@@ -544,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7358763887842548501
 RectTransform:
   m_ObjectHideFlags: 0
@@ -814,6 +890,7 @@ MonoBehaviour:
   _fullBodyBar: {fileID: 624223336413205633}
   _halfBodyDrillianBar: {fileID: 8966251903047337321}
   _halfBodyLunaBar: {fileID: 4713680279020389217}
+  _singleInputPrompt: {fileID: 2656396752251586726}
   _inputPrompts:
   - {fileID: 6628943380098078327}
   - {fileID: 4083277908241868904}
@@ -822,14 +899,11 @@ MonoBehaviour:
   _fullAnySprite: {fileID: 21300000, guid: 272b090cd71d26b4cb5354dfb1d3bd6c, type: 3}
   _fullDrillianSprite: {fileID: 21300000, guid: 70cf1daac41a06748ac614c431b05b1d, type: 3}
   _fullLunaSprite: {fileID: 21300000, guid: ff87742c997eb1d47b78666da9393c3f, type: 3}
+  _pausePromptSprite: {fileID: 21300000, guid: a40aa8b4cb8bfac4ab7cb90b203c31f6, type: 3}
   _inputCharacter: 0
   _inputRequired: 0
-  _revertRequirement: 0
   _requiredPressTime: 0
-  _lunarWeight: 0
-  _drillianWeight: 0
-  _lunarTime: 0
-  _drillianTime: 0
+  _isOverlayMenu: 0
 --- !u!222 &1300128231482699280
 CanvasRenderer:
   m_ObjectHideFlags: 0

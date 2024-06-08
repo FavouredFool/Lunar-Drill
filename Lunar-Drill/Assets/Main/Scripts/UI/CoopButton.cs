@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using DG.Tweening;
 
-public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSubscriber<InputEast>, IInputSubscriber<InputSouth>, IInputSubscriber<InputWest>
+public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSubscriber<InputEast>, IInputSubscriber<InputSouth>, IInputSubscriber<InputWest>, IInputSubscriber<Pause>
 {
     public Button.ButtonClickedEvent _OnInputPerformedEvents;
 
@@ -16,30 +16,38 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
     [SerializeField] Image _fullBodyBar;
     [SerializeField] Image _halfBodyDrillianBar, _halfBodyLunaBar;
 
+    [SerializeField] Image _singleInputPrompt;
     [SerializeField] Image[] _inputPrompts;
 
     [SerializeField] Sprite _fullAnySprite, _fullDrillianSprite, _fullLunaSprite;
+    [SerializeField] Sprite _pausePromptSprite;
 
 
     [Header("Settings")]
     public ChosenCharacter _inputCharacter;
-    public enum InputDirection
+    [System.Flags] public enum InputType
     {
-        Any, North, East, South, West
+        None=0,
+        Pause=1, 
+        North=2, 
+        East=4, 
+        South=8, 
+        West=16
     }
-    public InputDirection _inputRequired;
-    public bool _revertRequirement;
+    public InputType _inputRequired;
     public float _requiredPressTime;
+    public bool _isOverlayMenu;
+
 
     [Header("Internal")]
     Tween _scaleTween;
     Tween 
         _fullBodyTween, 
         _halfBodyDrillianTween, _halfBodyLunaTween;
-    public int
+     int
         _lunarWeight,
         _drillianWeight;
-    public float
+     float
         _lunarTime,
         _drillianTime;
 
@@ -99,9 +107,16 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
         }
     }
 
+    bool HasSingle => _inputRequired.HasFlag(InputType.Pause);
+    bool HasCompass =>
+        _inputRequired.HasFlag(InputType.North) ||
+        _inputRequired.HasFlag(InputType.East) ||
+        _inputRequired.HasFlag(InputType.South) ||
+        _inputRequired.HasFlag(InputType.West);
+
     private void OnValidate()
     {
-        Refresh(_inputCharacter, _inputRequired,_revertRequirement);
+        Refresh(_inputCharacter, _inputRequired);
     }
     private void OnEnable()
     {
@@ -110,7 +125,9 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
         InputBus.Subscribe<InputSouth>(this);
         InputBus.Subscribe<InputWest>(this);
 
-        Refresh(_inputCharacter, _inputRequired, _revertRequirement);
+        InputBus.Subscribe<Pause>(this);
+
+        Refresh(_inputCharacter, _inputRequired);
     }
     private void OnDisable()
     {
@@ -118,6 +135,8 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
         InputBus.Unsubscribe<InputEast>(this);
         InputBus.Unsubscribe<InputSouth>(this);
         InputBus.Unsubscribe<InputWest>(this);
+
+        InputBus.Unsubscribe<Pause>(this);
     }
 
     private void Update()
@@ -151,7 +170,7 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
     }
 
     //Used to set things up. Should likely not be changed at runtime
-    public void Refresh(ChosenCharacter character, InputDirection prompt, bool revert)
+    public void Refresh(ChosenCharacter character, InputType prompt)
     {
         _lunarTime = 0;
         _drillianTime = 0;
@@ -159,7 +178,7 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
         _lunarWeight = 0;
         _drillianWeight = 0;
 
-        SetRequired(prompt,revert);
+        SetRequired(prompt);
         SetCharacter(character);
     }
     public void SetCharacter(ChosenCharacter ply)
@@ -174,20 +193,38 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
 
         UpdateBody();
     }
-    public void SetRequired(InputDirection dir, bool revert)
+    public void SetRequired(InputType inp)
     {
-        _revertRequirement = revert;
-        _inputRequired = dir;
-        UpdatePrompt(InputDirection.North, InputActionPhase.Canceled);
-        UpdatePrompt(InputDirection.East, InputActionPhase.Canceled);
-        UpdatePrompt(InputDirection.South, InputActionPhase.Canceled);
-        UpdatePrompt(InputDirection.West, InputActionPhase.Canceled);
+        _inputRequired = inp;
+        UpdatePrompt(InputType.Pause, InputActionPhase.Canceled);
+        UpdatePrompt(InputType.North, InputActionPhase.Canceled);
+        UpdatePrompt(InputType.East, InputActionPhase.Canceled);
+        UpdatePrompt(InputType.South, InputActionPhase.Canceled);
+        UpdatePrompt(InputType.West, InputActionPhase.Canceled);
     }
 
     //Visuals
-    public void UpdatePrompt(InputDirection dir, InputActionPhase phase)
+    public void UpdatePrompt(InputType inp, InputActionPhase phase)
     {
-        Image prompt = _inputPrompts[(int)dir - 1];
+        Image prompt;
+        if (inp.HasFlag(InputType.Pause))
+        {
+            prompt = _singleInputPrompt;
+            prompt.sprite = _pausePromptSprite;
+        }
+        else if (inp.HasFlag(InputType.North))
+            prompt = _inputPrompts[0];
+        else if (inp.HasFlag(InputType.East))
+            prompt = _inputPrompts[1];
+        else if (inp.HasFlag(InputType.South))
+            prompt = _inputPrompts[2];
+        else if (inp.HasFlag(InputType.West))
+            prompt = _inputPrompts[3];
+        else return;
+
+        prompt.gameObject.SetActive(prompt == _singleInputPrompt ? HasSingle : HasCompass);
+
+        if (!prompt.gameObject.activeSelf) return;
 
         switch (phase)
         {
@@ -203,7 +240,7 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
                 break;
         }
 
-        if (_inputRequired != InputDirection.Any && (_revertRequirement? _inputRequired == dir : _inputRequired != dir))
+        if (!_inputRequired.HasFlag(inp))
         {
             prompt.color = Color.black;
             prompt.transform.localScale *= 0.75f;
@@ -230,24 +267,22 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
     }
 
     //Logic
-    public void ProcessInput(ChosenCharacter character, InputDirection direction, InputActionPhase phase)
+    public virtual bool ProcessInput(ChosenCharacter character, InputType inp, InputActionPhase phase)
     {
         if (character == ChosenCharacter.any) 
             character = ChosenCharacter.both;
 
-        if (phase != InputActionPhase.Started && phase != InputActionPhase.Canceled) return;
-
-        Debug.Log("Input " + character.ToString() + " " + direction.ToString());
+        if (phase != InputActionPhase.Started && phase != InputActionPhase.Canceled) return false;
 
         if (_inputCharacter != ChosenCharacter.both && _inputCharacter!= ChosenCharacter.any &&
-            character != ChosenCharacter.both && character != _inputCharacter) return;
+            character != ChosenCharacter.both && character != _inputCharacter) return false;
         //Input is Registered!
 
-        UpdatePrompt(direction, phase);
+        UpdatePrompt(inp, phase);
 
-        if (_inputRequired != InputDirection.Any && direction != InputDirection.Any && 
-            (_revertRequirement? _inputRequired == direction : _inputRequired != direction)) return;
+        if (!_inputRequired.HasFlag(inp)) return false;
         //Input is Relevant!
+
         bool on = phase == InputActionPhase.Started;
         switch (character) //Add weight
         {
@@ -270,13 +305,16 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
         _lunarWeight = Mathf.Max(0, _lunarWeight);
 
         UpdateBody();
+
+        return true;
     }
-    public void TriggerEvents()
+    public virtual void TriggerEvents()
     {
         _OnInputPerformedEvents.Invoke();
 
+        transform.localScale = Vector3.one;
         _scaleTween.Kill();
-        _scaleTween = transform.DOPunchScale(Vector3.one*0.2f, 0.33f).SetEase(Ease.OutSine);
+        _scaleTween = transform.DOPunchScale(Vector3.one * 0.2f, 0.33f).SetEase(Ease.OutSine);
 
         _lunarWeight = 0;
         _drillianWeight = 0;
@@ -285,8 +323,26 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
         _drillianTime = 0;
     }
 
-    public void OnEventHappened(InputNorth e) => ProcessInput(e.character, InputDirection.North,e.context.phase);
-    public void OnEventHappened(InputEast e) => ProcessInput(e.character, InputDirection.East, e.context.phase);
-    public void OnEventHappened(InputSouth e) => ProcessInput(e.character, InputDirection.South, e.context.phase);
-    public void OnEventHappened(InputWest e) => ProcessInput(e.character, InputDirection.West, e.context.phase);
+    public void OnEventHappened(Pause e) => ProcessInput(ChosenCharacter.any, InputType.Pause, e.context.phase);
+
+    public void OnEventHappened(InputNorth e)
+    {
+        if (e.inOverlayMenu && !_isOverlayMenu) return;
+        ProcessInput(e.character, InputType.North, e.context.phase);
+    }
+    public void OnEventHappened(InputEast e)
+    {
+        if (e.inOverlayMenu && !_isOverlayMenu) return;
+        ProcessInput(e.character, InputType.East, e.context.phase);
+    }
+    public void OnEventHappened(InputSouth e)
+    {
+        if (e.inOverlayMenu && !_isOverlayMenu) return;
+        ProcessInput(e.character, InputType.South, e.context.phase);
+    }
+    public void OnEventHappened(InputWest e)
+    {
+        if (e.inOverlayMenu && !_isOverlayMenu) return;
+        ProcessInput(e.character, InputType.West, e.context.phase);
+    }
 }

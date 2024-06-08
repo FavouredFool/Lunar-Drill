@@ -494,6 +494,86 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9d79bf79-9619-46c3-8207-7e8b60932564
     m_ActionName: Connect/Connect[/DualSenseGamepadHID/dpad/up,/SwitchProControllerHID/dpad/up,/DualSenseGamepadHID/dpad/right,/SwitchProControllerHID/dpad/right,/DualSenseGamepadHID/dpad/left,/SwitchProControllerHID/dpad/left,/DualSenseGamepadHID/dpad/down,/SwitchProControllerHID/dpad/down,/DualSenseGamepadHID/leftTrigger,/SwitchProControllerHID/leftTrigger,/DualSenseGamepadHID/leftShoulder,/SwitchProControllerHID/leftShoulder,/DualSenseGamepadHID/rightShoulder,/SwitchProControllerHID/rightShoulder,/DualSenseGamepadHID/rightTrigger,/SwitchProControllerHID/rightTrigger,/DualSenseGamepadHID/buttonSouth,/SwitchProControllerHID/buttonSouth,/DualSenseGamepadHID/buttonEast,/SwitchProControllerHID/buttonEast,/DualSenseGamepadHID/buttonWest,/SwitchProControllerHID/buttonWest,/DualSenseGamepadHID/buttonNorth,/SwitchProControllerHID/buttonNorth,/DualSenseGamepadHID/leftStickPress,/SwitchProControllerHID/leftStickPress,/DualSenseGamepadHID/rightStickPress,/SwitchProControllerHID/rightStickPress]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnInputPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 14b9e0f9-5f3d-4d35-a0a4-79263128e669
+    m_ActionName: Menus/Pause[/Keyboard/escape,/DualSenseGamepadHID/start,/SwitchProControllerHID/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnBothInputWest
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f48dbeec-3340-4614-a7e9-1b8de9b7ae2e
+    m_ActionName: Menus/West[/DualSenseGamepadHID/buttonWest,/SwitchProControllerHID/buttonWest,/DualSenseGamepadHID/leftStick/left,/SwitchProControllerHID/leftStick/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnBothInputSouth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e54a1349-4e17-4319-a10e-58dd0d5a2794
+    m_ActionName: Menus/South[/DualSenseGamepadHID/buttonSouth,/SwitchProControllerHID/buttonSouth,/DualSenseGamepadHID/dpad/down,/SwitchProControllerHID/dpad/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnBothInputEast
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b2b77f48-041c-410f-b6f1-08ec93a193c5
+    m_ActionName: Menus/East[/DualSenseGamepadHID/buttonEast,/SwitchProControllerHID/buttonEast,/DualSenseGamepadHID/leftStick/right,/SwitchProControllerHID/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnBothInputNorth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 791c7e02-08d7-4d0d-aaad-45aabd8f640d
+    m_ActionName: Menus/North[/DualSenseGamepadHID/buttonNorth,/SwitchProControllerHID/buttonNorth,/DualSenseGamepadHID/dpad/up,/SwitchProControllerHID/dpad/up]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Connect
