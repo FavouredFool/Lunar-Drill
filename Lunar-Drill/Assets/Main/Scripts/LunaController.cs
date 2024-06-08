@@ -18,7 +18,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     [SerializeField] [Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
 
     [Header("Laser")]
-    [SerializeField] Line _laserVisual;
+    [SerializeField] GameObject _laserSprite;
     [SerializeField] BoxCollider2D _laserCollider;
     [SerializeField] [Range(0.01f, 1f)] float _laserSpeed;
 
@@ -61,8 +61,10 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     Vector2 _goalDirection;
     bool _mustReachThresholdForMovement = false;
     Rigidbody2D _rigidbody;
-    Tweener _laserStartTween;
-    Tweener _laserEndTween;
+    Tweener _laserStartTweenPosition;
+    Tweener _laserStartTweenScale;
+    Tweener _laserEndTweenPosition;
+    Tweener _laserEndTweenScale;
     bool _currentlyLasering = false;
     bool _laseringLastFrame = false;
     float _distanceFromOrbit = 0f;
@@ -145,8 +147,8 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserEndPoint = transform.position.magnitude - Utilities.PlanetRadius;
 
         // Move Laser
-        bool startAnimating = _laserStartTween != null && _laserStartTween.IsActive();
-        bool endAnimating = _laserEndTween != null && _laserEndTween.IsActive();
+        bool startAnimating = (_laserStartTweenPosition != null && _laserStartTweenPosition.IsActive()) || (_laserStartTweenScale != null && _laserStartTweenScale.IsActive());
+        bool endAnimating = (_laserEndTweenPosition != null && _laserEndTweenPosition.IsActive()) || (_laserEndTweenScale != null && _laserEndTweenScale.IsActive());
 
         // collider
         _laserCollider.offset = new Vector2(0, (_laserEndPoint - _laserStartPoint) / 2 + _laserStartPoint);
@@ -155,15 +157,16 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         if (startAnimating || endAnimating) return;
         if (!_currentlyLasering) return;
 
-        _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
-        _laserVisual.End = new Vector3(0, _laserEndPoint, 0);
+        float length = Math.Abs(_laserStartPoint - _laserEndPoint);
+        _laserSprite.transform.localScale = new Vector3(0.045f, length, 0);
+        _laserSprite.transform.localPosition = new Vector3(0, length / 2 + _laserStartPoint, 0);
     }
 
     public void CalculateDistanceFromOrbit()
     {
         if (!_currentlyLasering)
         {
-            if (_laserEndTween != null && _laserEndTween.IsActive()) return;
+            if (_laserEndTweenPosition != null && _laserEndTweenPosition.IsActive()) return;
 
             // reduce
             _distanceFromOrbit = Mathf.Max(0, _distanceFromOrbit -= _orbitReturnStrength * Time.deltaTime);
@@ -235,24 +238,24 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         }
 
         _laserCollider.enabled = false;
-        _laserVisual.enabled = true;
+        _laserSprite.SetActive(true);
 
-        if (_laserStartTween != null && _laserStartTween.IsActive())
-        {
-            _laserStartTween.Kill();
-        }
+        if (_laserStartTweenPosition != null && _laserStartTweenPosition.IsActive())
+            _laserStartTweenPosition.Kill();
+        if (_laserStartTweenScale != null && _laserStartTweenScale.IsActive())
+            _laserStartTweenScale.Kill();
+        if (_laserEndTweenPosition != null && _laserEndTweenPosition.IsActive())
+            _laserEndTweenPosition.Kill();
+        if (_laserEndTweenScale != null && _laserEndTweenScale.IsActive())
+            _laserEndTweenScale.Kill();
 
-        if (_laserEndTween != null && _laserEndTween.IsActive())
-        {
-            _laserEndTween.Kill();
-        }
 
         _currentlyLasering = true;
 
-        _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
-        _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
-        _laserStartTween = DOTween.To(() => _laserVisual.End, x => _laserVisual.End = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
-        _laserStartTween.OnComplete(() => _laserCollider.enabled = true);
+        float length = Math.Abs(_laserStartPoint - _laserEndPoint);
+        _laserStartTweenPosition = DOTween.To(() => _laserSprite.transform.localPosition, x => _laserSprite.transform.localPosition = x, new Vector3(0, length / 2 + _laserStartPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
+        _laserStartTweenScale = DOTween.To(() => _laserSprite.transform.localScale, x => _laserSprite.transform.localScale = x, new Vector3(0.045f, length, 0), _laserSpeed).SetEase(Ease.InQuad);
+        _laserStartTweenScale.OnComplete(() => _laserCollider.enabled = true);
 
         // VFX
         _laserCharge.SendEvent("Charge");
@@ -266,13 +269,15 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         _currentlyLasering = false;
 
-        _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
-        _laserEndTween = DOTween.To(() => _laserVisual.Start, x => _laserVisual.Start = x, new Vector3(0, _laserEndPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
-        _laserEndTween.OnComplete(() =>
+        float length = Math.Abs(_laserStartPoint - _laserEndPoint);
+        _laserEndTweenPosition = DOTween.To(() => _laserSprite.transform.localPosition, x => _laserSprite.transform.localPosition = x, new Vector3(0, length / 2 + _laserStartPoint, 0), _laserSpeed).SetEase(Ease.InQuad);
+        _laserEndTweenScale = DOTween.To(() => _laserSprite.transform.localScale, x => _laserSprite.transform.localScale = x, new Vector3(0.045f, length, 0), _laserSpeed).SetEase(Ease.InQuad);
+        _laserEndTweenScale.OnComplete(() =>
         {
             _laserCollider.enabled = false;
-            _laserVisual.Start = new Vector3(0, _laserStartPoint, 0);
-            _laserVisual.End = new Vector3(0, _laserStartPoint, 0);
+            _laserSprite.SetActive(false);
+            _laserSprite.transform.localScale = new Vector3(0.045f, 0, 0);
+            _laserSprite.transform.localPosition = new Vector3(0, _laserStartPoint, 0);
         });
 
         // VFX

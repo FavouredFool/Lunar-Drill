@@ -8,9 +8,6 @@
         },
         {
             "m_Id": "ce8d0de6f2654051a0e8ca175aeea22e"
-        },
-        {
-            "m_Id": "22dc7f154a3e4f32b0f529683bb6a072"
         }
     ],
     "m_Keywords": [],
@@ -73,10 +70,10 @@
             "m_Id": "36db539a4a1e4590a22149ef2e8d59c2"
         },
         {
-            "m_Id": "98602f3aa25244ffaa7b8417e6e2a825"
+            "m_Id": "bf9d793729a84b4dbb9f5a947291bbd6"
         },
         {
-            "m_Id": "bf9d793729a84b4dbb9f5a947291bbd6"
+            "m_Id": "995e41e3f681463ea62d9cccc576c1dd"
         }
     ],
     "m_GroupDatas": [],
@@ -197,7 +194,7 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "98602f3aa25244ffaa7b8417e6e2a825"
+                    "m_Id": "995e41e3f681463ea62d9cccc576c1dd"
                 },
                 "m_SlotId": 0
             },
@@ -515,36 +512,6 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "22dc7f154a3e4f32b0f529683bb6a072",
-    "m_Guid": {
-        "m_GuidSerialized": "c75e89bc-e0de-4df7-8180-5d79fbfd2720"
-    },
-    "m_Name": "Laser Color",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Laser Color",
-    "m_DefaultReferenceName": "_Laser_Color",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "r": 1.0,
-        "g": 1.0,
-        "b": 1.0,
-        "a": 1.0
-    },
-    "isMainColor": false,
-    "m_ColorMode": 0
 }
 
 {
@@ -1517,37 +1484,34 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
-    "m_ObjectId": "98602f3aa25244ffaa7b8417e6e2a825",
+    "m_Type": "UnityEditor.ShaderGraph.VertexColorNode",
+    "m_ObjectId": "995e41e3f681463ea62d9cccc576c1dd",
     "m_Group": {
         "m_Id": ""
     },
-    "m_Name": "Property",
+    "m_Name": "Vertex Color",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -111.99999237060547,
-            "y": 171.99998474121095,
-            "width": 137.0,
-            "height": 34.000030517578128
+            "x": -204.0,
+            "y": 124.0,
+            "width": 118.0,
+            "height": 94.0
         }
     },
     "m_Slots": [
         {
-            "m_Id": "d8b5f2752a494de98161b48e3f63110e"
+            "m_Id": "aef33527eb8746c79fbf06f8cab65007"
         }
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
-    "m_PreviewMode": 0,
+    "m_PreviewMode": 2,
     "m_CustomColors": {
         "m_SerializableColors": []
-    },
-    "m_Property": {
-        "m_Id": "22dc7f154a3e4f32b0f529683bb6a072"
     }
 }
 
@@ -1750,6 +1714,31 @@
     "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "aef33527eb8746c79fbf06f8cab65007",
+    "m_Id": 0,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
     "m_Labels": []
 }
 
@@ -2136,9 +2125,6 @@
             "m_Id": "6f5e1f65ae5448e3b0e539c5338c9433"
         },
         {
-            "m_Id": "22dc7f154a3e4f32b0f529683bb6a072"
-        },
-        {
             "m_Id": "ce8d0de6f2654051a0e8ca175aeea22e"
         }
     ]
@@ -2178,31 +2164,6 @@
     "m_Property": {
         "m_Id": "6f5e1f65ae5448e3b0e539c5338c9433"
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
-    "m_ObjectId": "d8b5f2752a494de98161b48e3f63110e",
-    "m_Id": 0,
-    "m_DisplayName": "Laser Color",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Out",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    },
-    "m_Labels": []
 }
 
 {
