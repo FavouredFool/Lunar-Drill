@@ -10,9 +10,9 @@ public class LunaSpriteIterator : MonoBehaviour
     [SerializeField] LunaController controller;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Sprite[] sprites;
-    [SerializeField] float fps=6;
+    [SerializeField] float fps = 6;
 
-    float timer=0;
+    float timer = 0;
 
     int lastMoveSign = 1;
 
@@ -24,7 +24,7 @@ public class LunaSpriteIterator : MonoBehaviour
     float initialScale;
 
     [SerializeField] Disc[] barDiscs;
-    bool energyBarVisible => controller.CurrentlyLasering || controller.EnergyGained || controller.EnergyFull;
+    bool energyBarVisible => controller.CurrentlyLasering || controller.EnergyGained || controller.EnergyFull || controller.EnergyEmpty;
     float energyBarAlpha;
 
     private void Awake()
@@ -37,7 +37,7 @@ public class LunaSpriteIterator : MonoBehaviour
         if (controller.MoveSign != 0) lastMoveSign = controller.MoveSign;
 
         timer += Time.deltaTime;
-        if (timer >= fraction&&!isControlled)
+        if (timer >= fraction && !isControlled)
         {
             timer = 0;
 
@@ -48,7 +48,7 @@ public class LunaSpriteIterator : MonoBehaviour
             spriteRenderer.sprite = sprites[index];
         }
 
-        energyBarAlpha += (energyBarVisible?2:-2)*Time.deltaTime;
+        energyBarAlpha += (energyBarVisible ? 2 : -2) * Time.deltaTime;
         energyBarAlpha = Mathf.Clamp01(energyBarAlpha);
         UpdateEnergyBar();
     }

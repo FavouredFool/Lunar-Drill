@@ -52,6 +52,8 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     public bool EnergyGained { get; private set; } = false;
     public bool EnergyCritical => EnergyT < 0.05f;
     public bool EnergyFull => EnergyT > 0.95f;
+    public bool EnergyEmpty => _energyEmpty.activeSelf;
+
     public bool CurrentlyLasering => _currentlyLasering;
 
 
