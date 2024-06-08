@@ -38,6 +38,7 @@ public class OreController : MonoBehaviour
     float fraction => 1f / fps;
     float angleStep => rotTime / fraction;
 
+    bool _deathByTimeout = false;
 
     public enum OreState { BURROWED, FOLLOWING, FLYING  };
 
@@ -79,8 +80,9 @@ public class OreController : MonoBehaviour
         }
         if (_oreState == OreState.FLYING)
         {
-            if (Time.time - starTime > 45)
+            if (Time.time - starTime > 45 && !_deathByTimeout)
             {
+                _deathByTimeout = true; // set to true here, so it does not get triggered more than once
                 DestroyOre();
             }
         }
