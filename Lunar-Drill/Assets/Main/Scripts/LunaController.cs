@@ -45,6 +45,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     [Header("VFX")]
     [SerializeField] VisualEffect _laserCharge;
     [SerializeField] VisualEffect _energyCollect;
+    [SerializeField] GameObject _energyEmpty;
 
     public int MoveSign { get; private set; } = 0;
     public float EnergyT { get; private set; } = 0.33f;
@@ -88,7 +89,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _rigidbody = GetComponent<Rigidbody2D>();
         InputBus.Subscribe<LunaMoveGoal>(this);
         InputBus.Subscribe<LunaShoot>(this);
-        
+
 
         transform.position = Quaternion.Euler(0, 0, 120) * Vector2.up * Utilities.OuterOrbit;
         transform.rotation = Quaternion.Euler(0, 0, -60);
@@ -185,7 +186,11 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         }
         else if (context.canceled)
         {
-            if (!_currentlyLasering) return;
+            if (!_currentlyLasering)
+            {
+                _energyEmpty.SetActive(false); // Need to stop animations that play while player is firing without having energy
+                return;
+            }
 
             EndLasering();
         }
@@ -223,7 +228,11 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     void StartLasering()
     {
-        if (Mathf.Approximately(EnergyT, 0)) return;
+        if (Mathf.Approximately(EnergyT, 0))
+        {
+            _energyEmpty.SetActive(true); // Show player that laser cannot fire atm
+            return;
+        }
 
         _laserCollider.enabled = false;
         _laserVisual.enabled = true;
@@ -249,7 +258,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.SendEvent("Charge");
         _laserCharge.SetBool("Alive", true);
 
-        Rumble.main?.RumbleLuna(3, 0.5f,0.1f);
+        Rumble.main?.RumbleLuna(3, 0.5f, 0.1f);
         permanentRumble = Rumble.main?.RumbleLuna(1, 0.5f);
     }
 
@@ -282,6 +291,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         if (Mathf.Approximately(0, EnergyT))
         {
             EndLasering();
+            _energyEmpty.SetActive(true); // if energy depletes while holding button, start empty animation
         }
     }
 
@@ -368,7 +378,12 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         EnergyT = Mathf.Clamp01(EnergyT + _energyIncrease);
         Rumble.main?.RumbleLuna(1, 1, 0.1f);
         EnergyGained = true;
-        DOVirtual.DelayedCall(1f,() => { EnergyGained = false; });
+        DOVirtual.DelayedCall(1f, () => { EnergyGained = false; });
+        if (!_currentlyLasering && _energyEmpty.activeSelf) // this is true, if player kept holding fire button while laser emtpy. New energy will be used immediatly without having to re-press button.
+        {
+            _energyEmpty.SetActive(false);
+            StartLasering();
+        }
     }
 
     void EvaluateCollision(Collider2D collision)
@@ -405,7 +420,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
                 collision.gameObject.GetComponent<OreController>().Collected = true;
             }
-            
+
             collision.gameObject.GetComponent<OreController>().DestroyOre();
         }
         else if (Utilities.LayerMaskContainsLayer(_health, collision.gameObject.layer))
@@ -420,7 +435,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
                 GainHealth();
                 health.DestroyPickup();
             }
-            
+
         }
     }
 

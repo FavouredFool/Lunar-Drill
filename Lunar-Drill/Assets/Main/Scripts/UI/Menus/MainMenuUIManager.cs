@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -9,6 +10,9 @@ using UnityEngine.UI;
 public class MainMenuUIManager : MonoBehaviour
 {
     //--- Exposed Fields ------------------------
+
+    [Header("Cross Dependecies")]
+    [SerializeField] private HighlightTextOutlines _highlightTextOutlines;
 
     [Header("Main Menu")]
     [SerializeField] private List<GameObject> _mainMenuButtons;
@@ -49,6 +53,14 @@ public class MainMenuUIManager : MonoBehaviour
     private void Awake()
     {
         _backgroundBlendImage = _backgroundBlend.GetComponent<Image>();
+
+        var eventSystem = EventSystem.current;
+        eventSystem.SetSelectedGameObject(_mainMenuFirstSelect, new BaseEventData(eventSystem)); // Select for controller support
+    }
+
+    private void Start()
+    {
+        _highlightTextOutlines.HighlightOutline(0); // assume first menu button is first selected
     }
 
     //--- Public Methods ------------------------
@@ -82,12 +94,11 @@ public class MainMenuUIManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(_mainMenuButtons[idx], new BaseEventData(eventSystem));
     }
 
-
     /* Opens and closes options. */
     public void HandleToggleInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
- 
+
         ToggleOptions();
     }
 
@@ -101,6 +112,8 @@ public class MainMenuUIManager : MonoBehaviour
 
             var eventSystem = EventSystem.current;
             eventSystem.SetSelectedGameObject(_mainMenuFirstSelect, new BaseEventData(eventSystem)); // Select for controller support
+
+            _highlightTextOutlines.HighlightOutline(0); // assume first menu button is first selected
 
             Time.timeScale = 1; // TODO: figure out why that needed to be here but =0 is nowhere to be found
 
