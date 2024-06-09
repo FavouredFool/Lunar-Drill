@@ -60,6 +60,7 @@ MonoBehaviour:
   _oreVisuals: {fileID: 8901834677261509067}
   _burrowedColor: {r: 0.9960785, g: 0.7294118, b: 0, a: 1}
   _flyingColor: {r: 0, g: 0.9960785, b: 0.98823535, a: 1}
+  _dissolveEffect: {fileID: 2100000, guid: c05d03011516f754da5226133ef394c5, type: 2}
   _embedded: {fileID: 21300000, guid: 150a079f44c03d045ab5f55a63d6d712, type: 3}
   _collected: {fileID: 21300000, guid: 2fd549502fbd74d4cbbec49485ff4b17, type: 3}
   _energy: {fileID: 21300000, guid: 05b0803cdbf718343907977c5beecdde, type: 3}

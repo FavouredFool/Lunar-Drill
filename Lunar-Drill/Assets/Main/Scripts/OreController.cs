@@ -14,19 +14,21 @@ public class OreController : MonoBehaviour
     [SerializeField] LayerMask _destroyLayer;
 
     [Header("Radius")]
-    [SerializeField][Range(0.1f, 5f)] float _outerRadius;
-    [SerializeField][Range(0.1f, 5f)] float _planetRadius;
+    [SerializeField] [Range(0.1f, 5f)] float _outerRadius;
+    [SerializeField] [Range(0.1f, 5f)] float _planetRadius;
 
     [Header("Configuration")]
-    [SerializeField][Range(0.1f, 5f)] float _durationTillOnOuterRadius;
-    [SerializeField][Range(0.1f, 90f)] float _shootOutAngle;
+    [SerializeField] [Range(0.1f, 5f)] float _durationTillOnOuterRadius;
+    [SerializeField] [Range(0.1f, 90f)] float _shootOutAngle;
 
     [Header("Visuals")]
     [SerializeField] SpriteRenderer _oreVisuals;
     [SerializeField] Color _burrowedColor;
     [SerializeField] Color _flyingColor;
+    [SerializeField] Material _dissolveEffect;
 
-    [SerializeField] Sprite
+    [SerializeField]
+    Sprite
         _embedded,
         _collected,
         _energy;
@@ -38,9 +40,10 @@ public class OreController : MonoBehaviour
     float fraction => 1f / fps;
     float angleStep => rotTime / fraction;
 
-    bool _deathByTimeout = false;
+    bool _alreadyDead = false;
+    bool _deathByLaser = false;
 
-    public enum OreState { BURROWED, FOLLOWING, FLYING  };
+    public enum OreState { BURROWED, FOLLOWING, FLYING };
 
     public bool Collected { get; set; } = false;
 
@@ -62,7 +65,7 @@ public class OreController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _oreVisuals.sprite = _embedded;
-        _oreVisuals.transform.Rotate(Vector3.forward, Random.Range(0,360));
+        _oreVisuals.transform.Rotate(Vector3.forward, Random.Range(0, 360));
     }
 
     private void Update()
@@ -80,9 +83,8 @@ public class OreController : MonoBehaviour
         }
         if (_oreState == OreState.FLYING)
         {
-            if (Time.time - starTime > 45 && !_deathByTimeout)
+            if (Time.time - starTime > 45 && !_alreadyDead)
             {
-                _deathByTimeout = true; // set to true here, so it does not get triggered more than once
                 DestroyOre();
             }
         }
@@ -109,6 +111,7 @@ public class OreController : MonoBehaviour
         {
             if (_oreState == OreState.FLYING)
             {
+                _deathByLaser = true;
                 DestroyOre();
                 Collected = true;
             }
@@ -128,11 +131,12 @@ public class OreController : MonoBehaviour
         // Doesnt use rigidbodies so that i can tween it properly
         transform.position = _followDrillian.transform.position;
 
-        Vector2 goalDirection = Quaternion.Euler(0,0,Random.Range(-_shootOutAngle, _shootOutAngle)) * _followDrillian.transform.up;
+        Vector2 goalDirection = Quaternion.Euler(0, 0, Random.Range(-_shootOutAngle, _shootOutAngle)) * _followDrillian.transform.up;
         Vector2 goalPosition = ((Vector2)_followDrillian.transform.position + goalDirection * (_outerRadius - _planetRadius)).normalized * _outerRadius;
 
         _moveTween = DOTween.To(() => (Vector2)transform.position, x => transform.position = x, goalPosition, _durationTillOnOuterRadius).SetEase(Ease.OutSine)
-            .OnComplete(() => {
+            .OnComplete(() =>
+            {
                 _oreVisuals.sprite = _energy;
                 starTime = Time.time;
             });
@@ -140,12 +144,28 @@ public class OreController : MonoBehaviour
 
     public void DestroyOre()
     {
+        // Make sure method is only getting executed once
+        if (_alreadyDead)
+            return;
+        _alreadyDead = true;
+
         OreSpawner spawner = transform.parent.GetComponent<OreSpawner>();
 
         if (spawner)
             spawner.RemoveOre(this);
 
-        _moveTween = transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
+
+
+        if (_deathByLaser)
+        {
+            _oreVisuals.material = _dissolveEffect;
+            DOVirtual.Float(0, 1, 1f, (float value) => { _oreVisuals.material.SetFloat("_Fade", value); });
+            _moveTween = transform.DOScale(0, 1f).SetEase(Ease.InBack);
+        }
+        else
+        {
+            _moveTween = transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
+        }
 
         Destroy(gameObject, 5f);
     }
