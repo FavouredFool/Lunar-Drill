@@ -161,6 +161,7 @@ public class OreController : MonoBehaviour
             _oreVisuals.material = _dissolveEffect;
             DOVirtual.Float(0, 1, 1f, (float value) => { _oreVisuals.material.SetFloat("_Fade", value); });
             _moveTween = transform.DOScale(0, 1f).SetEase(Ease.InBack);
+            _oreVisuals.sortingOrder = 1;
         }
         else
         {
