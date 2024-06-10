@@ -5,7 +5,10 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using DG.Tweening;
 
-public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSubscriber<InputEast>, IInputSubscriber<InputSouth>, IInputSubscriber<InputWest>, IInputSubscriber<Pause>
+public class CoopButton : MonoBehaviour, 
+    IInputSubscriber<InputNorth>, IInputSubscriber<InputEast>, IInputSubscriber<InputSouth>, IInputSubscriber<InputWest>, 
+    IInputSubscriber<Pause>,
+    IInputSubscriber<MenuMoveNorth>, IInputSubscriber<MenuMoveEast>, IInputSubscriber<MenuMoveSouth>, IInputSubscriber<MenuMoveWest>
 {
     public Button.ButtonClickedEvent _OnInputPerformedEvents;
 
@@ -37,6 +40,11 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
     public InputType _inputRequired;
     public float _requiredPressTime;
     public bool _isOverlayMenu;
+    public bool
+        _moveSensitivityNorth,
+        _moveSensitivityEast,
+        _moveSensitivitySouth,
+        _moveSensitivityWest;
 
 
     [Header("Internal")]
@@ -125,6 +133,11 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
         InputBus.Subscribe<InputSouth>(this);
         InputBus.Subscribe<InputWest>(this);
 
+        InputBus.Subscribe<MenuMoveNorth>(this);
+        InputBus.Subscribe<MenuMoveEast>(this);
+        InputBus.Subscribe<MenuMoveSouth>(this);
+        InputBus.Subscribe<MenuMoveWest>(this);
+
         InputBus.Subscribe<Pause>(this);
 
         Refresh(_inputCharacter, _inputRequired);
@@ -135,6 +148,11 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
         InputBus.Unsubscribe<InputEast>(this);
         InputBus.Unsubscribe<InputSouth>(this);
         InputBus.Unsubscribe<InputWest>(this);
+
+        InputBus.Unsubscribe<MenuMoveNorth>(this);
+        InputBus.Unsubscribe<MenuMoveEast>(this);
+        InputBus.Unsubscribe<MenuMoveSouth>(this);
+        InputBus.Unsubscribe<MenuMoveWest>(this);
 
         InputBus.Unsubscribe<Pause>(this);
     }
@@ -267,8 +285,12 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
     }
 
     //Logic
+    public virtual bool ProcessInput(ChosenCharacter character, InputType inp, InputAction.CallbackContext context)
+        =>ProcessInput(character,inp,context.phase);
     public virtual bool ProcessInput(ChosenCharacter character, InputType inp, InputActionPhase phase)
     {
+        if (OptionsMenu.isOpen && !_isOverlayMenu) return false;
+
         if (character == ChosenCharacter.any) 
             character = ChosenCharacter.both;
 
@@ -325,24 +347,27 @@ public class CoopButton : MonoBehaviour, IInputSubscriber<InputNorth>, IInputSub
 
     public void OnEventHappened(Pause e) => ProcessInput(ChosenCharacter.any, InputType.Pause, e.context.phase);
 
-    public void OnEventHappened(InputNorth e)
+    public void OnEventHappened(InputNorth e) => ProcessInput(e.character, InputType.North, e.context.phase);
+    public virtual void OnEventHappened(MenuMoveNorth e)
     {
-        if (e.inOverlayMenu && !_isOverlayMenu) return;
-        ProcessInput(e.character, InputType.North, e.context.phase);
+        if (_moveSensitivityNorth) ProcessInput(ChosenCharacter.any, InputType.North, e.context.phase);
     }
-    public void OnEventHappened(InputEast e)
+
+    public void OnEventHappened(InputEast e) => ProcessInput(e.character, InputType.East, e.context.phase);
+    public virtual void OnEventHappened(MenuMoveEast e)
     {
-        if (e.inOverlayMenu && !_isOverlayMenu) return;
-        ProcessInput(e.character, InputType.East, e.context.phase);
+        if (_moveSensitivityEast) ProcessInput(ChosenCharacter.any, InputType.East, e.context.phase);
     }
-    public void OnEventHappened(InputSouth e)
+
+    public void OnEventHappened(InputSouth e) => ProcessInput(e.character, InputType.South, e.context.phase);
+    public virtual void OnEventHappened(MenuMoveSouth e)
     {
-        if (e.inOverlayMenu && !_isOverlayMenu) return;
-        ProcessInput(e.character, InputType.South, e.context.phase);
+        if (_moveSensitivitySouth) ProcessInput(ChosenCharacter.any, InputType.South, e.context.phase);
     }
-    public void OnEventHappened(InputWest e)
+
+    public void OnEventHappened(InputWest e) => ProcessInput(e.character, InputType.West, e.context.phase);
+    public virtual void OnEventHappened(MenuMoveWest e)
     {
-        if (e.inOverlayMenu && !_isOverlayMenu) return;
-        ProcessInput(e.character, InputType.West, e.context.phase);
+        if(_moveSensitivityWest) ProcessInput(ChosenCharacter.any, InputType.West, e.context.phase);
     }
 }

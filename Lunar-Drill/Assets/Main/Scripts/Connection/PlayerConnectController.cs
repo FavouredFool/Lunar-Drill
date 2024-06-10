@@ -69,20 +69,25 @@ public class PlayerConnectController : MonoBehaviour
     public void OnActiveLuna(InputAction.CallbackContext context) => InputBus.Fire(new LunaShoot(context));
     public void OnActiveDrillian(InputAction.CallbackContext context) => InputBus.Fire(new DrillianDash(context));
 
-    public void OnBothInputNorth(InputAction.CallbackContext context) => InputBus.Fire(new InputNorth(ChosenCharacter.both, context, OptionsMenu.isOpen));
-    public void OnBothInputEast(InputAction.CallbackContext context) => InputBus.Fire(new InputEast(ChosenCharacter.both, context, OptionsMenu.isOpen));
-    public void OnBothInputSouth(InputAction.CallbackContext context) => InputBus.Fire(new InputSouth(ChosenCharacter.both, context, OptionsMenu.isOpen));
-    public void OnBothInputWest(InputAction.CallbackContext context) => InputBus.Fire(new InputWest(ChosenCharacter.both, context, OptionsMenu.isOpen));
+    public void OnBothInputNorth(InputAction.CallbackContext context) => InputBus.Fire(new InputNorth(ChosenCharacter.both, context));
+    public void OnBothInputEast(InputAction.CallbackContext context) => InputBus.Fire(new InputEast(ChosenCharacter.both, context));
+    public void OnBothInputSouth(InputAction.CallbackContext context) => InputBus.Fire(new InputSouth(ChosenCharacter.both, context));
+    public void OnBothInputWest(InputAction.CallbackContext context) => InputBus.Fire(new InputWest(ChosenCharacter.both, context));
 
-    public void OnLunaInputNorth(InputAction.CallbackContext context) => InputBus.Fire(new InputNorth(ChosenCharacter.luna, context, OptionsMenu.isOpen));
-    public void OnLunaInputEast(InputAction.CallbackContext context) => InputBus.Fire(new InputEast(ChosenCharacter.luna, context, OptionsMenu.isOpen));
-    public void OnLunaInputSouth(InputAction.CallbackContext context) => InputBus.Fire(new InputSouth(ChosenCharacter.luna, context, OptionsMenu.isOpen));
-    public void OnLunaInputWest(InputAction.CallbackContext context) => InputBus.Fire(new InputWest(ChosenCharacter.luna, context, OptionsMenu.isOpen));
+    public void OnLunaInputNorth(InputAction.CallbackContext context) => InputBus.Fire(new InputNorth(ChosenCharacter.luna, context));
+    public void OnLunaInputEast(InputAction.CallbackContext context) => InputBus.Fire(new InputEast(ChosenCharacter.luna, context));
+    public void OnLunaInputSouth(InputAction.CallbackContext context) => InputBus.Fire(new InputSouth(ChosenCharacter.luna, context));
+    public void OnLunaInputWest(InputAction.CallbackContext context) => InputBus.Fire(new InputWest(ChosenCharacter.luna, context));
 
-    public void OnDrillianInputNorth(InputAction.CallbackContext context) => InputBus.Fire(new InputNorth(ChosenCharacter.drillian, context, OptionsMenu.isOpen));
-    public void OnDrillianInputEast(InputAction.CallbackContext context) => InputBus.Fire(new InputEast(ChosenCharacter.drillian, context, OptionsMenu.isOpen));
-    public void OnDrillianInputSouth(InputAction.CallbackContext context) => InputBus.Fire(new InputSouth(ChosenCharacter.drillian, context, OptionsMenu.isOpen));
-    public void OnDrillianInputWest(InputAction.CallbackContext context) => InputBus.Fire(new InputWest(ChosenCharacter.drillian, context, OptionsMenu.isOpen));
+    public void OnDrillianInputNorth(InputAction.CallbackContext context) => InputBus.Fire(new InputNorth(ChosenCharacter.drillian, context));
+    public void OnDrillianInputEast(InputAction.CallbackContext context) => InputBus.Fire(new InputEast(ChosenCharacter.drillian, context));
+    public void OnDrillianInputSouth(InputAction.CallbackContext context) => InputBus.Fire(new InputSouth(ChosenCharacter.drillian, context));
+    public void OnDrillianInputWest(InputAction.CallbackContext context) => InputBus.Fire(new InputWest(ChosenCharacter.drillian, context));
+
+    public void OnMenuMoveNorth(InputAction.CallbackContext context) => InputBus.Fire(new MenuMoveNorth(context));
+    public void OnMenuMoveEast(InputAction.CallbackContext context) => InputBus.Fire(new MenuMoveEast(context));
+    public void OnMenuMoveSouth(InputAction.CallbackContext context) => InputBus.Fire(new MenuMoveSouth(context));
+    public void OnMenuMoveWest(InputAction.CallbackContext context) => InputBus.Fire(new MenuMoveWest(context));
 
     #endregion
 }

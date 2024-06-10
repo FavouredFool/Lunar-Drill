@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CoopButton_Divided : CoopButton
 {
@@ -12,6 +9,7 @@ public class CoopButton_Divided : CoopButton
     public Button.ButtonClickedEvent _OnEastPerformedEvents;
     public Button.ButtonClickedEvent _OnSouthPerformedEvents;
     public Button.ButtonClickedEvent _OnWestPerformedEvents;
+
 
     InputType _lastInput;
 
@@ -25,6 +23,7 @@ public class CoopButton_Divided : CoopButton
     }
     public override void TriggerEvents()
     {
+        if (_lastInput == InputType.None) return;
         if (_lastInput.HasFlag(InputType.North))
             _OnNorthPerformedEvents.Invoke();
         else if (_lastInput.HasFlag(InputType.East))
@@ -36,5 +35,4 @@ public class CoopButton_Divided : CoopButton
 
         base.TriggerEvents();
     }
-
 }

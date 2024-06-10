@@ -574,6 +574,70 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 791c7e02-08d7-4d0d-aaad-45aabd8f640d
     m_ActionName: Menus/North[/DualSenseGamepadHID/buttonNorth,/SwitchProControllerHID/buttonNorth,/DualSenseGamepadHID/dpad/up,/SwitchProControllerHID/dpad/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnMenuMoveNorth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d855ea11-c189-4b9d-b5ab-ab2aa8fd3fdf
+    m_ActionName: Menus/MothNorth
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnMenuMoveEast
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 83f98264-82b2-4b33-bdd8-3dbd547a84f8
+    m_ActionName: Menus/MoveEast
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnMenuMoveSouth
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 66240c62-e3ce-4627-a981-b63c7acdefc8
+    m_ActionName: Menus/MoveSouth
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -336447311194700004}
+        m_TargetAssemblyTypeName: PlayerConnectController, Assembly-CSharp
+        m_MethodName: OnMenuMoveWest
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 341dc9fe-da60-4eeb-af69-d29a9e11d501
+    m_ActionName: Menus/MoveWest
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Connect

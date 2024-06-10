@@ -1568,6 +1568,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2171540735240296019, guid: c64b23ab7e95a1c4f9dedbe3078838be, type: 3}
+      propertyPath: _moveSensitivityNorth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171540735240296019, guid: c64b23ab7e95a1c4f9dedbe3078838be, type: 3}
+      propertyPath: _moveSensitivitySouth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171540735240296019, guid: c64b23ab7e95a1c4f9dedbe3078838be, type: 3}
       propertyPath: _OnEastPerformedEvents.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}

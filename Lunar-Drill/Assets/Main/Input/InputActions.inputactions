@@ -1835,6 +1835,42 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MothNorth",
+                    "type": "Value",
+                    "id": "d855ea11-c189-4b9d-b5ab-ab2aa8fd3fdf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MoveEast",
+                    "type": "Value",
+                    "id": "83f98264-82b2-4b33-bdd8-3dbd547a84f8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MoveSouth",
+                    "type": "Value",
+                    "id": "66240c62-e3ce-4627-a981-b63c7acdefc8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MoveWest",
+                    "type": "Value",
+                    "id": "341dc9fe-da60-4eeb-af69-d29a9e11d501",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -2027,23 +2063,45 @@
                 },
                 {
                     "name": "",
-                    "id": "afee0a5a-b9cc-458e-a296-86a1747a7fed",
-                    "path": "<Gamepad>/leftStick/right",
+                    "id": "10a68df4-e31b-44d9-9e4f-177ae435659c",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "East",
+                    "action": "MothNorth",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "759230c8-7050-40b3-8939-355df722b6d2",
+                    "id": "55a08a60-8d18-47fb-bdb3-b7315915caa0",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveEast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b51967f6-0785-4165-bf02-b43835a9434c",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveSouth",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e14e7daa-5fa8-41ec-a021-ffdbc0a06ba9",
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "West",
+                    "action": "MoveWest",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
