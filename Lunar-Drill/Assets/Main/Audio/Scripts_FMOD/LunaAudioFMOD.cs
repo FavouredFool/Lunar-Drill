@@ -71,7 +71,7 @@ public class LunaAudioFMOD : MonoBehaviour,
         _laser.getPlaybackState(out ps);
         if (ps != PLAYBACK_STATE.STOPPED)
         {
-            _laser.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            _laser.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         }
     }
 }

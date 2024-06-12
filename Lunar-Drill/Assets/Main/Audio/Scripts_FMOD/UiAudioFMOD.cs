@@ -62,7 +62,7 @@ public class UiAudioFMOD : MonoBehaviour,
         }
         else
         {
-            _endSceneEventInstance.setParameterByName("Active", 0);
+            //_endSceneEventInstance.setParameterByName("Active", 0);
         }
     }
 
@@ -93,7 +93,9 @@ public class UiAudioFMOD : MonoBehaviour,
         _endSceneEventInstance.getPlaybackState(out ps);
         if (ps != PLAYBACK_STATE.STOPPED)
         {
+            _endSceneEventInstance.setParameterByName("Active", 0);
             _endSceneEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
         }
 
     }
