@@ -35,24 +35,17 @@ public class SceneChanger : MonoBehaviour
     }
     private IEnumerator LoadSceneCoroutine(SceneIdentity scene)
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync((int)scene);
-        asyncOperation.allowSceneActivation = false;
 
         float delay = consistentCanvas.SetScene(scene);
         InputBus.Fire(new Signal_SceneChange(scene, delay));
 
         float initTime = Time.unscaledTime;
 
-        while (!asyncOperation.isDone || Time.unscaledTime - initTime < delay)
-        {
-            if (asyncOperation.progress >= 0.9f)
-            {
-                asyncOperation.allowSceneActivation = true;
-                currentScene = scene;
-            }
-
+        while (Time.unscaledTime - initTime < delay)
             yield return null;
-        }
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync((int)scene);
+        currentScene = scene;
     }
 
     public void Quit()

@@ -63,14 +63,15 @@ public class GameManager : MonoBehaviour
         _playerHUD.transform.localScale = Vector3.zero;
         _spiderHUD.transform.localScale = Vector3.zero;
 
-        _playerScaler.DOScale(1, 3).SetEase(Ease.OutSine).SetDelay(1);
+        _playerScaler.DOScale(1, 3).SetEase(Ease.OutSine);
+
         _playerHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f);
         _spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f);
         _camera.DOLocalMoveY(0, 3).SetEase(Ease.InOutSine);
 
         _countdownRenderer.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
         _countdownRenderer.sprite = _countdownSprites[0];
         for (int i = 0; i < 4; i++)

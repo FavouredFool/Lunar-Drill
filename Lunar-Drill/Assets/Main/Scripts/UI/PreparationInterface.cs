@@ -51,7 +51,7 @@ public class PreparationInterface : MonoBehaviour
 
                 _continueButton.blocked = true;
 
-                return t / 2;
+                break;
             case SceneIdentity.PlayerConnect:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(100, t).SetEase(Ease.OutSine));
@@ -66,7 +66,7 @@ public class PreparationInterface : MonoBehaviour
 
                 _continueButton.blocked = false;
 
-                return t / 2;
+                break;
             case SceneIdentity.PlayerSelect:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(100, t).SetEase(Ease.OutSine));
@@ -81,7 +81,7 @@ public class PreparationInterface : MonoBehaviour
 
                 _continueButton.blocked = false;
 
-                return t / 2;
+                break;
             case SceneIdentity.GameTutorial:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(100, t).SetEase(Ease.OutSine));
@@ -96,7 +96,7 @@ public class PreparationInterface : MonoBehaviour
 
                 _continueButton.blocked = false;
 
-                return t / 2;
+                break;
             case SceneIdentity.GameMain:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(-100, t).SetEase(Ease.OutSine));
@@ -111,7 +111,7 @@ public class PreparationInterface : MonoBehaviour
 
                 _continueButton.blocked = true;
 
-                return t;
+                break;
         }
 
         return t;
