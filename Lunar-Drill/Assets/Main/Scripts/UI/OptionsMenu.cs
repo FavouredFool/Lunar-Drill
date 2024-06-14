@@ -7,13 +7,14 @@ using FMOD.Studio;
 using FMODUnity;
 using System.Linq;
 
-public class OptionsMenu : MonoBehaviour
+public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
 {
     public static OptionsMenu Instance;
     public static bool isOpen;
     bool isControlled;
 
     [SerializeField] GameObject _body;
+    [SerializeField] CoopButton _button;
     [SerializeField] Image
         _blackground,
         _background;
@@ -32,6 +33,14 @@ public class OptionsMenu : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+    private void OnEnable()
+    {
+        InputBus.Subscribe(this);
+    }
+    private void OnDisable()
+    {
+        InputBus.Unsubscribe(this);
     }
     private void Start()
     {
@@ -179,6 +188,15 @@ public class OptionsMenu : MonoBehaviour
             OptionsEntry entry = _entries[i];
             entry.RefreshPosition(i,_entries.Count);
         }
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        _button.gameObject.SetActive(SceneChanger.currentScene != SceneIdentity.PlayerConnect);
+    }
+    public void OnEventHappened(Signal_SceneChange e)
+    {
+        Close();
     }
 
     #region Modifications

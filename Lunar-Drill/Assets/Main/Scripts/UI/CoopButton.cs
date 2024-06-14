@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class CoopButton : MonoBehaviour, 
     IInputSubscriber<InputNorth>, IInputSubscriber<InputEast>, IInputSubscriber<InputSouth>, IInputSubscriber<InputWest>, 
-    IInputSubscriber<Pause>,
+    IInputSubscriber<Signal_SceneChange>, IInputSubscriber<Pause>,
     IInputSubscriber<MenuMoveNorth>, IInputSubscriber<MenuMoveEast>, IInputSubscriber<MenuMoveSouth>, IInputSubscriber<MenuMoveWest>
 {
     public bool blocked = false;
@@ -41,11 +41,16 @@ public class CoopButton : MonoBehaviour,
     public InputType _inputRequired;
     public float _requiredPressTime;
     public bool _isOverlayMenu;
-    public bool
-        _moveSensitivityNorth,
-        _moveSensitivityEast,
-        _moveSensitivitySouth,
-        _moveSensitivityWest;
+
+    public enum CompassInputType
+    {
+        Both, Button, Move
+    }
+    public CompassInputType
+        _CompassInputTypeNorth,
+        _CompassInputTypeEast,
+        _CompassInputTypeSouth,
+        _CompassInputTypeWest;
 
 
     [Header("Internal")]
@@ -123,12 +128,19 @@ public class CoopButton : MonoBehaviour,
         _inputRequired.HasFlag(InputType.South) ||
         _inputRequired.HasFlag(InputType.West);
 
+    float
+        initTime = 0,
+        initBlockTime = 0.66f;
+    bool initBlocked => Time.unscaledTime - initTime < initBlockTime;
+
     private void OnValidate()
     {
         Refresh(_inputCharacter, _inputRequired);
     }
     private void OnEnable()
     {
+        initTime = Time.unscaledTime;
+
         InputBus.Subscribe<InputNorth>(this);
         InputBus.Subscribe<InputEast>(this);
         InputBus.Subscribe<InputSouth>(this);
@@ -140,6 +152,7 @@ public class CoopButton : MonoBehaviour,
         InputBus.Subscribe<MenuMoveWest>(this);
 
         InputBus.Subscribe<Pause>(this);
+        InputBus.Subscribe<Signal_SceneChange>(this);
 
         Refresh(_inputCharacter, _inputRequired);
     }
@@ -156,6 +169,8 @@ public class CoopButton : MonoBehaviour,
         InputBus.Unsubscribe<MenuMoveWest>(this);
 
         InputBus.Unsubscribe<Pause>(this);
+        InputBus.Unsubscribe<Signal_SceneChange>(this);
+
     }
 
     private void Update()
@@ -290,7 +305,7 @@ public class CoopButton : MonoBehaviour,
         =>ProcessInput(character,inp,context.phase);
     public virtual bool ProcessInput(ChosenCharacter character, InputType inp, InputActionPhase phase)
     {
-        if (blocked) return false;
+        if ((blocked || initBlocked) && phase != InputActionPhase.Canceled) return false; //Allow when cancelled
 
         if (OptionsMenu.isOpen && !_isOverlayMenu) return false;
 
@@ -348,29 +363,47 @@ public class CoopButton : MonoBehaviour,
         _drillianTime = 0;
     }
 
+    public void OnEventHappened(Signal_SceneChange e)
+    {
+        initTime = Time.unscaledTime;
+        initBlockTime = e.delay*1.1f;
+    }
+
     public void OnEventHappened(Pause e) => ProcessInput(ChosenCharacter.any, InputType.Pause, e.context.phase);
 
-    public void OnEventHappened(InputNorth e) => ProcessInput(e.character, InputType.North, e.context.phase);
+    public void OnEventHappened(InputNorth e)
+    {
+        if (_CompassInputTypeNorth != CompassInputType.Move) ProcessInput(e.character, InputType.North, e.context.phase);
+    }
     public virtual void OnEventHappened(MenuMoveNorth e)
     {
-        if (_moveSensitivityNorth) ProcessInput(ChosenCharacter.any, InputType.North, e.context.phase);
+        if (_CompassInputTypeNorth!=CompassInputType.Button) ProcessInput(ChosenCharacter.any, InputType.North, e.context.phase);
     }
 
-    public void OnEventHappened(InputEast e) => ProcessInput(e.character, InputType.East, e.context.phase);
+    public void OnEventHappened(InputEast e)
+    {
+        if (_CompassInputTypeEast != CompassInputType.Move) ProcessInput(e.character, InputType.East, e.context.phase);
+    }
     public virtual void OnEventHappened(MenuMoveEast e)
     {
-        if (_moveSensitivityEast) ProcessInput(ChosenCharacter.any, InputType.East, e.context.phase);
+        if (_CompassInputTypeEast != CompassInputType.Button) ProcessInput(ChosenCharacter.any, InputType.East, e.context.phase);
     }
 
-    public void OnEventHappened(InputSouth e) => ProcessInput(e.character, InputType.South, e.context.phase);
+    public void OnEventHappened(InputSouth e)
+    {
+        if (_CompassInputTypeSouth != CompassInputType.Move) ProcessInput(e.character, InputType.South, e.context.phase);
+    }
     public virtual void OnEventHappened(MenuMoveSouth e)
     {
-        if (_moveSensitivitySouth) ProcessInput(ChosenCharacter.any, InputType.South, e.context.phase);
+        if (_CompassInputTypeSouth != CompassInputType.Button) ProcessInput(ChosenCharacter.any, InputType.South, e.context.phase);
     }
 
-    public void OnEventHappened(InputWest e) => ProcessInput(e.character, InputType.West, e.context.phase);
+    public void OnEventHappened(InputWest e)
+    {
+        if (_CompassInputTypeWest != CompassInputType.Move) ProcessInput(e.character, InputType.West, e.context.phase);
+    }
     public virtual void OnEventHappened(MenuMoveWest e)
     {
-        if(_moveSensitivityWest) ProcessInput(ChosenCharacter.any, InputType.West, e.context.phase);
+        if(_CompassInputTypeWest != CompassInputType.Button) ProcessInput(ChosenCharacter.any, InputType.West, e.context.phase);
     }
 }

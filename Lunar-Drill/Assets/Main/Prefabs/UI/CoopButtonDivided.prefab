@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e2e3b982dfa09419aca8208cb15789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blocked: 0
   _OnInputPerformedEvents:
     m_PersistentCalls:
       m_Calls: []
@@ -212,6 +213,10 @@ MonoBehaviour:
   _inputRequired: 30
   _requiredPressTime: 0
   _isOverlayMenu: 0
+  _CompassInputTypeNorth: 1
+  _CompassInputTypeEast: 1
+  _CompassInputTypeSouth: 1
+  _CompassInputTypeWest: 1
   _OnNorthPerformedEvents:
     m_PersistentCalls:
       m_Calls: []

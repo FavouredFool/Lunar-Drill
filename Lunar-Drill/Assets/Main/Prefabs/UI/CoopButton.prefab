@@ -881,6 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e3ef1205fd42648a8273cceb9a69a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blocked: 0
   _OnInputPerformedEvents:
     m_PersistentCalls:
       m_Calls: []
@@ -904,6 +905,10 @@ MonoBehaviour:
   _inputRequired: 0
   _requiredPressTime: 0
   _isOverlayMenu: 0
+  _CompassInputTypeNorth: 1
+  _CompassInputTypeEast: 1
+  _CompassInputTypeSouth: 1
+  _CompassInputTypeWest: 1
 --- !u!222 &1300128231482699280
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -50,11 +50,18 @@ public class SceneChanger : MonoBehaviour
 
     public void Quit()
     {
+        if (currentScene == SceneIdentity.MainMenu)
+        {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
+        }
+        else
+        {
+            LoadScene0_MainMenu();
+        }
     }
 }
 public enum SceneIdentity

@@ -8,13 +8,12 @@ using TMPro;
 //DontDestroyOnLoad via Persistent Prefab
 public class PreparationInterface : MonoBehaviour
 {
-    [SerializeField] Animator animator;
-
     [SerializeField] TMP_Text _teamNameText;
 
     [SerializeField] RectTransform _lunaTrans, _drillianTrans;
     [SerializeField] RectTransform _lowerBar;
     [SerializeField] CoopButton _continueButton;
+    public static CoopButton ContinueButton;
 
     Sequence _seq;
 
@@ -25,6 +24,7 @@ public class PreparationInterface : MonoBehaviour
 
     private void Awake()
     {
+        ContinueButton = _continueButton;
         SetScene(SceneIdentity.MainMenu,0f);
     }
 
@@ -85,7 +85,7 @@ public class PreparationInterface : MonoBehaviour
             case SceneIdentity.GameTutorial:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(100, t).SetEase(Ease.OutSine));
-                _seq.Join(_teamNameText.rectTransform.DOAnchorPosY(450, t).SetEase(Ease.InOutSine));
+                _seq.Join(_teamNameText.rectTransform.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
                 _seq.Join(_teamNameText.rectTransform.DOScale(1, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(1.2f, t).SetEase(Ease.InOutSine));
