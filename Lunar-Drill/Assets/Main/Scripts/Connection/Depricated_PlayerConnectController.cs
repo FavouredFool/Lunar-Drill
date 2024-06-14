@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.Users;
 using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 
-public class PlayerConnectController : MonoBehaviour
+public class Depricated_PlayerConnectController : MonoBehaviour
 {
 
 
@@ -43,7 +43,7 @@ public class PlayerConnectController : MonoBehaviour
     //--- Private Fields ------------------------
     public PlayerInput _input { get; set; } // Input. Needed to assign the User to the Character
     
-    [SerializeField] ChosenCharacter _character = ChosenCharacter.singleplayer; // The Character Chosen by the User attributed to this Gameobject.
+    [SerializeField] ChosenCharacter _character = ChosenCharacter.both; // The Character Chosen by the User attributed to this Gameobject.
 
 
     // --- Public Functions. 
@@ -139,7 +139,7 @@ public class PlayerConnectController : MonoBehaviour
                 if (goPlayerInput != null)
                 {
                     goPlayerInput.enabled = false;
-                    Debug.Log("Disabled INput");
+                    Debug.Log("Disabled Input");
                 }
                 _input.SwitchCurrentActionMap("Luna");
                 Rumble.main?.AddGamepad(_input,ChosenCharacter.luna);
@@ -197,16 +197,10 @@ public class PlayerConnectController : MonoBehaviour
                 {
                     _input.SwitchCurrentActionMap("Connect");
                 }
-                Rumble.main?.AddGamepad(_input, ChosenCharacter.singleplayer);
+                Rumble.main?.AddGamepad(_input, ChosenCharacter.both);
             }
         }
         
     }
 }
 
-public enum ChosenCharacter
-{
-    drillian,
-    luna,
-    singleplayer
-}

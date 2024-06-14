@@ -137,18 +137,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
         _goalMoveDirection = readValue.normalized;
     }
-    public void PauseInput(InputAction.CallbackContext context)
-    {
-        Debug.Log("PAUSE");
-        if (context.performed)
-        {
-            InputBus.Fire(new Pause(context));
-        }
-    }
-    public void TEST(InputAction.CallbackContext context)
-    {
-        Debug.LogWarning("HEUREKA!");
-    }
+
 
     //--- Private Methods ------------------------
 

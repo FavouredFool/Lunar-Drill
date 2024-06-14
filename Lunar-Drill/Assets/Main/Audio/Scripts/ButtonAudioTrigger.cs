@@ -14,8 +14,6 @@ public class ButtonAudioTrigger : MonoBehaviour, ISelectHandler, IPointerEnterHa
         _button = GetComponent<Button>();
         if(_button!=null)
             _button.onClick.AddListener(() => OnEnter());
-        
-
     }
 
     public void OnEnter() // Method that is called when a Button is confirmed. Works only for Buttons

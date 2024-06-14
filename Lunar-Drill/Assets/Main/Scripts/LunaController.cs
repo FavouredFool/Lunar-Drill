@@ -219,14 +219,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _lunaControllMarker.SetGoalDirectionInput(readValue);
     }
 
-    public void PauseInput(InputAction.CallbackContext context)
-    {
-        Debug.Log("PAUSE");
-        if (context.performed)
-        {
-            InputBus.Fire(new Pause(context));
-        }
-    }
 
 
     //--- Private Methods ------------------------
