@@ -10,6 +10,7 @@ public class CoopButton : MonoBehaviour,
     IInputSubscriber<Pause>,
     IInputSubscriber<MenuMoveNorth>, IInputSubscriber<MenuMoveEast>, IInputSubscriber<MenuMoveSouth>, IInputSubscriber<MenuMoveWest>
 {
+    public bool blocked = false;
     public Button.ButtonClickedEvent _OnInputPerformedEvents;
 
     [Header("Components")]
@@ -289,6 +290,8 @@ public class CoopButton : MonoBehaviour,
         =>ProcessInput(character,inp,context.phase);
     public virtual bool ProcessInput(ChosenCharacter character, InputType inp, InputActionPhase phase)
     {
+        if (blocked) return false;
+
         if (OptionsMenu.isOpen && !_isOverlayMenu) return false;
 
         if (character == ChosenCharacter.any) 

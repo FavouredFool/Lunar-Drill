@@ -9,6 +9,7 @@ using System.Linq;
 
 public class OptionsMenu : MonoBehaviour
 {
+    public static OptionsMenu Instance;
     public static bool isOpen;
     bool isControlled;
 
@@ -16,6 +17,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Image
         _blackground,
         _background;
+    [SerializeField] CanvasGroup _content;
     [SerializeField] List<OptionsEntry> _entries;
     [SerializeField] int _entryIndexShift;
     float _lastShiftTime = 0;
@@ -27,6 +29,10 @@ public class OptionsMenu : MonoBehaviour
     private VCA _sfxVCA;
     private VCA _musicVCA;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         SettingSaver.Load();
@@ -55,13 +61,15 @@ public class OptionsMenu : MonoBehaviour
         isControlled = true;
 
         _blackground.color = Color.clear;
+        _content.alpha = 0;
         _background.rectTransform.sizeDelta = new Vector2(1250, 0);
 
         bodySequence.Kill();
         bodySequence = DOTween.Sequence();
         bodySequence.Append(_blackground.DOFade(1, 0.33f).SetEase(Ease.InSine));
+        bodySequence.Join(_content.DOFade(1, 0.1f).SetDelay(0.23f).SetEase(Ease.InSine));
         bodySequence.Join(_background.rectTransform.DOSizeDelta(new Vector2(1250,1700),0.2f).SetEase(Ease.OutSine));
-        bodySequence.OnComplete(() =>
+        bodySequence.SetUpdate(true).OnComplete(() =>
         {
             isControlled = false;
         });
@@ -80,8 +88,9 @@ public class OptionsMenu : MonoBehaviour
         bodySequence.Kill();
         bodySequence = DOTween.Sequence();
         bodySequence.Append(_blackground.DOFade(0, 0.33f).SetEase(Ease.InSine));
+        bodySequence.Join(_content.DOFade(0, 0.1f).SetEase(Ease.InSine));
         bodySequence.Join(_background.rectTransform.DOSizeDelta(new Vector2(1250, 0), 0.2f).SetEase(Ease.InSine));
-        bodySequence.OnComplete(() =>
+        bodySequence.SetUpdate(true).OnComplete(() =>
         {
             isControlled = false;
             isOpen = false;

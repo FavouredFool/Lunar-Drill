@@ -1,15 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Assertions;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] List<GameObject> _introTextImages;
-    [SerializeField] List<GameObject> _countdownTextImages;
+    [SerializeField] List<Sprite> _countdownSprites;
+    [SerializeField] SpriteRenderer _countdownRenderer;
 
+    [Header("Agents")]
+    public SpiderController _spiderController;
+    public DrillianController _drillianController;
+    public LunaController _lunaController;
+    public OreSpawner _oreSpawner;
+
+    [Header("Elements")]
+    public Transform _camera;
+    public Transform _playerScaler;
+
+    [Header("Managers")]
     [SerializeField] TimeManager _timeManager;
     [SerializeField] Undertaker _undertaker;
 
@@ -28,7 +38,6 @@ public class GameManager : MonoBehaviour
     public int PlayerMaxHP => _maxPlayerHP;
     public int SpiderMaxHP => _maxSpiderHP;
 
-    public bool inCutscene { get; private set; } = false;
     public float Timer { get; set; }
 
     public void Awake()
@@ -37,75 +46,49 @@ public class GameManager : MonoBehaviour
         SetHealth(_maxSpiderHP, false);
         if(_undertaker.gameObject.activeSelf)
         _undertaker.gameObject.SetActive(false);
+
+        StartCoroutine(StartRoutine());
+
     }
 
-    public void Start()
+    public IEnumerator StartRoutine()
     {
-        Timer = Time.time;
+        _oreSpawner.enabled = false;
+        _lunaController.enabled = false;
+        _drillianController.enabled=false;
+        _spiderController.enabled=false;
 
-#if !UNITY_EDITOR
-        StartCoroutine(StartSequence());
-#endif
-    }
+        _playerScaler.localScale = Vector3.one * 4f;
+        _camera.localPosition = Vector3.down * 10f;
+        _playerHUD.transform.localScale = Vector3.zero;
+        _spiderHUD.transform.localScale = Vector3.zero;
 
-    public IEnumerator StartSequence()
-    {
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForFixedUpdate();
+        _playerScaler.DOScale(1, 3).SetEase(Ease.OutSine).SetDelay(1);
+        _playerHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f);
+        _spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f);
+        _camera.DOLocalMoveY(0, 3).SetEase(Ease.InOutSine);
 
-        inCutscene = true;
+        _countdownRenderer.gameObject.SetActive(true);
 
-        Assert.IsTrue(_introTextImages.Count == 4);
+        yield return new WaitForSeconds(1.5f);
 
-        yield return new WaitForSecondsRealtime(2f);
-
-        _introTextImages[0].SetActive(true);
-
-        yield return new WaitForSecondsRealtime(2f);
-
-        _introTextImages[1].SetActive(true);
-
-        yield return new WaitForSecondsRealtime(2f);
-
-        _introTextImages[2].SetActive(true);
-
-        yield return new WaitForSecondsRealtime(2f);
-
-        _introTextImages[3].SetActive(true);
-
-        yield return new WaitForSecondsRealtime(1f);
-
-        _introTextImages[3].SetActive(false);
-
-        for (int i = 0; i < 3; i++)
+        _countdownRenderer.sprite = _countdownSprites[0];
+        for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 3; j++)
-            {
-                if (j == i)
-                {
-                    _countdownTextImages[j].SetActive(true);
-                }
-                else
-                {
-                    _countdownTextImages[j].SetActive(false);
-                }
-            }
-
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSeconds(1f);
+            _countdownRenderer.sprite = _countdownSprites[i];
         }
 
-        _countdownTextImages[2].SetActive(false);
-        _countdownTextImages[3].SetActive(true);
+        yield return new WaitForSeconds(0.5f);
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        _countdownRenderer.gameObject.SetActive(false);
 
-        _introTextImages[0].SetActive(false);
-        _introTextImages[1].SetActive(false);
-        _introTextImages[2].SetActive(false);
-        _countdownTextImages[3].SetActive(false);
+        _oreSpawner.enabled = true;
+        _lunaController.enabled = true;
+        _drillianController.enabled = true;
+        _spiderController.enabled = true;
 
-        inCutscene = false;
-        Time.timeScale = 1;
+        Timer = Time.time;
     }
 
     public void SetHealth(int amount, bool isPlayer)

@@ -51,6 +51,7 @@ public class OptionsEntry : MonoBehaviour
 
             _positionSequence.Append(canvasGroup.DOFade(targetAph, shiftTime / 3f).SetEase(Ease.OutSine));
         }
+        _positionSequence.SetUpdate(true);
 
         _lastIndex = _currentIndex;
     }
