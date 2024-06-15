@@ -463,13 +463,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxRotationSpeed: 0.16
-  _slowLaseringPercent: 0.365
+  _slowLaseringPercent: 0.3
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
   _laserSprite: {fileID: 9065879226701567407}
   _laserCollider: {fileID: 4179838589217548754}
   _laserSpeed: 0.075
-  _laserKnockbackStrength: 0.15
+  _laserKnockbackStrength: 0.1
   _orbitReturnStrength: 1.5
   _damageCollisions:
     serializedVersion: 2
