@@ -60,6 +60,7 @@ MonoBehaviour:
   _stopTime: 0.4
   _speedBoost: 2
   _speedAdjustmentDecay: 3
+  _rotationAdjustmentDecay: 20
   _damageCollisions:
     serializedVersion: 2
     m_Bits: 1600

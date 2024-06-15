@@ -23,6 +23,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [SerializeField] [Range(0.1f, 2)] float _stopTime = 0.5f;
     [SerializeField] [Range(0.5f, 2)] float _speedBoost = 1.2f;
     [SerializeField] [Range(1, 25)] int _speedAdjustmentDecay = 16;
+    [SerializeField] [Range(1, 25)] int _rotationAdjustmentDecay = 16;
     
     //[Header("Air Movement")]
     //[SerializeField][Range(0f, 100f)] float _airTurnControl = 1f;
@@ -104,6 +105,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         SetWorldGravity();
 
         SetIsBurrowed();
+        UpdateStomping();
         ApplyGravity();
 
         RefreshAction();
@@ -183,11 +185,24 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     //--- Private Methods ------------------------
 
+    void UpdateStomping()
+    {
+        if (IsBurrowed && !LastFrameIsBurrowed)
+        {
+            _isStomping = false;
+        }
+    }
+    
     void UpdateSpeed()
     {
         // Update speed towards goalSpeed (https://www.youtube.com/watch?v=LSNQuFEDOyQ)
         // useful range for decay is approx. 1 to 25, slow to fast
         _currentSpeed = _goalSpeed + (_currentSpeed - _goalSpeed) * Mathf.Exp(-_speedAdjustmentDecay * Time.deltaTime);
+    }
+    
+    Vector2 UpdateDirection(Vector2 direction, Vector2 goalDirection)
+    {
+        return goalDirection + (direction - goalDirection) * Mathf.Exp(-_rotationAdjustmentDecay * Time.deltaTime);
     }
     
     void RefreshAction()
@@ -248,12 +263,15 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     void ActionOutsideMoon()
     {
-        
+        _isStomping = true;
+        _stopMovement = true;
+        DOVirtual.DelayedCall(_stopTime, () => _stopMovement = false, false)
+            .OnComplete(() => _currentSpeed *= _speedBoost);
     }
     
     void ApplyGravity()
     {
-        if (IsBurrowed)
+        if (IsBurrowed || _isStomping)
         {
             _rigidbody.gravityScale = 0;
         }
@@ -315,10 +333,18 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             //_turnDirection = Vector3.RotateTowards(_turnDirection, _airTurnDirection, _airTurnSmoothing * Time.deltaTime, float.PositiveInfinity);
             //
             //lookDirection = _turnDirection;
-
-            lookDirection = _rigidbody.velocity.normalized;
+            
+            if (_isStomping)
+            {
+                Vector2 currentDirection = Quaternion.Euler(0, 0, _rigidbody.rotation) * Vector2.up;
+                lookDirection = UpdateDirection(currentDirection, -transform.position.normalized);
+            }
+            else
+            {
+                lookDirection = _rigidbody.velocity.normalized;
+            }
         }
-
+        
         _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, lookDirection));
     }
 
@@ -329,7 +355,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     void MoveUpDrillian()
     {
-        if (!IsBurrowed) return;
+        if (!IsBurrowed && !_isStomping) return;
         
         Vector2 moveDirection;
 
