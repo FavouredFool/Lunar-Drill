@@ -56,6 +56,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     public bool LastFrameIsBurrowed { get; set; } = true;
     public List<OreController> FollowingOres { get; } = new();
     public float OreDistance => _oreDistance;
+    public bool IsActionAvaliable { get; set; } = false;
 
 
     //--- Private Fields ------------------------
@@ -71,7 +72,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     Tween _gravityTTween;
 
     bool _isInvincible = false;
-    bool _isActionAvaliable = true;
     bool _stopMovement = false;
     bool _isStomping = false;
 
@@ -108,8 +108,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         SetIsBurrowed();
         UpdateStomping();
         ApplyGravity();
-
-        RefreshAction();
+        
         ReleaseOre();
         SetControl();
 
@@ -159,9 +158,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         if (!context.performed) return;
         
-        if (!_isActionAvaliable) return;
+        if (!IsActionAvaliable) return;
         
-        _isActionAvaliable = false;
+        IsActionAvaliable = false;
         LoseActionVisual();
 
         if (IsBurrowed)
@@ -181,6 +180,15 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         Vector2 readValue = context.ReadValue<Vector2>();
 
         _goalMoveDirection = readValue.normalized;
+    }
+    
+    public void RefreshAction()
+    {
+        if (!IsActionAvaliable)
+        {
+            RegainActionVisual();
+            DOVirtual.DelayedCall(_timeTillControlRegain * 2, () => IsActionAvaliable = true);
+        }
     }
 
 
@@ -204,15 +212,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     Vector2 UpdateDirection(Vector2 direction, Vector2 goalDirection)
     {
         return goalDirection + (direction - goalDirection) * Mathf.Exp(-_rotationAdjustmentDecay * Time.deltaTime);
-    }
-    
-    void RefreshAction()
-    {
-        if (IsBurrowed && !LastFrameIsBurrowed && !_isActionAvaliable)
-        {
-            RegainActionVisual();
-            DOVirtual.DelayedCall(_timeTillControlRegain * 2, () => _isActionAvaliable = true);
-        }
     }
     
     void ReleaseOre()

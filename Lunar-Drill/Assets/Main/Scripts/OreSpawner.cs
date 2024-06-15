@@ -1,7 +1,10 @@
+using System;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class OreSpawner : MonoBehaviour
 {
@@ -10,6 +13,7 @@ public class OreSpawner : MonoBehaviour
     [Header("Configuration")]
     [SerializeField][Range(1, 20)] int _maxOres;
     [SerializeField][Range(0.1f, 5)] float _maxSpawnSpeed;
+    [SerializeField] [Range(0, 1)] float _chargedPercentage = 0.05f;
 
     [Header("Blueprint")]
     [SerializeField] OreController _oreBlueprint;
@@ -24,9 +28,16 @@ public class OreSpawner : MonoBehaviour
     float _spawnT = 0;
     float _spawnSpeed;
     List<OreController> _activeOres = new();
+    public float ChargedPercentage => _chargedPercentage;
 
-
+    DrillianController _drillian;
+    
     //--- Unity Methods ------------------------
+
+    public void Start()
+    {
+        _drillian = FindObjectOfType<DrillianController>();
+    }
 
     public void FixedUpdate()
     {
@@ -87,6 +98,14 @@ public class OreSpawner : MonoBehaviour
         }
 
         return finalPlacement;
+    }
+
+    public bool ChargedOreShouldSpawn()
+    {
+        bool oreIsCharged = _activeOres.Any(e => e.IsCharged);
+        bool drillianCharged = _drillian.IsActionAvaliable;
+        
+        return !oreIsCharged && !drillianCharged;
     }
 
 

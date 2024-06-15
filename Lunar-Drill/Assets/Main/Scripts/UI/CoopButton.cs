@@ -176,7 +176,7 @@ public class CoopButton : MonoBehaviour,
     private void Update()
     {
         (List<string>, List<string>) nameOptions = NameManager.GetNameOptions();
-        Debug.Log(nameOptions.Item1[0] + "//" + nameOptions.Item2[0]);
+        //Debug.Log(nameOptions.Item1[0] + "//" + nameOptions.Item2[0]);
         
         if (_requiredPressTime > 0)
         {

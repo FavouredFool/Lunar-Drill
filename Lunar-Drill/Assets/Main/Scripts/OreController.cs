@@ -1,9 +1,11 @@
+using System;
 using DG.Tweening;
 using Shapes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 public class OreController : MonoBehaviour
 {
@@ -30,6 +32,7 @@ public class OreController : MonoBehaviour
     [SerializeField]
     Sprite
         _embedded,
+        _embeddedCharged,
         _collected,
         _energy;
 
@@ -46,6 +49,7 @@ public class OreController : MonoBehaviour
     public enum OreState { BURROWED, FOLLOWING, FLYING };
 
     public bool Collected { get; set; } = false;
+    public bool IsCharged { get; set; }
 
 
     //--- Private Fields ------------------------
@@ -64,7 +68,9 @@ public class OreController : MonoBehaviour
     public void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _oreVisuals.sprite = _embedded;
+        OreSpawner oreSpawner = FindObjectOfType<OreSpawner>();
+        IsCharged = Random.Range(0f, 1f) < oreSpawner.ChargedPercentage && oreSpawner.ChargedOreShouldSpawn();
+        _oreVisuals.sprite = IsCharged ? _embeddedCharged : _embedded;
         _oreVisuals.transform.Rotate(Vector3.forward, Random.Range(0, 360));
     }
 
@@ -154,8 +160,6 @@ public class OreController : MonoBehaviour
         if (spawner)
             spawner.RemoveOre(this);
 
-
-
         if (_deathByLaser)
         {
             _oreVisuals.material = _dissolveEffect;
@@ -186,6 +190,8 @@ public class OreController : MonoBehaviour
 
         _oreState = OreState.FOLLOWING;
         _followDrillian.FollowingOres.Add(this);
+
+        if (IsCharged) _followDrillian.RefreshAction();
 
         Rumble.main?.RumbleDrillian(1, 1, 0.1f);
         Rumble.main?.RumbleDrillian(0, 0.25f, 0.5f);

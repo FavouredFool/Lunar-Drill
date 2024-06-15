@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxOres: 10
   _maxSpawnSpeed: 0.75
+  _chargedPercentage: 0.15
   _oreBlueprint: {fileID: 4967082888513017382, guid: 5a1880d3a96577f4992a8cea0761b3ee, type: 3}
   _planetOuterPaddingPercentage: 0.2
   _orePadding: 0.75
