@@ -311,7 +311,6 @@ public class SpiderController : MonoBehaviour
     IEnumerator Wait()
     {
         if (_hasJustBeenHit) yield break;
-        Debug.Log("WAIT");
 
         float duration = Random.Range(1.5f, 3.5f);
 
@@ -325,8 +324,6 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator Movement(float innerAngle, float outerAngle)
     {
-        Debug.Log("MOVEMENT");
-
         _spiderSpeed = SpiderSpeed.MID;
 
         _goalRotation = Random.insideUnitCircle.normalized;
@@ -353,7 +350,6 @@ public class SpiderController : MonoBehaviour
     IEnumerator RandomLaserLong()
     {
         if (_hasJustBeenHit) yield break;
-        Debug.Log("LASERLONG");
 
         _spiderSpeed = SpiderSpeed.MID;
 
@@ -375,8 +371,6 @@ public class SpiderController : MonoBehaviour
     {
         if (_hasJustBeenHit) yield break;
 
-        Debug.Log("LASERSHORT");
-
         _spiderSpeed = SpiderSpeed.MID;
 
         _goalRotation = Random.insideUnitCircle.normalized;
@@ -394,8 +388,6 @@ public class SpiderController : MonoBehaviour
     IEnumerator LunaLaser()
     {
         if (_hasJustBeenHit) yield break;
-
-        Debug.Log("LUNALASER");
 
         _spiderSpeed = SpiderSpeed.MID;
 

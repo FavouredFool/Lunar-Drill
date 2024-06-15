@@ -5,7 +5,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine.VFX;
 
-public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>
+public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>, IInputSubscriber<DrillianDash>
 {
     //--- Exposed Fields ------------------------
 
@@ -18,6 +18,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [Header("Control")]
     [SerializeField] [Range(1, 100f)] float _maxRotationControl = 25f;
     [SerializeField] [Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
+    [SerializeField] [Range(0.1f, 2)] float _stopTime = 0.5f;
 
     //[Header("Air Movement")]
     //[SerializeField][Range(0f, 100f)] float _airTurnControl = 1f;
@@ -33,6 +34,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] DrillianSpriteIterator _spriteIterator;
+    [SerializeField] SpriteRenderer _actionAvailiableToggleRenderer;
 
     [Header("Ores")]
     [SerializeField] [Range(0.125f, 5f)] float _oreDistance;
@@ -63,7 +65,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     Tween _gravityTTween;
 
     bool _isInvincible = false;
-
+    bool _isActionAvaliable = true;
+    bool _stopMovement = false;
+    
     bool _vfxIgnore = true;
 
     Rumble.Profile permanentRumble = null;
@@ -73,7 +77,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     public void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        InputBus.Subscribe(this);
+        InputBus.Subscribe<DrillianMoveDirection>(this);
+        InputBus.Subscribe<DrillianDash>(this);
 
         transform.position = Quaternion.Euler(0, 0, 240) * Vector2.up * Utilities.OuterOrbit;
         transform.rotation = Quaternion.Euler(0, 0, 60);
@@ -81,7 +86,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     private void OnDestroy()
     {
-        InputBus.Unsubscribe(this);
+        InputBus.Unsubscribe<DrillianMoveDirection>(this);
+        InputBus.Unsubscribe<DrillianDash>(this);
     }
 
     public void FixedUpdate()
@@ -91,6 +97,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         SetIsBurrowed();
         ApplyGravity();
 
+        RefreshAction();
         ReleaseOre();
         SetControl();
 
@@ -128,7 +135,32 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         SetMoveDirectionInput(e.context);
     }
+    
+    //--- Public Methods ------------------------
+    public void OnEventHappened(DrillianDash e) // Event to use Input System
+    {
+        DrillianAction(e.context);
+    }
 
+    public void DrillianAction(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        
+        if (!_isActionAvaliable) return;
+
+        _isActionAvaliable = false;
+        UpdateActionAvailiableVisual();
+
+        if (IsBurrowed)
+        {
+            ActionInsideMoon();
+        }
+        else
+        {
+            ActionOutsideMoon();
+        }
+    }
+    
     public void SetMoveDirectionInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
@@ -141,6 +173,15 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     //--- Private Methods ------------------------
 
+    void RefreshAction()
+    {
+        if (!IsBurrowed && LastFrameIsBurrowed || IsBurrowed && !LastFrameIsBurrowed)
+        {
+            _isActionAvaliable = true;
+            UpdateActionAvailiableVisual();
+        }
+    }
+    
     void ReleaseOre()
     {
         if (!IsBurrowed && LastFrameIsBurrowed)
@@ -150,7 +191,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             {
                 ore.ReleaseOre();
             }
-
+        
             FollowingOres.Clear();
         }
     }
@@ -181,6 +222,17 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
     }
 
+    void ActionInsideMoon()
+    {
+        _stopMovement = true;
+        DOVirtual.DelayedCall(_stopTime, () => _stopMovement = false, false);
+    }
+
+    void ActionOutsideMoon()
+    {
+        
+    }
+    
     void ApplyGravity()
     {
         if (IsBurrowed)
@@ -252,10 +304,15 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, lookDirection));
     }
 
+    void UpdateActionAvailiableVisual()
+    {
+        _actionAvailiableToggleRenderer.enabled = _isActionAvaliable;
+    }
+
     void MoveUpDrillian()
     {
         if (!IsBurrowed) return;
-
+        
         Vector2 moveDirection;
 
         if (!LastFrameIsBurrowed || _goalMoveDirection.magnitude < 0.1f)
@@ -267,10 +324,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             float rotationControl = Utilities.Remap(RotationControlT, 0, 1, 0, _maxRotationControl);
             moveDirection = Vector3.RotateTowards(_rigidbody.velocity.normalized, _goalMoveDirection, rotationControl * Time.deltaTime, float.PositiveInfinity);
         }
-
-
+        
         // Move along up-Vector
-        _rigidbody.velocity = moveDirection * _speed;
+        _rigidbody.velocity = (!_stopMovement) ? moveDirection * _speed : moveDirection * _speed / 100f;
     }
 
     void GetHit()
