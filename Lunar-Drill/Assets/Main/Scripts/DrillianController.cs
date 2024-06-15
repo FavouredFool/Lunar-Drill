@@ -162,7 +162,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         if (!_isActionAvaliable) return;
         
         _isActionAvaliable = false;
-        UpdateActionAvailiableVisual();
+        LoseActionVisual();
 
         if (IsBurrowed)
         {
@@ -208,10 +208,10 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     
     void RefreshAction()
     {
-        if (!IsBurrowed && LastFrameIsBurrowed || IsBurrowed && !LastFrameIsBurrowed)
+        if (IsBurrowed && !LastFrameIsBurrowed && !_isActionAvaliable)
         {
-            _isActionAvaliable = true;
-            UpdateActionAvailiableVisual();
+            RegainActionVisual();
+            DOVirtual.DelayedCall(_timeTillControlRegain * 2, () => _isActionAvaliable = true);
         }
     }
     
@@ -349,9 +349,19 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, lookDirection));
     }
 
-    void UpdateActionAvailiableVisual()
+    void LoseActionVisual()
     {
-        _actionAvailiableToggleRenderer.enabled = _isActionAvaliable;
+        _actionAvailiableToggleRenderer.enabled = false;
+    }
+
+    void RegainActionVisual()
+    {
+        float scaleMax = _actionAvailiableToggleRenderer.transform.localScale.x;
+        _actionAvailiableToggleRenderer.transform.localScale = Vector3.zero;
+        _actionAvailiableToggleRenderer.enabled = true;
+        DOTween.To(() => _actionAvailiableToggleRenderer.transform.localScale,
+            x => _actionAvailiableToggleRenderer.transform.localScale = x, Vector3.one * scaleMax,
+            _timeTillControlRegain * 2f);
     }
 
     void MoveUpDrillian()
