@@ -434,7 +434,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
                 GainHealth();
                 health.DestroyPickup();
             }
-
         }
     }
 

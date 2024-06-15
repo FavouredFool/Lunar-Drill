@@ -34,6 +34,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [SerializeField] LayerMask _damageCollisions;
     [SerializeField] LayerMask _spiderCollision;
     [SerializeField] LayerMask _laserCollision;
+    [SerializeField] LayerMask _health;
     [SerializeField] [Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
@@ -419,7 +420,32 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
                     AudioController.Fire(new DrillianHitLaser(""));
                 }
             }
+        }        
+        else if (Utilities.LayerMaskContainsLayer(_health, collision.gameObject.layer))
+        {
+            HealthPickup health = collision.gameObject.GetComponent<HealthPickup>();
+
+            GameManager gameManager = FindObjectOfType<GameManager>();
+
+            if (!health.HasBeenPickedUp && gameManager.PlayerHP != gameManager.PlayerMaxHP)
+            {
+                if (!health.PickupableByDrillian) return;
+                
+                health.HasBeenPickedUp = true;
+                GainHealth();
+                health.DestroyPickup();
+            }
         }
+    }
+    
+    void GainHealth()
+    {
+        GameManager manager = FindObjectOfType<GameManager>();
+
+        AudioController.Fire(new LunaEnergyPickup(""));
+
+        manager.Heal(gameObject, true);
+        Rumble.main?.RumbleDrillian(1, 2, 0.1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

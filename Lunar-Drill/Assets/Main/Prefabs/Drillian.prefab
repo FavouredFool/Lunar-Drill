@@ -70,6 +70,9 @@ MonoBehaviour:
   _laserCollision:
     serializedVersion: 2
     m_Bits: 1088
+  _health:
+    serializedVersion: 2
+    m_Bits: 4096
   _invincibleTime: 3
   _spriteRenderer: {fileID: 1141031731221533029}
   _spriteIterator: {fileID: 1038394447196655809}

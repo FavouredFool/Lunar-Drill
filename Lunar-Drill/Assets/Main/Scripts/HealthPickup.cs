@@ -8,10 +8,12 @@ public class HealthPickup : MonoBehaviour
 
     Tween pulseTween;
     public bool HasBeenPickedUp = false;
+    public bool PickupableByDrillian = false;
     
     public void Start()
     {
         DOTween.To(() => transform.position, x => transform.position = x, transform.position.normalized * Utilities.OuterOrbit, _timeTillOrbit).SetEase(Ease.OutSine).SetUpdate(true);
+        DOVirtual.DelayedCall(2f, () => PickupableByDrillian = true);
     }
 
     public void DestroyPickup()
