@@ -26,7 +26,7 @@ public class NameManager : MonoBehaviour
         "Martian",
         "Neon",
         "Orbit",
-        "Crustal",
+        "Crystal",
         "Heavy",
         "Iron",
         "Vivid",
