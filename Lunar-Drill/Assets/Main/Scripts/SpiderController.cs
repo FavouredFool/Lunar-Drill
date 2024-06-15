@@ -218,11 +218,11 @@ public class SpiderController : MonoBehaviour
         {
             return Movement(80, 170);
         }
-        else if (randomT > 0.3f)
+        else if (randomT > 0.25f)
         {
             return RandomLaserShort();
         }
-        else if (randomT > 0.15f)
+        else if (randomT > 0.1f)
         {
             return RandomLaserLong();
         }
@@ -251,11 +251,11 @@ public class SpiderController : MonoBehaviour
         {
             return Movement(80, 170);
         }
-        else if (randomT > 0.4f)
+        else if (randomT > 0.3f)
         {
             return RandomLaserShort();
         }
-        else if (randomT > 0.2f)
+        else if (randomT > 0.1f)
         {
             return RandomLaserLong();
         }
@@ -394,7 +394,7 @@ public class SpiderController : MonoBehaviour
         GoalMoveOppositeOfLuna();
 
         // increase speed drastically
-        yield return MoveToPosition(SpiderSpeed.FAST);
+        yield return MoveToPosition(SpiderSpeed.MID);
 
         StartCoroutine(_spiderLaser.ShootLaser());
         
