@@ -309,6 +309,7 @@ MonoBehaviour:
   _fastRotationSpeed: 0.125
   _movementStartAngleThreshold: 3
   _movementArrivedAngleThreshold: 1.5
+  _rotationAdjustmentDecay: 8
   _lunaLaser:
     serializedVersion: 2
     m_Bits: 64

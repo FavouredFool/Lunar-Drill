@@ -17,8 +17,10 @@ public class SpiderController : MonoBehaviour
     [Header("Movement Smoothing")]
     [SerializeField] [Range(0.1f, 100f)] float _movementStartAngleThreshold;
     [SerializeField] [Range(0.1f, 10f)] float _movementArrivedAngleThreshold;
+    [SerializeField] [Range(1, 25)] int _rotationAdjustmentDecay = 16;
     [SerializeField] LayerMask _lunaLaser;
     [SerializeField] LayerMask _drillian;
+    
 
     [Header("Overheat")]
     [SerializeField] [Range(0.01f, 1)] float _overheatGain = 0.25f;
@@ -161,7 +163,7 @@ public class SpiderController : MonoBehaviour
         // Movement: 80%
 
         float randomT = Random.Range(0f, 1f);
-
+        
         if (randomT > 0.8f)
         {
             return Wait();
@@ -494,13 +496,21 @@ public class SpiderController : MonoBehaviour
     void SetSpiderPosition()
     {
         if (IsVulnerable) return;
+        float goalAngle = _orbitRotationT.Remap(0, 1, 0, 360);
 
-        float angle = _orbitRotationT.Remap(0, 1, 0, 360);
+        Vector2 rotatedGoalVector = Quaternion.Euler(0f, 0f, goalAngle) * Vector2.up;
+        Vector2 goalPosition = rotatedGoalVector * Utilities.InnerOrbit;
 
-        Vector2 rotatedVector = Quaternion.Euler(0f, 0f, angle) * Vector2.up;
-        Vector2 position = rotatedVector * Utilities.InnerOrbit;
-
-        _rigidbody.MovePosition(position);
+        // Smooth Movement
+        Vector2 currentVector = transform.position.normalized;
+        Vector2 currentPosition = currentVector * Utilities.InnerOrbit;
+        
+        _rigidbody.MovePosition(UpdateDirection(currentPosition, goalPosition));
+    }
+    
+    Vector2 UpdateDirection(Vector2 direction, Vector2 goalDirection)
+    {
+        return goalDirection + (direction - goalDirection) * Mathf.Exp(-_rotationAdjustmentDecay * Time.deltaTime);
     }
 
     void SetSpiderRotation()
