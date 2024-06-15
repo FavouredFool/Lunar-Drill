@@ -51,13 +51,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db206047d94c3649a123607ef8b8716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3.5
+  _goalSpeed: 3.5
   _minGravityStrength: 0.65
   _maxGravityStrength: 2
   _timeTillMaxGravityOutside: 1.4
   _maxRotationControl: 7.5
   _timeTillControlRegain: 0.2
   _stopTime: 0.4
+  _speedBoost: 2
+  _speedAdjustmentDecay: 3
   _damageCollisions:
     serializedVersion: 2
     m_Bits: 1600

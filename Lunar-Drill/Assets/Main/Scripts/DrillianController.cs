@@ -3,14 +3,16 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 using UnityEngine.VFX;
 
 public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>, IInputSubscriber<DrillianDash>
 {
     //--- Exposed Fields ------------------------
 
+    [FormerlySerializedAs("_speed")]
     [Header("Configuration")]
-    [SerializeField] [Range(0.25f, 10f)] float _speed = 5;
+    [SerializeField] [Range(0.25f, 10f)] float _goalSpeed = 5;
     [SerializeField] [Range(0.1f, 100f)] float _minGravityStrength = 1f;
     [SerializeField] [Range(0.1f, 100f)] float _maxGravityStrength = 2f;
     [SerializeField] [Range(0.1f, 100f)] float _timeTillMaxGravityOutside = 2f;
@@ -19,7 +21,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [SerializeField] [Range(1, 100f)] float _maxRotationControl = 25f;
     [SerializeField] [Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
     [SerializeField] [Range(0.1f, 2)] float _stopTime = 0.5f;
-
+    [SerializeField] [Range(0.5f, 2)] float _speedBoost = 1.2f;
+    [SerializeField] [Range(1, 25)] int _speedAdjustmentDecay = 16;
+    
     //[Header("Air Movement")]
     //[SerializeField][Range(0f, 100f)] float _airTurnControl = 1f;
     //[SerializeField][Range(0f, 1f)] float _airTurnPercentage = 0.25f;
@@ -67,6 +71,9 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     bool _isInvincible = false;
     bool _isActionAvaliable = true;
     bool _stopMovement = false;
+    bool _isStomping = false;
+
+    float _currentSpeed;
     
     bool _vfxIgnore = true;
 
@@ -82,6 +89,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
         transform.position = Quaternion.Euler(0, 0, 240) * Vector2.up * Utilities.OuterOrbit;
         transform.rotation = Quaternion.Euler(0, 0, 60);
+
+        _currentSpeed = _goalSpeed;
     }
 
     private void OnDestroy()
@@ -101,6 +110,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         ReleaseOre();
         SetControl();
 
+        UpdateSpeed();
         MoveUpDrillian();
         RotateDrillian();
 
@@ -147,7 +157,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         if (!context.performed) return;
         
         if (!_isActionAvaliable) return;
-
+        
         _isActionAvaliable = false;
         UpdateActionAvailiableVisual();
 
@@ -173,6 +183,13 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     //--- Private Methods ------------------------
 
+    void UpdateSpeed()
+    {
+        // Update speed towards goalSpeed (https://www.youtube.com/watch?v=LSNQuFEDOyQ)
+        // useful range for decay is approx. 1 to 25, slow to fast
+        _currentSpeed = _goalSpeed + (_currentSpeed - _goalSpeed) * Mathf.Exp(-_speedAdjustmentDecay * Time.deltaTime);
+    }
+    
     void RefreshAction()
     {
         if (!IsBurrowed && LastFrameIsBurrowed || IsBurrowed && !LastFrameIsBurrowed)
@@ -225,7 +242,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     void ActionInsideMoon()
     {
         _stopMovement = true;
-        DOVirtual.DelayedCall(_stopTime, () => _stopMovement = false, false);
+        DOVirtual.DelayedCall(_stopTime, () => _stopMovement = false, false)
+            .OnComplete(() => _currentSpeed *= _speedBoost);
     }
 
     void ActionOutsideMoon()
@@ -326,7 +344,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
         
         // Move along up-Vector
-        _rigidbody.velocity = (!_stopMovement) ? moveDirection * _speed : moveDirection * _speed / 100f;
+        _rigidbody.velocity = (!_stopMovement) ? moveDirection * _currentSpeed : moveDirection * _currentSpeed / 100f;
     }
 
     void GetHit()
