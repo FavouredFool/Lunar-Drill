@@ -22,7 +22,7 @@ public class PreparationInterface : MonoBehaviour
         P1_ConPrompt, P2_ConPrompt;
     [SerializeField] RectTransform
     Luna_MovePrompt, Drillian_MovePrompt;
-    [SerializeField] TMP_Text NextUp_Text;
+    public TMP_Text NextUp_Text;
 
     Sequence _seq;
 
@@ -201,7 +201,6 @@ public class PreparationInterface : MonoBehaviour
                 Drillian_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
 
                 NextUp_Text.transform.parent.DOScale(1, 0.33f).SetEase(Ease.OutSine);
-                NextUp_Text.text = "Tutorial";
 
                 break;
             case 0:

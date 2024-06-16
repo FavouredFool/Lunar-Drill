@@ -41,6 +41,8 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
         DisplayEntry(entry);
 
+        PreparationInterface.instance.NextUp_Text.text = "Continue";
+
         if (entryIndex + 1 == entries.Count)
             Finish();
     }
@@ -57,6 +59,8 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
     public void Finish()
     {
+        PreparationInterface.instance.NextUp_Text.text = "LETS GO!";
+
         PersistentButton.blocked = false;
         PersistentButton.gameObject.SetActive(true);
         TemporaryButton.blocked = true;
