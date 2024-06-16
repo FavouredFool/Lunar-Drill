@@ -191,7 +191,12 @@ public class OreController : MonoBehaviour
         _oreState = OreState.FOLLOWING;
         _followDrillian.FollowingOres.Add(this);
 
-        if (IsCharged) _followDrillian.RefreshAction();
+        if (IsCharged)
+        {
+            _followDrillian.RefreshAction();
+            IsCharged = false;
+        }
+        
 
         Rumble.main?.RumbleDrillian(1, 1, 0.1f);
         Rumble.main?.RumbleDrillian(0, 0.25f, 0.5f);
