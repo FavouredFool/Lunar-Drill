@@ -22,6 +22,7 @@ public class PreparationInterface : MonoBehaviour
         P1_ConPrompt, P2_ConPrompt;
     [SerializeField] RectTransform
     Luna_MovePrompt, Drillian_MovePrompt;
+    [SerializeField] TMP_Text NextUp_Text;
 
     Sequence _seq;
 
@@ -63,6 +64,8 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
                 _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
 
+                _seq.Join(NextUp_Text.transform.parent.DOScale(0, t).SetEase(Ease.OutSine));
+
                 _continueButton.blocked = true;
 
                 break;
@@ -83,6 +86,8 @@ public class PreparationInterface : MonoBehaviour
 
                 _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
                 _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+
+                _seq.Join(NextUp_Text.transform.parent.DOScale(0, t).SetEase(Ease.OutSine));
 
                 _continueButton.blocked = false;
 
@@ -105,6 +110,9 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(Luna_MovePrompt.DOScale(1, t).SetEase(Ease.OutSine));
                 _seq.Join(Drillian_MovePrompt.DOScale(1, t).SetEase(Ease.OutSine));
 
+                _seq.Join(NextUp_Text.transform.parent.DOScale(1, t).SetEase(Ease.OutSine));
+                NextUp_Text.text = "Tutorial";
+
                 _continueButton.blocked = false;
 
                 break;
@@ -126,6 +134,9 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
                 _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
 
+                _seq.Join(NextUp_Text.transform.parent.DOScale(1, t).SetEase(Ease.OutSine));
+                NextUp_Text.text = "Gameplay!";
+
                 _continueButton.blocked = false;
 
                 break;
@@ -146,6 +157,8 @@ public class PreparationInterface : MonoBehaviour
 
                 _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
                 _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+
+                _seq.Join(NextUp_Text.transform.parent.DOScale(0, t).SetEase(Ease.OutSine));
 
                 _continueButton.blocked = true;
 
@@ -170,6 +183,10 @@ public class PreparationInterface : MonoBehaviour
 
                 Luna_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
                 Drillian_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
+
+                NextUp_Text.transform.parent.DOScale(1, 0.33f).SetEase(Ease.OutSine);
+                NextUp_Text.text = "Swap Screen";
+
                 break;
             case 1:
                 P1_Text.text = "P1\nSolo";
@@ -182,6 +199,10 @@ public class PreparationInterface : MonoBehaviour
 
                 Luna_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
                 Drillian_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
+
+                NextUp_Text.transform.parent.DOScale(1, 0.33f).SetEase(Ease.OutSine);
+                NextUp_Text.text = "Tutorial";
+
                 break;
             case 0:
             default:
@@ -195,6 +216,9 @@ public class PreparationInterface : MonoBehaviour
 
                 Luna_MovePrompt.DOScale(0f, 0.33f).SetEase(Ease.OutSine);
                 Drillian_MovePrompt.DOScale(0f, 0.33f).SetEase(Ease.OutSine);
+
+                NextUp_Text.transform.parent.DOScale(0, 0.33f).SetEase(Ease.OutSine);
+
                 break;
         }
     }
