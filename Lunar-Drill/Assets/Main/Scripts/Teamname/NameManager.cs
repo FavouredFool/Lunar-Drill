@@ -7,13 +7,12 @@ using UnityEngine.Assertions;
 
 public class NameManager : MonoBehaviour
 {
-    [SerializeField] TMP_Text TeamNameUI;
+    public static NameManager instance;
+
+    [SerializeField] TMP_Text TeamName;
     
     public static string LunaTeamName { get; set; } = "Lunar";
     public static string DrillianTeamName { get; set; } = "Drill";
-
-    static List<string> LunaNameOptions { get; set; }
-    static List<string> DrillianNameOptions { get; set; }
     
     // Yes i hardcoded them. Sue me. -Tim
     static string[] LunaNames =
@@ -154,31 +153,42 @@ public class NameManager : MonoBehaviour
         "Strike",
     };
 
-    public void SetNameOptions()
-    {
-        (List<string>, List<string>) nameOptions = GetNameOptions();
-        LunaNameOptions = nameOptions.Item1;
-        DrillianNameOptions = nameOptions.Item2;
 
-        // TODO TEMPORARY JUST SO THAT THERE'S SOME RANDOM NAMES. THIS CURRENTLY CHANGES EVERY SCENE CHANGE
-        LunaTeamName = LunaNameOptions[0];
-        DrillianTeamName = DrillianNameOptions[0];
+    private void Awake()
+    {
+        instance = this;
+    }
+    public void RandomizeBoth(int i)
+    {
+        RandomizeLuna(i);
+        RandomizeDrillian(i);
+    }
+    public void RandomizeLuna(int i)
+    {
+        LunaTeamName = GetNameFromNames(LunaNames, new List<string> { LunaTeamName });
+
+        UpdateTeamNameUI();
+    }
+    public void RandomizeDrillian(int i)
+    {
+        DrillianTeamName = GetNameFromNames(DrillianNames, new List<string> { DrillianTeamName});
+
         UpdateTeamNameUI();
     }
     
-    public static (List<string>, List<string>) GetNameOptions()
-    {
-        List<string> lunaOptions = new List<string>(3);
-        List<string> drillianOptions = new List<string>(3);
+    //public static (List<string>, List<string>) GetNameOptions()
+    //{
+    //    List<string> lunaOptions = new List<string>(3);
+    //    List<string> drillianOptions = new List<string>(3);
 
-        for (int i = 0; i < 3; i++)
-        {
-            lunaOptions.Add(GetNameFromNames(LunaNames, lunaOptions));
-            drillianOptions.Add(GetNameFromNames(DrillianNames, drillianOptions));
-        }
+    //    //for (int i = 0; i < 3; i++)
+    //    //{
+    //    //    lunaOptions.Add(GetNameFromNames(LunaNames, lunaOptions));
+    //    //    drillianOptions.Add(GetNameFromNames(DrillianNames, drillianOptions));
+    //    //}
 
-        return (lunaOptions, drillianOptions);
-    }
+    //    return (lunaOptions, drillianOptions);
+    //}
 
     static string GetNameFromNames(string[] allNames, List<string> blockedNames)
     {
@@ -198,8 +208,8 @@ public class NameManager : MonoBehaviour
 
     void UpdateTeamNameUI()
     {
-        TeamNameUI.text = MakeTeamName(LunaTeamName, DrillianTeamName);
+        TeamName.text = MakeTeamName(LunaTeamName,DrillianTeamName);
     }
-    
+
     public static string MakeTeamName(string lunaName, string drillianName) => lunaName + " // " + drillianName;
 }

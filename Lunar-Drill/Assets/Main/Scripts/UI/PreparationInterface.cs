@@ -8,7 +8,7 @@ using TMPro;
 //DontDestroyOnLoad via Persistent Prefab
 public class PreparationInterface : MonoBehaviour
 {
-    [SerializeField] TMP_Text _teamNameText;
+    [SerializeField] RectTransform _teamName;
 
     [SerializeField] RectTransform _lunaTrans, _drillianTrans;
     [SerializeField] RectTransform _lowerBar;
@@ -40,8 +40,8 @@ public class PreparationInterface : MonoBehaviour
             case SceneIdentity.MainMenu:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(-100, t).SetEase(Ease.OutSine));
-                _seq.Join(_teamNameText.rectTransform.DOAnchorPosY(0, t).SetEase(Ease.InOutSine));
-                _seq.Join(_teamNameText.rectTransform.DOScale(0, t).SetEase(Ease.OutBack));
+                _seq.Join(_teamName.DOAnchorPosY(0, t).SetEase(Ease.InOutSine));
+                _seq.Join(_teamName.DOScale(0, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(0, t).SetEase(Ease.OutSine));
                 _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));
@@ -55,14 +55,14 @@ public class PreparationInterface : MonoBehaviour
             case SceneIdentity.PlayerConnect:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(100, t).SetEase(Ease.OutSine));
-                _seq.Join(_teamNameText.rectTransform.DOAnchorPosY(0, t).SetEase(Ease.InOutSine));
-                _seq.Join(_teamNameText.rectTransform.DOScale(1, t).SetEase(Ease.OutBack));
+                _seq.Join(_teamName.DOAnchorPosY(0, t).SetEase(Ease.InOutSine));
+                _seq.Join(_teamName.DOScale(1, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(1f, t).SetEase(Ease.OutSine));
-                _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(0, 0), t).SetEase(Ease.InOutSine));
+                _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(35, 60), t).SetEase(Ease.InOutSine));
 
                 _seq.Join(_drillianTrans.DOScale(1f, t).SetEase(Ease.OutSine));
-                _seq.Join(_drillianTrans.DOAnchorPos(new Vector2(0, 0), t).SetEase(Ease.InOutSine));
+                _seq.Join(_drillianTrans.DOAnchorPos(new Vector2(-35, 60), t).SetEase(Ease.InOutSine));
 
                 _continueButton.blocked = false;
 
@@ -70,8 +70,8 @@ public class PreparationInterface : MonoBehaviour
             case SceneIdentity.PlayerSelect:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(100, t).SetEase(Ease.OutSine));
-                _seq.Join(_teamNameText.rectTransform.DOAnchorPosY(450, t).SetEase(Ease.InOutSine));
-                _seq.Join(_teamNameText.rectTransform.DOScale(1, t).SetEase(Ease.OutBack));
+                _seq.Join(_teamName.DOAnchorPosY(450, t).SetEase(Ease.InOutSine));
+                _seq.Join(_teamName.DOScale(0.5f, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(1.5f, t).SetEase(Ease.OutSine));
                 _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(45, -33), t).SetEase(Ease.InOutSine));
@@ -85,8 +85,8 @@ public class PreparationInterface : MonoBehaviour
             case SceneIdentity.GameTutorial:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(100, t).SetEase(Ease.OutSine));
-                _seq.Join(_teamNameText.rectTransform.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
-                _seq.Join(_teamNameText.rectTransform.DOScale(1, t).SetEase(Ease.OutBack));
+                _seq.Join(_teamName.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
+                _seq.Join(_teamName.DOScale(0.5f, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(1.2f, t).SetEase(Ease.InOutSine));
                 _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(50, 25), t).SetEase(Ease.InOutSine));
@@ -100,8 +100,8 @@ public class PreparationInterface : MonoBehaviour
             case SceneIdentity.GameMain:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(-100, t).SetEase(Ease.OutSine));
-                _seq.Join(_teamNameText.rectTransform.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
-                _seq.Join(_teamNameText.rectTransform.DOScale(1, t).SetEase(Ease.OutBack));
+                _seq.Join(_teamName.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
+                _seq.Join(_teamName.DOScale(0.5f, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(0.8f, t).SetEase(Ease.OutSine));
                 _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));
@@ -116,12 +116,5 @@ public class PreparationInterface : MonoBehaviour
 
         return t;
     }
-
-    public void SetTeamName(string name)
-    {
-        _teamNameText.text = name;
-    }
-    public void SetTeamName(string name1, string name2) 
-        => SetTeamName(name1 + "//" + name2);
 
 }

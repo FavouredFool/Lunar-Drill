@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
 {
     [SerializeField] List<TutorialEntry> entries = new List<TutorialEntry>();
 
@@ -13,14 +13,18 @@ public class TutorialManager : MonoBehaviour
     TutorialSpeechBubble[] bubbles;
 
     CoopButton PersistentButton;
-    [SerializeField] CoopButton HiddenButton;
+    [SerializeField] CoopButton TemporaryButton;
 
     int entryIndex;
     private void Start()
     {
+        InputBus.Subscribe(this);
+
         PersistentButton = PreparationInterface.ContinueButton;
-        PersistentButton._OnInputPerformedEvents.RemoveAllListeners();
-        PersistentButton._OnInputPerformedEvents = new Button.ButtonClickedEvent();
+        PersistentButton.blocked = true;
+        PersistentButton.gameObject.SetActive(false);
+        TemporaryButton.blocked = false;
+        TemporaryButton.gameObject.SetActive(true);
 
         entryIndex = -1;
         Continue();
@@ -29,20 +33,16 @@ public class TutorialManager : MonoBehaviour
     public void Continue()
     {
         entryIndex++;
-        if (entryIndex >= entries.Count)
-        {
-            Finish();
-            return;
-        }
 
         TutorialEntry entry = entries[entryIndex];
 
-        PersistentButton._inputCharacter = entry.character;
-        PersistentButton._requiredPressTime = 0f;
-        HiddenButton._inputCharacter = entry.character;
-        HiddenButton._requiredPressTime = 0f;
+        TemporaryButton._inputCharacter = entry.character;
+        TemporaryButton._requiredPressTime = 0f;
 
         DisplayEntry(entry);
+
+        if (entryIndex + 1 == entries.Count)
+            Finish();
     }
     public void DisplayEntry(TutorialEntry entry)
     {
@@ -57,14 +57,16 @@ public class TutorialManager : MonoBehaviour
 
     public void Finish()
     {
-        PersistentButton._OnInputPerformedEvents.AddListener(() => SceneChanger.instance.LoadNext());
-        PersistentButton._inputCharacter = ChosenCharacter.both;
-        PersistentButton._requiredPressTime = 1;
+        PersistentButton.blocked = false;
+        PersistentButton.gameObject.SetActive(true);
+        TemporaryButton.blocked = true;
+        TemporaryButton.gameObject.SetActive(false);
+    }
 
+    public void OnEventHappened(Signal_SceneChange e)
+    {
         foreach (TutorialSpeechBubble spb in bubbles)
             spb.Hide();
-
-        SceneChanger.instance.LoadNext();
     }
 }
 

@@ -26,8 +26,11 @@ public class TutorialSpeechBubble : MonoBehaviour
     }
     public void Hide()
     {
-        twn.Kill();
-        if (IsOpen) twn = transform.DOScale(0, 0.33f).SetEase(Ease.InSine);
+        if (IsOpen)
+        {
+            twn.Kill();
+            twn = transform.DOScale(0, 0.33f).SetEase(Ease.InSine);
+        }
 
         IsOpen = false;
     }

@@ -175,9 +175,6 @@ public class CoopButton : MonoBehaviour,
 
     private void Update()
     {
-        (List<string>, List<string>) nameOptions = NameManager.GetNameOptions();
-        //Debug.Log(nameOptions.Item1[0] + "//" + nameOptions.Item2[0]);
-        
         if (_requiredPressTime > 0)
         {
             if (_lunarWeight > 0) _lunarTime += Time.unscaledDeltaTime;
