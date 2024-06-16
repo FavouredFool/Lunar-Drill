@@ -35,7 +35,7 @@ MonoBehaviour:
   Path: ../FMOD/Lunar--Drill/Build/Desktop/Characters.bank
   Name: Characters
   StudioPath: bank:/Characters
-  lastModified: 638539563076715224
+  lastModified: 638541303895615922
   FileSizes:
   - Name: Desktop
     Value: 733664
@@ -330,7 +330,7 @@ MonoBehaviour:
   - {fileID: 4975697842361402279}
   StringsBanks:
   - {fileID: -9200300441347819626}
-  cacheTime: 638539563076715224
+  cacheTime: 638541303895615922
   cacheVersion: 131617
 --- !u!114 &212034924061070438
 MonoBehaviour:
@@ -731,8 +731,8 @@ MonoBehaviour:
     Data3: -1835931772
     Data4: -1960904457
   Banks:
-  - {fileID: 4975697842361402279}
   - {fileID: 4695575326577322018}
+  - {fileID: 4975697842361402279}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
