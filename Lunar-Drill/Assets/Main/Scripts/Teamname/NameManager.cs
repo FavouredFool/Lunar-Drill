@@ -8,6 +8,9 @@ public class NameManager : MonoBehaviour
     public static string LunaTeamName { get; set; } = "Lunar";
     public static string DrillianTeamName { get; set; } = "Drill";
 
+    static List<string> LunaNameOptions { get; set; }
+    static List<string> DrillianNameOptions { get; set; }
+    
     // Yes i hardcoded them. Sue me. -Tim
     static string[] LunaNames =
     {
@@ -147,6 +150,13 @@ public class NameManager : MonoBehaviour
         "Strike",
     };
 
+    public static void SetNameOptions()
+    {
+        (List<string>, List<string>) nameOptions = GetNameOptions();
+        LunaNameOptions = nameOptions.Item1;
+        DrillianNameOptions = nameOptions.Item2;
+    }
+    
     public static (List<string>, List<string>) GetNameOptions()
     {
         List<string> lunaOptions = new List<string>(3);

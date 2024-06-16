@@ -31,6 +31,9 @@ public class SceneChanger : MonoBehaviour
     }
     public void LoadScene(SceneIdentity scene)
     {
+        // TODO I have no clue where i can put this code, so I'll put it here for now -Tim
+        NameManager.SetNameOptions();
+        
         StartCoroutine(LoadSceneCoroutine(scene));
     }
     private IEnumerator LoadSceneCoroutine(SceneIdentity scene)
