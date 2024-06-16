@@ -10,6 +10,7 @@ public class PlayerConnectController : MonoBehaviour
 {
     public static PlayerConnectController
         Drillian, Luna;
+    public static bool isSolo = Drillian == Luna;
     public PlayerInput Input => GetComponent<PlayerInput>();
     public ChosenCharacter Character { get; private set; } = ChosenCharacter.both;
 
@@ -48,6 +49,19 @@ public class PlayerConnectController : MonoBehaviour
                 break;
         }
         return actionMap;
+    }
+    public static bool Swap()
+    {
+        if (isSolo || !Drillian || !Luna) return false;
+
+        PlayerConnectController Drill=Drillian;
+        Drillian = Luna;
+        Luna = Drill;
+
+        Drillian.SetCharacter(ChosenCharacter.drillian);
+        Luna.SetCharacter(ChosenCharacter.luna);
+
+        return true;
     }
     private void OnDestroy()
     {

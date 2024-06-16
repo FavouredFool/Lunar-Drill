@@ -20,7 +20,7 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
     {
         InputBus.Subscribe(this);
 
-        PersistentButton = PreparationInterface.ContinueButton;
+        PersistentButton = PreparationInterface.instance._continueButton;
         PersistentButton.blocked = true;
         PersistentButton.gameObject.SetActive(false);
         TemporaryButton.blocked = false;

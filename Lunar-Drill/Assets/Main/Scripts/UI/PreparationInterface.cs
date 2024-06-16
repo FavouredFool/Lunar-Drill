@@ -8,12 +8,20 @@ using TMPro;
 //DontDestroyOnLoad via Persistent Prefab
 public class PreparationInterface : MonoBehaviour
 {
+    public static PreparationInterface instance;
     [SerializeField] RectTransform _teamName;
 
     [SerializeField] RectTransform _lunaTrans, _drillianTrans;
     [SerializeField] RectTransform _lowerBar;
-    [SerializeField] CoopButton _continueButton;
-    public static CoopButton ContinueButton;
+    public CoopButton _continueButton;
+
+    [SerializeField] RectTransform _P1,_P2;
+    [SerializeField] TMP_Text
+        P1_Text, P2_Text;
+    [SerializeField] RectTransform
+        P1_ConPrompt, P2_ConPrompt;
+    [SerializeField] RectTransform
+    Luna_MovePrompt, Drillian_MovePrompt;
 
     Sequence _seq;
 
@@ -24,7 +32,7 @@ public class PreparationInterface : MonoBehaviour
 
     private void Awake()
     {
-        ContinueButton = _continueButton;
+        instance = this;
         SetScene(SceneIdentity.MainMenu,0f);
     }
 
@@ -49,6 +57,12 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(_drillianTrans.DOScale(0, t).SetEase(Ease.OutSine));
                 _seq.Join(_drillianTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));
 
+                _seq.Join(_P1.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(_P2.DOScale(0, t).SetEase(Ease.OutSine));
+
+                _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+
                 _continueButton.blocked = true;
 
                 break;
@@ -63,6 +77,12 @@ public class PreparationInterface : MonoBehaviour
 
                 _seq.Join(_drillianTrans.DOScale(1f, t).SetEase(Ease.OutSine));
                 _seq.Join(_drillianTrans.DOAnchorPos(new Vector2(-35, 60), t).SetEase(Ease.InOutSine));
+
+                _seq.Join(_P1.DOScale(1, t).SetEase(Ease.OutSine));
+                _seq.Join(_P2.DOScale(1, t).SetEase(Ease.OutSine));
+
+                _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
 
                 _continueButton.blocked = false;
 
@@ -79,6 +99,12 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(_drillianTrans.DOScale(1.5f, t).SetEase(Ease.OutSine));
                 _seq.Join(_drillianTrans.DOAnchorPos(new Vector2(-75, -50), t).SetEase(Ease.InOutSine));
 
+                _seq.Join(_P1.DOScale(1, t).SetEase(Ease.OutSine));
+                _seq.Join(_P2.DOScale(1, t).SetEase(Ease.OutSine));
+
+                _seq.Join(Luna_MovePrompt.DOScale(1, t).SetEase(Ease.OutSine));
+                _seq.Join(Drillian_MovePrompt.DOScale(1, t).SetEase(Ease.OutSine));
+
                 _continueButton.blocked = false;
 
                 break;
@@ -93,6 +119,12 @@ public class PreparationInterface : MonoBehaviour
 
                 _seq.Join(_drillianTrans.DOScale(1.2f, t).SetEase(Ease.InOutSine));
                 _seq.Join(_drillianTrans.DOAnchorPos(new Vector2(-50, 25), t).SetEase(Ease.InOutSine));
+
+                _seq.Join(_P1.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(_P2.DOScale(0, t).SetEase(Ease.OutSine));
+
+                _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
 
                 _continueButton.blocked = false;
 
@@ -109,12 +141,78 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(_drillianTrans.DOScale(0.8f, t).SetEase(Ease.OutSine));
                 _seq.Join(_drillianTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));
 
+                _seq.Join(_P1.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(_P2.DOScale(0, t).SetEase(Ease.OutSine));
+
+                _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+
                 _continueButton.blocked = true;
 
                 break;
         }
 
         return t;
+    }
+
+    public void SetPlayerInfo(int playersConnected)
+    {
+        switch (playersConnected)
+        {
+            case 2:
+                P1_Text.text = "P1\nLuna";
+                P1_Text.transform.DOScale(1f, 0.33f).SetEase(Ease.OutBack);
+                P1_ConPrompt.DOScale(0f, 0.15f).SetEase(Ease.InBack);
+
+                P2_Text.text = "P2\nDrillian";
+                P2_Text.transform.DOScale(1f, 0.33f).SetEase(Ease.OutBack);
+                P2_ConPrompt.DOScale(0f, 0.15f).SetEase(Ease.InBack);
+
+                Luna_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
+                Drillian_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
+                break;
+            case 1:
+                P1_Text.text = "P1\nSolo";
+                P1_Text.transform.DOScale(1f, 0.33f).SetEase(Ease.OutBack);
+                P1_ConPrompt.DOScale(0f, 0.15f).SetEase(Ease.InBack);
+
+                P2_Text.text = "P2\nConnect...";
+                P2_Text.transform.DOScale(0.5f, 0.33f).SetEase(Ease.OutBack);
+                P2_ConPrompt.DOScale(1f, 0.15f).SetEase(Ease.InBack);
+
+                Luna_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
+                Drillian_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
+                break;
+            case 0:
+            default:
+                P1_Text.text = "P1\n...Connect";
+                P1_Text.transform.DOScale(0.5f, 0.33f).SetEase(Ease.OutBack);
+                P1_ConPrompt.DOScale(1f, 0.15f).SetEase(Ease.InBack);
+
+                P2_Text.text = "P2\nConnect...";
+                P2_Text.transform.DOScale(0.5f, 0.33f).SetEase(Ease.OutBack);
+                P2_ConPrompt.DOScale(1f, 0.15f).SetEase(Ease.InBack);
+
+                Luna_MovePrompt.DOScale(0f, 0.33f).SetEase(Ease.OutSine);
+                Drillian_MovePrompt.DOScale(0f, 0.33f).SetEase(Ease.OutSine);
+                break;
+        }
+    }
+    bool swappedPlayerInfo;
+    public void SwapPlayerInfo()
+    {
+        swappedPlayerInfo = !swappedPlayerInfo;
+
+        P1_Text.text = (swappedPlayerInfo ? "P2" : "P1") + "\nLuna";
+        DOTween.Kill(P1_Text.transform);
+        P1_Text.transform.localScale = Vector3.one;
+        P1_Text.transform.DOPunchScale(Vector3.one*0.1f, 0.33f).SetEase(Ease.OutQuad);
+
+
+        P2_Text.text = (swappedPlayerInfo ? "P1" : "P2") + "\nDrillian";
+        DOTween.Kill(P2_Text.transform);
+        P2_Text.transform.localScale = Vector3.one;
+        P2_Text.transform.DOPunchScale(Vector3.one * 0.1f, 0.33f).SetEase(Ease.OutQuad);
     }
 
 }

@@ -28,6 +28,9 @@ public class SceneChanger : MonoBehaviour
         if ((int)identity >= System.Enum.GetValues(typeof(SceneIdentity)).Length)
             identity = (SceneIdentity)0;
 
+        if (identity == SceneIdentity.PlayerSelect && PlayerConnectController.isSolo)
+            identity = SceneIdentity.GameTutorial;
+
         LoadScene(identity);
     }
     public void LoadScene(SceneIdentity scene)

@@ -6,6 +6,8 @@ public class SwapManager : MonoBehaviour
 {
     public void Swap()
     {
-        Debug.LogWarning("Execute Swap Here! Unimplemented...");
+        if(PlayerConnectController.Swap())
+            PreparationInterface.instance.SwapPlayerInfo();
+
     }
 }
