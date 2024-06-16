@@ -186,4 +186,6 @@ public class NameManager : MonoBehaviour
         Assert.IsTrue(false);
         return "";
     }
+    
+    public static string MakeTeamName(string lunaName, string drillianName) => lunaName + "//" + drillianName;
 }

@@ -152,6 +152,12 @@ public class GameManager : MonoBehaviour
     public void EndGame(GameObject obj, bool playerVictory)
     {
         Debug.Log(playerVictory ? "VICTORY!" : "GAME OVER!");
+
+        if (playerVictory)
+        {
+            FindObjectOfType<LeaderboardManager>().AddEntry(Time.time - FindObjectOfType<GameManager>().Timer, NameManager.LunaTeamName, NameManager.DrillianTeamName);
+        }
+        
         Time.timeScale = 0;
         _undertaker.Activate(obj, playerVictory);
     }
