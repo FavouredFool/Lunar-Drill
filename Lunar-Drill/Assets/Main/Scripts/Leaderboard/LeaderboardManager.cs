@@ -8,7 +8,7 @@ public class LeaderboardManager : MonoBehaviour
 {
     [SerializeField] string fileName = "LeaderboardEntries";
 
-    LeaderboardEntryList entryList = new();
+    public static LeaderboardEntryList EntryList = new();
     
     string dataPath;
     
@@ -20,22 +20,22 @@ public class LeaderboardManager : MonoBehaviour
         if (File.Exists(dataPath))
         {
             string fileContents = File.ReadAllText(dataPath);
-            entryList = JsonUtility.FromJson<LeaderboardEntryList>(fileContents);
+            EntryList = JsonUtility.FromJson<LeaderboardEntryList>(fileContents);
         }
 
-        entryList.Entries.Sort();
+        EntryList.Entries.Sort();
     }
     
     public void AddEntry(float time, string lunaName, string drillianName)
     {
         LeaderboardEntry entry = new LeaderboardEntry(lunaName, drillianName, time);
-        entryList.Entries.Add(entry);
-        entryList.Entries.Sort();
+        EntryList.Entries.Add(entry);
+        EntryList.Entries.Sort();
         
         Debug.Log($"Add Entry: {entry}");
 
         // Serialize instantly
-        string jsonString = JsonUtility.ToJson(entryList);
+        string jsonString = JsonUtility.ToJson(EntryList);
         File.WriteAllText(dataPath, jsonString);
     }
     

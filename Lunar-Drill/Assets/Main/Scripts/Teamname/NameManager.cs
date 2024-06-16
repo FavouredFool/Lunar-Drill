@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 public class NameManager : MonoBehaviour
 {
+    [SerializeField] TMP_Text TeamNameUI;
+    
     public static string LunaTeamName { get; set; } = "Lunar";
     public static string DrillianTeamName { get; set; } = "Drill";
 
@@ -150,11 +154,16 @@ public class NameManager : MonoBehaviour
         "Strike",
     };
 
-    public static void SetNameOptions()
+    public void SetNameOptions()
     {
         (List<string>, List<string>) nameOptions = GetNameOptions();
         LunaNameOptions = nameOptions.Item1;
         DrillianNameOptions = nameOptions.Item2;
+
+        // TODO TEMPORARY JUST SO THAT THERE'S SOME RANDOM NAMES. THIS CURRENTLY CHANGES EVERY SCENE CHANGE
+        LunaTeamName = LunaNameOptions[0];
+        DrillianTeamName = DrillianNameOptions[0];
+        UpdateTeamNameUI();
     }
     
     public static (List<string>, List<string>) GetNameOptions()
@@ -186,6 +195,11 @@ public class NameManager : MonoBehaviour
         Assert.IsTrue(false);
         return "";
     }
+
+    void UpdateTeamNameUI()
+    {
+        TeamNameUI.text = MakeTeamName(LunaTeamName, DrillianTeamName);
+    }
     
-    public static string MakeTeamName(string lunaName, string drillianName) => lunaName + "//" + drillianName;
+    public static string MakeTeamName(string lunaName, string drillianName) => lunaName + " // " + drillianName;
 }

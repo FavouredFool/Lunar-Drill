@@ -21,6 +21,7 @@ public class SceneChanger : MonoBehaviour
     public void LoadScene2_PlayerSelect() => LoadScene(SceneIdentity.PlayerSelect);
     public void LoadScene3_GameTutorial() => LoadScene(SceneIdentity.GameTutorial);
     public void LoadScene4_GameMain() => LoadScene(SceneIdentity.GameMain);
+    public void LoadScene5_Leaderboard() => LoadScene(SceneIdentity.Leaderboard);
     public void LoadNext()
     {
         SceneIdentity identity = (SceneIdentity)((int)currentScene + 1);
@@ -32,7 +33,7 @@ public class SceneChanger : MonoBehaviour
     public void LoadScene(SceneIdentity scene)
     {
         // TODO I have no clue where i can put this code, so I'll put it here for now -Tim
-        NameManager.SetNameOptions();
+        FindObjectOfType<NameManager>().SetNameOptions();
         
         StartCoroutine(LoadSceneCoroutine(scene));
     }
@@ -69,7 +70,7 @@ public class SceneChanger : MonoBehaviour
 }
 public enum SceneIdentity
 {
-    MainMenu, PlayerConnect, PlayerSelect, GameTutorial, GameMain
+    MainMenu, PlayerConnect, PlayerSelect, GameTutorial, GameMain, Leaderboard
 }
 
 public class Signal_SceneChange : IInputSignal

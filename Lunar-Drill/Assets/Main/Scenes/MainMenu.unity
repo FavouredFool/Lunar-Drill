@@ -774,46 +774,6 @@ MonoBehaviour:
     m_ActionName: Drillian/West[/DualSenseGamepadHID/buttonWest,/SwitchProControllerHID/buttonWest,/DualSenseGamepadHID/leftStick/left,/SwitchProControllerHID/leftStick/left]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 428467d9-9752-481f-bf2f-deb4c3e43516
-    m_ActionName: Menu Selection/Point[/Mouse/position,/Pen/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 85750ce7-8188-4817-94cb-27ac9dcfc471
-    m_ActionName: Menu Selection/Click[/Mouse/leftButton,/Pen/tip]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6d66a07a-8457-439a-90de-28d89f072145
-    m_ActionName: Menu Selection/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9c2897f9-a4c6-4f6b-8aa4-0de3ca192537
-    m_ActionName: Menu Selection/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4518b08f-30c7-45d0-a4c9-e5d4c90127ff
-    m_ActionName: Menu Selection/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a03ca32f-a874-479d-ba7a-75eb49c2a4c0
-    m_ActionName: Menu Selection/Navigate[/DualSenseGamepadHID/leftStick/up,/SwitchProControllerHID/leftStick/up,/DualSenseGamepadHID/rightStick/up,/SwitchProControllerHID/rightStick/up,/DualSenseGamepadHID/leftStick/down,/SwitchProControllerHID/leftStick/down,/DualSenseGamepadHID/rightStick/down,/SwitchProControllerHID/rightStick/down,/DualSenseGamepadHID/leftStick/left,/SwitchProControllerHID/leftStick/left,/DualSenseGamepadHID/rightStick/left,/SwitchProControllerHID/rightStick/left,/DualSenseGamepadHID/leftStick/right,/SwitchProControllerHID/leftStick/right,/DualSenseGamepadHID/rightStick/right,/SwitchProControllerHID/rightStick/right,/DualSenseGamepadHID/dpad,/SwitchProControllerHID/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2d4f3423-ded4-406e-bd15-5ee33fa2b897
-    m_ActionName: Menu Selection/Submit[/Keyboard/enter,/DualSenseGamepadHID/buttonSouth,/SwitchProControllerHID/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8dc9e772-a62a-40d1-b606-95602f597862
-    m_ActionName: Menu Selection/Cancel[/Keyboard/escape,/DualSenseGamepadHID/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0681c832-6c69-4c18-a674-758d98553d61
-    m_ActionName: Menu Selection/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5e1637ea-3eb2-4f85-9d69-c20ab0266e6d
-    m_ActionName: Menu Selection/TrackedDeviceOrientation
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 3a5485b9-01bc-49ef-baf9-5fe9b75a9840
     m_ActionName: Timeout/AnyInput[/Keyboard/anyKey,/DualSenseGamepadHID/buttonEast,/SwitchProControllerHID/buttonEast,/DualSenseGamepadHID/buttonSouth,/SwitchProControllerHID/buttonSouth,/DualSenseGamepadHID/buttonWest,/SwitchProControllerHID/buttonWest,/DualSenseGamepadHID/buttonNorth,/SwitchProControllerHID/buttonNorth,/DualSenseGamepadHID/start,/SwitchProControllerHID/start,/DualSenseGamepadHID/select,/SwitchProControllerHID/select,/DualSenseGamepadHID/dpad/down,/SwitchProControllerHID/dpad/down,/DualSenseGamepadHID/dpad/left,/SwitchProControllerHID/dpad/left,/DualSenseGamepadHID/dpad/right,/SwitchProControllerHID/dpad/right,/DualSenseGamepadHID/dpad/up,/SwitchProControllerHID/dpad/up,/DualSenseGamepadHID/leftShoulder,/SwitchProControllerHID/leftShoulder,/DualSenseGamepadHID/rightShoulder,/SwitchProControllerHID/rightShoulder,/DualSenseGamepadHID/leftTrigger,/SwitchProControllerHID/leftTrigger,/DualSenseGamepadHID/rightTrigger,/SwitchProControllerHID/rightTrigger,/DualSenseGamepadHID/leftStickPress,/SwitchProControllerHID/leftStickPress,/DualSenseGamepadHID/rightStickPress,/SwitchProControllerHID/rightStickPress,/Mouse/leftButton,/Mouse/rightButton]
   - m_PersistentCalls:
@@ -2227,7 +2187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 945015718949112615, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: _OnInputPerformedEvents.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 945015718949112615, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: _OnInputPerformedEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -2236,10 +2196,22 @@ PrefabInstance:
     - target: {fileID: 945015718949112615, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: _OnInputPerformedEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 100210887}
     - target: {fileID: 945015718949112615, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: _OnInputPerformedEvents.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 945015718949112615, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
+      propertyPath: _OnInputPerformedEvents.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLeaderboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 945015718949112615, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
+      propertyPath: _OnInputPerformedEvents.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PersistentAnchor, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 945015718949112615, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
+      propertyPath: _OnInputPerformedEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2475555658252258638, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: m_IsActive
