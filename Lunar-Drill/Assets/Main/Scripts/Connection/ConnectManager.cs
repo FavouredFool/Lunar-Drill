@@ -72,6 +72,7 @@ public class ConnectManager : MonoBehaviour
                 P2_Reroll.transform.parent.DOScale(1, 0.33f).SetEase(Ease.OutSine);
             }
 
+            PlayerConnectController.isSolo = isSingleplayer;
             if (!nameSeeded)
             {
                 NameManager.instance.RandomizeBoth(0);

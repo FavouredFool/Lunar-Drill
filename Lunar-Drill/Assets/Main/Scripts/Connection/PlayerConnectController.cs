@@ -10,7 +10,7 @@ public class PlayerConnectController : MonoBehaviour
 {
     public static PlayerConnectController
         Drillian, Luna;
-    public static bool isSolo = Drillian == Luna;
+    public static bool isSolo = true;
     public PlayerInput Input => GetComponent<PlayerInput>();
     public ChosenCharacter Character { get; private set; } = ChosenCharacter.both;
 
