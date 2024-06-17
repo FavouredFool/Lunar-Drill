@@ -13,7 +13,8 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
     TutorialSpeechBubble[] bubbles;
 
     CoopButton PersistentButton;
-    [SerializeField] CoopButton TemporaryButton;
+    [SerializeField] CoopButton ContinueButton;
+    [SerializeField] GameObject Buttons;
 
     int entryIndex;
     private void Start()
@@ -23,8 +24,8 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
         PersistentButton = PreparationInterface.instance._continueButton;
         PersistentButton.blocked = true;
         PersistentButton.gameObject.SetActive(false);
-        TemporaryButton.blocked = false;
-        TemporaryButton.gameObject.SetActive(true);
+        ContinueButton.blocked = false;
+        Buttons.gameObject.SetActive(true);
 
         entryIndex = -1;
         Continue();
@@ -36,8 +37,7 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
         TutorialEntry entry = entries[entryIndex];
 
-        TemporaryButton._inputCharacter = entry.character;
-        TemporaryButton._requiredPressTime = 0f;
+        ContinueButton.Refresh(entry.character);
 
         DisplayEntry(entry);
 
@@ -63,8 +63,13 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
         PersistentButton.blocked = false;
         PersistentButton.gameObject.SetActive(true);
-        TemporaryButton.blocked = true;
-        TemporaryButton.gameObject.SetActive(false);
+        ContinueButton.blocked = true;
+        Buttons.gameObject.SetActive(false);
+    }
+    public void Skip()
+    {
+        Finish();
+        SceneChanger.instance.LoadNext();
     }
 
     public void OnEventHappened(Signal_SceneChange e)

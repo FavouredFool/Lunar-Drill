@@ -204,6 +204,8 @@ public class CoopButton : MonoBehaviour,
     }
 
     //Used to set things up. Should likely not be changed at runtime
+    public void Refresh(ChosenCharacter character) => Refresh(character, _inputRequired);
+    public void Refresh(InputType prompt) => Refresh(_inputCharacter, prompt);
     public void Refresh(ChosenCharacter character, InputType prompt)
     {
         _lunarTime = 0;
@@ -211,6 +213,10 @@ public class CoopButton : MonoBehaviour,
 
         _lunarWeight = 0;
         _drillianWeight = 0;
+
+        _halfBodyDrillianBar.fillAmount = 0;
+        _halfBodyLunaBar.fillAmount = 0;
+        _fullBodyBar.fillAmount = 0;
 
         SetRequired(prompt);
         SetCharacter(character);
