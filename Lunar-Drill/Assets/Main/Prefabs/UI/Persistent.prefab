@@ -564,7 +564,7 @@ MonoBehaviour:
   m_text: ???
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3d3c727d9741b8b4b987c56d19f742bc, type: 2}
-  m_sharedMaterial: {fileID: 2975614220062180676, guid: 3d3c727d9741b8b4b987c56d19f742bc, type: 2}
+  m_sharedMaterial: {fileID: -3059425595666024501, guid: 3d3c727d9741b8b4b987c56d19f742bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1847,7 +1847,7 @@ MonoBehaviour:
   m_text: Team
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3d3c727d9741b8b4b987c56d19f742bc, type: 2}
-  m_sharedMaterial: {fileID: 2975614220062180676, guid: 3d3c727d9741b8b4b987c56d19f742bc, type: 2}
+  m_sharedMaterial: {fileID: -3059425595666024501, guid: 3d3c727d9741b8b4b987c56d19f742bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2964,6 +2964,8 @@ MonoBehaviour:
   _continueButton: {fileID: 5480900032233145489}
   _P1: {fileID: 6992456503313693604}
   _P2: {fileID: 8911865608667519142}
+  P1_JoystickLetter: {fileID: 2071969694753733222}
+  P2_JoystickLetter: {fileID: 945351575542367087}
   P1_Text: {fileID: 3409631937657073440}
   P2_Text: {fileID: 4045326529407156988}
   P1_ConPrompt: {fileID: 3139833277689499270}
@@ -3837,6 +3839,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5754569971294210774, guid: 678bcb5120555134588b08e3e7873073, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cd87d3db13628ec41a76cf250fc1bca8, type: 3}
     - target: {fileID: 6660829480941196769, guid: 678bcb5120555134588b08e3e7873073, type: 3}
       propertyPath: m_Name
       value: DrillianPrompt
@@ -3846,6 +3852,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 678bcb5120555134588b08e3e7873073, type: 3}
+--- !u!114 &945351575542367087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2374292335883161431, guid: 678bcb5120555134588b08e3e7873073, type: 3}
+  m_PrefabInstance: {fileID: 3309510702740311096}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7368562175184895346 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5453817578100552010, guid: 678bcb5120555134588b08e3e7873073, type: 3}
@@ -4000,6 +4017,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 507339870970324329}
     m_Modifications:
+    - target: {fileID: 2374292335883161431, guid: 678bcb5120555134588b08e3e7873073, type: 3}
+      propertyPath: m_fontSize
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374292335883161431, guid: 678bcb5120555134588b08e3e7873073, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 4681737067949881044, guid: 678bcb5120555134588b08e3e7873073, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -4101,6 +4126,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 678bcb5120555134588b08e3e7873073, type: 3}
+--- !u!114 &2071969694753733222 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2374292335883161431, guid: 678bcb5120555134588b08e3e7873073, type: 3}
+  m_PrefabInstance: {fileID: 4337585712629298481}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8619301484378637435 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5453817578100552010, guid: 678bcb5120555134588b08e3e7873073, type: 3}

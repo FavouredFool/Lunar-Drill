@@ -16,6 +16,8 @@ public class PreparationInterface : MonoBehaviour
     public CoopButton _continueButton;
 
     [SerializeField] RectTransform _P1,_P2;
+    [SerializeField] TMP_Text 
+        P1_JoystickLetter, P2_JoystickLetter;
     [SerializeField] TMP_Text
         P1_Text, P2_Text;
     [SerializeField] RectTransform
@@ -181,6 +183,9 @@ public class PreparationInterface : MonoBehaviour
 
                 Luna_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
                 Drillian_MovePrompt.DOScale(1f, 0.33f).SetEase(Ease.OutSine);
+
+                P1_JoystickLetter.DOScale(0f, 0.15f).SetEase(Ease.InBack);
+                P2_JoystickLetter.DOScale(0f, 0.15f).SetEase(Ease.InBack);
 
                 NextUp_Text.text = "Swap Screen";
 
