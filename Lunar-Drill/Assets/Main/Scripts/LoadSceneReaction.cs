@@ -47,8 +47,10 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
     {
         if (mode != Mode.Both && mode != Mode.Unload) return;
 
-        float time = e.delay;
-
+        Return(e.delay);
+    }
+    public void Return(float time)
+    {
         seq.Kill();
         seq = DOTween.Sequence();
 

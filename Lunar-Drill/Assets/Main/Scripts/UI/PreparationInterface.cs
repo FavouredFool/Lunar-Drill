@@ -135,8 +135,6 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
                 _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
 
-                NextUp_Text.text = "Gameplay!";
-
                 _continueButton.blocked = false;
 
                 break;

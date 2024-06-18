@@ -13,8 +13,8 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
     TutorialSpeechBubble[] bubbles;
 
     CoopButton PersistentButton;
-    [SerializeField] CoopButton ContinueButton;
-    [SerializeField] GameObject Buttons;
+    [SerializeField] CoopButton ContinueButton, SkipButton;
+    [SerializeField] LoadSceneReaction SkipRetreat;
 
     int entryIndex;
     private void Start()
@@ -25,7 +25,8 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
         PersistentButton.blocked = true;
         PersistentButton.gameObject.SetActive(false);
         ContinueButton.blocked = false;
-        Buttons.gameObject.SetActive(true);
+        ContinueButton.gameObject.SetActive(true);
+        SkipButton.blocked = false;
 
         entryIndex = -1;
         Continue();
@@ -41,7 +42,7 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
         DisplayEntry(entry);
 
-        PreparationInterface.instance.NextUp_Text.text = "Continue";
+        PreparationInterface.instance.NextUp_Text.text = "Skip Tutorial";
 
         if (entryIndex + 1 == entries.Count)
             Finish();
@@ -64,7 +65,11 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
         PersistentButton.blocked = false;
         PersistentButton.gameObject.SetActive(true);
         ContinueButton.blocked = true;
-        Buttons.gameObject.SetActive(false);
+        ContinueButton.gameObject.SetActive(false);
+
+        SkipRetreat.Return(0.33f);
+        SkipButton.blocked = true;
+
     }
     public void Skip()
     {
