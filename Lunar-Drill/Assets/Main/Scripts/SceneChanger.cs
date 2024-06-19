@@ -21,7 +21,7 @@ public class SceneChanger : MonoBehaviour
     public void LoadScene2_PlayerSelect() => LoadScene(SceneIdentity.PlayerSelect);
     public void LoadScene3_GameTutorial() => LoadScene(SceneIdentity.GameTutorial);
     public void LoadScene4_GameMain() => LoadScene(SceneIdentity.GameMain);
-    public void LoadScene5_Leaderboard() => LoadScene(SceneIdentity.Leaderboard);
+    public void LoadScene5_Stats() => LoadScene(SceneIdentity.Stats);
     public void LoadNext()
     {
         SceneIdentity identity = (SceneIdentity)((int)currentScene + 1);
@@ -39,19 +39,24 @@ public class SceneChanger : MonoBehaviour
     }
     private IEnumerator LoadSceneCoroutine(SceneIdentity scene)
     {
-
         float delay = consistentCanvas.SetScene(scene);
-        InputBus.Fire(new Signal_SceneChange(scene, delay));
+        InputBus.Fire(new Signal_SceneChange(scene, delay*0.99f));
 
         float initTime = Time.unscaledTime;
 
         while (Time.unscaledTime - initTime < delay)
             yield return null;
 
+        DG.Tweening.DOTween.KillAll();
+        Time.timeScale = 1;
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync((int)scene);
         currentScene = scene;
     }
 
+    public void Retry()
+    {
+        LoadScene2_PlayerSelect();
+    }
     public void Quit()
     {
         if (currentScene == SceneIdentity.MainMenu)
@@ -70,7 +75,7 @@ public class SceneChanger : MonoBehaviour
 }
 public enum SceneIdentity
 {
-    MainMenu, PlayerConnect, PlayerSelect, GameTutorial, GameMain, Leaderboard
+    MainMenu, PlayerConnect, PlayerSelect, GameTutorial, GameMain, Stats
 }
 
 public class Signal_SceneChange : IInputSignal

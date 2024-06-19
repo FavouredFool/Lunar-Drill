@@ -25,7 +25,7 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
         PersistentButton.blocked = true;
         PersistentButton.gameObject.SetActive(false);
         ContinueButton.blocked = false;
-        ContinueButton.gameObject.SetActive(true);
+        ContinueButton.transform.parent.gameObject.SetActive(true);
         SkipButton.blocked = false;
 
         entryIndex = -1;
@@ -65,7 +65,7 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
         PersistentButton.blocked = false;
         PersistentButton.gameObject.SetActive(true);
         ContinueButton.blocked = true;
-        ContinueButton.gameObject.SetActive(false);
+        ContinueButton.transform.parent.gameObject.SetActive(false);
 
         SkipRetreat.Return(0.33f);
         SkipButton.blocked = true;

@@ -38,6 +38,10 @@ public class LeaderboardManager : MonoBehaviour
         string jsonString = JsonUtility.ToJson(EntryList);
         File.WriteAllText(dataPath, jsonString);
     }
+    public void Clear()
+    {
+        Debug.LogWarning("CLEAR LEADERBOARD NOT YET IMPLEMENTED!");
+    }
     
     [System.Serializable]
     public class LeaderboardEntryList
@@ -52,6 +56,8 @@ public class LeaderboardManager : MonoBehaviour
         public string LunaName;
         public string DrillianName;
         public double Time;
+
+        public bool isLast => false;
         
         public LeaderboardEntry(string lunaName, string drillianName, double time)
         {
@@ -80,6 +86,10 @@ public class LeaderboardManager : MonoBehaviour
         public override string ToString()
         {
             return NameManager.MakeTeamName(LunaName, DrillianName) + " | " + GetFormattedTime();
+        }
+        public (string,string) ToStrings()
+        {
+            return (NameManager.MakeTeamName(LunaName, DrillianName), GetFormattedTime());
         }
     }
 }

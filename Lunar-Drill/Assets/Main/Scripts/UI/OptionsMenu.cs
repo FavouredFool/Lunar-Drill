@@ -192,7 +192,10 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
 
     private void OnLevelWasLoaded(int level)
     {
-        _button.gameObject.SetActive(SceneChanger.currentScene != SceneIdentity.PlayerConnect);
+        bool allowOpen = true;
+        if (SceneChanger.currentScene == SceneIdentity.PlayerConnect || SceneChanger.currentScene == SceneIdentity.Stats)
+            allowOpen = false;
+        _button.gameObject.SetActive(allowOpen);
     }
     public void OnEventHappened(Signal_SceneChange e)
     {

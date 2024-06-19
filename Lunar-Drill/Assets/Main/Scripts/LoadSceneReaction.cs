@@ -42,6 +42,8 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
 
         seq.Append(transform.DOLocalMove(pos, time).SetEase(Ease.OutSine));
         seq.Join(transform.DOScale(scl, time).SetEase(Ease.OutSine));
+
+        seq.SetUpdate(true);
     }
     public void OnEventHappened(Signal_SceneChange e)
     {
@@ -56,5 +58,7 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
 
         seq.Append(transform.DOLocalMove(localPosition, time).SetEase(Ease.OutSine));
         seq.Join(transform.DOScale(scale, time).SetEase(Ease.OutSine));
+
+        seq.SetUpdate(true);
     }
 }

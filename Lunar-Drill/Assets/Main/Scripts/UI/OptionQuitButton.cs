@@ -30,6 +30,10 @@ public class OptionQuitButton : MonoBehaviour, IInputSubscriber<Signal_SceneChan
                 ht = "Abandon";
                 st = "Quit to main menu";
                 break;
+            case SceneIdentity.Stats:
+                ht = "Return";
+                st = "Back to main menu";
+                break;
             case SceneIdentity.MainMenu:
             default:
                 ht = "Quit";

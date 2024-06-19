@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] TimeManager _timeManager;
-    [SerializeField] Undertaker _undertaker;
+    [SerializeField] NewUndertaker _undertaker;
 
     [SerializeField]
     HUDisplay
@@ -44,19 +44,29 @@ public class GameManager : MonoBehaviour
     {
         SetHealth(_maxPlayerHP, true);
         SetHealth(_maxSpiderHP, false);
-        if(_undertaker.gameObject.activeSelf)
-        _undertaker.gameObject.SetActive(false);
+        if (_undertaker.gameObject.activeSelf)
+            _undertaker.gameObject.SetActive(false);
 
         StartCoroutine(StartRoutine());
 
+    }
+
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+            EndGame(_spiderController.gameObject, true,false);
+        else if (Input.GetKeyDown(KeyCode.KeypadMinus))
+            EndGame(_drillianController.gameObject, false,false);
+#endif
     }
 
     public IEnumerator StartRoutine()
     {
         _oreSpawner.enabled = false;
         _lunaController.enabled = false;
-        _drillianController.enabled=false;
-        _spiderController.enabled=false;
+        _drillianController.enabled = false;
+        _spiderController.enabled = false;
 
         _playerScaler.localScale = Vector3.one * 4f;
         _camera.localPosition = Vector3.down * 10f;
@@ -149,16 +159,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame(GameObject obj, bool playerVictory)
+    public void EndGame(GameObject obj, bool playerVictory, bool addLeaderboard=true)
     {
         Debug.Log(playerVictory ? "VICTORY!" : "GAME OVER!");
 
-        if (playerVictory)
-        {
+        if (playerVictory&&addLeaderboard)
             FindObjectOfType<LeaderboardManager>().AddEntry(Time.time - FindObjectOfType<GameManager>().Timer, NameManager.LunaTeamName, NameManager.DrillianTeamName);
+
+        _undertaker.Open(obj, playerVictory);
+    }
+
+    public void DeletePlayers()
+    {
+        if (PlayerConnectController.isSolo)
+        {
+            Destroy(PlayerConnectController.Luna.gameObject);
         }
-        
-        Time.timeScale = 0;
-        _undertaker.Activate(obj, playerVictory);
+        else
+        {
+            Destroy(PlayerConnectController.Luna.gameObject);
+            Destroy(PlayerConnectController.Drillian.gameObject);
+        }
     }
 }

@@ -139,10 +139,30 @@ public class PreparationInterface : MonoBehaviour
 
                 break;
             case SceneIdentity.GameMain:
+                _seq.Append(_lowerBar.DOAnchorPosY(-100, t).SetEase(Ease.OutSine));
+                _seq.Join(_teamName.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
+
+                _seq.Join(_lunaTrans.DOScale(0.8f, t).SetEase(Ease.OutSine));
+                _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));
+
+                _seq.Join(_drillianTrans.DOScale(0.8f, t).SetEase(Ease.OutSine));
+                _seq.Join(_drillianTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));
+
+                _seq.Join(_P1.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(_P2.DOScale(0, t).SetEase(Ease.OutSine));
+
+                _seq.Join(Luna_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+                _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
+
+                NextUp_Text.text = "";
+
+                _continueButton.blocked = true;
+
+                break;
+            case SceneIdentity.Stats:
 
                 _seq.Append(_lowerBar.DOAnchorPosY(-100, t).SetEase(Ease.OutSine));
                 _seq.Join(_teamName.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
-                _seq.Join(_teamName.DOScale(0.5f, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(0.8f, t).SetEase(Ease.OutSine));
                 _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));
