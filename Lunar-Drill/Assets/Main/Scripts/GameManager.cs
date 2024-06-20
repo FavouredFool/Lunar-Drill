@@ -6,8 +6,7 @@ using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] List<Sprite> _countdownSprites;
-    [SerializeField] SpriteRenderer _countdownRenderer;
+    [SerializeField] TMP_Text _countdownNumber;
 
     [Header("Agents")]
     public SpiderController _spiderController;
@@ -55,9 +54,9 @@ public class GameManager : MonoBehaviour
     {
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
-            EndGame(_spiderController.gameObject, true,false);
+            EndGame(_spiderController.gameObject, true, false);
         else if (Input.GetKeyDown(KeyCode.KeypadMinus))
-            EndGame(_drillianController.gameObject, false,false);
+            EndGame(_drillianController.gameObject, false, false);
 #endif
     }
 
@@ -79,20 +78,26 @@ public class GameManager : MonoBehaviour
         _spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f);
         _camera.DOLocalMoveY(0, 3).SetEase(Ease.InOutSine);
 
-        _countdownRenderer.gameObject.SetActive(true);
+        _countdownNumber.gameObject.SetActive(true);
+        _countdownNumber.text = "";
 
         yield return new WaitForSeconds(0.5f);
 
-        _countdownRenderer.sprite = _countdownSprites[0];
-        for (int i = 0; i < 4; i++)
-        {
-            yield return new WaitForSeconds(1f);
-            _countdownRenderer.sprite = _countdownSprites[i];
-        }
+        _countdownNumber.text = "3";
+        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);
 
-        yield return new WaitForSeconds(0.5f);
+        _countdownNumber.text = "2";
+        yield return new WaitForSeconds(1f);
 
-        _countdownRenderer.gameObject.SetActive(false);
+        _countdownNumber.text = "1";
+        yield return new WaitForSeconds(1f);
+
+        _countdownNumber.text = "Go!";
+
+        yield return new WaitForSeconds(1f);
+
+        _countdownNumber.gameObject.SetActive(false);
 
         _oreSpawner.enabled = true;
         _lunaController.enabled = true;
@@ -159,11 +164,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame(GameObject obj, bool playerVictory, bool addLeaderboard=true)
+    public void EndGame(GameObject obj, bool playerVictory, bool addLeaderboard = true)
     {
         Debug.Log(playerVictory ? "VICTORY!" : "GAME OVER!");
 
-        if (playerVictory&&addLeaderboard)
+        if (playerVictory && addLeaderboard)
             FindObjectOfType<LeaderboardManager>().AddEntry(Time.time - FindObjectOfType<GameManager>().Timer, NameManager.LunaTeamName, NameManager.DrillianTeamName);
 
         _undertaker.Open(obj, playerVictory);
