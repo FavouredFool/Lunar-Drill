@@ -14,13 +14,6 @@ public class BackGroundMusic : MonoBehaviour
 
     public static BackGroundMusic Instance;
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (!(scene.name == "MainScene" || scene.name == "SelectScreen" || scene.name == "MainMenuScene" || scene.name == "AudioTestScene"))
-        {
-            Destroy(gameObject);
-        }
-    }
 
 
     void Awake()
@@ -33,7 +26,6 @@ public class BackGroundMusic : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(this);
-        SceneManager.sceneLoaded += OnSceneLoaded;
 
         _music = RuntimeManager.CreateInstance(_musicEvent);
         _music.start();
@@ -41,7 +33,6 @@ public class BackGroundMusic : MonoBehaviour
 
     void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
         // Stop  audio if it is running
         PLAYBACK_STATE ps;
         _music.getPlaybackState(out ps);

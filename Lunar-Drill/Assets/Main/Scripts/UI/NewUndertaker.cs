@@ -28,13 +28,18 @@ public class NewUndertaker : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
     {
         InputBus.Subscribe(this);
     }
+    // Ends the Scene
     public void OnEventHappened(Signal_SceneChange e)
     {
+        AudioController.Fire(new EndSceneStateChange(EndSceneStateChange.State.EndScreenInactive));
         blackfade.DOFade(1,e.delay).SetEase(Ease.InSine).SetUpdate(true);
     }
 
     public void Open(GameObject focus, bool isPlayer)
     {
+        // Mute audio
+        AudioController.Fire(new EndSceneStateChange(EndSceneStateChange.State.EndScreenActive));
+
         isOpen = true;
         transform.position = focus.transform.position;
         gameObject.SetActive(true);
