@@ -51,7 +51,7 @@ public class SceneChanger : MonoBehaviour
 
     public void Retry()
     {
-        LoadScene2_PlayerSelect();
+        LoadScene4_GameMain();
     }
     public void Quit()
     {

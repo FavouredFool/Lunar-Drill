@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     HUDisplay
         _playerHUD,
         _spiderHUD;
+    public RectTransform _promptsHUD;
+    public HUDGameStatsInfo _statsHUD;
 
     [SerializeField] int _maxPlayerHP, _maxSpiderHP;
 
@@ -36,7 +38,8 @@ public class GameManager : MonoBehaviour
     public int PlayerMaxHP => _maxPlayerHP;
     public int SpiderMaxHP => _maxSpiderHP;
 
-    public float Timer { get; set; }
+    public static float Timer { get; set; }
+    public static float PlayTime => Time.time - Timer;
 
     public void Awake()
     {
@@ -44,8 +47,9 @@ public class GameManager : MonoBehaviour
         SetHealth(_maxSpiderHP, false);
         _undertaker.Close();
 
-        StartCoroutine(StartRoutine());
+        Timer = Time.time;
 
+        StartCoroutine(StartRoutine());
     }
 
     private void Update()
@@ -60,18 +64,18 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartRoutine()
     {
-        //_oreSpawner.enabled = false;
-        //_lunaController.enabled = false;
-        //_drillianController.enabled = false;
-        //_spiderController.enabled = false;
         _timeManager.Freeze();
 
         _camera.localPosition = Vector3.down * 10f;
         _playerHUD.transform.localScale = Vector3.zero;
         _spiderHUD.transform.localScale = Vector3.zero;
+        _promptsHUD.transform.localScale = Vector3.zero;
+        _statsHUD.transform.localScale = Vector3.zero;
 
         _playerHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
         _spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
+        _statsHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutSine).SetDelay(3f).SetUpdate(true);
+        _promptsHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutSine).SetDelay(3f).SetUpdate(true);
         _camera.DOLocalMoveY(0, 3).SetEase(Ease.InOutSine).SetUpdate(true);
 
         _countdownNumber.gameObject.SetActive(true);
@@ -101,8 +105,6 @@ public class GameManager : MonoBehaviour
         _lunaController.enabled = true;
         _drillianController.enabled = true;
         _spiderController.enabled = true;
-
-        Timer = Time.time;
     }
 
     public void SetHealth(int amount, bool isPlayer)
@@ -167,7 +169,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(playerVictory ? "VICTORY!" : "GAME OVER!");
 
         if (playerVictory && addLeaderboard)
-            FindObjectOfType<LeaderboardManager>().AddEntry(Time.time - FindObjectOfType<GameManager>().Timer, NameManager.LunaTeamName, NameManager.DrillianTeamName);
+            FindObjectOfType<LeaderboardManager>().AddEntry(PlayTime, NameManager.LunaTeamName, NameManager.DrillianTeamName);
 
         _undertaker.Open(obj, playerVictory);
     }

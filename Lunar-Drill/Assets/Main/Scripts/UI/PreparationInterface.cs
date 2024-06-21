@@ -106,7 +106,12 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(Luna_MovePrompt.DOScale(1, t).SetEase(Ease.OutSine));
                 _seq.Join(Drillian_MovePrompt.DOScale(1, t).SetEase(Ease.OutSine));
 
-                NextUp_Text.text = "Tutorial";
+                NextUp_Text.text = "";
+
+                P1_ConPrompt.localScale = Vector3.zero;
+                P2_ConPrompt.localScale = Vector3.zero;
+                P1_Text.text = "";
+                P2_Text.text = "";
 
                 _continueButton.blocked = false;
 
@@ -150,6 +155,11 @@ public class PreparationInterface : MonoBehaviour
                 _seq.Join(Drillian_MovePrompt.DOScale(0, t).SetEase(Ease.OutSine));
 
                 NextUp_Text.text = "";
+
+                P1_ConPrompt.localScale = Vector3.zero;
+                P2_ConPrompt.localScale = Vector3.zero;
+                P1_Text.text = "";
+                P2_Text.text = "";
 
                 _continueButton.blocked = true;
 
@@ -233,6 +243,10 @@ public class PreparationInterface : MonoBehaviour
                 Drillian_MovePrompt.DOScale(0f, 0.33f).SetEase(Ease.OutSine);
 
                 NextUp_Text.text = "";
+
+                P1_Text.text = "P1\n...Connect";
+
+                P2_Text.text = "P2\nConnect...";
 
                 break;
         }

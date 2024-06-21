@@ -90,7 +90,7 @@ public class Undertaker : MonoBehaviour
         DOVirtual.DelayedCall(2f, () =>
         {
             GameManager gameManager = FindObjectOfType<GameManager>();
-            string time = System.TimeSpan.FromSeconds(Time.time - gameManager.Timer).ToString("mm\\:ss\\:ff");
+            string time = System.TimeSpan.FromSeconds(GameManager.PlayTime).ToString("mm\\:ss\\:ff");
             timer.text = time;
         });
 

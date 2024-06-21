@@ -7,7 +7,7 @@ using FMOD.Studio;
 using FMODUnity;
 using System.Linq;
 
-public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
+public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, IInputSubscriber<MenuMoveNorth>, IInputSubscriber<MenuMoveSouth>
 {
     public static OptionsMenu instance;
     public static bool isOpen;
@@ -21,8 +21,12 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
     [SerializeField] CanvasGroup _content;
     [SerializeField] List<OptionsEntry> _entries;
     [SerializeField] int _entryIndexShift;
+
     float _lastShiftTime = 0;
     public const float shiftTime = 0.33f;
+
+    int northInput = 0, southInput = 0;
+    float Scroll => Mathf.Clamp01(northInput) - Mathf.Clamp01(southInput);
 
     Sequence bodySequence;
 
@@ -32,12 +36,17 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
 
     private void OnEnable()
     {
-        InputBus.Subscribe(this);
+        InputBus.Subscribe<MenuMoveNorth>(this);
+        InputBus.Subscribe<MenuMoveSouth>(this);
+        InputBus.Subscribe<Signal_SceneChange>(this);
     }
     private void OnDisable()
     {
-        InputBus.Unsubscribe(this);
+        InputBus.Unsubscribe<MenuMoveNorth>(this);
+        InputBus.Unsubscribe<MenuMoveSouth>(this);
+        InputBus.Unsubscribe<Signal_SceneChange>(this);
     }
+
     private void Start()
     {
         SettingSaver.Load();
@@ -192,6 +201,21 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
         if (SceneChanger.currentScene == SceneIdentity.PlayerConnect || SceneChanger.currentScene == SceneIdentity.Stats)
             allowOpen = false;
         _button.gameObject.SetActive(allowOpen);
+    }
+
+    public void OnEventHappened(MenuMoveNorth e)
+    {
+        if (e.context.phase == UnityEngine.InputSystem.InputActionPhase.Started)
+            northInput++;
+        else if (e.context.phase == UnityEngine.InputSystem.InputActionPhase.Canceled)
+            northInput--;
+    }
+    public void OnEventHappened(MenuMoveSouth e)
+    {
+        if (e.context.phase == UnityEngine.InputSystem.InputActionPhase.Started)
+            southInput++;
+        else if (e.context.phase == UnityEngine.InputSystem.InputActionPhase.Canceled)
+            southInput--;
     }
     public void OnEventHappened(Signal_SceneChange e)
     {

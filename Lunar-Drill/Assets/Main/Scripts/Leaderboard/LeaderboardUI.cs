@@ -17,12 +17,21 @@ public class LeaderboardUI : MonoBehaviour, IInputSubscriber<MenuMoveNorth>, IIn
     int northInput = 0, southInput = 0;
     float Scroll => Mathf.Clamp01(northInput) - Mathf.Clamp01(southInput);
 
-    void Start()
+    private void OnEnable()
     {
         InputBus.Subscribe<MenuMoveNorth>(this);
         InputBus.Subscribe<MenuMoveSouth>(this);
         InputBus.Subscribe<Signal_SceneChange>(this);
+    }
+    private void OnDisable()
+    {
+        InputBus.Unsubscribe<MenuMoveNorth>(this);
+        InputBus.Unsubscribe<MenuMoveSouth>(this);
+        InputBus.Unsubscribe<Signal_SceneChange>(this);
+    }
 
+    void Start()
+    {
         KillChildren();
         Populate();
         //lastIndex= _contentMother.childCount;

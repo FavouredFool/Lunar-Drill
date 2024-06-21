@@ -204,8 +204,9 @@ public class NameManager : MonoBehaviour
 
     void UpdateTeamNameUI()
     {
-        TeamName.text = MakeTeamName(LunaTeamName,DrillianTeamName);
+        TeamName.text = ToString();
     }
 
+    public new string ToString() => MakeTeamName(LunaTeamName,DrillianTeamName);
     public static string MakeTeamName(string lunaName, string drillianName) => lunaName + " // " + drillianName;
 }
