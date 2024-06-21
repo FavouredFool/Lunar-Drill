@@ -11,6 +11,7 @@ public class PersistentInstance : MonoBehaviour
     public OptionsMenu optionsMenu;
     public NameManager nameManager;
     public LeaderboardManager leaderboardManager;
+    public Rumble rumbleManager;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class PersistentInstance : MonoBehaviour
             PreparationInterface.instance = preparationInterface;
             OptionsMenu.instance = optionsMenu;
             NameManager.instance = nameManager;
+            Rumble.instance = rumbleManager;
 
             preparationInterface.SetScene(SceneIdentity.MainMenu);
         }

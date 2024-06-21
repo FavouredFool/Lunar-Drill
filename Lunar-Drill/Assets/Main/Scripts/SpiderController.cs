@@ -557,7 +557,7 @@ public class SpiderController : MonoBehaviour
             spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 48, 0.75f);
         }
 
-        Rumble.main?.RumbleBoth(5, 1f, 0.3f);
+        Rumble.instance?.RumbleBoth(5, 1f, 0.3f);
     }
 
     void SpawnHP()

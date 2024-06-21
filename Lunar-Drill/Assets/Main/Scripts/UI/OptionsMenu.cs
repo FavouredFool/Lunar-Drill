@@ -15,6 +15,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
 
     [SerializeField] GameObject _body;
     [SerializeField] CoopButton _button;
+    [SerializeField] CoopButton _menuToggle,_menuToggleSlide;
     [SerializeField] Image
         _blackground,
         _background;
@@ -60,6 +61,12 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
 
         PopulateEntryData();
     }
+    void Update()
+    {
+        if (Scroll != 0 && _lastShiftTime + shiftTime < Time.unscaledTime)
+            ChangeEntry(Scroll>0);
+    }
+
     public void Toggle()
     {
         if (isOpen) Close();
@@ -136,16 +143,22 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
                     _masterBus.getVolume(out _currentFloat);
                     entry._slider.value = _currentFloat;
                     entry._slider.onValueChanged.AddListener(ChangeMasterVolume);
+                    entry._toggle.isOn = !FmodUtil.getMuteMaster();
+                    entry._toggle.onValueChanged.AddListener(ChangeMasterMute);
                     break;
                 case OptionsEntry.OptionType.MusicVolume:
                     _masterBus.getVolume(out _currentFloat);
                     entry._slider.value = _currentFloat;
                     entry._slider.onValueChanged.AddListener(ChangeMusicVolume);
+                    entry._toggle.isOn = !FmodUtil.getMuteMusic();
+                    entry._toggle.onValueChanged.AddListener(ChangeMusicMute);
                     break;
                 case OptionsEntry.OptionType.EffectsVolume:
                     _masterBus.getVolume(out _currentFloat);
                     entry._slider.value = _currentFloat;
                     entry._slider.onValueChanged.AddListener(ChangeEffectsVolume);
+                    entry._toggle.isOn = !FmodUtil.getMuteSFX();
+                    entry._toggle.onValueChanged.AddListener(ChangeEffectsMute);
                     break;
                 case OptionsEntry.OptionType.Fullscreen:
                     entry._toggle.isOn = Screen.fullScreenMode != FullScreenMode.Windowed;
@@ -161,29 +174,36 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
 
     public void ChangeEntry(bool up)
     {
-        if (_lastShiftTime + shiftTime < Time.unscaledTime)
-        {
-            _lastShiftTime = Time.unscaledTime;
-            OptionsEntry shifter;
-            if (!up)
-            {
-                shifter = _entries[_entries.Count - 1];
-                _entries.Remove(shifter);
-                _entries.Insert(0, shifter);
-            }
-            else
-            {
-                shifter = _entries[0];
-                _entries.Remove(shifter);
-                _entries.Add(shifter);
-            }
+        _lastShiftTime = Time.unscaledTime;
 
-            RefreshEntryPositions();
+        OptionsEntry shifter;
+        if (!up)
+        {
+            shifter = _entries[_entries.Count - 1];
+            _entries.Remove(shifter);
+            _entries.Insert(0, shifter);
         }
+        else
+        {
+            shifter = _entries[0];
+            _entries.Remove(shifter);
+            _entries.Add(shifter);
+        }
+
+        _menuToggle.gameObject.SetActive(!_entries[_entryIndexShift].isSlider);
+        _menuToggleSlide.gameObject.SetActive(_entries[_entryIndexShift].isSlider);
+
+        RefreshEntryPositions();
     }
-    public void ModifyEntry(bool up)
+    public void ToggleEntry()
     {
-        _entries[_entryIndexShift].ModifyEntry(up);
+        _entries[_entryIndexShift].ToggleEntry();
+        SettingSaver.Save();
+    }
+    public void SlideEntry(bool up)
+    {
+        _entries[_entryIndexShift].SlideEntry(up);
+        SettingSaver.Save();
     }
 
     public void RefreshEntryPositions()
@@ -234,8 +254,21 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     private void ChangeVibration(bool on)
     {
         Rumble.rumbleDisabled = !on;
-        Rumble.main?.ClearAndStopAllRumble();
+        Rumble.instance?.ClearAndStopAllRumble();
         Debug.Log("X");
+    }
+
+    private void ChangeMasterMute(bool on)
+    {
+        FmodUtil.SetMuteMaster(!on);
+    }
+    private void ChangeMusicMute(bool on)
+    {
+        FmodUtil.SetMuteMusic(!on);
+    }
+    private void ChangeEffectsMute(bool on)
+    {
+        FmodUtil.SetMuteSFX(!on);
     }
 
     public void ChangeMasterVolume(float value)

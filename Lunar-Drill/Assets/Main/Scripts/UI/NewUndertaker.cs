@@ -80,7 +80,7 @@ public class NewUndertaker : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
         {
             if (isPlayer) AudioController.Fire(new EndSceneLunar(""));
             else AudioController.Fire(new EndSceneGame(""));
-            Rumble.main?.RumbleBoth(4, 2, 0.33f);
+            Rumble.instance?.RumbleBoth(4, 2, 0.33f);
         }));
 
         seq.Join(TopSlash.DOAnchorPos(new Vector3(-75, 0), 0.15f).SetEase(Ease.OutBack).SetDelay(0.45f).OnStart(() =>
@@ -96,7 +96,7 @@ public class NewUndertaker : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
         {
             if (isPlayer) AudioController.Fire(new EndSceneDrill(""));
             else AudioController.Fire(new EndSceneOver(""));
-            Rumble.main?.RumbleBoth(6, 2, 0.33f);
+            Rumble.instance?.RumbleBoth(6, 2, 0.33f);
         }));
 
         if(isPlayer)

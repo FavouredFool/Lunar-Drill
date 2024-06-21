@@ -244,13 +244,13 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         {
             if (IsBurrowed)
             {
-                Rumble.main?.RumbleDrillian(3, 2, 0.2f);
-                Rumble.main?.RumbleDrillian(0, 1f, 0.33f);
-                Rumble.main?.RumbleDrillian(0, 0.25f, 0.66f);
+                Rumble.instance?.RumbleDrillian(3, 2, 0.2f);
+                Rumble.instance?.RumbleDrillian(0, 1f, 0.33f);
+                Rumble.instance?.RumbleDrillian(0, 0.25f, 0.66f);
             }
             else
             {
-                Rumble.main?.RumbleDrillian(3, 1f, 0.1f);
+                Rumble.instance?.RumbleDrillian(3, 1f, 0.1f);
             }
         }
     }
@@ -400,7 +400,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     {
         // Camera shake
         CamShake.Instance.ShakeCamera();
-        Rumble.main?.RumbleDrillian(4, 2, 0.2f);
+        Rumble.instance?.RumbleDrillian(4, 2, 0.2f);
 
         // Health Reduce
         _spriteIterator.Hit();
@@ -467,7 +467,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         AudioController.Fire(new LunaEnergyPickup(""));
 
         manager.Heal(gameObject, true);
-        Rumble.main?.RumbleDrillian(1, 2, 0.1f);
+        Rumble.instance?.RumbleDrillian(1, 2, 0.1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

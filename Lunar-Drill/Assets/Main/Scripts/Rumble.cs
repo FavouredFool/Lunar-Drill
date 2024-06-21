@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class Rumble : MonoBehaviour
 {
-    public static Rumble main;
+    public static Rumble instance;
     public static bool rumbleDisabled = false;
     public static bool rumblePaused = false;
     public static bool AllowRumble => !rumbleDisabled && !rumblePaused;
@@ -50,19 +50,6 @@ public class Rumble : MonoBehaviour
 
     static bool isSingleplayer;
 
-    private void Awake()
-    {
-        if (main != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            main = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-
     public void AddGamepad(PlayerInput map, ChosenCharacter c)
     {
         isSingleplayer = false;
@@ -104,7 +91,6 @@ public class Rumble : MonoBehaviour
                 return sharedGamepad;
         }
     }
-
 
     public Profile RumbleBoth(float level, float excentricity = 1, float duration = -1)
     {

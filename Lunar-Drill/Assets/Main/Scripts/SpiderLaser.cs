@@ -106,8 +106,8 @@ public class SpiderLaser : MonoBehaviour
         float waitStart2 = Time.time;
 
         //Rumble
-        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
-        permanentRumble = Rumble.main?.RumbleBoth(0, 1);
+        Rumble.instance?.RemoveRumbleAnywhere(permanentRumble);
+        permanentRumble = Rumble.instance?.RumbleBoth(0, 1);
 
         while (true)
         {
@@ -126,7 +126,7 @@ public class SpiderLaser : MonoBehaviour
         _laserChargeInner.Stop();
 
         //Rumble
-        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
+        Rumble.instance?.RemoveRumbleAnywhere(permanentRumble);
 
         AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserStopped));
 
@@ -137,7 +137,7 @@ public class SpiderLaser : MonoBehaviour
     public void StopLaser()
     {
         _breakOut = true;
-        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
+        Rumble.instance?.RemoveRumbleAnywhere(permanentRumble);
     }
 
 
