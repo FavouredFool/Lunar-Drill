@@ -104,7 +104,12 @@ public class LeaderboardUI : MonoBehaviour, IInputSubscriber<MenuMoveNorth>, IIn
     }
     public void ClearAll()
     {
-        LeaderboardManager.EntryList.Entries.Clear();
+        if (!LeaderboardManager.LeaderboardIsEnabled) return;
+        
+        LeaderboardManager.Clear();
+        // update Visuals
+        KillChildren();
+        Populate();
     }
 
     public void OnEventHappened(Signal_SceneChange e)

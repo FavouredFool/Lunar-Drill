@@ -6,20 +6,21 @@ using UnityEngine;
 
 public class LeaderboardManager : MonoBehaviour
 {
-    [SerializeField] string fileName = "LeaderboardEntries";
+    static string FileName = "LeaderboardEntries";
+    public static bool LeaderboardIsEnabled = true;
 
     public static LeaderboardEntryList EntryList = new();
     
-    string dataPath;
+    static string DataPath;
     
     public void Start()
     {
-        dataPath = Application.persistentDataPath + "/" + fileName + ".json";
+        DataPath = Application.persistentDataPath + "/" + FileName + ".json";
 
         // Deserialize instantly
-        if (File.Exists(dataPath))
+        if (File.Exists(DataPath))
         {
-            string fileContents = File.ReadAllText(dataPath);
+            string fileContents = File.ReadAllText(DataPath);
             EntryList = JsonUtility.FromJson<LeaderboardEntryList>(fileContents);
         }
 
@@ -36,11 +37,13 @@ public class LeaderboardManager : MonoBehaviour
 
         // Serialize instantly
         string jsonString = JsonUtility.ToJson(EntryList);
-        File.WriteAllText(dataPath, jsonString);
+        File.WriteAllText(DataPath, jsonString);
     }
-    public void Clear()
+    public static void Clear()
     {
-        Debug.LogWarning("CLEAR LEADERBOARD NOT YET IMPLEMENTED!");
+        EntryList.Entries.Clear();
+        string jsonString = JsonUtility.ToJson(EntryList);
+        File.WriteAllText(DataPath, jsonString);
     }
     
     [System.Serializable]
