@@ -17,6 +17,7 @@ public class OptionsEntry : MonoBehaviour
     {
         rect = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+        if(_toggleColorImage) toggleColor = _toggleColorImage.color;
     }
     public void RefreshPosition(int _currentIndex, int _totalAmount)
     {
@@ -91,7 +92,28 @@ public class OptionsEntry : MonoBehaviour
     public OptionType optionType;
     public Slider _slider;
     public Toggle _toggle;
-    public void ModifyEntry(bool up)
+    public Image _toggleColorImage;
+    Color toggleColor;
+    public bool isSlider => _slider != null;
+
+    public void ToggleEntry()
+    {
+        switch (optionType)
+        {
+            case OptionType.MasterVolume:
+            case OptionType.MusicVolume:
+            case OptionType.EffectsVolume:
+            case OptionType.Fullscreen:
+            case OptionType.Vibration:
+                _toggle.isOn = !_toggle.isOn;
+                if (_toggleColorImage) _toggleColorImage.color = _toggle.isOn ? toggleColor : Color.gray;
+                break;
+            case OptionType.Leave:
+                SceneChanger.instance?.Quit();
+                break;
+        }
+    }
+    public void SlideEntry(bool up)
     {
         switch (optionType)
         {
@@ -100,16 +122,6 @@ public class OptionsEntry : MonoBehaviour
             case OptionType.EffectsVolume:
                 _slider.value = Mathf.Clamp(_slider.value + 0.1f * (up ? 1 : -1), 0, 1);
                 break;
-            case OptionType.Fullscreen:
-            case OptionType.Vibration:
-                _toggle.isOn = !_toggle.isOn;
-                break;
-            case OptionType.Leave:
-
-                    SceneChanger.instance?.Quit();
-                break;
         }
     }
-
-
 }

@@ -31,7 +31,7 @@ public class Undertaker : MonoBehaviour
         //Pause / mute audio
         AudioController.Fire(new EndSceneStateChange(EndSceneStateChange.State.EndScreenActive));
 
-        Rumble.main?.ClearAndStopAllRumble();
+        Rumble.instance?.ClearAndStopAllRumble();
 
 
         TimeManager.main.Freeze();
@@ -71,7 +71,7 @@ public class Undertaker : MonoBehaviour
         {
             if (isPlayer) AudioController.Fire(new EndSceneLunar(""));
             else AudioController.Fire(new EndSceneGame(""));
-            Rumble.main?.RumbleBoth(4, 2, 0.33f);
+            Rumble.instance?.RumbleBoth(4, 2, 0.33f);
         });
         DOVirtual.DelayedCall(0.3f, () =>
         {
@@ -84,7 +84,7 @@ public class Undertaker : MonoBehaviour
         {
             if (isPlayer) AudioController.Fire(new EndSceneDrill(""));
             else AudioController.Fire(new EndSceneOver(""));
-            Rumble.main?.RumbleBoth(6, 2, 0.33f);
+            Rumble.instance?.RumbleBoth(6, 2, 0.33f);
         });
 
         DOVirtual.DelayedCall(2f, () =>

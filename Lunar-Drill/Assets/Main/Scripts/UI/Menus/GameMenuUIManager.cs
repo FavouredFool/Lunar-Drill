@@ -51,7 +51,7 @@ public class GameMenuUIManager : MonoBehaviour, IInputSubscriber<Pause>
     {
         Rumble.rumblePaused = false;
         Rumble.rumbleDisabled = false;
-        Rumble.main?.ClearAndStopAllRumble();
+        Rumble.instance?.ClearAndStopAllRumble();
         SceneManager.LoadScene(sceneName);
     }
 
@@ -88,7 +88,7 @@ public class GameMenuUIManager : MonoBehaviour, IInputSubscriber<Pause>
 
             Time.timeScale = 1;
             Rumble.rumblePaused = false;
-            Rumble.main?.StopAllRumble();
+            Rumble.instance?.StopAllRumble();
 
             // Change audio accordingly ("resume audio")
             AudioController.Fire<MenuPauseAudio>(new MenuPauseAudio(MenuPauseAudio.PauseState.GameRunning));
@@ -113,7 +113,7 @@ public class GameMenuUIManager : MonoBehaviour, IInputSubscriber<Pause>
             AudioController.Fire<MenuPauseAudio>(new MenuPauseAudio(MenuPauseAudio.PauseState.GamePaused));
 
             Rumble.rumblePaused = true;
-            Rumble.main?.StopAllRumble();
+            Rumble.instance?.StopAllRumble();
         }
         IsOpen = open;
     }

@@ -75,8 +75,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     bool _isInvincible = false;
 
-    Rumble.Profile permanentRumble = null;
-
     [SerializeField] LunaControllerMarker _lunaControllMarker;
 
 
@@ -255,8 +253,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.SendEvent("Charge");
         _laserCharge.SetBool("Alive", true);
 
-        Rumble.main?.RumbleLuna(3, 0.5f, 0.1f);
-        permanentRumble = Rumble.main?.RumbleLuna(1, 0.5f);
+        Rumble.instance?.RumbleLuna(3, 0.5f, 0.1f);
     }
 
     void EndLasering()
@@ -278,7 +275,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.Stop();
         _laserCharge.SetBool("Alive", false);
 
-        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
+        Rumble.instance?.RumbleLuna(0, 0.5f, 0.1f);
     }
 
     void DecreaseEnergy()
@@ -290,6 +287,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         if (Mathf.Approximately(0, EnergyT))
         {
             EndLasering();
+            Rumble.instance?.RumbleLuna(0, 0.5f, 0.33f);
             _energyEmpty.SetActive(true); // if energy depletes while holding button, start empty animation
         }
     }
@@ -349,7 +347,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     {
         // Camera shake
         CamShake.Instance.ShakeCamera();
-        Rumble.main?.RumbleLuna(4, 2, 0.2f);
+        Rumble.instance?.RumbleLuna(4, 2, 0.2f);
 
         // Health Reduce
         _spriteIterator.Hit();
@@ -369,13 +367,13 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         AudioController.Fire(new LunaEnergyPickup(""));
 
         manager.Heal(gameObject, true);
-        Rumble.main?.RumbleLuna(1, 2, 0.1f);
+        Rumble.instance?.RumbleLuna(1, 2, 0.1f);
     }
 
     void GainEnergy()
     {
         EnergyT = Mathf.Clamp01(EnergyT + _energyIncrease);
-        Rumble.main?.RumbleLuna(1, 1, 0.1f);
+        Rumble.instance?.RumbleLuna(1, 1, 0.1f);
         EnergyGained = true;
         DOVirtual.DelayedCall(1f, () => { EnergyGained = false; });
         if (!_currentlyLasering && _energyEmpty.activeSelf) // this is true, if player kept holding fire button while laser emtpy. New energy will be used immediatly without having to re-press button.

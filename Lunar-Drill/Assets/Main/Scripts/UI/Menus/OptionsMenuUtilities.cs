@@ -111,7 +111,7 @@ public class OptionsMenuUtilities : MonoBehaviour
     private void ChangeVibration(bool on)
     {
         Rumble.rumbleDisabled = !on;
-        Rumble.main?.ClearAndStopAllRumble();
+        Rumble.instance?.ClearAndStopAllRumble();
     }
 
     /* Function to change the Master Volume */

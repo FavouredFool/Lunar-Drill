@@ -32,7 +32,6 @@ public class SpiderLaser : MonoBehaviour
     //--- Private Fields ------------------------
 
     SpiderController _spider;
-    Rumble.Profile permanentRumble = null;
 
 
     //--- Unity Methods ------------------------
@@ -106,8 +105,7 @@ public class SpiderLaser : MonoBehaviour
         float waitStart2 = Time.time;
 
         //Rumble
-        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
-        permanentRumble = Rumble.main?.RumbleBoth(0, 1);
+        Rumble.instance?.RumbleBoth(2, 1, 1f);
 
         while (true)
         {
@@ -125,9 +123,6 @@ public class SpiderLaser : MonoBehaviour
         _laserChargeInner.SetBool("Alive", false);
         _laserChargeInner.Stop();
 
-        //Rumble
-        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
-
         AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserStopped));
 
         _breakOut = true;
@@ -137,7 +132,6 @@ public class SpiderLaser : MonoBehaviour
     public void StopLaser()
     {
         _breakOut = true;
-        Rumble.main?.RemoveRumbleAnywhere(permanentRumble);
     }
 
 

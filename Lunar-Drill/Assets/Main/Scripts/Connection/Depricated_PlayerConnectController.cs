@@ -142,7 +142,7 @@ public class Depricated_PlayerConnectController : MonoBehaviour
                     Debug.Log("Disabled Input");
                 }
                 _input.SwitchCurrentActionMap("Luna");
-                Rumble.main?.AddGamepad(_input,ChosenCharacter.luna);
+                Rumble.instance?.SetGamepad(_input,ChosenCharacter.luna);
             }
 
         }
@@ -160,7 +160,7 @@ public class Depricated_PlayerConnectController : MonoBehaviour
 
                 }
                 _input.SwitchCurrentActionMap("Drillian");
-                Rumble.main?.AddGamepad(_input, ChosenCharacter.drillian);
+                Rumble.instance?.SetGamepad(_input, ChosenCharacter.drillian);
             }
         }
         else
@@ -197,7 +197,7 @@ public class Depricated_PlayerConnectController : MonoBehaviour
                 {
                     _input.SwitchCurrentActionMap("Connect");
                 }
-                Rumble.main?.AddGamepad(_input, ChosenCharacter.both);
+                Rumble.instance?.SetGamepad(_input, ChosenCharacter.both);
             }
         }
         

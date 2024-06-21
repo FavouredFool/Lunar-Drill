@@ -203,7 +203,7 @@ MonoBehaviour:
   _timeTillMaxGravityOutside: 1.4
   _maxRotationControl: 7.5
   _timeTillControlRegain: 0.2
-  _stopTime: 0.5
+  _stopTime: 0.35
   _speedBoost: 2
   _speedAdjustmentDecay: 3
   _rotationAdjustmentDecay: 20

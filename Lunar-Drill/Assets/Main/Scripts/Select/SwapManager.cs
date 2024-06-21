@@ -6,8 +6,11 @@ public class SwapManager : MonoBehaviour
 {
     public void Swap()
     {
-        if(PlayerConnectController.Swap())
+        if (PlayerConnectController.Swap())
+        {
             PreparationInterface.instance.SwapPlayerInfo();
+            Rumble.instance?.RumbleFeedback();
+        }
 
     }
 }
