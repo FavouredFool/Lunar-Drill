@@ -11,9 +11,7 @@ public class LeaderboardUI : MonoBehaviour, IInputSubscriber<MenuMoveNorth>, IIn
     [SerializeField] ScrollRect _scrollRect;
     [SerializeField] float speed;
     [SerializeField] Image blackfade;
-
-    int lastIndex = 0;
-
+    
     int northInput = 0, southInput = 0;
     float Scroll => Mathf.Clamp01(northInput) - Mathf.Clamp01(southInput);
 
@@ -35,7 +33,7 @@ public class LeaderboardUI : MonoBehaviour, IInputSubscriber<MenuMoveNorth>, IIn
         KillChildren();
         Populate();
         //lastIndex= _contentMother.childCount;
-        ScrollToIndex(lastIndex);
+        ScrollToIndex(LeaderboardManager.LatestIndex);
 
         blackfade.color = Color.black;
         blackfade.DOFade(0, 1f).SetEase(Ease.InOutSine).SetUpdate(true);
@@ -54,15 +52,14 @@ public class LeaderboardUI : MonoBehaviour, IInputSubscriber<MenuMoveNorth>, IIn
     }
     void Populate()
     {
-        lastIndex = 0;
         for (int i = 0; i < LeaderboardManager.EntryList.Entries.Count; i++)
         {
             LeaderboardManager.LeaderboardEntry entry = LeaderboardManager.EntryList.Entries[i];
 
+            bool isLatest = entry == LeaderboardManager.LatestEntry;
+            
             LeaderboardEntryUI entryUI = Instantiate(_entryBlueprint, _contentMother);
-            entryUI.Init(i + 1, entry, entry.isLast);
-
-            if (entry.isLast) lastIndex = i+1;
+            entryUI.Init(i + 1, entry, isLatest);
         }
     }
 
@@ -100,7 +97,7 @@ public class LeaderboardUI : MonoBehaviour, IInputSubscriber<MenuMoveNorth>, IIn
 
     public void FindLast()
     {
-
+        ScrollToIndex(LeaderboardManager.LatestIndex);
     }
     public void ClearAll()
     {

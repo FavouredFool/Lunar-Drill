@@ -15,10 +15,14 @@ public class LeaderboardEntryUI : MonoBehaviour
 
         this.isLast = isLast;
 
-        _lastMarker.SetActive(isLast);
-
         _placeText.text = place + ".";
         _nameText.text = data.Item1;
         _timeText.text = data.Item2;
+
+        if (isLast)
+        {
+            Color spider = new Color(162 / 255f, 0, 254f / 255f);
+            _nameText.color = spider;
+        }
     }
 }

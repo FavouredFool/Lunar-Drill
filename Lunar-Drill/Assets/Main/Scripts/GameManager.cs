@@ -55,9 +55,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 //#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.KeypadPlus))
-            EndGame(_spiderController.gameObject, true, false);
-        else if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        if (Input.GetKeyDown(KeyCode.L))
+            EndGame(_spiderController.gameObject, true, true);
+        else if (Input.GetKeyDown(KeyCode.K))
             EndGame(_drillianController.gameObject, false, false);
 //#endif
     }

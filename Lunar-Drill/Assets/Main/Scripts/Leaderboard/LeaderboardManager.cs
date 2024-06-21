@@ -10,6 +10,15 @@ public class LeaderboardManager : MonoBehaviour
     public static bool LeaderboardIsEnabled = true;
 
     public static LeaderboardEntryList EntryList = new();
+    public static LeaderboardEntry LatestEntry;
+    
+    public static int LatestIndex {
+        get
+        {
+            if (LatestEntry == null) return 0;
+            return EntryList.Entries.IndexOf(LatestEntry);
+        }
+    }
     
     static string DataPath;
     
@@ -32,6 +41,8 @@ public class LeaderboardManager : MonoBehaviour
         LeaderboardEntry entry = new LeaderboardEntry(lunaName, drillianName, time);
         EntryList.Entries.Add(entry);
         EntryList.Entries.Sort();
+
+        LatestEntry = entry;
         
         Debug.Log($"Add Entry: {entry}");
 
@@ -59,8 +70,6 @@ public class LeaderboardManager : MonoBehaviour
         public string LunaName;
         public string DrillianName;
         public double Time;
-
-        public bool isLast => false;
         
         public LeaderboardEntry(string lunaName, string drillianName, double time)
         {
