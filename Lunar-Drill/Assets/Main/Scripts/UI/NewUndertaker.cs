@@ -108,6 +108,8 @@ public class NewUndertaker : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
         }
 
         seq.SetUpdate(true);
+
+        InputBus.Fire(new Signal_Undertaker(isPlayer, focus));
     }
     public void Close()
     {

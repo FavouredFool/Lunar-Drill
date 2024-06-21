@@ -14,6 +14,6 @@ public class HUDGameStatsInfo : MonoBehaviour
     }
     void Update()
     {
-        timeText.text = GameManager.PlayTime.ToString("00.000") + "s";
+        timeText.text = GameManager.PlayTime.ToString("00.0") + "s";
     }
 }
