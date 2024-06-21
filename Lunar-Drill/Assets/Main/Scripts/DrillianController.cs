@@ -20,6 +20,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [Header("Control")]
     [SerializeField] [Range(1, 100f)] float _maxRotationControl = 25f;
     [SerializeField] [Range(0.05f, 1f)] float _timeTillControlRegain = 0.25f;
+    [SerializeField] [Range(0.05f, 1f)] float _boostTime = .5f;
     [SerializeField] [Range(0.1f, 2)] float _stopTime = 0.5f;
     [SerializeField] [Range(0.5f, 2)] float _speedBoost = 1.2f;
     [SerializeField] [Range(1, 25)] int _speedAdjustmentDecay = 16;
@@ -40,8 +41,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] DrillianSpriteIterator _spriteIterator;
-    [SerializeField] GameObject _boostTrail;
-    [SerializeField] TrailRenderer _boostInside, _boostOutside;
+    [SerializeField] GameObject _boostTrailCharge, _drillTrail;
+    [SerializeField] TrailRenderer _boostInside, _boostOutside, _boostGeneral;
 
     [Header("Ores")]
     [SerializeField] [Range(0.125f, 5f)] float _oreDistance;
@@ -73,6 +74,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     float _gravityT = 0;
     Tween _gravityTTween;
 
+    Tweener _boostTweenCharge;
     Tweener _boostTween;
 
     bool _isInvincible = false;
@@ -267,7 +269,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             _stopMovement = false;
             _currentSpeed *= _speedBoost;
         }, false);
-        DOVirtual.DelayedCall(Mathf.Max(_stopTime - .2f, 0), () => _speedBoostEffect.SendEvent("Boost"), false);
+        BoostTrail();
     }
 
     void ActionOutsideMoon()
@@ -279,7 +281,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             _stopMovement = false;
             _currentSpeed *= _speedBoost;
         }, false);
-        DOVirtual.DelayedCall(Mathf.Max(_stopTime - .2f, 0), () => _speedBoostEffect.SendEvent("Boost"), false);
+        BoostTrail();
     }
 
     void ApplyGravity()
@@ -364,16 +366,16 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     void LoseActionVisual()
     {
         float x = 1;
-        _boostTween = DOTween.To(() => x,
+        _boostTweenCharge = DOTween.To(() => x,
             x => { _boostInside.material.SetFloat("_Fade", x); _boostOutside.material.SetFloat("_Fade", x); }, 0,
-            .5f).OnComplete(() => _boostTrail.SetActive(false)).SetUpdate(true);
+            .5f).OnComplete(() => _boostTrailCharge.SetActive(false)).SetUpdate(true);
     }
 
     void RegainActionVisual()
     {
-        if (_boostTween != null)
-            _boostTween.Kill();
-        _boostTrail.SetActive(true);
+        if (_boostTweenCharge != null)
+            _boostTweenCharge.Kill();
+        _boostTrailCharge.SetActive(true);
         _boostInside.material.SetFloat("_Fade", 1);
         _boostOutside.material.SetFloat("_Fade", 1);
     }
@@ -506,5 +508,27 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
     }
 
+
+    void BoostTrail()
+    {
+        DOVirtual.DelayedCall(Mathf.Max(_stopTime - .2f, 0),
+         () =>
+         {
+             float x = 0;
+             _drillTrail.SetActive(false);
+             _boostTween = DOTween.To(() => x,
+                 x => { _boostGeneral.material.SetFloat("_Fade", x); _boostGeneral.material.SetFloat("_Fade", x); }, 1,
+                 .5f).SetUpdate(true);
+             DOVirtual.DelayedCall(Mathf.Max(_boostTime, 0),
+                 () =>
+                 {
+                     float x = 1;
+                     _boostTweenCharge = DOTween.To(() => x,
+                         x => { _boostGeneral.material.SetFloat("_Fade", x); _boostGeneral.material.SetFloat("_Fade", x); }, 0,
+                         .5f).SetUpdate(true).OnComplete(() => _drillTrail.SetActive(true));
+                 }, false);
+         },
+         false);
+    }
 
 }
