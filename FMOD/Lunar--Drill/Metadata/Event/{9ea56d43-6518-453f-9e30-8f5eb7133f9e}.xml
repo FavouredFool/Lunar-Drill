@@ -57,7 +57,7 @@
 			<destination>{73f6636c-5d4b-4ff8-968e-4923f6ca6f40}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{acdf19f6-1e4d-43ba-bf46-07af540d761b}</destination>
+			<destination>{52a0b139-6595-49a9-88f4-f78f655cebd4}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{d8ee97ad-ccec-4bc0-bfe9-c72dfdf63121}" />
@@ -96,7 +96,6 @@
 		</relationship>
 	</object>
 	<object class="SnapshotModule" id="{cd170254-4c69-4475-80c4-9ed6a5119d12}">
-		<property name="name" />
 		<property name="intensity">
 			<value>0</value>
 		</property>

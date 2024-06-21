@@ -9,8 +9,11 @@ using UnityEngine;
 public class SerializedSettings
 {
     public float MasterVolume;
+    public bool MasterMuted;
     public float MusicVolume;
+    public bool MusicMuted;
     public float SFXVolume;
+    public bool SFXMuted;
 
     public bool FullScreen;
     public bool Vibration;
@@ -20,11 +23,14 @@ public class SerializedSettings
     {
         // Get Music settings
         Bus _masterBus = RuntimeManager.GetBus("bus:/");
-        VCA _sfxVCA = RuntimeManager.GetVCA("vca:/SFX");
-        VCA _musicVCA = RuntimeManager.GetVCA("vca:/Music");
+        Bus _sfxBus = RuntimeManager.GetBus("Bus:/SFX");
+        Bus _musicBus = RuntimeManager.GetBus("bus:/Music");
         _masterBus.getVolume(out MasterVolume);
-        _musicVCA.getVolume(out MusicVolume);
-        _sfxVCA.getVolume(out SFXVolume);
+        _masterBus.getMute(out MasterMuted);
+        _musicBus.getVolume(out MusicVolume);
+        _masterBus.getMute(out MusicMuted);
+        _sfxBus.getVolume(out SFXVolume);
+        _sfxBus.getMute(out SFXMuted);
 
         // Get Full Screen Settings
         FullScreen = Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen;
@@ -36,11 +42,14 @@ public class SerializedSettings
     {
         // Set Music settings
         Bus _masterBus = RuntimeManager.GetBus("bus:/");
-        VCA _sfxVCA = RuntimeManager.GetVCA("vca:/SFX");
-        VCA _musicVCA = RuntimeManager.GetVCA("vca:/Music");
+        Bus _sfxBus = RuntimeManager.GetBus("bus:/SFX");
+        Bus _musicBus = RuntimeManager.GetBus("bus:/Music");
         _masterBus.setVolume(MasterVolume);
-        _musicVCA.setVolume(MusicVolume);
-        _sfxVCA.setVolume(SFXVolume);
+        _musicBus.setVolume(MusicVolume);
+        _sfxBus.setVolume(SFXVolume);
+        _masterBus.setMute(MusicMuted);
+        _sfxBus.setVolume(SFXVolume);
+        _sfxBus.setMute(SFXMuted);
 
         // Set Full Screen Settings
         Screen.fullScreenMode = FullScreen ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;

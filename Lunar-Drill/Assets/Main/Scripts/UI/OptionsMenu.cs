@@ -31,8 +31,8 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     Sequence bodySequence;
 
     private Bus _masterBus;
-    private VCA _sfxVCA;
-    private VCA _musicVCA;
+    private Bus _sfxBus;
+    private Bus _musicBus;
 
     private void OnEnable()
     {
@@ -51,8 +51,8 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     {
         SettingSaver.Load();
         _masterBus = RuntimeManager.GetBus("bus:/");
-        _sfxVCA = RuntimeManager.GetVCA("vca:/SFX");
-        _musicVCA = RuntimeManager.GetVCA("vca:/Music");
+        _sfxBus = RuntimeManager.GetBus("bus:/SFX");
+        _musicBus = RuntimeManager.GetBus("bus:/Music");
 
         _body.SetActive(false);
         isOpen = false;
@@ -247,11 +247,11 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     }
     public void ChangeMusicVolume(float value)
     {
-        _musicVCA.setVolume(value);
+        _musicBus.setVolume(value);
     }
     public void ChangeEffectsVolume(float value)
     {
-        _sfxVCA.setVolume(value);
+        _sfxBus.setVolume(value);
     }
 
     #endregion
