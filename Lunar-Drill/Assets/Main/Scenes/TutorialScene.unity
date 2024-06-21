@@ -898,6 +898,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1790418666039945795, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790418666039945795, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 3633370015933847881, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
       propertyPath: m_Name
       value: TutorialTextbox_Luna
@@ -1615,16 +1623,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - character: 2
-    message: The evil Mecha Spider is laying siege to our moon! You must  defeat
-      her.
+    message: The evil Mecha Spider is laying siege to our moon! You must defeat her.
   - character: 1
-    message: Luna! Your task is to use your laser and melt her shield.
+    message: Luna! Your task is to use your laser and melt the spider's shield. Keep
+      an eye on her shield bar!
+  - character: 1
+    message: While holding down your laser button, the laser drains your energy.
+  - character: 1
+    message: Collect energy to refill your energy bar!
   - character: 0
-    message: Drillian! It is your job to mine energy ore and throw it into orbit.
+    message: Drillian! It is your job to mine energy ore and throw it into the orbit,
+      so that Luna can collect it.
+  - character: 0
+    message: Rare special ore will charge your drill. Activate your boosters inside
+      or outside the moon for stylish navigation!
   - character: 2
-    message: You two must work together to power Lunas' Laser and break the shield!
+    message: You two must work together to power Luna's Laser and break the spider's
+      shield!
   - character: 0
-    message: Once the Spider is vulnerable, you can attack her!
+    message: Once vulnerable, Drillian can drive into her to hurt her!
   - character: 2
     message: Godspeed soldiers! And remember not to hit each other...
   bubbles:
@@ -1752,6 +1769,14 @@ PrefabInstance:
     - target: {fileID: 75941643078898355, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790418666039945795, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790418666039945795, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3633370015933847881, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
       propertyPath: m_Name
@@ -1981,6 +2006,14 @@ PrefabInstance:
     - target: {fileID: 75941643078898355, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790418666039945795, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790418666039945795, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3633370015933847881, guid: 9c4a19759cbe4314eb2f5537e0233fd8, type: 3}
       propertyPath: m_Name
