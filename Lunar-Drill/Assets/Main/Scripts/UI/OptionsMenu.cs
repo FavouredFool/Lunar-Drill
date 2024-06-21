@@ -48,7 +48,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         InputBus.Unsubscribe<Signal_SceneChange>(this);
     }
 
-    private void Start()
+    public void SetUp()
     {
         SettingSaver.Load();
         _masterBus = RuntimeManager.GetBus("bus:/");
