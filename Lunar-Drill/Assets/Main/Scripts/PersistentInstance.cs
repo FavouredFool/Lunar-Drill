@@ -25,6 +25,8 @@ public class PersistentInstance : MonoBehaviour
             NameManager.instance = nameManager;
             Rumble.instance = rumbleManager;
 
+            optionsMenu.SetUp();
+
             preparationInterface.SetScene(SceneIdentity.MainMenu);
         }
         else

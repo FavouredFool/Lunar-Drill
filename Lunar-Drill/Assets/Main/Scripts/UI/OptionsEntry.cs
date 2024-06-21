@@ -7,16 +7,14 @@ using DG.Tweening;
 [RequireComponent(typeof(RectTransform),typeof(CanvasGroup))]
 public class OptionsEntry : MonoBehaviour
 {
-    RectTransform rect;
-    CanvasGroup canvasGroup;
+    public RectTransform rect;
+    public CanvasGroup canvasGroup;
     int _lastIndex;
 
     Sequence _positionSequence;
 
     private void Awake()
     {
-        rect = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
         if(_toggleColorImage) toggleColor = _toggleColorImage.color;
     }
     public void RefreshPosition(int _currentIndex, int _totalAmount)
@@ -36,6 +34,7 @@ public class OptionsEntry : MonoBehaviour
         _positionSequence = DOTween.Sequence();
         if (!blink)
         {
+            Debug.Log(rect +" "+canvasGroup);
             _positionSequence.Append(rect.DOAnchorPosY(targetPos,shiftTime).SetEase(Ease.OutQuad));
             _positionSequence.Join(canvasGroup.DOFade(targetAph, shiftTime).SetEase(Ease.OutQuad));
         }

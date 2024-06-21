@@ -48,7 +48,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         InputBus.Unsubscribe<Signal_SceneChange>(this);
     }
 
-    private void Start()
+    public void SetUp()
     {
         SettingSaver.Load();
         _masterBus = RuntimeManager.GetBus("bus:/");
@@ -59,11 +59,13 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         isOpen = false;
         SetMenuMode(false);
 
+        Screen.fullScreen = true;
+
         PopulateEntryData();
     }
     void Update()
     {
-        if (Scroll != 0 && _lastShiftTime + shiftTime+shiftTime*1/3 < Time.unscaledTime)
+        if (isOpen &&Scroll != 0 && _lastShiftTime + shiftTime+shiftTime*1/3 < Time.unscaledTime)
             ChangeEntry(Scroll>0);
     }
 

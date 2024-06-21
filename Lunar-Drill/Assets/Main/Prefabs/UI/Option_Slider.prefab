@@ -650,6 +650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87e23d393f5f394e80d4be8818a6ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rect: {fileID: 9039732641434917839}
+  canvasGroup: {fileID: 5062519867093931214}
   optionType: 0
   _slider: {fileID: 8253259340368862032}
   _toggle: {fileID: 360726017027053210}
