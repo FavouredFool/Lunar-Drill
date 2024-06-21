@@ -50,7 +50,7 @@ public class Rumble : MonoBehaviour
 
     static bool isSingleplayer;
 
-    public void AddGamepad(PlayerInput map, ChosenCharacter c)
+    public void SetGamepad(PlayerInput map, ChosenCharacter c)
     {
         isSingleplayer = false;
 
@@ -123,6 +123,11 @@ public class Rumble : MonoBehaviour
 
         return profile;
     }
+
+    //UI
+    public void RumbleFeedback() => RumbleBoth(0f, 0.25f, 0.1f);
+    public void RumbleFeedback_Luna() => RumbleLuna(0f, 0.25f, 0.1f);
+    public void RumbleFeedback_Drillian() => RumbleDrillian(0f, 0.25f, 0.1f);
 
     public (float, float) InputToFrequency(float level, float excentricity = 1)
     {

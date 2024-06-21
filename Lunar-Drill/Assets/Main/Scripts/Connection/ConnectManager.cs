@@ -53,6 +53,8 @@ public class ConnectManager : MonoBehaviour
 
                 PreparationInterface.instance.SetPlayerInfo(1);
 
+                Rumble.instance?.RumbleLuna(1, 0.5f, 0.33f);
+
                 Both_Reroll.blocked = false;
                 Both_Reroll.transform.parent.DOScale(1, 0.33f).SetEase(Ease.OutSine);
                 Reroll_Text.transform.DOScale(1, 0.33f).SetEase(Ease.OutBack);
@@ -63,6 +65,8 @@ public class ConnectManager : MonoBehaviour
                 connectedPlayers[1].SetCharacter(ChosenCharacter.drillian);
 
                 PreparationInterface.instance.SetPlayerInfo(2);
+
+                Rumble.instance?.RumbleDrillian(1,0.5f,0.33f);
 
                 Both_Reroll.blocked = true;
                 Both_Reroll.transform.parent.DOScale(0, 0.33f).SetEase(Ease.OutSine);

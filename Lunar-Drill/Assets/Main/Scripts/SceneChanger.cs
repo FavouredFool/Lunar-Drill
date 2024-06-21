@@ -44,7 +44,9 @@ public class SceneChanger : MonoBehaviour
             yield return null;
 
         DG.Tweening.DOTween.KillAll();
+        Rumble.instance?.ClearAndStopAllRumble();
         Time.timeScale = 1;
+
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync((int)scene);
         currentScene = scene;
     }

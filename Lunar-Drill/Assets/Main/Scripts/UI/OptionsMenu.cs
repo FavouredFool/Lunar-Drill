@@ -199,6 +199,8 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     {
         _entries[_entryIndexShift].ToggleEntry();
         SettingSaver.Save();
+
+        Rumble.instance?.RumbleFeedback();
     }
     public void SlideEntry(bool up)
     {

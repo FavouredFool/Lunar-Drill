@@ -56,6 +56,21 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
             else
                 spb.Hide();
         }
+
+        switch (entry.character)
+        {
+            case ChosenCharacter.drillian:
+                Rumble.instance?.RumbleFeedback_Drillian();
+                break;
+            case ChosenCharacter.luna:
+                Rumble.instance?.RumbleFeedback_Luna();
+                break;
+            case ChosenCharacter.both:
+            case ChosenCharacter.any:
+            default:
+                Rumble.instance?.RumbleFeedback();
+                break;
+        }
     }
 
     public void Finish()

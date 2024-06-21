@@ -524,6 +524,7 @@ public class SpiderController : MonoBehaviour
     {
         OverheatT = Mathf.Clamp01(OverheatT + _overheatGain * Time.deltaTime);
         _spriteIterator.ShieldHit(0.1f);
+        Rumble.instance?.RumbleLuna(0, 0.5f, Time.fixedDeltaTime);
     }
 
     void GetDamaged()
@@ -557,7 +558,7 @@ public class SpiderController : MonoBehaviour
             spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 48, 0.75f);
         }
 
-        Rumble.instance?.RumbleBoth(5, 1f, 0.3f);
+        Rumble.instance?.RumbleBoth(4, 1f, 0.33f);
     }
 
     void SpawnHP()
