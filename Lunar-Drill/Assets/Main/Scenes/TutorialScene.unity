@@ -1657,7 +1657,7 @@ MonoBehaviour:
     message: You two must work together to power Luna's Laser and break the spider's
       shield!
   - character: 0
-    message: Once vulnerable, Drillian can drive into her to hurt her!
+    message: Once vulnerable, Drillian can drive into the spider to hurt her!
   - character: 2
     message: Godspeed soldiers! And remember not to hit each other...
   bubbles:
