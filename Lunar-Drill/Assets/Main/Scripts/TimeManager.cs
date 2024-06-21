@@ -51,6 +51,13 @@ public class TimeManager : MonoBehaviour
         Time.timeScale = 0;
         timeScaleTween.Kill();
     }
+    public void Unfreeze()
+    {
+        freeze = false;
+        currentTimeScale = 1;
+        timeScaleTween.Kill();
+        RefreshTimeScale();
+    }
 
     private void OnDestroy()
     {

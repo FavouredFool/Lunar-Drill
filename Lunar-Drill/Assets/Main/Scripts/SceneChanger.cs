@@ -11,10 +11,6 @@ public class SceneChanger : MonoBehaviour
 
     [SerializeField] PreparationInterface consistentCanvas;
 
-    private void Awake()
-    {
-        instance = this;
-    }
 
     public void LoadScene0_MainMenu() => LoadScene(SceneIdentity.MainMenu);
     public void LoadScene1_PlayerConnect() => LoadScene(SceneIdentity.PlayerConnect);

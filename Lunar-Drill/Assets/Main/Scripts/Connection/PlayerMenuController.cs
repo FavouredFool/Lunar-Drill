@@ -8,10 +8,13 @@ using UnityEngine.InputSystem.Users;
 public class PlayerMenuController : MonoBehaviour
 {
     public static PlayerMenuController instance;
+    public PlayerInput input;
 
     private void Awake()
     {
         instance = this;
+        PlayerConnectController.Delete();
+        input.enabled = true;
     }
 
     #region InputEvents 

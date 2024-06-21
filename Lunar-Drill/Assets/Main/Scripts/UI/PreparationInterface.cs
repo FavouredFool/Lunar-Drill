@@ -33,12 +33,6 @@ public class PreparationInterface : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Awake()
-    {
-        instance = this;
-        SetScene(SceneIdentity.MainMenu,0f);
-    }
-
     public float SetScene(SceneIdentity scene, float t=0.66f)
     {
         //animator.SetInteger("State", state);
@@ -141,6 +135,7 @@ public class PreparationInterface : MonoBehaviour
             case SceneIdentity.GameMain:
                 _seq.Append(_lowerBar.DOAnchorPosY(-100, t).SetEase(Ease.OutSine));
                 _seq.Join(_teamName.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
+                _seq.Join(_teamName.DOScale(0, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(0.8f, t).SetEase(Ease.OutSine));
                 _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));
@@ -163,6 +158,7 @@ public class PreparationInterface : MonoBehaviour
 
                 _seq.Append(_lowerBar.DOAnchorPosY(-100, t).SetEase(Ease.OutSine));
                 _seq.Join(_teamName.DOAnchorPosY(650, t).SetEase(Ease.InOutSine));
+                _seq.Join(_teamName.DOScale(0, t).SetEase(Ease.OutBack));
 
                 _seq.Join(_lunaTrans.DOScale(0.8f, t).SetEase(Ease.OutSine));
                 _seq.Join(_lunaTrans.DOAnchorPos(new Vector2(0, 250), t).SetEase(Ease.InOutSine));

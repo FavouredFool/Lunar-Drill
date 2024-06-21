@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Elements")]
     public Transform _camera;
-    public Transform _playerScaler;
 
     [Header("Managers")]
     [SerializeField] TimeManager _timeManager;
@@ -43,8 +42,7 @@ public class GameManager : MonoBehaviour
     {
         SetHealth(_maxPlayerHP, true);
         SetHealth(_maxSpiderHP, false);
-        if (_undertaker.gameObject.activeSelf)
-            _undertaker.gameObject.SetActive(false);
+        _undertaker.Close();
 
         StartCoroutine(StartRoutine());
 
@@ -52,52 +50,52 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
             EndGame(_spiderController.gameObject, true, false);
         else if (Input.GetKeyDown(KeyCode.KeypadMinus))
             EndGame(_drillianController.gameObject, false, false);
-#endif
+//#endif
     }
 
     public IEnumerator StartRoutine()
     {
-        _oreSpawner.enabled = false;
-        _lunaController.enabled = false;
-        _drillianController.enabled = false;
-        _spiderController.enabled = false;
+        //_oreSpawner.enabled = false;
+        //_lunaController.enabled = false;
+        //_drillianController.enabled = false;
+        //_spiderController.enabled = false;
+        _timeManager.Freeze();
 
-        _playerScaler.localScale = Vector3.one * 4f;
         _camera.localPosition = Vector3.down * 10f;
         _playerHUD.transform.localScale = Vector3.zero;
         _spiderHUD.transform.localScale = Vector3.zero;
 
-        _playerScaler.DOScale(1, 3).SetEase(Ease.OutSine);
-
-        _playerHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f);
-        _spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f);
-        _camera.DOLocalMoveY(0, 3).SetEase(Ease.InOutSine);
+        _playerHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
+        _spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
+        _camera.DOLocalMoveY(0, 3).SetEase(Ease.InOutSine).SetUpdate(true);
 
         _countdownNumber.gameObject.SetActive(true);
         _countdownNumber.text = "";
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
 
         _countdownNumber.text = "3";
-        yield return new WaitForSeconds(1f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _countdownNumber.text = "2";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _countdownNumber.text = "1";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _countdownNumber.text = "Go!";
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         _countdownNumber.gameObject.SetActive(false);
+
+        _timeManager.Unfreeze();
 
         _oreSpawner.enabled = true;
         _lunaController.enabled = true;
@@ -172,18 +170,5 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<LeaderboardManager>().AddEntry(Time.time - FindObjectOfType<GameManager>().Timer, NameManager.LunaTeamName, NameManager.DrillianTeamName);
 
         _undertaker.Open(obj, playerVictory);
-    }
-
-    public void DeletePlayers()
-    {
-        if (PlayerConnectController.isSolo)
-        {
-            Destroy(PlayerConnectController.Luna.gameObject);
-        }
-        else
-        {
-            Destroy(PlayerConnectController.Luna.gameObject);
-            Destroy(PlayerConnectController.Drillian.gameObject);
-        }
     }
 }

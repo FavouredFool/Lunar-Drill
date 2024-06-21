@@ -906,7 +906,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4154033371620127662, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
   m_PrefabInstance: {fileID: 239005262}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &312019758
+--- !u!1001 &484192049
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -914,26 +914,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2037625420701772941, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071969694753733222, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_fontSize
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071969694753733222, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_fontSizeMax
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383339896591831439, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3755960169202088488, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3940444356288110820, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1001.7965
@@ -974,37 +954,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4311625905508164601, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 4311625905508164601, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4768137881264224835, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4858851835048241299, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
       propertyPath: m_Name
       value: Persistent
-      objectReference: {fileID: 0}
-    - target: {fileID: 4961933092888546139, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6936165913761095888, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7075692217417828078, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cd87d3db13628ec41a76cf250fc1bca8, type: 3}
-    - target: {fileID: 8375091587547330590, guid: 970ae59dc9d57e84d896d2d619662547, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3084,6 +3036,6 @@ SceneRoots:
   - {fileID: 1836203084}
   - {fileID: 8587252090934261389}
   - {fileID: 978376316}
-  - {fileID: 312019758}
   - {fileID: 1268579685}
   - {fileID: 1431936850}
+  - {fileID: 484192049}

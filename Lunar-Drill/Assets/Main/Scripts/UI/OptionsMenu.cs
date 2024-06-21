@@ -9,7 +9,7 @@ using System.Linq;
 
 public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
 {
-    public static OptionsMenu Instance;
+    public static OptionsMenu instance;
     public static bool isOpen;
     bool isControlled;
 
@@ -30,10 +30,6 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
     private VCA _sfxVCA;
     private VCA _musicVCA;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
     private void OnEnable()
     {
         InputBus.Subscribe(this);

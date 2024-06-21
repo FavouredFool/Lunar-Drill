@@ -169,17 +169,6 @@
                     "action": "Connect",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a2720f4b-34c9-4ae4-91ec-e476cef5e11f",
-                    "path": "<Keyboard>/anyKey",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Connect",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },

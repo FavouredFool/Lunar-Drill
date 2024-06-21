@@ -10,7 +10,7 @@ public class PersistentAnchor : MonoBehaviour
     public void ReturnToMain() => SceneChanger.instance.LoadScene0_MainMenu();
     public void LoadStats() => SceneChanger.instance.LoadScene5_Stats();
 
-    public void TogglePause() => OptionsMenu.Instance.Toggle();
+    public void TogglePause() => OptionsMenu.instance.Toggle();
 
     public void RandomizeNameA(int i) => NameManager.instance.RandomizeLuna(i);
     public void RandomizeNameB(int i) => NameManager.instance.RandomizeDrillian(i);

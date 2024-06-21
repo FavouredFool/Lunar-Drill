@@ -99,4 +99,9 @@ public class NewUndertaker : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
 
         seq.SetUpdate(true);
     }
+    public void Close()
+    {
+        gameObject.SetActive(false);
+        isOpen = false;
+    }
 }

@@ -2111,6 +2111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570bf8bbc2764ea4086c1fad9793a700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneChanger: {fileID: 3985600771985244789}
+  preparationInterface: {fileID: 5944605296255926926}
+  optionsMenu: {fileID: 1427421467197062204}
 --- !u!1 &5032207510925162461
 GameObject:
   m_ObjectHideFlags: 0

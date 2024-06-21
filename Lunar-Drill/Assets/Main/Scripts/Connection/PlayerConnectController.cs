@@ -12,7 +12,7 @@ public class PlayerConnectController : MonoBehaviour
         Drillian, Luna;
     public static bool isSolo = true;
     public PlayerInput Input => GetComponent<PlayerInput>();
-    public ChosenCharacter Character { get; private set; } = ChosenCharacter.both;
+    public ChosenCharacter Character = ChosenCharacter.both;
 
     private void Awake()
     {
@@ -62,6 +62,14 @@ public class PlayerConnectController : MonoBehaviour
         Luna.SetCharacter(ChosenCharacter.luna);
 
         return true;
+    }
+    public static void Delete()
+    {
+        bool bothSame = Luna && Drillian && Luna.gameObject == Drillian.gameObject;
+        if (Luna)
+            Destroy(Luna.gameObject);
+        if (!bothSame && Drillian)
+            Destroy(Drillian.gameObject);
     }
     private void OnDestroy()
     {
