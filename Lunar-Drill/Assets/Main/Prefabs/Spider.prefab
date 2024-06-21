@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7517694331359257550}
   - component: {fileID: 6884895737582497304}
+  - component: {fileID: 1113376736058911287}
   m_Layer: 0
   m_Name: OverheatBar
   m_TagString: Untagged
@@ -49,6 +50,18 @@ MonoBehaviour:
   _bar: {fileID: 2104387617305900637}
   _barStartValue: 300
   _barEndValue: 240
+--- !u!114 &1113376736058911287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168174988223944859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14aa1a1adaae37045a9b68e294c72686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &337566161563528061
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +276,7 @@ GameObject:
   - component: {fileID: 7851926753432480047}
   - component: {fileID: 4584614065186125988}
   - component: {fileID: 7756796454352137033}
+  - component: {fileID: 3256605038046271639}
   m_Layer: 9
   m_Name: Spider
   m_TagString: Untagged
@@ -479,6 +493,18 @@ MonoBehaviour:
   _hitSprite: {fileID: 21300000, guid: 216a83dc72275074085e23ed353ae775, type: 3}
   _stunSprite: {fileID: 21300000, guid: 74a7d99e6b9918f4cb4db5a6c78b3937, type: 3}
   _idleSprite: {fileID: 21300000, guid: 0287cf16040a2ef4e974c3218e2503c8, type: 3}
+--- !u!114 &3256605038046271639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2234265607896831609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14aa1a1adaae37045a9b68e294c72686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2332832379483453229
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,6 +947,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8508207623310610081}
   - component: {fileID: 3048362351346612810}
+  - component: {fileID: 7539153129582697697}
   m_Layer: 10
   m_Name: LaserParent
   m_TagString: Untagged
@@ -994,6 +1021,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 36}
   m_EdgeRadius: 0
+--- !u!114 &7539153129582697697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352453827076539584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14aa1a1adaae37045a9b68e294c72686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5591140942373134609
 GameObject:
   m_ObjectHideFlags: 0
