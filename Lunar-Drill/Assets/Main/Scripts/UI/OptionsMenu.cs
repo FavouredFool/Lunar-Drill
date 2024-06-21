@@ -59,6 +59,8 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         isOpen = false;
         SetMenuMode(false);
 
+        Screen.fullScreen = true;
+
         PopulateEntryData();
     }
     void Update()
