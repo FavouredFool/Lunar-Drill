@@ -40,7 +40,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [Header("Sprite")]
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] DrillianSpriteIterator _spriteIterator;
-    [SerializeField] SpriteRenderer _actionAvailiableToggleRenderer;
+    [SerializeField] GameObject _boostTrail;
+    [SerializeField] TrailRenderer _boostInside, _boostOutside;
 
     [Header("Ores")]
     [SerializeField] [Range(0.125f, 5f)] float _oreDistance;
@@ -71,6 +72,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     float _gravityT = 0;
     Tween _gravityTTween;
+
+    Tweener _boostTween;
 
     bool _isInvincible = false;
     bool _stopMovement = false;
@@ -188,7 +191,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         if (!IsActionAvaliable)
         {
             RegainActionVisual();
-            DOVirtual.DelayedCall(_timeTillControlRegain * 2, () => IsActionAvaliable = true);
+            IsActionAvaliable = true;
+            //DOVirtual.DelayedCall(_timeTillControlRegain * 2, () => IsActionAvaliable = true);
         }
     }
 
@@ -363,17 +367,19 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     void LoseActionVisual()
     {
-        _actionAvailiableToggleRenderer.enabled = false;
+        float x = 1;
+        _boostTween = DOTween.To(() => x,
+            x => { _boostInside.material.SetFloat("_Fade", x); _boostOutside.material.SetFloat("_Fade", x); }, 0,
+            .5f).OnComplete(() => _boostTrail.SetActive(false)).SetUpdate(true);
     }
 
     void RegainActionVisual()
     {
-        float scaleMax = _actionAvailiableToggleRenderer.transform.localScale.x;
-        _actionAvailiableToggleRenderer.transform.localScale = Vector3.zero;
-        _actionAvailiableToggleRenderer.enabled = true;
-        DOTween.To(() => _actionAvailiableToggleRenderer.transform.localScale,
-            x => _actionAvailiableToggleRenderer.transform.localScale = x, Vector3.one * scaleMax,
-            _timeTillControlRegain * 2f);
+        if (_boostTween != null)
+            _boostTween.Kill();
+        _boostTrail.SetActive(true);
+        _boostInside.material.SetFloat("_Fade", 1);
+        _boostOutside.material.SetFloat("_Fade", 1);
     }
 
     void MoveUpDrillian()
