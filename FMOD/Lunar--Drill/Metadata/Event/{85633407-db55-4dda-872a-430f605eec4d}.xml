@@ -173,6 +173,9 @@
 		<property name="length">
 			<value>0.32348111658456447</value>
 		</property>
+		<relationship name="modulators">
+			<destination>{1218b50d-7d4d-44f7-9e45-4657fc9f3d12}</destination>
+		</relationship>
 		<relationship name="fadeInCurve">
 			<destination>{f21282f1-b76f-4e19-895f-7c098a2cdc68}</destination>
 		</relationship>
@@ -274,6 +277,23 @@
 		<relationship name="relatedModule">
 			<destination>{2958fba4-449e-4b33-96d5-e2d5bb5833fc}</destination>
 		</relationship>
+	</object>
+	<object class="ADSRModulator" id="{1218b50d-7d4d-44f7-9e45-4657fc9f3d12}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>80</value>
+		</property>
+		<property name="releaseTime">
+			<value>520</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
 	</object>
 	<object class="FadeCurve" id="{f21282f1-b76f-4e19-895f-7c098a2cdc68}">
 		<relationship name="startPoint">

@@ -76,6 +76,8 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     {
         if (isControlled) return;
 
+        AudioController.Fire(new MenuPauseAudio(MenuPauseAudio.PauseState.GamePaused));
+
         isOpen = true;
         _body.SetActive(true);
 
@@ -103,6 +105,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     }
     public void Close()
     {
+        AudioController.Fire(new MenuPauseAudio(MenuPauseAudio.PauseState.GameRunning));
         if (isControlled) return;
 
         isControlled = true;
