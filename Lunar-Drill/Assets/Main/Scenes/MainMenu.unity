@@ -3028,7 +3028,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hochschule Bonn Rhein-Sieg
+  m_text: Hochschule Bonn-Rhein-Sieg
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab5864e8a8b56d46892f7e4af8ec557, type: 2}
   m_sharedMaterial: {fileID: -4073255673249361343, guid: dab5864e8a8b56d46892f7e4af8ec557, type: 2}
