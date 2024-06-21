@@ -258,28 +258,24 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     void ActionInsideMoon()
     {
         _stopMovement = true;
-        DOVirtual.DelayedCall(_stopTime, () => _stopMovement = false, false)
-            .OnComplete(() => _currentSpeed *= _speedBoost);
-        DOVirtual.DelayedCall(Mathf.Max(_stopTime - .2f, 0), () => _stopMovement = false, false)
-           .OnComplete(() =>
-           {
-               // VFX 
-               _speedBoostEffect.SendEvent("Boost");
-           });
+        DOVirtual.DelayedCall(_stopTime, () =>
+        {
+            _stopMovement = false;
+            _currentSpeed *= _speedBoost;
+        }, false);
+        DOVirtual.DelayedCall(Mathf.Max(_stopTime - .2f, 0), () => _speedBoostEffect.SendEvent("Boost"), false);
     }
 
     void ActionOutsideMoon()
     {
         _isStomping = true;
         _stopMovement = true;
-        DOVirtual.DelayedCall(_stopTime, () => _stopMovement = false, false)
-           .OnComplete(() => _currentSpeed *= _speedBoost);
-        DOVirtual.DelayedCall(Mathf.Max(_stopTime - .2f, 0), () => _stopMovement = false, false)
-           .OnComplete(() =>
-           {
-               // VFX 
-               _speedBoostEffect.SendEvent("Boost");
-           });
+        DOVirtual.DelayedCall(_stopTime, () =>
+        {
+            _stopMovement = false;
+            _currentSpeed *= _speedBoost;
+        }, false);
+        DOVirtual.DelayedCall(Mathf.Max(_stopTime - .2f, 0), () => _speedBoostEffect.SendEvent("Boost"), false);
     }
 
     void ApplyGravity()
