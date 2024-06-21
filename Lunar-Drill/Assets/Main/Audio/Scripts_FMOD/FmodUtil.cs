@@ -21,4 +21,25 @@ public static class FmodUtil
         Bus _bus = RuntimeManager.GetBus("bus:/Music");
         _bus.setMute(value);
     }
+    public static bool getMuteMaster()
+    {
+        Bus _bus = RuntimeManager.GetBus("bus:/");
+        bool ret;
+        _bus.getMute(out ret);
+        return ret;
+    }
+    public static bool getMuteVFX()
+    {
+        Bus _bus = RuntimeManager.GetBus("bus:/VFX");
+        bool ret;
+        _bus.getMute(out ret);
+        return ret;
+    }
+    public static bool getMuteMusic()
+    {
+        Bus _bus = RuntimeManager.GetBus("bus:/Music");
+        bool ret;
+        _bus.getMute(out ret);
+        return ret;
+    }
 }
