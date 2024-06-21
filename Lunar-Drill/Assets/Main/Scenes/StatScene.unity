@@ -513,6 +513,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoopButton_Main
       objectReference: {fileID: 0}
+    - target: {fileID: 7302742619972857934, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7358763887842548501, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75
@@ -1686,6 +1690,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoopButton_Find
       objectReference: {fileID: 0}
+    - target: {fileID: 7302742619972857934, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7358763887842548501, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75
@@ -2327,6 +2335,10 @@ PrefabInstance:
     - target: {fileID: 7302742619972857934, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: m_Name
       value: CoopButton_Clear
+      objectReference: {fileID: 0}
+    - target: {fileID: 7302742619972857934, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7358763887842548501, guid: 3f88811c2c9ff9745b0abd2997d2c720, type: 3}
       propertyPath: m_LocalScale.x

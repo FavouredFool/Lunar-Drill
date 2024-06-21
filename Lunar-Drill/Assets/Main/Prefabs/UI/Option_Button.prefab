@@ -50,9 +50,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87e23d393f5f394e80d4be8818a6ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rect: {fileID: 4683786774176828284}
+  canvasGroup: {fileID: 8805132447294227581}
   optionType: 0
   _slider: {fileID: 0}
   _toggle: {fileID: 0}
+  _toggleColorImage: {fileID: 0}
 --- !u!225 &8805132447294227581
 CanvasGroup:
   m_ObjectHideFlags: 0
