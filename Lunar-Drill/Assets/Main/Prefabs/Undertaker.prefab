@@ -456,6 +456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c42b47a05e138e8478fdb05da96126fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col_cyan: {r: 0, g: 0.9960785, b: 0.98823535, a: 1}
+  col_yellow: {r: 0.9960785, g: 0.7294118, b: 0, a: 1}
+  col_lilac: {r: 0.8000001, g: 0, b: 0.9960785, a: 1}
+  col_magenta: {r: 0.9960785, g: 0, b: 0.41960788, a: 1}
   Top: {fileID: 6484411949832120426}
   Low: {fileID: 2115052341874925478}
   TopText: {fileID: 7132119737365701481}

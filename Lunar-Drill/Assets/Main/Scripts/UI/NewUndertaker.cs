@@ -9,6 +9,8 @@ public class NewUndertaker : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
 {
     public static bool isOpen;
 
+    [SerializeField] Color col_cyan, col_yellow, col_lilac, col_magenta;
+
     [SerializeField] Image Top, Low;
     [SerializeField] TMP_Text TopText, LowText;
     [SerializeField] RectTransform TopSlash, LowSlash;
@@ -47,6 +49,14 @@ public class NewUndertaker : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
         seq.Kill();
         seq = DOTween.Sequence();
 
+        //Set Visuals
+        Top.color = isPlayer ? col_cyan : Color.magenta;
+        Low.color = isPlayer ? col_yellow : col_lilac;
+
+        TopText.text = isPlayer ? "LUNAR" : "GAME";
+        LowText.text = isPlayer ? "DRILL" : "OVER";
+
+        //Set transforms
         Top.rectTransform.anchoredPosition = new Vector2(0, 450);
         Low.rectTransform.anchoredPosition = new Vector2(0, -450);
         TopText.rectTransform.anchoredPosition = new Vector2(1920, 225);
@@ -62,7 +72,7 @@ public class NewUndertaker : MonoBehaviour, IInputSubscriber<Signal_SceneChange>
         ReturnButton.blocked = isPlayer;
         RetryButton.blocked = isPlayer;
 
-
+        //Tween transforms
         seq.Append(Top.rectTransform.DOAnchorPosY(0, 0.33f).SetEase(Ease.OutQuint));
         seq.Join(Low.rectTransform.DOAnchorPosY(0, 0.33f).SetEase(Ease.OutQuint));
 

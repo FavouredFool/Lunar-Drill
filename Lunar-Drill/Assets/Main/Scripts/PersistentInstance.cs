@@ -9,6 +9,8 @@ public class PersistentInstance : MonoBehaviour
     public SceneChanger sceneChanger;
     public PreparationInterface preparationInterface;
     public OptionsMenu optionsMenu;
+    public NameManager nameManager;
+    public LeaderboardManager leaderboardManager;
 
     private void Awake()
     {
@@ -19,6 +21,7 @@ public class PersistentInstance : MonoBehaviour
             SceneChanger.instance = sceneChanger;
             PreparationInterface.instance = preparationInterface;
             OptionsMenu.instance = optionsMenu;
+            NameManager.instance = nameManager;
 
             preparationInterface.SetScene(SceneIdentity.MainMenu);
         }

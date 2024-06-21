@@ -154,10 +154,6 @@ public class NameManager : MonoBehaviour
     };
 
 
-    private void Awake()
-    {
-        instance = this;
-    }
     public void RandomizeBoth(int i)
     {
         RandomizeLuna(i);

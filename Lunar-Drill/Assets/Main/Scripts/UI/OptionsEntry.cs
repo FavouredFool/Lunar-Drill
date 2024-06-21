@@ -105,7 +105,8 @@ public class OptionsEntry : MonoBehaviour
                 _toggle.isOn = !_toggle.isOn;
                 break;
             case OptionType.Leave:
-                SceneChanger.instance?.LoadScene0_MainMenu();
+
+                    SceneChanger.instance?.Quit();
                 break;
         }
     }

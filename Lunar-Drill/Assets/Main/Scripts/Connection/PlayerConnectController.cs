@@ -26,8 +26,15 @@ public class PlayerConnectController : MonoBehaviour
     }
     public void SetMenuMode(bool on)
     {
+        if (!Input.enabled)
+        {
+            Debug.LogWarning("Tried to switch to Menu Input map while playerinput component is disabled.");
+            return;
+        }
+
         if (on) Input.SwitchCurrentActionMap("Menus");
-        else Input.SwitchCurrentActionMap(GetActionMapName());
+        else
+            Input.SwitchCurrentActionMap(GetActionMapName());
     }
     public string GetActionMapName()
     {
