@@ -198,8 +198,7 @@ public class OreController : MonoBehaviour
         }
         
 
-        Rumble.instance?.RumbleDrillian(1, 1, 0.1f);
-        Rumble.instance?.RumbleDrillian(0, 0.25f, 0.5f);
+        Rumble.instance?.RumbleDrillian(0, 0.5f, 0.1f);
     }
 
     //void MoveToFollow()

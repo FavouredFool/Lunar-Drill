@@ -63,7 +63,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     }
     void Update()
     {
-        if (Scroll != 0 && _lastShiftTime + shiftTime < Time.unscaledTime)
+        if (Scroll != 0 && _lastShiftTime + shiftTime+shiftTime*1/3 < Time.unscaledTime)
             ChangeEntry(Scroll>0);
     }
 
@@ -199,6 +199,8 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     {
         _entries[_entryIndexShift].ToggleEntry();
         SettingSaver.Save();
+
+        Rumble.instance?.RumbleFeedback();
     }
     public void SlideEntry(bool up)
     {

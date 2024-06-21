@@ -22,7 +22,7 @@ public class PlayerConnectController : MonoBehaviour
     {
         Character = c;
         Input.SwitchCurrentActionMap(GetActionMapName());
-        //Connect rumble at some point
+        Rumble.instance?.SetGamepad(Input, c);
     }
     public void SetMenuMode(bool on)
     {

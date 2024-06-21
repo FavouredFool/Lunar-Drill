@@ -75,8 +75,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
 
     bool _isInvincible = false;
 
-    Rumble.Profile permanentRumble = null;
-
     [SerializeField] LunaControllerMarker _lunaControllMarker;
 
 
@@ -256,7 +254,6 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.SetBool("Alive", true);
 
         Rumble.instance?.RumbleLuna(3, 0.5f, 0.1f);
-        permanentRumble = Rumble.instance?.RumbleLuna(1, 0.5f);
     }
 
     void EndLasering()
@@ -278,7 +275,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _laserCharge.Stop();
         _laserCharge.SetBool("Alive", false);
 
-        Rumble.instance?.RemoveRumbleAnywhere(permanentRumble);
+        Rumble.instance?.RumbleLuna(0, 0.5f, 0.1f);
     }
 
     void DecreaseEnergy()
@@ -290,6 +287,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         if (Mathf.Approximately(0, EnergyT))
         {
             EndLasering();
+            Rumble.instance?.RumbleLuna(0, 0.5f, 0.33f);
             _energyEmpty.SetActive(true); // if energy depletes while holding button, start empty animation
         }
     }
