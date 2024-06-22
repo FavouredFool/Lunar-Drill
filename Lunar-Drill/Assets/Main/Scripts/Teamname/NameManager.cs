@@ -149,7 +149,7 @@ public class NameManager : MonoBehaviour
         "Sky",
         "Star",
         "Volt",
-        "White",
+        "Ride",
         "Red",
         "Blue",
         "Glaze",
