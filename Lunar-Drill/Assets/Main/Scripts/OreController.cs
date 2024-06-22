@@ -69,7 +69,7 @@ public class OreController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         OreSpawner oreSpawner = FindObjectOfType<OreSpawner>();
-        IsCharged = Random.Range(0f, 1f) < oreSpawner.ChargedPercentage && oreSpawner.ChargedOreShouldSpawn();
+        IsCharged = oreSpawner.ChargedOreShouldSpawn();
         _oreVisuals.sprite = IsCharged ? _embeddedCharged : _embedded;
         _oreVisuals.transform.Rotate(Vector3.forward, Random.Range(0, 360));
     }
