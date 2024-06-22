@@ -169,7 +169,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
         IsActionAvaliable = false;
         LoseActionVisual();
-
+        RotationControlT = 1;
+        
         if (IsBurrowed)
         {
             ActionInsideMoon();
