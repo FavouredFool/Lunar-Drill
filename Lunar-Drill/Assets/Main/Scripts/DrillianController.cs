@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -327,6 +328,8 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     void RotateDrillian()
     {
+        if (Mathf.Abs(_rigidbody.velocity.sqrMagnitude) < 0.001f) return;
+        
         if (!IsBurrowed && LastFrameIsBurrowed)
         {
             _airTurnDirection = _rigidbody.velocity.normalized;
