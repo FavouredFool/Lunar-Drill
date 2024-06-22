@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class NameManager : MonoBehaviour
     
     public static string LunaTeamName { get; set; } = "Lunar";
     public static string DrillianTeamName { get; set; } = "Drill";
+    
+    public enum Character {LUNA, DRILLIAN}
     
     // Yes i hardcoded them. Sue me. -Tim
     static string[] LunaNames =
@@ -161,13 +164,13 @@ public class NameManager : MonoBehaviour
     }
     public void RandomizeLuna(int i)
     {
-        LunaTeamName = GetNameFromNames(LunaNames, new List<string> { LunaTeamName });
+        LunaTeamName = GetNameFromNames(LunaNames, Character.LUNA);
 
         UpdateTeamNameUI();
     }
     public void RandomizeDrillian(int i)
     {
-        DrillianTeamName = GetNameFromNames(DrillianNames, new List<string> { DrillianTeamName});
+        DrillianTeamName = GetNameFromNames(DrillianNames, Character.DRILLIAN);
 
         UpdateTeamNameUI();
     }
@@ -186,20 +189,27 @@ public class NameManager : MonoBehaviour
     //    return (lunaOptions, drillianOptions);
     //}
 
-    static string GetNameFromNames(string[] allNames, List<string> blockedNames)
+    static string GetNameFromNames(string[] allNames, Character character)
     {
         for (int k = 0; k < 100000; k++)
         {
             int randomIndex = Random.Range(0, allNames.Length);
             string name = allNames[randomIndex];
-            if (!blockedNames.Contains(name))
-            {
-                return name;
-            }
+
+            string currentName = (character == Character.LUNA) ? LunaTeamName : DrillianTeamName;
+            
+            if (currentName == name) continue;
+
+            string lunaCheckName = (character == Character.LUNA) ? name : LunaTeamName;
+            string drillianCheckName = (character == Character.DRILLIAN) ? name : DrillianTeamName;
+            
+            // test if the combination resulting from this change exists on the leaderboard
+           if (LeaderboardManager.EntryList.Entries.Any(e => e.LunaName == lunaCheckName && e.DrillianName == drillianCheckName)) continue;
+           
+            return name;
         }
         
-        Assert.IsTrue(false);
-        return "";
+        return "NameError";
     }
 
     void UpdateTeamNameUI()
