@@ -1244,6 +1244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consistentCanvas: {fileID: 5944605296255926926}
+  nameManager: {fileID: 0}
 --- !u!1 &2501940969923669033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,7 +2534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbf5f34b5b5c1e41ac5b9cf429b7b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamName: {fileID: 4311625905508164601}
+  TeamNameLunar: {fileID: 0}
+  TeamNameDrill: {fileID: 0}
 --- !u!1 &5908267602037064751
 GameObject:
   m_ObjectHideFlags: 0

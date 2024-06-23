@@ -10,9 +10,10 @@ public class SceneChanger : MonoBehaviour
     public static SceneIdentity currentScene;
 
     [SerializeField] PreparationInterface consistentCanvas;
+    [SerializeField] NameManager nameManager;
 
 
-    public void LoadScene0_MainMenu() => LoadScene(SceneIdentity.MainMenu);
+    public void LoadScene0_MainMenu() { nameManager.SetDefaultName(); LoadScene(SceneIdentity.MainMenu); }
     public void LoadScene1_PlayerConnect() => LoadScene(SceneIdentity.PlayerConnect);
     public void LoadScene2_PlayerSelect() => LoadScene(SceneIdentity.PlayerSelect);
     public void LoadScene3_GameTutorial() => LoadScene(SceneIdentity.GameTutorial);
@@ -36,7 +37,7 @@ public class SceneChanger : MonoBehaviour
     private IEnumerator LoadSceneCoroutine(SceneIdentity scene)
     {
         float delay = consistentCanvas.SetScene(scene);
-        InputBus.Fire(new Signal_SceneChange(scene, delay*0.99f));
+        InputBus.Fire(new Signal_SceneChange(scene, delay * 0.99f));
 
         float initTime = Time.unscaledTime;
 

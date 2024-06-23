@@ -10,13 +10,13 @@ public class NameManager : MonoBehaviour
 {
     public static NameManager instance;
 
-    [SerializeField] TMP_Text TeamName;
-    
+    [SerializeField] TMP_Text TeamNameLunar, TeamNameDrill;
+
     public static string LunaTeamName { get; set; } = "Lunar";
     public static string DrillianTeamName { get; set; } = "Drill";
-    
-    public enum Character {LUNA, DRILLIAN}
-    
+
+    public enum Character { LUNA, DRILLIAN }
+
     // Yes i hardcoded them. Sue me. -Tim
     static string[] LunaNames =
     {
@@ -87,7 +87,7 @@ public class NameManager : MonoBehaviour
         "Fatal",
         "Final",
     };
-    
+
     static string[] DrillianNames =
     {
         "Nox",
@@ -174,7 +174,7 @@ public class NameManager : MonoBehaviour
 
         UpdateTeamNameUI();
     }
-    
+
     //public static (List<string>, List<string>) GetNameOptions()
     //{
     //    List<string> lunaOptions = new List<string>(3);
@@ -197,26 +197,34 @@ public class NameManager : MonoBehaviour
             string name = allNames[randomIndex];
 
             string currentName = (character == Character.LUNA) ? LunaTeamName : DrillianTeamName;
-            
+
             if (currentName == name) continue;
 
             string lunaCheckName = (character == Character.LUNA) ? name : LunaTeamName;
             string drillianCheckName = (character == Character.DRILLIAN) ? name : DrillianTeamName;
-            
+
             // test if the combination resulting from this change exists on the leaderboard
-           if (LeaderboardManager.EntryList.Entries.Any(e => e.LunaName == lunaCheckName && e.DrillianName == drillianCheckName)) continue;
-           
+            if (LeaderboardManager.EntryList.Entries.Any(e => e.LunaName == lunaCheckName && e.DrillianName == drillianCheckName)) continue;
+
             return name;
         }
-        
+
         return "NameError";
     }
 
     void UpdateTeamNameUI()
     {
-        TeamName.text = ToString();
+        TeamNameLunar.text = LunaTeamName;
+        TeamNameDrill.text = DrillianTeamName;
     }
 
-    public new string ToString() => MakeTeamName(LunaTeamName,DrillianTeamName);
+    public void SetDefaultName()
+    {
+        LunaTeamName = "Lunar";
+        DrillianTeamName = "Drill";
+        UpdateTeamNameUI();
+    }
+
+    public new string ToString() => MakeTeamName(LunaTeamName, DrillianTeamName);
     public static string MakeTeamName(string lunaName, string drillianName) => lunaName + " // " + drillianName;
 }
