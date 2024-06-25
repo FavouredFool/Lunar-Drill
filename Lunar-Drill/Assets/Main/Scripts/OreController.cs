@@ -72,6 +72,11 @@ public class OreController : MonoBehaviour
         IsCharged = oreSpawner.ChargedOreShouldSpawn();
         _oreVisuals.sprite = IsCharged ? _embeddedCharged : _embedded;
         _oreVisuals.transform.Rotate(Vector3.forward, Random.Range(0, 360));
+
+        float size = _oreVisuals.transform.localScale.x;
+        _oreVisuals.transform.localScale = Vector3.zero;
+        _oreVisuals.transform.DOScale(size,0.33f).SetEase(Ease.OutBack);
+        _oreVisuals.transform.DOShakePosition(0.3f, 0.1f).SetEase(Ease.InQuad);
     }
 
     private void Update()

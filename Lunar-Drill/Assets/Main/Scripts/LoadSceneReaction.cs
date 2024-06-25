@@ -25,8 +25,10 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
         InputBus.Unsubscribe(this);
     }
 
-    private void Awake()
+    private void Start()
     {
+        Debug.Log("ReactStart");
+
         Vector3 pos = transform.localPosition;
         Vector3 scl = transform.localScale;
 
@@ -45,6 +47,7 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
 
         seq.SetUpdate(true);
     }
+
     public void OnEventHappened(Signal_SceneChange e)
     {
         if (mode != Mode.Both && mode != Mode.Unload) return;

@@ -94,6 +94,13 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
     public void OnEventHappened(Signal_SceneChange e)
     {
+        PersistentButton = PreparationInterface.instance._continueButton;
+        PersistentButton.blocked = false;
+        PersistentButton.gameObject.SetActive(true);
+        ContinueButton.blocked = true;
+        ContinueButton.transform.parent.gameObject.SetActive(false);
+        SkipButton.blocked = true;
+
         foreach (TutorialSpeechBubble spb in bubbles)
             spb.Hide();
     }
