@@ -170,7 +170,6 @@ public class CoopButton : MonoBehaviour,
 
         InputBus.Unsubscribe<Pause>(this);
         InputBus.Unsubscribe<Signal_SceneChange>(this);
-
     }
 
     private void Update()

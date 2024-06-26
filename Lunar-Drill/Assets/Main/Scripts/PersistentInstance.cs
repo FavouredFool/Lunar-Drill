@@ -28,6 +28,8 @@ public class PersistentInstance : MonoBehaviour
             optionsMenu.SetUp();
 
             preparationInterface.SetScene(SceneIdentity.MainMenu);
+
+            transform.GetChild(0).gameObject.SetActive(true);
         }
         else
             Destroy(gameObject);
