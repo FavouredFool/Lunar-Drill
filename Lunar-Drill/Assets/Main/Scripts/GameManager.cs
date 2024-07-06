@@ -40,9 +40,14 @@ public class GameManager : MonoBehaviour
 
     public static float Timer { get; set; }
     public static float PlayTime => Time.time - Timer;
+    
+    // Temp Metrics
+    public List<HitMetricManager.Hit> TempHitList;
 
     public void Awake()
     {
+        TempHitList = new();
+        
         SetHealth(_maxPlayerHP, true);
         SetHealth(_maxSpiderHP, false);
         _undertaker.Close();

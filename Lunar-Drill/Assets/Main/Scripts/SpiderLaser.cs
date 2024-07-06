@@ -51,6 +51,7 @@ public class SpiderLaser : MonoBehaviour
         IsActive = true;
         _breakOut = false;
         AudioController.Fire(new SpiderLaserCharging(SpiderLaserCharging.ChargeState.ChargingStarted));
+        _spider.SpiderAttack = SpiderAttackStateMetric.CHARGING;
 
         // VFX
         _laserChargeOuter.SetFloat("Charge Time", _preLaserDuration);
@@ -94,6 +95,7 @@ public class SpiderLaser : MonoBehaviour
 
         AudioController.Fire(new SpiderLaserCharging(SpiderLaserCharging.ChargeState.ChargingStopped));
         AudioController.Fire(new SpiderLaserFiring(SpiderLaserFiring.LaserState.LaserFiring));
+        _spider.SpiderAttack = SpiderAttackStateMetric.ATTACK;
 
         bool canBreak = false;
         thicknessTweens.OnComplete(() => {
@@ -127,11 +129,13 @@ public class SpiderLaser : MonoBehaviour
 
         _breakOut = true;
         IsActive = false;
+        _spider.SpiderAttack = SpiderAttackStateMetric.NONE;
     }
 
     public void StopLaser()
     {
         _breakOut = true;
+        _spider.SpiderAttack = SpiderAttackStateMetric.NONE;
     }
 
 

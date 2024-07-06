@@ -37,6 +37,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [SerializeField] LayerMask _spiderCollision;
     [SerializeField] LayerMask _laserCollision;
     [SerializeField] LayerMask _health;
+    [SerializeField] LayerMask _luna;
     [SerializeField] [Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
@@ -404,7 +405,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         _rigidbody.velocity = (!_stopMovement) ? moveDirection * _currentSpeed : moveDirection * _currentSpeed / 100f;
     }
 
-    void GetHit()
+    void GetHit(Collider2D collision)
     {
         // Camera shake
         CamShake.Instance.ShakeCamera();
@@ -427,6 +428,10 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
 
         FollowingOres.Clear();
+        
+        // Metrics!
+        HitMetricManager.Hit hit = new("drillian", FindObjectOfType<GameManager>().SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString(), Utilities.LayerMaskContainsLayer(_luna, collision.gameObject.layer));
+        FindObjectOfType<GameManager>().TempHitList.Add(hit);
     }
 
     void EvaluateCollision(Collider2D collision)
@@ -439,7 +444,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
             if (!_isInvincible && !spider.IsNotHurtingOnTouch)
             {
-                GetHit();
+                GetHit(collision);
 
                 if (Utilities.LayerMaskContainsLayer(_spiderCollision, collision.gameObject.layer))
                 {

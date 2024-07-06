@@ -1,9 +1,11 @@
 
 
+using System;
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
 public class SpiderController : MonoBehaviour
 {
@@ -54,6 +56,7 @@ public class SpiderController : MonoBehaviour
     public bool IsInvincible { get; set; } = false;
     public bool IsNotHurtingOnTouch => IsVulnerable || IsInvincible;
     public bool IsShieldCritical => OverheatT > 0.8f;
+    public SpiderAttackStateMetric SpiderAttack { get; set; } = SpiderAttackStateMetric.NONE;
 
 
 
@@ -602,5 +605,15 @@ public class SpiderController : MonoBehaviour
         }
     }
 
+    public string GetSpiderAttackString()
+    {
+        return SpiderAttack switch
+        {
+            SpiderAttackStateMetric.NONE => "none",
+            SpiderAttackStateMetric.CHARGING => "charging",
+            SpiderAttackStateMetric.ATTACK => "attack",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
 
 }

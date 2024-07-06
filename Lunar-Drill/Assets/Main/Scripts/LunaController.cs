@@ -343,7 +343,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         _rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.forward, -transform.position));
     }
 
-    void GetHit()
+    void GetHit(Collider2D collision)
     {
         // Camera shake
         CamShake.Instance.ShakeCamera();
@@ -358,6 +358,13 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         // Set invincible to false after one second
         DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
         _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
+        
+        // Metrics! TODO
+
+        Utilities.LayerMaskContainsLayer(_drillian, collision.gameObject.layer);
+        
+        HitMetricManager.Hit hit = new("luna", FindObjectOfType<GameManager>().SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString(), Utilities.LayerMaskContainsLayer(_drillian, collision.gameObject.layer));
+        FindObjectOfType<GameManager>().TempHitList.Add(hit);
     }
 
     void GainHealth()
@@ -389,7 +396,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
         {
             if (!_isInvincible)
             {
-                GetHit();
+                GetHit(collision);
 
                 if (Utilities.LayerMaskContainsLayer(_drillian, collision.gameObject.layer))
                 {
