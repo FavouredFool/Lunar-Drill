@@ -44,10 +44,14 @@ public class GameManager : MonoBehaviour
     
     // Temp Metrics
     public List<HitMetricManager.Hit> TempHitList;
+    public List<DrillianMetricManager.Activation> TempActivationList;
 
+    public bool GameDone = false;
+    
     public void Awake()
     {
         TempHitList = new();
+        TempActivationList = new();
         
         SetHealth(_maxPlayerHP, true);
         SetHealth(_maxSpiderHP, false);
@@ -172,6 +176,8 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(GameObject obj, bool playerVictory, bool addLeaderboard = true)
     {
+        GameDone = true;
+        
         Debug.Log(playerVictory ? "VICTORY!" : "GAME OVER!");
 
         if (playerVictory && addLeaderboard)
@@ -184,6 +190,8 @@ public class GameManager : MonoBehaviour
         long seconds = (long)Math.Floor(diff.TotalSeconds);
         
         FindObjectOfType<HitMetricManager>().AddEntry(seconds, true, playerVictory, TempHitList);
+        
+        FindObjectOfType<DrillianMetricManager>().AddEntry(seconds, true, playerVictory, TempActivationList);
         
         _undertaker.Open(obj, playerVictory);
     }

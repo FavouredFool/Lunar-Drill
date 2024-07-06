@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -31,13 +32,13 @@ public class DrillianMetricManager : MonoBehaviour
             string fileContents = File.ReadAllText(DataPath);
             EntryList = JsonUtility.FromJson<DrillianMetricList>(fileContents);
         }
-
+        
         EntryList.Entries.Sort();
     }
     
-    public void AddEntry(bool isVersionA, bool hasWon, int outsideActivations, int insideActivations, int dormantActivations, int chargingActivations, int attackActivations)
+    public void AddEntry(long timeInSec, bool isVersionA, bool hasWon, List<Activation> activations)
     {
-        DrillianMetricEntry entry = new DrillianMetricEntry(outsideActivations, insideActivations, dormantActivations, chargingActivations, attackActivations);
+        DrillianMetricEntry entry = new DrillianMetricEntry(timeInSec, isVersionA, hasWon, activations);
         EntryList.Entries.Add(entry);
 
         LatestEntry = entry;
@@ -54,22 +55,48 @@ public class DrillianMetricManager : MonoBehaviour
     }
     
     [System.Serializable]
-    public class DrillianMetricEntry
+    public class DrillianMetricEntry : IComparable<DrillianMetricEntry>
     {
-        public int OutsideActivations;
-        public int InsideActivations;
-
-        public int DormantActivations;
-        public int ChargingActivations;
-        public int AttackActivations;
+        public long DateTimeStampInSeconds;
+        public bool IsVersionA;
+        public bool HasWon;
+        public List<Activation> Activations;
         
-        public DrillianMetricEntry(int outsideActivations, int insideActivations, int dormantActivations, int chargingActivations, int attackActivations)
+        public DrillianMetricEntry(long timeInSec, bool isVersionA, bool hasWon, List<Activation> activations)
         {
-            OutsideActivations = outsideActivations;
-            InsideActivations = insideActivations;
-            DormantActivations = dormantActivations;
-            ChargingActivations = chargingActivations;
-            AttackActivations = attackActivations;
+            DateTimeStampInSeconds = timeInSec;
+            IsVersionA = isVersionA;
+            HasWon = hasWon;
+            Activations = activations;
+        }
+        
+        public int CompareTo(DrillianMetricEntry other)
+        {
+            if (this.DateTimeStampInSeconds < other.DateTimeStampInSeconds)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+    
+    [System.Serializable]
+    public class Activation
+    {
+        public bool WasActivatedOutside;
+        public float ActivationTime;
+        public int RemainingSpiderHP;
+        public string SpiderAttack;
+        
+        public Activation(bool wasActivatedOutside, float activationTime, int remainingSpiderHp, string spiderAttack)
+        {
+            WasActivatedOutside = wasActivatedOutside;
+            ActivationTime = activationTime;
+            RemainingSpiderHP = remainingSpiderHp;
+            SpiderAttack = spiderAttack;
         }
     }
 }

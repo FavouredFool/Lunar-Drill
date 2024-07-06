@@ -171,6 +171,13 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         IsActionAvaliable = false;
         LoseActionVisual();
         RotationControlT = 1;
+
+        
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (!gameManager.GameDone)
+        {
+            gameManager.TempActivationList.Add(new DrillianMetricManager.Activation(!IsBurrowed, GameManager.PlayTime, gameManager.SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString()));
+        }
         
         if (IsBurrowed)
         {

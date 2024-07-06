@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class HitMetricManager : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class HitMetricManager : MonoBehaviour
             string fileContents = File.ReadAllText(DataPath);
             EntryList = JsonUtility.FromJson<HitMetricList>(fileContents);
         }
-
+        
         EntryList.Entries.Sort();
     }
     
@@ -59,14 +60,14 @@ public class HitMetricManager : MonoBehaviour
     [System.Serializable]
     public class HitMetricEntry : IComparable<HitMetricEntry>
     {
-        public long TotalSeconds;
+        public long DateTimeStampInSeconds;
         public bool IsVersionA;
         public bool HasWon;
         public List<Hit> Hits;
         
-        public HitMetricEntry(long totalSeconds, bool isVersionA, bool hasWon, List<Hit> hits)
+        public HitMetricEntry(long dateTimeStampInSeconds, bool isVersionA, bool hasWon, List<Hit> hits)
         {
-            TotalSeconds = totalSeconds;
+            DateTimeStampInSeconds = dateTimeStampInSeconds;
             IsVersionA = isVersionA;
             HasWon = hasWon;
             Hits = hits;
@@ -74,7 +75,7 @@ public class HitMetricManager : MonoBehaviour
         
         public int CompareTo(HitMetricEntry other)
         {
-            if (this.TotalSeconds < other.TotalSeconds)
+            if (this.DateTimeStampInSeconds < other.DateTimeStampInSeconds)
             {
                 return -1;
             }
