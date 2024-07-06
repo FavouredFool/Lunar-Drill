@@ -407,6 +407,10 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
     void GetHit(Collider2D collision)
     {
+        // Metrics!
+        HitMetricManager.Hit hit = new(GameManager.PlayTime, "drillian", FindObjectOfType<GameManager>().SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString(), Utilities.LayerMaskContainsLayer(_luna, collision.gameObject.layer));
+        FindObjectOfType<GameManager>().TempHitList.Add(hit);
+        
         // Camera shake
         CamShake.Instance.ShakeCamera();
         Rumble.instance?.RumbleDrillian(4, 2, 0.2f);
@@ -428,10 +432,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
 
         FollowingOres.Clear();
-        
-        // Metrics!
-        HitMetricManager.Hit hit = new("drillian", FindObjectOfType<GameManager>().SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString(), Utilities.LayerMaskContainsLayer(_luna, collision.gameObject.layer));
-        FindObjectOfType<GameManager>().TempHitList.Add(hit);
     }
 
     void EvaluateCollision(Collider2D collision)

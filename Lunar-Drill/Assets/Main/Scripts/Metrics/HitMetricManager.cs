@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -35,10 +36,11 @@ public class HitMetricManager : MonoBehaviour
         EntryList.Entries.Sort();
     }
     
-    public void AddEntry(bool isVersionA, List<Hit> hits)
+    public void AddEntry(long totalSeconds, bool isVersionA, bool hasWon, List<Hit> hits)
     {
-        HitMetricEntry entry = new HitMetricEntry(hits);
+        HitMetricEntry entry = new HitMetricEntry(totalSeconds, isVersionA, hasWon, hits);
         EntryList.Entries.Add(entry);
+        EntryList.Entries.Sort();
 
         LatestEntry = entry;
         
@@ -55,27 +57,47 @@ public class HitMetricManager : MonoBehaviour
     }
     
     [System.Serializable]
-    public class HitMetricEntry
+    public class HitMetricEntry : IComparable<HitMetricEntry>
     {
+        public long TotalSeconds;
+        public bool IsVersionA;
+        public bool HasWon;
         public List<Hit> Hits;
         
-        public HitMetricEntry(List<Hit> hits)
+        public HitMetricEntry(long totalSeconds, bool isVersionA, bool hasWon, List<Hit> hits)
         {
+            TotalSeconds = totalSeconds;
+            IsVersionA = isVersionA;
+            HasWon = hasWon;
             Hits = hits;
+        }
+        
+        public int CompareTo(HitMetricEntry other)
+        {
+            if (this.TotalSeconds < other.TotalSeconds)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
         }
     }
     
     [System.Serializable]
     public class Hit
     {
+        public float HitTime;
         public string HitPlayer;
         public int RemainingSpiderHP;
         public string SpiderAttack;
         public bool WasFriendlyFire;
         
         
-        public Hit(string hitPlayer, int remainingSpiderHp, string spiderAttack, bool wasFriendlyFire)
+        public Hit(float hitTime, string hitPlayer, int remainingSpiderHp, string spiderAttack, bool wasFriendlyFire)
         {
+            HitTime = hitTime;
             HitPlayer = hitPlayer;
             RemainingSpiderHP = remainingSpiderHp;
             SpiderAttack = spiderAttack;

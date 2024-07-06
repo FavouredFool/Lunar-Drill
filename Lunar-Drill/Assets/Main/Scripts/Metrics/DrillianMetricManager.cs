@@ -35,7 +35,7 @@ public class DrillianMetricManager : MonoBehaviour
         EntryList.Entries.Sort();
     }
     
-    public void AddEntry(bool isVersionA, int outsideActivations, int insideActivations, int dormantActivations, int chargingActivations, int attackActivations)
+    public void AddEntry(bool isVersionA, bool hasWon, int outsideActivations, int insideActivations, int dormantActivations, int chargingActivations, int attackActivations)
     {
         DrillianMetricEntry entry = new DrillianMetricEntry(outsideActivations, insideActivations, dormantActivations, chargingActivations, attackActivations);
         EntryList.Entries.Add(entry);

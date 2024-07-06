@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -176,6 +177,14 @@ public class GameManager : MonoBehaviour
         if (playerVictory && addLeaderboard)
             FindObjectOfType<LeaderboardManager>().AddEntry(PlayTime, NameManager.LunaTeamName, NameManager.DrillianTeamName);
 
+        DateTime dateTime = DateTime.Now;
+        // Time in sec based on the first of juli 2024
+        TimeSpan diff = dateTime.ToUniversalTime() - new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        
+        long seconds = (long)Math.Floor(diff.TotalSeconds);
+        
+        FindObjectOfType<HitMetricManager>().AddEntry(seconds, true, playerVictory, TempHitList);
+        
         _undertaker.Open(obj, playerVictory);
     }
 }
