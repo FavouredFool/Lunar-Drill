@@ -8,7 +8,7 @@ public class PersistentAnchor : MonoBehaviour
     public void Retry() => SceneChanger.instance.Retry();
     public void Quit() => SceneChanger.instance.Quit();
     public void ReturnToMain() => SceneChanger.instance.LoadScene0_MainMenu();
-    public void LoadStats() => SceneChanger.instance.LoadScene5_Stats();
+    public void LoadStats() => SceneChanger.instance.LoadScene4_Stats();
 
     public void TogglePause() => OptionsMenu.instance.Toggle();
 

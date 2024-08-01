@@ -27,8 +27,6 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
 
     private void Start()
     {
-        Debug.Log("ReactStart");
-
         Vector3 pos = transform.localPosition;
         Vector3 scl = transform.localScale;
 

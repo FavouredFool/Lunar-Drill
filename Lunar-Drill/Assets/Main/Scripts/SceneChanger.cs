@@ -9,24 +9,16 @@ public class SceneChanger : MonoBehaviour
     public static SceneChanger instance;
     public static SceneIdentity currentScene;
 
-    [SerializeField] PreparationInterface consistentCanvas;
-    [SerializeField] NameManager nameManager;
-
-
-    public void LoadScene0_MainMenu() { nameManager.SetDefaultName(); LoadScene(SceneIdentity.MainMenu); }
-    public void LoadScene1_PlayerConnect() => LoadScene(SceneIdentity.PlayerConnect);
-    public void LoadScene2_PlayerSelect() => LoadScene(SceneIdentity.PlayerSelect);
-    public void LoadScene3_GameTutorial() => LoadScene(SceneIdentity.GameTutorial);
-    public void LoadScene4_GameMain() => LoadScene(SceneIdentity.GameMain);
-    public void LoadScene5_Stats() => LoadScene(SceneIdentity.Stats);
+    public void LoadScene0_MainMenu() => LoadScene(SceneIdentity.MainMenu);
+    public void LoadScene1_Preparation() => LoadScene(SceneIdentity.PlayerPreparation);
+    public void LoadScene2_GameTutorial() => LoadScene(SceneIdentity.GameMain); //CHANGE THIS ONCE TUTORIAL IS SET
+    public void LoadScene3_GameMain() => LoadScene(SceneIdentity.GameMain);
+    public void LoadScene4_Stats() => LoadScene(SceneIdentity.Stats);
     public void LoadNext()
     {
         SceneIdentity identity = (SceneIdentity)((int)currentScene + 1);
         if ((int)identity >= System.Enum.GetValues(typeof(SceneIdentity)).Length)
             identity = (SceneIdentity)0;
-
-        if (identity == SceneIdentity.PlayerSelect && PlayerConnectController.isSolo)
-            identity = SceneIdentity.GameTutorial;
 
         LoadScene(identity);
     }
@@ -36,13 +28,14 @@ public class SceneChanger : MonoBehaviour
     }
     private IEnumerator LoadSceneCoroutine(SceneIdentity scene)
     {
-        float delay = consistentCanvas.SetScene(scene);
+        float delay = 0.33f;
         InputBus.Fire(new Signal_SceneChange(scene, delay * 0.99f));
 
         float initTime = Time.unscaledTime;
 
         while (Time.unscaledTime - initTime < delay)
             yield return null;
+        yield return null;
 
         DG.Tweening.DOTween.KillAll();
         Rumble.instance?.ClearAndStopAllRumble();
@@ -54,7 +47,7 @@ public class SceneChanger : MonoBehaviour
 
     public void Retry()
     {
-        LoadScene4_GameMain();
+        LoadScene3_GameMain();
     }
     public void Quit()
     {
@@ -74,7 +67,7 @@ public class SceneChanger : MonoBehaviour
 }
 public enum SceneIdentity
 {
-    MainMenu, PlayerConnect, PlayerSelect, GameTutorial, GameMain, Stats
+    MainMenu, PlayerPreparation, GameTutorial, GameMain, Stats
 }
 
 public class Signal_SceneChange : IInputSignal

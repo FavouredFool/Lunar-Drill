@@ -19,7 +19,7 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
     int entryIndex;
     private void Start()
     {
-        PersistentButton = PreparationInterface.instance._continueButton;
+        //PersistentButton = PreparationInterface.instance._continueButton;
         PersistentButton.blocked = true;
         PersistentButton.transform.parent.localScale = Vector3.zero;
         ContinueButton.blocked = false;
@@ -49,7 +49,7 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
         DisplayEntry(entry);
 
-        PreparationInterface.instance.NextUp_Text.text = "Skip Tutorial";
+        //PreparationInterface.instance.NextUp_Text.text = "Skip Tutorial";
 
         if (entryIndex + 1 == entries.Count)
             Finish();
@@ -82,8 +82,6 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
     public void Finish()
     {
-        PreparationInterface.instance.NextUp_Text.text = "LETS GO!";
-
         PersistentButton.blocked = false;
         PersistentButton.transform.parent.localScale = Vector3.one* 1.5f;
         ContinueButton.blocked = true;
@@ -102,7 +100,7 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
     public void OnEventHappened(Signal_SceneChange e)
     {
         
-        PersistentButton = PreparationInterface.instance._continueButton;
+        //PersistentButton = PreparationInterface.instance._continueButton;
         PersistentButton.blocked = false;
         PersistentButton.transform.parent.localScale = Vector3.one*1.5f;
         ContinueButton.blocked = true;

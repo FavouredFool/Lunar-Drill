@@ -7,11 +7,11 @@ public class PersistentInstance : MonoBehaviour
     static PersistentInstance instance;
 
     public SceneChanger sceneChanger;
-    public PreparationInterface preparationInterface;
     public OptionsMenu optionsMenu;
     public NameManager nameManager;
     public LeaderboardManager leaderboardManager;
     public Rumble rumbleManager;
+    public ConnectManager connectManager;
 
     private void Awake()
     {
@@ -20,14 +20,12 @@ public class PersistentInstance : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             instance = this;
             SceneChanger.instance = sceneChanger;
-            PreparationInterface.instance = preparationInterface;
             OptionsMenu.instance = optionsMenu;
             NameManager.instance = nameManager;
             Rumble.instance = rumbleManager;
 
             optionsMenu.SetUp();
-
-            preparationInterface.SetScene(SceneIdentity.MainMenu);
+            connectManager.SetUp();
 
             transform.GetChild(0).gameObject.SetActive(true);
         }

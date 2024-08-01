@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 using TMPro;
 using DG.Tweening;
 
-public class ConnectManager : MonoBehaviour
+/*
+public class Depricated_2_ConnectManager : MonoBehaviour
 {
     private List<PlayerInput> playerInputs= new();
     public List<PlayerConnectController> connectedPlayers = new();
@@ -86,3 +87,4 @@ public class ConnectManager : MonoBehaviour
     }
 
 }
+*/

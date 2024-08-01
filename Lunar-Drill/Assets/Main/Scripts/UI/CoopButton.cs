@@ -312,7 +312,7 @@ public class CoopButton : MonoBehaviour,
     {
         if ((blocked || initBlocked) && phase != InputActionPhase.Canceled) return false; //Allow when cancelled
 
-        if (OptionsMenu.isOpen && !_isOverlayMenu) return false;
+        if ((OptionsMenu.isOpen||ConnectManager.isOpen) && !_isOverlayMenu) return false;
 
         if (character == ChosenCharacter.any) 
             character = ChosenCharacter.both;

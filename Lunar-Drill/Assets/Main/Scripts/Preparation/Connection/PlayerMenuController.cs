@@ -13,7 +13,7 @@ public class PlayerMenuController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        PlayerConnectController.Delete();
+        //PlayerConnectController.Disable();
         input.enabled = true;
     }
 
