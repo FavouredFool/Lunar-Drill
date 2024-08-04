@@ -3888,6 +3888,9 @@ MonoBehaviour:
   _statsHUD: {fileID: 1880034892}
   _maxPlayerHP: 4
   _maxSpiderHP: 4
+  TempHitList: []
+  TempActivationList: []
+  GameDone: 0
 --- !u!4 &1301515984
 Transform:
   m_ObjectHideFlags: 0

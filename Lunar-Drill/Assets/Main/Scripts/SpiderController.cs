@@ -66,11 +66,14 @@ public class SpiderController : MonoBehaviour
     float _orbitRotationT = 0f;
     SpiderLaser _spiderLaser;
     bool _mustReachThresholdForMovement = false;
-    Vector2 _goalRotation = Vector2.zero;
+    Vector2 _goalRotation = Vector2.up;
     Tween _regenerateVulnerableTween;
     SpiderSpeed _spiderSpeed = SpiderSpeed.MID;
     Tween _hasJustBeenHitTween;
     bool _hasJustBeenHit = false;
+    bool _isDigging = false;
+
+    float _spiderBodyOrbit;
 
 
     //--- Unity Methods ------------------------
@@ -79,6 +82,8 @@ public class SpiderController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _spiderLaser = GetComponent<SpiderLaser>();
+
+        _spiderBodyOrbit = ((Vector2)transform.position).magnitude;
 
         // VFX
         _energyLoss.SetTexture("Main Texture", _energyLossRed);
@@ -91,14 +96,28 @@ public class SpiderController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        CalculateOrbitRotation();
+        if (_isDigging)
+        {
+            //Debug.Log(_goalRotation);
+            // needs to do "_isDigging = false" at some point
+            _rigidbody.MovePosition(Vector2.MoveTowards(transform.position, _goalRotation * _spiderBodyOrbit, _midRotationSpeed));
 
-        EvaluateOverheat();
+            if (Vector2.Distance(transform.position, _goalRotation * _spiderBodyOrbit) < 0.01f)
+            {
+                _isDigging = false;
+            }
+        }
+        else
+        {
+            CalculateOrbitRotation();
 
-        SetSpiderPosition();
-        SetSpiderRotation();
+            EvaluateOverheat();
 
-        VulnerableVFX();
+            SetSpiderPosition();
+            SetSpiderRotation();
+
+            VulnerableVFX();
+        }
     }
 
 
@@ -107,11 +126,13 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator MoveLoop()
     {
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        
         while (true)
         {
             yield return null;
             if (IsVulnerable) yield return null;
-            yield return LaserMovement();
+            yield return SpiderBrains(gameManager);
         }
     }
 
@@ -165,8 +186,14 @@ public class SpiderController : MonoBehaviour
         // Stand: 20%
         // Movement: 80%
 
+        Debug.Log("ONLY ONCE");
+        
         float randomT = Random.Range(0f, 1f);
         
+        if (randomT > 0f)
+        {
+            return Digging();
+        }
         if (randomT > 0.8f)
         {
             return Wait();
@@ -206,12 +233,12 @@ public class SpiderController : MonoBehaviour
 
     IEnumerator GetLevel3Ability()
     {
-        // Stand: 10% Chance
-        // Movement: 50% Chance
-        // RandomLaserShort: 20% Chance
-        // RandomLaserLong: 15% Chance
-        // LunaLaser: 15% Chance
-        // BlinkLaser: 10% Chance
+        // Wait: 10% Chance
+        // Movement: 40% Chance
+        // RandomLaserShort: 25% Chance
+        // RandomLaserLong: 0% Chance
+        // Digging: 25%
+        // LunaLaser: 0% Chance
 
         float randomT = Random.Range(0f, 1f);
 
@@ -219,7 +246,7 @@ public class SpiderController : MonoBehaviour
         {
             return Wait();
         }
-        else if (randomT > 0.4f)
+        else if (randomT > 0.5f)
         {
             return Movement(80, 170);
         }
@@ -227,13 +254,9 @@ public class SpiderController : MonoBehaviour
         {
             return RandomLaserShort();
         }
-        else if (randomT > 0.1f)
-        {
-            return RandomLaserLong();
-        }
         else
         {
-            return LunaLaser();
+            return Digging();
         }
     }
 
@@ -241,10 +264,11 @@ public class SpiderController : MonoBehaviour
     IEnumerator GetLevel4Ability()
     {
         // Stand: 05% Chance
-        // Movement: 35% Chance
-        // RandomLaserShort: 20% Chance
-        // RandomLaserLong: 20% Chance
-        // LunaLaser: 20% Chance
+        // Movement: 25% Chance
+        // RandomLaserShort: 35% Chance
+        // RandomLaserLong: 0% Chance
+        // LunaLaser: 0% Chance
+        // Digging: 35% Chance
 
         float randomT = Random.Range(0f, 1f);
 
@@ -252,28 +276,22 @@ public class SpiderController : MonoBehaviour
         {
             return Wait();
         }
-        else if (randomT > 0.65f)
+        else if (randomT > 0.7f)
         {
             return Movement(80, 170);
         }
-        else if (randomT > 0.3f)
+        else if (randomT > 0.35f)
         {
             return RandomLaserShort();
         }
-        else if (randomT > 0.1f)
-        {
-            return RandomLaserLong();
-        }
         else
         {
-            return LunaLaser();
+            return Digging();
         }
     }
 
-    IEnumerator LaserMovement()
+    IEnumerator SpiderBrains(GameManager gameManager)
     {
-        GameManager gameManager = FindObjectOfType<GameManager>();
-
         SpiderState spiderState;
 
         int spiderHP = gameManager.SpiderHP;
@@ -295,20 +313,7 @@ public class SpiderController : MonoBehaviour
             spiderState = SpiderState.Level4;
         }
 
-        // the spiders brains
-
-        // Each Move should be seperate, no interplay between moves
-        // moves should be randomized with changing percentage-chances (weights)
-
-        // Also its based on spiders HP
-        // 4 Spider HP total
-        // First HP is tutorial -> Only Movement
-        // Second HP is opposite-luna lasers + randomized lasers
-        // Third HP starts with laser-blink once, and afterwards is like second HP
-        // Fourth HP is everything-everywhere-all-at-once (with a high chance of blink)
-
         yield return GetNextAbility(spiderState);
-
 
         yield return new WaitForEndOfFrame();
     }
@@ -388,6 +393,18 @@ public class SpiderController : MonoBehaviour
         _spiderLaser.StopLaser();
 
         yield return new WaitForSeconds(Random.Range(1f, 2.5f));
+    }
+
+    IEnumerator Digging()
+    {
+        Debug.Log("digging");
+        _isDigging = true;
+        _goalRotation = -_goalRotation;
+        
+        while (_isDigging)
+        {
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator LunaLaser()
