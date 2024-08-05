@@ -12,21 +12,11 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
     [SerializeField]
     TutorialSpeechBubble[] bubbles;
 
-    CoopButton PersistentButton;
     [SerializeField] CoopButton ContinueButton, SkipButton;
-    [SerializeField] LoadSceneReaction SkipRetreat;
 
     int entryIndex;
     private void Start()
     {
-        //PersistentButton = PreparationInterface.instance._continueButton;
-        PersistentButton.blocked = true;
-        PersistentButton.transform.parent.localScale = Vector3.zero;
-        ContinueButton.blocked = false;
-        ContinueButton.transform.parent.gameObject.SetActive(true);
-        ContinueButton.transform.parent.localScale = Vector3.one* 1.5f;
-        SkipButton.blocked = false;
-
         entryIndex = -1;
         Continue();
     }
@@ -41,6 +31,12 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
     public void Continue()
     {
+        if (entryIndex + 1 == entries.Count)
+        {
+            Finish();
+            return;
+        }
+
         entryIndex++;
 
         TutorialEntry entry = entries[entryIndex];
@@ -48,11 +44,6 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
         ContinueButton.Refresh(entry.character);
 
         DisplayEntry(entry);
-
-        //PreparationInterface.instance.NextUp_Text.text = "Skip Tutorial";
-
-        if (entryIndex + 1 == entries.Count)
-            Finish();
     }
     public void DisplayEntry(TutorialEntry entry)
     {
@@ -82,30 +73,17 @@ public class TutorialManager : MonoBehaviour, IInputSubscriber<Signal_SceneChang
 
     public void Finish()
     {
-        PersistentButton.blocked = false;
-        PersistentButton.transform.parent.localScale = Vector3.one* 1.5f;
-        ContinueButton.blocked = true;
-        ContinueButton.transform.parent.localScale = Vector3.zero;
-
-        SkipRetreat.Return(0.33f);
         SkipButton.blocked = true;
+        ContinueButton.blocked = true;
 
-    }
-    public void Skip()
-    {
-        Finish();
         SceneChanger.instance.LoadNext();
     }
+    public void Skip() => Finish();
 
     public void OnEventHappened(Signal_SceneChange e)
     {
-        
-        //PersistentButton = PreparationInterface.instance._continueButton;
-        PersistentButton.blocked = false;
-        PersistentButton.transform.parent.localScale = Vector3.one*1.5f;
-        ContinueButton.blocked = true;
-        ContinueButton.transform.parent.localScale = Vector3.zero;
         SkipButton.blocked = true;
+        ContinueButton.blocked = true;
 
         foreach (TutorialSpeechBubble spb in bubbles)
             spb.Hide();

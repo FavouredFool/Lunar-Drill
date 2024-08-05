@@ -144,7 +144,6 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
             PlayerConnectController.Luna.SetMenuMode(on);
     }
 
-
     public void OnEventHappened(PlayerModeChanged e) 
         => Check(e.Coop);
     public void OnEventHappened(PlayerModeReset e) 

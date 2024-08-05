@@ -21,6 +21,8 @@ public class PreparationManager : MonoBehaviour
 
     private void Start()
     {
+        _modeSelectPart.localScale = Vector3.zero;
+        _nameSelectPart.localScale = Vector3.zero;
         RefreshMenu(true);
     }
     public void SelectMode(bool coop)

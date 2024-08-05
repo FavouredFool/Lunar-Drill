@@ -11,6 +11,7 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
     }
     public Mode mode;
 
+    public bool keepPosition;
     public Vector3 localPosition;
     public float scale;
 
@@ -30,9 +31,9 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
         Vector3 pos = transform.localPosition;
         Vector3 scl = transform.localScale;
 
-        if (mode != Mode.Both && mode != Mode.Load) return;
+        if (mode==Mode.Unload) return;
 
-        transform.localPosition = localPosition;
+        transform.localPosition = keepPosition ? transform.localPosition : localPosition;
         transform.localScale = scale * Vector3.one;
 
         float time = 0.66f;
@@ -48,7 +49,7 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
 
     public void OnEventHappened(Signal_SceneChange e)
     {
-        if (mode != Mode.Both && mode != Mode.Unload) return;
+        if (mode == Mode.Load) return;
 
         Return(e.delay);
     }
@@ -57,7 +58,7 @@ public class LoadSceneReaction : MonoBehaviour, IInputSubscriber<Signal_SceneCha
         seq.Kill();
         seq = DOTween.Sequence();
 
-        seq.Append(transform.DOLocalMove(localPosition, time).SetEase(Ease.OutSine));
+        seq.Append(transform.DOLocalMove(keepPosition ? transform.localPosition : localPosition, time).SetEase(Ease.OutSine));
         seq.Join(transform.DOScale(scale, time).SetEase(Ease.OutSine));
 
         seq.SetUpdate(true);
