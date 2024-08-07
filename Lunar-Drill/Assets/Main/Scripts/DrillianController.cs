@@ -38,6 +38,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [SerializeField] LayerMask _laserCollision;
     [SerializeField] LayerMask _health;
     [SerializeField] LayerMask _luna;
+    [SerializeField] LayerMask _mines;
     [SerializeField] [Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
@@ -62,7 +63,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     public List<OreController> FollowingOres { get; } = new();
     public float OreDistance => _oreDistance;
     public bool IsActionAvaliable { get; set; } = false;
-    public bool IsInvincible { get; private set; } = false;
 
     //--- Private Fields ------------------------
 
@@ -79,6 +79,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     Tweener _boostTweenCharge;
     Tweener _boostTween;
 
+    bool _isInvincible = false;
     bool _stopMovement = false;
     bool _isStomping = false;
 
@@ -147,35 +148,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
             previous = ore;
         }
-    }
-
-    public void GetHit(Collider2D collision)
-    {
-        // Metrics!
-        HitMetricManager.Hit hit = new(GameManager.PlayTime, "drillian", FindObjectOfType<GameManager>().SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString(), Utilities.LayerMaskContainsLayer(_luna, collision.gameObject.layer));
-        FindObjectOfType<GameManager>().TempHitList.Add(hit);
-
-        // Camera shake
-        CamShake.Instance.ShakeCamera();
-        Rumble.instance?.RumbleDrillian(4, 2, 0.2f);
-
-        // Health Reduce
-        _spriteIterator.Hit();
-        FindObjectOfType<GameManager>().Hit(gameObject, true);
-
-        // invincible
-        IsInvincible = true;
-        // Set invincible to false after one second
-        DOVirtual.DelayedCall(_invincibleTime, () => IsInvincible = false, false);
-        _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
-
-        // remove all ores
-        foreach (OreController ore in FollowingOres)
-        {
-            ore.DestroyOre();
-        }
-
-        FollowingOres.Clear();
     }
 
     //--- Public Methods ------------------------
@@ -403,6 +375,35 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, lookDirection));
     }
 
+    public void GetHit(Collider2D collision)
+    {
+        // Metrics!
+        HitMetricManager.Hit hit = new(GameManager.PlayTime, "drillian", FindObjectOfType<GameManager>().SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString(), Utilities.LayerMaskContainsLayer(_luna, collision.gameObject.layer));
+        FindObjectOfType<GameManager>().TempHitList.Add(hit);
+
+        // Camera shake
+        CamShake.Instance.ShakeCamera();
+        Rumble.instance?.RumbleDrillian(4, 2, 0.2f);
+
+        // Health Reduce
+        _spriteIterator.Hit();
+        FindObjectOfType<GameManager>().Hit(gameObject, true);
+
+        // invincible
+        _isInvincible = true;
+        // Set invincible to false after one second
+        DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
+        _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
+
+        // remove all ores
+        foreach (OreController ore in FollowingOres)
+        {
+            ore.DestroyOre();
+        }
+
+        FollowingOres.Clear();
+    }
+
     void LoseActionVisual()
     {
         float x = 1;
@@ -448,7 +449,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
             if (spider == null) throw new System.Exception();
 
-            if (!IsInvincible && !spider.IsNotHurtingOnTouch)
+            if (!_isInvincible && !spider.IsNotHurtingOnTouch)
             {
                 GetHit(collision);
 
@@ -475,6 +476,16 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
                 health.HasBeenPickedUp = true;
                 GainHealth();
                 health.DestroyPickup();
+            }
+        }
+        else if (Utilities.LayerMaskContainsLayer(_mines, collision.gameObject.layer))
+        {
+            MineController mine = collision.gameObject.GetComponent<MineController>();
+            if (mine.Active)
+            {
+                if (!_isInvincible)
+                    GetHit(collision);
+                collision.gameObject.GetComponent<MineController>().DestroyMine();
             }
         }
     }

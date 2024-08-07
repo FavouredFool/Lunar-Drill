@@ -44,10 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3935c739e82a5b94ab0da5c5f509bef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMines: 20
+  _maxMines: 7
   _mineBlueprint: {fileID: -7356234040155827635, guid: 7ff0345455c669b48815c0019ebded2b, type: 3}
-  _spawnOffsetMultiplier: 1
   _spawnAmount: 6
   _planetCoverage: 0.25
-  _outerRadius: 4.25
-  _planetRadius: 3

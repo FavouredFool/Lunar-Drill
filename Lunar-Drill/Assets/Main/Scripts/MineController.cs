@@ -6,72 +6,69 @@ public class MineController : MonoBehaviour
     #region --- Exposed Fields ---
     [Header("Layers")]
     [SerializeField] LayerMask _destroyLayer; // Luna laser
-    [SerializeField] LayerMask _damageLayer; // Drillian
+    [SerializeField] LayerMask _damageLayerDrillian; // Drillian
+    [SerializeField] LayerMask _damageLayerLuna; // Luna
 
     [Header("Visuals")]
     [SerializeField] SpriteRenderer _mineVisuals;
     #endregion
 
     #region --- Private Fields ---
-    Tween _moveTween;
-    bool _active = false; // TODO Should it be active mid air or when hitting the planet surface
     DrillianController _drillian;
+    LunaController _luna;
     #endregion
 
     #region --- Public Fields ---
+    public bool Active { get; set; } = false;
+    public Tween MoveTween { get; set; }
     #endregion
 
     #region --- Unity Methods ---
     private void Awake()
     {
         _drillian = FindObjectOfType<DrillianController>();
+        _luna = FindObjectOfType<LunaController>();
         float size = transform.localScale.x;
         transform.localScale = Vector3.zero;
-        _moveTween = transform.DOScale(size, 0.33f).SetEase(Ease.OutBack).OnComplete(() => _active = true);
+        MoveTween = transform.DOScale(size, 0.33f).SetEase(Ease.OutBack).OnComplete(() => Active = true);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         // TODO Should exploding mines have a damage zone affecting every character?
         // TODO Does something happen if spider touches mines?
+        // TODO Should Luna/Drillian also make the mine explode while they hit it but are invincible? (hits with them are handled in respective controllers)
 
-        if (_active) // Make sure collisions are just checked while mine is active
+        if (Active) // Make sure collisions are just checked while mine is active
         {
             if (_destroyLayer == (_destroyLayer | 1 << collision.gameObject.layer))
             {
-                DestroyMine();
-                _active = false;
-
-                // TODO Figure out if this is good when letting mine explode -> makes sense, but also same effect as getting damaged, might be confusing
-                CamShake.Instance.ShakeCamera();
-                Rumble.instance?.RumbleLuna(4, 2, 0.2f);
-            }
-            else if (_damageLayer == (_damageLayer | 1 << collision.gameObject.layer))
-            {
-                DestroyMine();
-                _active = false;
-
-                if (!_drillian.IsInvincible) // TODO Should Drillian be able to let the mines explode while invincible??
-                    _drillian.GetHit(collision);
+                DestroyMine();  
+                // TODO: Rumble?
             }
         }
     }
     #endregion
 
     #region --- Private Methods ---
-    private void DestroyMine()
+
+    #endregion
+
+    #region --- Public Methods ---
+    public void DestroyMine()
     {
+        Active = false;
+
         // Removing mine from spawner
         MineSpawner spawner = transform.parent.GetComponent<MineSpawner>();
         if (spawner)
             spawner.RemoveMine(this);
 
-        _moveTween = transform.DOScale(0, .5f).SetEase(Ease.InBack);
+        MoveTween.Kill();
+        MoveTween = transform.DOScale(0, .5f).SetEase(Ease.InBack);
 
         Destroy(gameObject, 5f);
     }
-    #endregion
 
-    #region --- Public Methods ---
     #endregion
 }

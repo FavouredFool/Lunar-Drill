@@ -500,6 +500,9 @@ MonoBehaviour:
   _health:
     serializedVersion: 2
     m_Bits: 4096
+  _mines:
+    serializedVersion: 2
+    m_Bits: 16384
   _invincibleTime: 3
   _spriteRenderer: {fileID: 3688287869893254816}
   _spriteIterator: {fileID: 8224682475587872733}
