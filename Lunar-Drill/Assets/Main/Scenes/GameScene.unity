@@ -2391,6 +2391,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
       propertyPath: _lunaControllMarker
       value: 
       objectReference: {fileID: 1368627427}
@@ -2601,6 +2605,10 @@ PrefabInstance:
     - target: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4851948530192768895, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
       propertyPath: _mines.m_Bits
