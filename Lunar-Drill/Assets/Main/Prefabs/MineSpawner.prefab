@@ -50,4 +50,4 @@ MonoBehaviour:
   _planetCoverage: 0.25
   _inAirDuration: 0.5
   _additionalHightMul: 2.8
-  _spawnAngle: 70
+  _spawnAngle: 0

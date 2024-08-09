@@ -51,8 +51,6 @@ public class MineSpawner : MonoBehaviour
                 Vector2 angle = Quaternion.Euler(0, 0, _spawnAngle) * _spider.transform.position.normalized;
                 SpawnMines(_spider.transform.position.normalized * Utilities.InnerOrbit, angle);
                 _spawnTime = Time.time;
-                Debug.DrawRay(MapPointOntoPlanetSurface(_spider.transform.position.normalized * Utilities.InnerOrbit), _spider.transform.position.normalized, Color.red, 1000);
-                Debug.DrawRay(MapPointOntoPlanetSurface(_spider.transform.position.normalized * Utilities.InnerOrbit), angle, Color.white, 1000);
             }
         }
     }
