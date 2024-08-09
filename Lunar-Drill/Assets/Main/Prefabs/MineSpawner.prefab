@@ -48,6 +48,6 @@ MonoBehaviour:
   _mineBlueprint: {fileID: -7356234040155827635, guid: 7ff0345455c669b48815c0019ebded2b, type: 3}
   _spawnAmount: 6
   _planetCoverage: 0.25
-  _inAirDuration: 1.5
-  _additionalHightMul: 2.5
+  _inAirDuration: 0.5
+  _additionalHightMul: 2.8
   _spawnAngle: 70
