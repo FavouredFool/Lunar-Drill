@@ -214,8 +214,7 @@ public class NameManager : MonoBehaviour
 
     void UpdateTeamNameUI()
     {
-        //TeamNameLunar.text = LunaTeamName;
-        //TeamNameDrill.text = DrillianTeamName;
+        InputBus.Fire(new TeamNameChanged(LunaTeamName+"//"+DrillianTeamName, LunaTeamName,DrillianTeamName));
     }
 
     public void SetDefaultName()

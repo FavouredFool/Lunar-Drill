@@ -11,7 +11,6 @@ public class PersistentInstance : MonoBehaviour
     public NameManager nameManager;
     public LeaderboardManager leaderboardManager;
     public Rumble rumbleManager;
-    public ConnectManager connectManager;
 
     private void Awake()
     {
@@ -25,7 +24,6 @@ public class PersistentInstance : MonoBehaviour
             Rumble.instance = rumbleManager;
 
             optionsMenu.SetUp();
-            connectManager.SetUp();
 
             transform.GetChild(0).gameObject.SetActive(true);
         }

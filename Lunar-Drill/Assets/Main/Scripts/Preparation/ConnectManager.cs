@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 using DG.Tweening;
 using System.Threading.Tasks;
 
@@ -15,15 +16,18 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
     private List<PlayerInput> playerInputs = new();
     public List<PlayerConnectController> connectedPlayers = new();
 
-    public static bool isSolo;
-    public static int TargetConnectedPlayers => isSolo ? 1 : 2;
+    public static bool isCoop;
+    public static int TargetConnectedPlayers => isCoop ? 2 : 1;
+    public bool Valid => connectedPlayers.Count == TargetConnectedPlayers;
+
 
     [SerializeField]
+    Transform body;
+        [SerializeField]
     GameObject
-        body,
         P1Screen, P2Screen,
         P1Con, P2Con,
-        P1Conf, P2Conf;
+        SoloP1Conf,P1Conf, P2Conf;
 
     private void OnEnable()
     {
@@ -35,10 +39,87 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
         InputBus.Unsubscribe<PlayerModeChanged>(this);
         InputBus.Unsubscribe<PlayerModeReset>(this);
     }
-    public void SetUp()
-    {
 
+    public void Set(bool open)
+    {
+        isOpen = open;
+        body.localScale = open ? Vector3.one : Vector3.zero;
+
+        if(open) _playerInputManager.EnableJoining();
+        else _playerInputManager.DisableJoining();
+
+        _playerInputManager.gameObject.SetActive(open);
+        SetMenuMode(isOpen);
+
+        RefreshMenu();
     }
+    public async void Open(float delay=0)
+    {
+        if (isOpen) return;
+        isOpen = true;
+
+        ResetConnections();
+
+        DOTween.Kill(body);
+        body.DOScale(1, 0.3f)
+            .SetEase(Ease.OutSine)
+            .SetDelay(delay);
+
+        _playerInputManager.gameObject.SetActive(false);
+
+        await Task.Delay(10);
+
+        _playerInputManager.EnableJoining();
+        _playerInputManager.gameObject.SetActive(true);
+
+        SetMenuMode(isOpen);
+        RefreshMenu();
+    }
+    public void Close(float delay=0)
+    {
+        if (!isOpen) return;
+        isOpen = false;
+
+        DOTween.Kill(body);
+        body.DOScale(0, 0.3f)
+            .SetEase(Ease.InSine)
+            .SetDelay(delay);
+
+        _playerInputManager.DisableJoining();
+        _playerInputManager.gameObject.SetActive(false);
+
+        SetMenuMode(isOpen);
+        RefreshMenu();
+    }
+    public bool ToggleValid(float delay=0)
+    {
+        if (!Valid)
+            Open(delay);
+        else
+        {
+            Close(delay);
+            PlayerConnectController.Enable();
+            InputBus.Fire(new PlayerModeConfirmed());
+        }
+
+        SetMenuMode(isOpen);
+
+        return Valid;
+    }
+    public void RefreshMenu()
+    {
+        P1Screen.SetActive(true);
+        P1Screen.SetActive(isCoop);
+
+        int connected = connectedPlayers.Count;
+
+        P1Con.SetActive(connected <= 0);
+        P2Con.SetActive(connected <= 1);
+        SoloP1Conf.SetActive(connected > 0 && !isCoop);
+        P1Conf.SetActive(connected > 0 && isCoop);
+        P2Conf.SetActive(connected > 1);
+    }
+
 
     public void ResetConnections()
     {
@@ -58,6 +139,8 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
         playerInputs.Add(input);
         connectedPlayers.Add(playerConnectInfo);
 
+        RefreshMenu();
+
         if (connectedPlayers.Count == 1)
         {
             connectedPlayers[0].SetCharacter(ChosenCharacter.both);
@@ -74,67 +157,14 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
 
         PlayerConnectController.isSolo = connectedPlayers.Count == 1;
 
-        RefreshMenu();
-        Check(!isSolo);
+        ToggleValid();
     }
     public void PlayerLeft()
     {
         ResetConnections();
-        Check(!isSolo);
+        ToggleValid();
     }
 
-    public void RefreshMenu()
-    {
-        P1Screen.SetActive(true);
-        P1Screen.SetActive(!isSolo);
-
-        int connected = connectedPlayers.Count;
-
-        P1Con.SetActive(connected <= 0);
-        P2Con.SetActive(connected <= 1);
-        P1Conf.SetActive(connected > 0);
-        P2Conf.SetActive(connected > 1);
-    }
-
-    public void Check(bool coop)
-    {
-        isSolo = !coop;
-
-        if (connectedPlayers.Count != TargetConnectedPlayers)
-            Open();
-        else
-        {
-            Close();
-            PlayerConnectController.Enable();
-            InputBus.Fire(new PlayerModeConfirmed());
-        }
-
-        SetMenuMode(isOpen);
-    }
-
-    public async void Open()
-    {
-        if (isOpen) return;
-        isOpen = true;
-
-        ResetConnections();
-
-        _playerInputManager.gameObject.SetActive(false);
-        body.gameObject.SetActive(true);
-
-        await Task.Delay(10);
-
-        _playerInputManager.EnableJoining();
-        _playerInputManager.gameObject.SetActive(true);
-    }
-    public void Close()
-    {
-        if (!isOpen) return;
-        isOpen = false;
-
-        body.gameObject.SetActive(false);
-
-    }
 
     public void SetMenuMode(bool on)
     {
@@ -144,8 +174,10 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
             PlayerConnectController.Luna.SetMenuMode(on);
     }
 
-    public void OnEventHappened(PlayerModeChanged e) 
-        => Check(e.Coop);
+    public void OnEventHappened(PlayerModeChanged e)
+    {
+        isCoop = e.Coop;
+    }
     public void OnEventHappened(PlayerModeReset e) 
         => ResetConnections();
 }

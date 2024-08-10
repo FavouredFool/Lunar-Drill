@@ -23,3 +23,15 @@ public class PlayerModeConfirmed : IInputSignal
     {
     }
 }
+
+public class TeamNameChanged : IInputSignal
+{
+    public string TeamName;
+    public string LunarName,DrillianName;
+    public TeamNameChanged(string teamName, string lName, string dName)
+    {
+        TeamName = teamName;
+        LunarName = lName;
+        DrillianName = dName;
+    }
+}
