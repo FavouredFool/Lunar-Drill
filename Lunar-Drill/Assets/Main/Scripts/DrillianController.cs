@@ -38,6 +38,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     [SerializeField] LayerMask _laserCollision;
     [SerializeField] LayerMask _health;
     [SerializeField] LayerMask _luna;
+    [SerializeField] LayerMask _mines;
     [SerializeField] [Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
@@ -62,7 +63,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     public List<OreController> FollowingOres { get; } = new();
     public float OreDistance => _oreDistance;
     public bool IsActionAvaliable { get; set; } = false;
-
 
     //--- Private Fields ------------------------
 
@@ -172,13 +172,13 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         LoseActionVisual();
         RotationControlT = 1;
 
-        
+
         GameManager gameManager = FindObjectOfType<GameManager>();
         if (!gameManager.GameDone)
         {
             gameManager.TempActivationList.Add(new DrillianMetricManager.Activation(!IsBurrowed, GameManager.PlayTime, gameManager.SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString()));
         }
-        
+
         if (IsBurrowed)
         {
             ActionInsideMoon();
@@ -338,7 +338,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
     void RotateDrillian()
     {
         if (Mathf.Abs(_rigidbody.velocity.sqrMagnitude) < 0.001f) return;
-        
+
         if (!IsBurrowed && LastFrameIsBurrowed)
         {
             _airTurnDirection = _rigidbody.velocity.normalized;
@@ -373,6 +373,35 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
 
         _rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, lookDirection));
+    }
+
+    public void GetHit(Collider2D collision)
+    {
+        // Metrics!
+        HitMetricManager.Hit hit = new(GameManager.PlayTime, "drillian", FindObjectOfType<GameManager>().SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString(), Utilities.LayerMaskContainsLayer(_luna, collision.gameObject.layer));
+        FindObjectOfType<GameManager>().TempHitList.Add(hit);
+
+        // Camera shake
+        CamShake.Instance.ShakeCamera();
+        Rumble.instance?.RumbleDrillian(4, 2, 0.2f);
+
+        // Health Reduce
+        _spriteIterator.Hit();
+        FindObjectOfType<GameManager>().Hit(gameObject, true);
+
+        // invincible
+        _isInvincible = true;
+        // Set invincible to false after one second
+        DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
+        _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
+
+        // remove all ores
+        foreach (OreController ore in FollowingOres)
+        {
+            ore.DestroyOre();
+        }
+
+        FollowingOres.Clear();
     }
 
     void LoseActionVisual()
@@ -412,35 +441,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         _rigidbody.velocity = (!_stopMovement) ? moveDirection * _currentSpeed : moveDirection * _currentSpeed / 100f;
     }
 
-    void GetHit(Collider2D collision)
-    {
-        // Metrics!
-        HitMetricManager.Hit hit = new(GameManager.PlayTime, "drillian", FindObjectOfType<GameManager>().SpiderHP, FindObjectOfType<SpiderController>().GetSpiderAttackString(), Utilities.LayerMaskContainsLayer(_luna, collision.gameObject.layer));
-        FindObjectOfType<GameManager>().TempHitList.Add(hit);
-        
-        // Camera shake
-        CamShake.Instance.ShakeCamera();
-        Rumble.instance?.RumbleDrillian(4, 2, 0.2f);
-
-        // Health Reduce
-        _spriteIterator.Hit();
-        FindObjectOfType<GameManager>().Hit(gameObject, true);
-
-        // invincible
-        _isInvincible = true;
-        // Set invincible to false after one second
-        DOVirtual.DelayedCall(_invincibleTime, () => _isInvincible = false, false);
-        _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
-
-        // remove all ores
-        foreach (OreController ore in FollowingOres)
-        {
-            ore.DestroyOre();
-        }
-
-        FollowingOres.Clear();
-    }
-
     void EvaluateCollision(Collider2D collision)
     {
         if (Utilities.LayerMaskContainsLayer(_damageCollisions, collision.gameObject.layer))
@@ -476,6 +476,16 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
                 health.HasBeenPickedUp = true;
                 GainHealth();
                 health.DestroyPickup();
+            }
+        }
+        else if (Utilities.LayerMaskContainsLayer(_mines, collision.gameObject.layer))
+        {
+            MineController mine = collision.gameObject.GetComponent<MineController>();
+            if (mine.Active)
+            {
+                if (!_isInvincible)
+                    GetHit(collision);
+                collision.gameObject.GetComponent<MineController>().DestroyMine();
             }
         }
     }

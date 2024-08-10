@@ -32,6 +32,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
     [SerializeField] LayerMask _laser;
     [SerializeField] LayerMask _ores;
     [SerializeField] LayerMask _health;
+    [SerializeField] LayerMask _mines;
     [SerializeField] [Range(0f, 5f)] float _invincibleTime;
 
     [Header("Sprite")]
@@ -435,6 +436,16 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
                 health.HasBeenPickedUp = true;
                 GainHealth();
                 health.DestroyPickup();
+            }
+        }
+        else if (Utilities.LayerMaskContainsLayer(_mines, collision.gameObject.layer))
+        {
+            MineController mine = collision.gameObject.GetComponent<MineController>();
+            if (mine.Active)
+            {
+                if (!_isInvincible)
+                    GetHit(collision);
+                collision.gameObject.GetComponent<MineController>().DestroyMine();
             }
         }
     }
