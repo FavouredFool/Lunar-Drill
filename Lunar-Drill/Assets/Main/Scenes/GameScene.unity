@@ -7839,6 +7839,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OreSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 7741869781981990139, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
+      propertyPath: _maxChargedPercentage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
