@@ -18,10 +18,9 @@ public class MineSpawner : MonoBehaviour
     [Header("Arc")]
     [SerializeField] [Range(0.1f, 2)] float _inAirDuration = 1.5f;
     [SerializeField] [Range(0, 5f)] float _additionalHightMul = 2.5f;
-    [SerializeField] AnimationCurve _easing;
 
-    [Header("TESTING")]
-    [SerializeField] [Range(-90, 90)] float _spawnAngle = 60;
+    //[Header("TESTING")]
+    //[SerializeField] [Range(-90, 90)] float _spawnAngle = 60;
     #endregion
 
     #region --- Private Variables ---
@@ -145,15 +144,14 @@ public class MineSpawner : MonoBehaviour
 
             // --- Spawning mine ---
             MineController mine = Instantiate(_mineBlueprint, transform);
-            mine.SpawnPosition = spawnPosition;
-            mine.MidPosition = midPosition;
-            mine.GoalPosition = goalPosition;
+            mine.transform.position = spawnPosition;
+            mine.UnscaledStartForce = (CalculateQuadraticBezierPointTangent(0, spawnPosition, midPosition, goalPosition));
             // Movement
-            mine.MoveTween = DOTween.To(() => 0f,
-               t => mine.transform.position = CalculateQuadraticBezierPoint(t, spawnPosition, midPosition, goalPosition)
-                , 1f
-                , _inAirDuration)
-                .SetEase(_easing);
+            //mine.MoveTween = DOTween.To(() => 0f,
+            //   t => mine.transform.position = CalculateQuadraticBezierPoint(t, spawnPosition, midPosition, goalPosition)
+            //    , 1f
+            //    , _inAirDuration)
+            //    .SetEase(Ease.InSine);
 
             _activeMines.Add(mine);
         }
@@ -167,12 +165,20 @@ public class MineSpawner : MonoBehaviour
 
     #region --- Private Methods ---
 
+    ///*
+    // * Calculates a point at time t in a path between points p0, p1 and p2.
+    // */
+    //Vector2 CalculateQuadraticBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2)
+    //{
+    //    return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
+    //}
+
     /*
-     * Calculates a point at time t in a path between points p0, p1 and p2.
-     */
-    Vector2 CalculateQuadraticBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2)
+    * Calculates a point at time t in a path between points p0, p1 and p2.
+   */
+    Vector2 CalculateQuadraticBezierPointTangent(float t, Vector2 p0, Vector2 p1, Vector2 p2)
     {
-        return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
+        return 2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1);
     }
 
     /*

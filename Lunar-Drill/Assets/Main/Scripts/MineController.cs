@@ -17,26 +17,19 @@ public class MineController : MonoBehaviour
     #endregion
 
     #region --- Private Fields ---
-    DrillianController _drillian;
-    LunaController _luna;
     Rigidbody2D _rigidbody;
     bool _applyGravity = true;
-    float _timePassed = 0f;
     #endregion
 
     #region --- Public Fields ---
     public bool Active { get; set; } = false;
     public Tween MoveTween { get; set; }
-    public Vector2 SpawnPosition { get; set; }
-    public Vector2 MidPosition { get; set; }
-    public Vector2 GoalPosition { get; set; }
+    public Vector2 UnscaledStartForce { get; set; }
     #endregion
 
     #region --- Unity Methods ---
     private void Awake()
     {
-        _drillian = FindObjectOfType<DrillianController>();
-        _luna = FindObjectOfType<LunaController>();
         _rigidbody = GetComponent<Rigidbody2D>();
 
         float size = transform.localScale.x;
@@ -46,84 +39,24 @@ public class MineController : MonoBehaviour
 
     private void Start()
     {
-        transform.position = SpawnPosition;
-      //  _rigidbody.AddForce(CalculateQuadraticBezierPointTangent(0, SpawnPosition, MidPosition, GoalPosition) * _startImpulseScale, ForceMode2D.Impulse);
+        _rigidbody.AddForce(UnscaledStartForce * _startImpulseScale, ForceMode2D.Impulse);
     }
 
-    //private void FixedUpdate()
-    //{
-    //    if (!_applyGravity)
-    //        return;
+    private void FixedUpdate()
+    {
+        if (!_applyGravity)
+            return;
 
-    //    if (transform.position.magnitude < Utilities.InnerOrbit - 0.1f)
-    //    {
-    //        Debug.Log("Done");
-    //        _applyGravity = false;
-    //        _rigidbody.velocity = Vector2.zero;
-    //        return;
-    //    }
-    //    //if ((MapPointOntoPlanetSurface(transform.position) - (Vector2)transform.position).magnitude
-    //    //   < (MapPointOntoPlanetSurface(GoalPosition) - GoalPosition).magnitude)
-    //    //{
-    //    //    _applyGravity = false;
-    //    //    return;
-    //    //}
+        if (transform.position.magnitude < Utilities.InnerOrbit - 0.1f)
+        {
+            _applyGravity = false;
+            _rigidbody.velocity = Vector2.zero;
+            return;
+        }
 
-    //    float maxSteepness = CalculateQuadraticBezierPointTangent(0, SpawnPosition, MidPosition, GoalPosition).magnitude;
-    //    float minSteepness = CalculateQuadraticBezierPointTangent(.5f, SpawnPosition, MidPosition, GoalPosition).magnitude; // the way the midpoint is positioned the min value is always at t=0.5, in case trajectory will no be "perfect" arc anymore, this needs to be adjusted
-    //    float tangentMagnitude = CalculateQuadraticBezierPointTangent(_timePassed / _inAirDuration, SpawnPosition, MidPosition, GoalPosition).magnitude;
-    //    //tangentMagnitude = Mathf.InverseLerp(minSteepness, maxSteepness, tangentMagnitude);
-
-    //    Vector2 gravityDirection;
-
-    //    ////Debug.Log(gravityDirection);
-
-    //    //if (_timePassed >= _inAirDuration / 2f)
-    //    //{
-    //    //    gravityDirection = (MapPointOntoPlanetSurface(CalculateQuadraticBezierPoint(1, SpawnPosition, MidPosition, GoalPosition)) - (Vector2)transform.position).normalized;
-    //    //}
-    //    //else
-    //    //{
-    //    // gravityDirection = ((Vector2)transform.position - MapPointOntoPlanetSurface(CalculateQuadraticBezierPoint(1, SpawnPosition, MidPosition, GoalPosition))).normalized;
-    //    //}
-
-    //    // if ((MapPointOntoPlanetSurface(transform.position) - (Vector2)transform.position).magnitude
-    //    //   >= (MapPointOntoPlanetSurface(MidPosition) - MidPosition).magnitude)
-    //    // {
-    //    //    Debug.Log("Above zenit");
-    //    //     tangentMagnitude *= -1;
-    //    ////  // gravityDirection =   CalculateQuadraticBezierPoint(_timePassed / _inAirDuration, SpawnPosition, MidPosition, GoalPosition) - (Vector2)transform.position;
-    //    ////  // Debug.Log("Up");
-    //    ////  //Debug.Log($"{transform.position}, {MidPosition}, {gravityDirection}");
-    //    //}
-    //    //else
-    //    //{
-    //    //    gravityDirection = (Vector2)transform.position - CalculateQuadraticBezierPoint(_timePassed / _inAirDuration, SpawnPosition, MidPosition, GoalPosition);
-    //    //    Debug.Log("Down");
-    //    //    Debug.Log($"{transform.position}, {GoalPosition}, {gravityDirection}");
-    //    //}
-
- 
-    //    gravityDirection = -(Vector2)transform.position + MapPointOntoPlanetSurface(transform.position);
-    //    Debug.Log(gravityDirection);
-    //    _rigidbody.velocity += gravityDirection * _gravityStrength * Time.fixedDeltaTime;
-
-
-
-
-    //    //Debug.Log(_rigidbody.velocity);
-
-    //    _timePassed += Time.fixedDeltaTime;
-      
-           
-    //    //if (_timePassed > _inAirDuration)
-    //    //{
-    //    //    Debug.Log("Done");
-    //    //    _rigidbody.velocity = Vector2.zero;
-    //    //    _applyGravity = false;
-    //    //}
-
-    //}
+        Vector2 gravityDirection = -(Vector2)transform.position + MapPointOntoPlanetSurface(transform.position);
+        _rigidbody.velocity += gravityDirection * _gravityStrength * Time.fixedDeltaTime;
+    }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -143,25 +76,10 @@ public class MineController : MonoBehaviour
     #endregion
 
     #region --- Private Methods ---
-    /*
-    * Calculates a point at time t in a path between points p0, p1 and p2.
-    */
-    Vector2 CalculateQuadraticBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2)
-    {
-        return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
-    }
 
     /*
-     * Calculates a point at time t in a path between points p0, p1 and p2.
-    */
-    Vector2 CalculateQuadraticBezierPointTangent(float t, Vector2 p0, Vector2 p1, Vector2 p2)
-    {
-        return 2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1);
-    }
-
-    /*
-   * Maps any given point onto the surface of the planet.
-   */
+     * Maps any given point onto the surface of the planet.
+     */
     Vector2 MapPointOntoPlanetSurface(Vector2 point)
     {
         return point - (point.magnitude - Utilities.InnerOrbit) * point.normalized;
