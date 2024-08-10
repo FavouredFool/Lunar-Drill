@@ -137,9 +137,7 @@ public class MineSpawner : MonoBehaviour
 
             // --- Spawning mine ---
             MineController mine = Instantiate(_mineBlueprint, transform);
-            mine.SpawnPosition = spawnPosition;
-            mine.MidPosition = midPosition;
-            mine.GoalPosition = goalPosition;
+
             // Movement
             mine.MoveTween = DOTween.To(() => 0f,
                t => mine.transform.position = CalculateQuadraticBezierPoint(t, spawnPosition, midPosition, goalPosition)
