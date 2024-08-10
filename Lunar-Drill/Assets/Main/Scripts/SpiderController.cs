@@ -75,6 +75,7 @@ public class SpiderController : MonoBehaviour
 
     float _spiderBodyOrbit;
 
+    MineSpawner _mineSpawner;
 
     //--- Unity Methods ------------------------
 
@@ -91,6 +92,7 @@ public class SpiderController : MonoBehaviour
 
     public void Start()
     {
+        _mineSpawner = FindObjectOfType<MineSpawner>();
         StartCoroutine(MoveLoop());
     }
 
@@ -98,13 +100,11 @@ public class SpiderController : MonoBehaviour
     {
         if (_isDigging)
         {
-            //Debug.Log(_goalRotation);
-            // needs to do "_isDigging = false" at some point
             _rigidbody.MovePosition(Vector2.MoveTowards(transform.position, _goalRotation * _spiderBodyOrbit, _midRotationSpeed));
 
             if (Vector2.Distance(transform.position, _goalRotation * _spiderBodyOrbit) < 0.01f)
             {
-                _isDigging = false;
+                EndDig();
             }
         }
         else
@@ -134,6 +134,17 @@ public class SpiderController : MonoBehaviour
             if (IsVulnerable) yield return null;
             yield return SpiderBrains(gameManager);
         }
+    }
+
+    void EndDig()
+    {
+        _isDigging = false;
+        ThrowMines();
+    }
+
+    void ThrowMines()
+    {
+        _mineSpawner.SpawnMines(transform.position.normalized * Utilities.InnerOrbit, Vector2.SignedAngle(Vector2.up, transform.up), 2, 0.1f);
     }
 
     void EvaluateOverheat()
@@ -185,8 +196,6 @@ public class SpiderController : MonoBehaviour
     {
         // Stand: 20%
         // Movement: 80%
-
-        Debug.Log("ONLY ONCE");
         
         float randomT = Random.Range(0f, 1f);
         
