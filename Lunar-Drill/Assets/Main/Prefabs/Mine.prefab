@@ -51,13 +51,10 @@ MonoBehaviour:
   _destroyLayer:
     serializedVersion: 2
     m_Bits: 64
-  _damageLayerDrillian:
-    serializedVersion: 2
-    m_Bits: 256
-  _damageLayerLuna:
-    serializedVersion: 2
-    m_Bits: 128
   _mineVisuals: {fileID: 1851636392248836048}
+  _gravityStrength: 5
+  _inAirDuration: 1.5
+  _startImpulseScale: 0.6
 --- !u!50 &9045530799350217092
 Rigidbody2D:
   serializedVersion: 4

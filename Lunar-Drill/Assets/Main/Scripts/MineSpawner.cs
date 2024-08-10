@@ -6,7 +6,7 @@ public class MineSpawner : MonoBehaviour
 {
     #region --- Exposed Fields ---
     [Header("Configuration")]
-    [SerializeField] [Range(1, 20)] int _maxMines;
+    [SerializeField] [Range(1, 100)] int _maxMines;
 
     [Header("Blueprint")]
     [SerializeField] MineController _mineBlueprint;
@@ -18,6 +18,7 @@ public class MineSpawner : MonoBehaviour
     [Header("Arc")]
     [SerializeField] [Range(0.1f, 2)] float _inAirDuration = 1.5f;
     [SerializeField] [Range(0, 5f)] float _additionalHightMul = 2.5f;
+    [SerializeField] AnimationCurve _easing;
 
     [Header("TESTING")]
     [SerializeField] [Range(-90, 90)] float _spawnAngle = 60;
@@ -46,7 +47,7 @@ public class MineSpawner : MonoBehaviour
         // TODO: Test spawning
         if (_activeMines.Count + _spawnAmount < _maxMines)
         {
-            if (Time.time - _spawnTime >= 2)
+            if (Time.time - _spawnTime >= 1)
             {
                 Vector2 angle = Quaternion.Euler(0, 0, _spawnAngle) * _spider.transform.position.normalized;
                 SpawnMines(_spider.transform.position.normalized * Utilities.InnerOrbit, angle);
@@ -136,21 +137,16 @@ public class MineSpawner : MonoBehaviour
 
             // --- Spawning mine ---
             MineController mine = Instantiate(_mineBlueprint, transform);
-
+            mine.SpawnPosition = spawnPosition;
+            mine.MidPosition = midPosition;
+            mine.GoalPosition = goalPosition;
             // Movement
-            float maxSteepness = CalculateQuadraticBezierPointTangent(0, spawnPosition, midPosition, goalPosition).magnitude;
-            float minSteepness = CalculateQuadraticBezierPointTangent(.5f, spawnPosition, midPosition, goalPosition).magnitude; // the way the midpoint is positioned the min value is always at t=0.5, in case trajectory will no be "perfect" arc anymore, this needs to be adjusted
-            float mineEase(float time, float duration, float overshootOrAmplitude, float period)
-            {
-                float steepness = Mathf.Clamp01(Mathf.InverseLerp(minSteepness, maxSteepness, CalculateQuadraticBezierPointTangent(time / duration, spawnPosition, midPosition, goalPosition).magnitude));
-                float unadjusted = Mathf.Clamp01(-0.5f * (Mathf.Cos(Mathf.PI * Mathf.Clamp01(time / duration)) - 1)); // InOutSine
-                return Mathf.Clamp01(Mathf.Pow(unadjusted, 1 / (1 + steepness)));
-            }
             mine.MoveTween = DOTween.To(() => 0f,
-                t => mine.transform.position = CalculateQuadraticBezierPoint(t, spawnPosition, midPosition, goalPosition)
+               t => mine.transform.position = CalculateQuadraticBezierPoint(t, spawnPosition, midPosition, goalPosition)
                 , 1f
                 , _inAirDuration)
-                .SetEase(mineEase);
+                .SetEase(_easing);
+
             _activeMines.Add(mine);
         }
     }
@@ -162,6 +158,7 @@ public class MineSpawner : MonoBehaviour
     #endregion
 
     #region --- Private Methods ---
+
     /*
      * Calculates a point at time t in a path between points p0, p1 and p2.
      */
@@ -170,13 +167,6 @@ public class MineSpawner : MonoBehaviour
         return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
     }
 
-    /*
-     * Calculates a point at time t in a path between points p0, p1 and p2.
-    */
-    Vector2 CalculateQuadraticBezierPointTangent(float t, Vector2 p0, Vector2 p1, Vector2 p2)
-    {
-        return 2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1);
-    }
     /*
      * Maps any given point onto the surface of the planet.
      */

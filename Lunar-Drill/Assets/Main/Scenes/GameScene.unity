@@ -7093,6 +7093,66 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 331549743}
     m_Modifications:
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _maxMines
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _spawnAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _spawnAmount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _inAirDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[2].inSlope
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[2].outSlope
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+      propertyPath: _easing.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 3772027139973306210, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
       propertyPath: m_Name
       value: MineSpawner
