@@ -16,7 +16,6 @@ public class MineSpawner : MonoBehaviour
     //[SerializeField] [Range(0.1f, 0.4f)] float _planetCoverage;
 
     [Header("Arc")]
-    [SerializeField] [Range(0.1f, 2)] float _inAirDuration = 1.5f;
     [SerializeField] [Range(0, 5f)] float _additionalHightMul = 2.5f;
 
     //[Header("TESTING")]

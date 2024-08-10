@@ -12,7 +12,6 @@ public class MineController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] [Range(0f, 10000f)] float _gravityStrength = 1f;
-    [SerializeField] [Range(0.1f, 2)] float _inAirDuration = 1.5f;
     [SerializeField] [Range(0, 100f)] float _startImpulseScale = 0.5f;
     #endregion
 
