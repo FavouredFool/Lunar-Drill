@@ -12,8 +12,8 @@ public class MineSpawner : MonoBehaviour
     [SerializeField] MineController _mineBlueprint;
 
     [Header("Spawning")]
-    [SerializeField] [Range(1, 10)] int _spawnAmount;
-    [SerializeField] [Range(0.1f, 0.4f)] float _planetCoverage;
+    //[SerializeField] [Range(1, 10)] int _spawnAmount;
+    //[SerializeField] [Range(0.1f, 0.4f)] float _planetCoverage;
 
     [Header("Arc")]
     [SerializeField] [Range(0.1f, 2)] float _inAirDuration = 1.5f;
@@ -33,6 +33,9 @@ public class MineSpawner : MonoBehaviour
 
     #region --- Public Fields ---
     #endregion
+    
+    #region --- Properties ---
+    #endregion
 
     #region --- Unity Fields ---
     private void Start()
@@ -45,15 +48,14 @@ public class MineSpawner : MonoBehaviour
     private void Update()
     {
         // TODO: Test spawning
-        if (_activeMines.Count + _spawnAmount < _maxMines)
-        {
-            if (Time.time - _spawnTime >= 1)
-            {
-                Vector2 angle = Quaternion.Euler(0, 0, _spawnAngle) * _spider.transform.position.normalized;
-                SpawnMines(_spider.transform.position.normalized * Utilities.InnerOrbit, angle);
-                _spawnTime = Time.time;
-            }
-        }
+        //if (_activeMines.Count + _spawnAmount < _maxMines)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.U))
+        //    {
+        //        SpawnMines(_spider.transform.position.normalized * Utilities.InnerOrbit, _spawnAngle);
+        //        _spawnTime = Time.time;
+        //    }
+        //}
     }
     #endregion
 
@@ -64,8 +66,14 @@ public class MineSpawner : MonoBehaviour
     * SpawnPosition: Where the mines start off.
     * DirectionSpider: The angle with which the spider is jumping out of the planet.
     */
-    public void SpawnMines(Vector2 spawnPosition, Vector2 directionSpider)
+    public void SpawnMines(Vector2 spawnPosition, float angle, int spawnAmount, float planetCoverage)
     {
+        if (_activeMines.Count + spawnAmount > _maxMines)
+        {
+            return;
+        }
+        
+        Vector2 directionSpider = Quaternion.Euler(0, 0, angle) * _spider.transform.position.normalized;
         // spawn position mapped onto planet surface (might already be on there, but it is more flexible like this)
         Vector2 spawnPositionSurface = MapPointOntoPlanetSurface(spawnPosition);
         // angle of spawn position on planet surface in radians
@@ -80,7 +88,7 @@ public class MineSpawner : MonoBehaviour
         // How much of angle compared to normal is spider coming out at
         float angleDot = Vector2.Dot(directionSpider, spawnPositionSurface.normalized);
         // How much of surface angle is covered by mines
-        float coverageAngle = 2 * Mathf.PI * _planetCoverage;
+        float coverageAngle = 2 * Mathf.PI * planetCoverage;
         // How much does the angle of the spider influence the amount of shifting of the covered area in the direction of the spider direction
         float angleShift = (1 - angleDot) * 1.2f * coverageAngle;
 
@@ -111,10 +119,10 @@ public class MineSpawner : MonoBehaviour
 
         // Equal spread of mines between left and right angles
         float deltaSpawnAngle = spawnRightAngle - spawnLeftAngle;
-        float angleIncrement = _spawnAmount > 1 ? deltaSpawnAngle / (_spawnAmount - 1) : deltaSpawnAngle;
+        float angleIncrement = spawnAmount > 1 ? deltaSpawnAngle / (spawnAmount - 1) : deltaSpawnAngle;
 
         // --- Spawning mines and animating them along a path ---
-        for (int i = 0; i < _spawnAmount; i++)
+        for (int i = 0; i < spawnAmount; i++)
         {
             // TODO differnt speed depending on path lenght? -> with this test below it looks stupid and I think all should have same time but different speeds then I guess
             // TODO if they have differnt heights, then this should be adjusted
