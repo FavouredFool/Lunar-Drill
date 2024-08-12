@@ -14,7 +14,7 @@ public class SpiderSpriteIterator : MonoBehaviour
     [SerializeField] Animator animator;
 
     [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] Transform crest;
+    [SerializeField] SpriteRenderer crest,drill;
 
     [SerializeField] float fps = 6;
     [SerializeField] float rotTime = 2;
@@ -29,6 +29,7 @@ public class SpiderSpriteIterator : MonoBehaviour
     int lastMoveSign = 1;
 
     bool isLaser => laserController.IsActive;
+    bool isDrill = false;
 
     float fraction => 1f / fps;
     float angleStep => rotTime / fraction;
@@ -39,6 +40,13 @@ public class SpiderSpriteIterator : MonoBehaviour
     [SerializeField] Disc[] barDiscs;
     bool energyBarVisible => (isShield || controller.IsShieldCritical) && !controller.IsVulnerable && !controller.IsInvincible;
     float energyBarAlpha;
+    bool isControlled => Time.time < controlTime;
+    float controlTime = 0;
+    [SerializeField] Sprite _hitSprite, _stunSprite, _idleSprite;
+    [SerializeField] Sprite _crestBase, _drillBase;
+    [SerializeField] Sprite[] _drillSprites;
+    float _drillIterationSpeed = 2;
+    int _drillIndex = 0;
 
     private void Awake()
     {
@@ -61,12 +69,25 @@ public class SpiderSpriteIterator : MonoBehaviour
             {
                 timer = 0;
 
-                crest.Rotate(Vector3.forward, angleStep * lastMoveSign);
+                crest.transform.Rotate(Vector3.forward, angleStep * lastMoveSign);
             }
         }
 
         if (isLaser)
-            crest.rotation = Quaternion.LookRotation(Vector3.forward, transform.position.normalized);
+            crest.transform.rotation = Quaternion.LookRotation(Vector3.forward, transform.position.normalized);
+
+        if (isDrill)
+        {
+            crest.transform.rotation = Quaternion.LookRotation(Vector3.forward, transform.up);
+
+            timer += Time.deltaTime*_drillIterationSpeed;
+            if (timer >= fraction)
+            {
+                timer = 0;
+                _drillIndex = (_drillIndex + 1) % _drillSprites.Length;
+                spriteRenderer.sprite = _drillSprites[_drillIndex];
+            }
+        }
 
         // Shield vfx
 
@@ -109,8 +130,6 @@ public class SpiderSpriteIterator : MonoBehaviour
         }
     }
 
-    bool isControlled => Time.time < controlTime;
-    float controlTime = 0;
     public void Control(Sprite sprite, float time)
     {
         controlTime = Time.time + time;
@@ -119,7 +138,7 @@ public class SpiderSpriteIterator : MonoBehaviour
         spriteRenderer.sprite = sprite;
     }
 
-    [SerializeField] Sprite _hitSprite, _stunSprite, _idleSprite;
+
     public void Hit()
     {
         Control(_hitSprite, controller.InvinvibilityTime);
@@ -159,5 +178,13 @@ public class SpiderSpriteIterator : MonoBehaviour
     public void ShieldHit(float time)
     {
         shieldTime = Time.time + time;
+    }
+
+    public void ToggleDrill(bool on)
+    {
+        //IsControlled sollte dabei auch an sein.
+        isDrill = on; //Das sollte probably mehr wie isLaser Funktionieren?
+        drill.gameObject.SetActive(on);
+        _drillIndex = 0;
     }
 }
