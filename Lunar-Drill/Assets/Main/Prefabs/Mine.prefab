@@ -51,10 +51,14 @@ MonoBehaviour:
   _destroyLayer:
     serializedVersion: 2
     m_Bits: 64
-  _mineVisuals: {fileID: 1851636392248836048}
+  _insideOffset: 0.2
+  _mineVisuals: {fileID: 8757919760543277470}
+  _mineLilac: {fileID: 21300000, guid: 966e99cbcbc5a8d488bbe319dca47f0a, type: 3}
+  _mineRed: {fileID: 21300000, guid: 98e7040e7ab6b2e4c80fd2484911322b, type: 3}
+  _blinkSpeed: 5
   _gravityStrength: 5
-  _inAirDuration: 1.5
   _startImpulseScale: 0.6
+  _angularVelocity: 10
 --- !u!50 &9045530799350217092
 Rigidbody2D:
   serializedVersion: 4
@@ -191,7 +195,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.3
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -222,7 +226,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.92941177, g: 0.12549016, b: 0.4234329, a: 1}
+      key0: {r: 0.8, g: 0, b: 1, a: 1}
       key1: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
       key2: {r: 1, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -271,7 +275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3480265647736541822}
-  - component: {fileID: 1851636392248836048}
+  - component: {fileID: 8757919760543277470}
   m_Layer: 14
   m_Name: Mine Sprite
   m_TagString: Untagged
@@ -289,12 +293,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6972776570752702739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1851636392248836048
+--- !u!212 &8757919760543277470
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,13 +338,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -90
-  m_Sprite: {fileID: 21300000, guid: 1e938e4ee75390b4698c784ef1436c54, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 966e99cbcbc5a8d488bbe319dca47f0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 12.08, y: 11.96}
+  m_Size: {x: 12, y: 12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
