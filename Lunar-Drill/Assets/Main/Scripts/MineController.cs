@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MineController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MineController : MonoBehaviour
     [SerializeField] SpriteRenderer _mineVisuals;
     [SerializeField] Sprite _mineLilac, _mineRed;
     [SerializeField] [Range(1, 20)] float _blinkSpeed;
+    [SerializeField] VisualEffect _explosion;
 
     [Header("Movement")]
     [SerializeField] [Range(0f, 10000f)] float _gravityStrength = 1f;
@@ -118,10 +120,12 @@ public class MineController : MonoBehaviour
         if (spawner)
             spawner.RemoveMine(this);
 
+        _explosion.Play();
         MoveTween.Kill();
         MoveTween = transform.DOScale(0, .5f).SetEase(Ease.InBack);
+        DOVirtual.DelayedCall(0.3f, () => _mineVisuals.enabled = false);
 
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 2f);
     }
 
     #endregion
