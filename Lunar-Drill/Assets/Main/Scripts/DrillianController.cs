@@ -484,8 +484,10 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
             if (mine.Active)
             {
                 if (!_isInvincible)
+                {
                     GetHit(collision);
-                collision.gameObject.GetComponent<MineController>().DestroyMine();
+                    collision.gameObject.GetComponent<MineController>().DestroyMine();
+                }
             }
         }
     }
