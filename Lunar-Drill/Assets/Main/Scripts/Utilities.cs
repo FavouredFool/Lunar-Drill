@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public static class Utilities
@@ -19,5 +20,9 @@ public static class Utilities
     public static bool LayerMaskContainsLayer(LayerMask layerMask, int layer)
     {
         return layerMask == (layerMask | 1 << layer);
+    }
+    
+    public static float MathMod(float a, float b) {
+        return (Math.Abs(a * b) + a) % b;
     }
 }
