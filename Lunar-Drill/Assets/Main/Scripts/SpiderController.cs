@@ -98,6 +98,8 @@ public class SpiderController : MonoBehaviour
     {
         _mineSpawner = FindObjectOfType<MineSpawner>();
         _drillianController = FindObjectOfType<DrillianController>();
+
+        ResetOrbitTToGoalRotation();
     }
 
     public void FixedUpdate()
@@ -207,57 +209,6 @@ public class SpiderController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
-
-    //IEnumerator LunaLaser()
-    //{
-    //    GoalMoveOppositeOfLuna();
-    //
-    //    // increase speed drastically
-    //    yield return MoveToPosition();
-    //
-    //    StartCoroutine(_spiderLaser.ShootLaser());
-    //    
-    //    // Verfolge Luna
-    //    GoalMoveOpposite(LunaIsClockwise(), 179);
-    //
-    //    yield return MoveToPosition();
-    //
-    //    // Verfolge Luna weiter
-    //    GoalMoveOpposite(LunaIsClockwise(), Random.Range(60, 120));
-    //
-    //    yield return MoveToPosition();
-    //
-    //    _spiderLaser.StopLaser();
-    //
-    //    yield return new WaitForSeconds(Random.Range(2f, 3.5f));
-    //}
-
-    //void GoalMoveOppositeOfLuna()
-    //{
-    //    LunaController lunaController = FindObjectOfType<LunaController>();
-    //
-    //    if (lunaController == null) throw new System.Exception();
-    //
-    //    // go on opposite side
-    //    _goalRotation = -lunaController.transform.position.normalized;
-    //}
-    //
-    //bool LunaIsClockwise()
-    //{
-    //    LunaController lunaController = FindObjectOfType<LunaController>();
-    //
-    //    if (lunaController == null) throw new System.Exception();
-    //
-    //    return Vector2.SignedAngle(transform.position.normalized, lunaController.transform.position.normalized) >= 0;
-    //}
-
-    void GoalMoveOpposite(bool clockwise, float angle)
-    {
-        float angleToMoveTo = clockwise ? angle : -angle;
-        _goalRotation = Quaternion.Euler(0, 0, angleToMoveTo) * transform.position.normalized;
-    }
-    
-
 
     public void CalculateOrbitRotation()
     {

@@ -21,7 +21,7 @@ public class SpiderManager : MonoBehaviour
 
     void Start()
     {
-        SpiderStateManager.SetState(new SpiderDecisionState(this));
+        SpiderStateManager.SetState(new SpiderVoidState(this));
     }
 
     void Update()

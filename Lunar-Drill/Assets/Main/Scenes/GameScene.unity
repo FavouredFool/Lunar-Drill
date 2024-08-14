@@ -3946,6 +3946,7 @@ MonoBehaviour:
   _oreSpawner: {fileID: 8736392819379510104}
   _camera: {fileID: 519420032}
   _timeManager: {fileID: 984790318}
+  _spiderManager: {fileID: 1250402119}
   _undertaker: {fileID: 1495704314}
   _playerHUD: {fileID: 2032651905}
   _spiderHUD: {fileID: 1314415653}
@@ -7785,7 +7786,7 @@ PrefabInstance:
       objectReference: {fileID: 8736392819379510102}
     - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: _rotationSpeed
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: _spiderManager

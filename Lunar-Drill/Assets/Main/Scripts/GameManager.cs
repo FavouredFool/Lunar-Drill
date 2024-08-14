@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] TimeManager _timeManager;
+
+    [SerializeField] SpiderManager _spiderManager;
     [SerializeField] NewUndertaker _undertaker;
 
     [SerializeField]
@@ -115,6 +117,8 @@ public class GameManager : MonoBehaviour
         _lunaController.enabled = true;
         _drillianController.enabled = true;
         _spiderController.enabled = true;
+        
+        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
     }
 
     public void SetHealth(int amount, bool isPlayer)
