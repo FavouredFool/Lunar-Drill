@@ -7,7 +7,12 @@ using FMOD.Studio;
 using FMODUnity;
 using System.Linq;
 
-public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, IInputSubscriber<MenuMoveNorth>, IInputSubscriber<MenuMoveSouth>, IInputSubscriber<PlayerModeConfirmed>
+public class OptionsMenu : MonoBehaviour, 
+    IInputSubscriber<Signal_SceneChange>, 
+    IInputSubscriber<MenuMoveNorth>, 
+    IInputSubscriber<MenuMoveSouth>,
+    IInputSubscriber<PlayerModeConfirmed>,
+    IInputSubscriber<PlayerModeReset>
 {
     public static OptionsMenu instance;
     public static bool isOpen;
@@ -41,6 +46,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         InputBus.Subscribe<MenuMoveSouth>(this);
         InputBus.Subscribe<Signal_SceneChange>(this);
         InputBus.Subscribe<PlayerModeConfirmed>(this);
+        InputBus.Subscribe<PlayerModeReset>(this);
     }
     private void OnDisable()
     {
@@ -48,6 +54,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         InputBus.Unsubscribe<MenuMoveSouth>(this);
         InputBus.Unsubscribe<Signal_SceneChange>(this);
         InputBus.Unsubscribe<PlayerModeConfirmed>(this);
+        InputBus.Unsubscribe<PlayerModeReset>(this);
     }
 
     public void SetUp()
@@ -62,6 +69,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         SetMenuMode(false);
 
         Screen.fullScreen = true;
+
 
         PopulateEntryData();
     }
@@ -105,7 +113,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
 
         _entryIndexShift = 0;
         for (int i = 0; i < _entries.Count; i++)
-            _entries[i].SetPosition(i,_entries.Count);
+            _entries[i].SetPosition(i, _entries.Count);
     }
     public void Close(float duration=0.33f)
     {
@@ -126,7 +134,6 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
 
             SetMenuMode(false);
         });
-
     }
 
     public void SetMenuMode(bool on)
@@ -135,6 +142,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
             PlayerConnectController.Drillian.SetMenuMode(on);
         if (PlayerConnectController.Luna)
             PlayerConnectController.Luna.SetMenuMode(on);
+        Debug.Log("MENU MODE IS "+on);
     }
 
     public void PopulateEntryData()
@@ -232,10 +240,16 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         if (SceneChanger.currentScene == SceneIdentity.Stats||SceneChanger.currentScene==SceneIdentity.PlayerPreparation)
             allowOpen = false;
         _button.gameObject.SetActive(allowOpen);
+
+        SetMenuMode(false);
     }
     public void OnEventHappened(PlayerModeConfirmed e)
     {
         _button.gameObject.SetActive(true);
+    }
+    public void OnEventHappened(PlayerModeReset e)
+    {
+        _button.gameObject.SetActive(false);
     }
 
     public void OnEventHappened(MenuMoveNorth e)
@@ -254,7 +268,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     }
     public void OnEventHappened(Signal_SceneChange e)
     {
-        Close(e.delay);
+        Close(e.delay*0.75f);
     }
 
     #region Modifications

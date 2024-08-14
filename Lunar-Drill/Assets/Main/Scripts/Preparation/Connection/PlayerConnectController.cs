@@ -84,6 +84,8 @@ public class PlayerConnectController : MonoBehaviour
             Destroy(Luna.gameObject);
         if (!bothSame && Drillian)
             Destroy(Drillian.gameObject);
+        ConnectManager.connectedPlayers.Clear();
+        ConnectManager.playerInputs.Clear();
     }
     public static void Disable()
     {

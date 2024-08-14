@@ -1867,21 +1867,13 @@ MonoBehaviour:
   - character: 2
     message: The evil Mecha Spider is laying siege to our moon! You must defeat her.
   - character: 1
-    message: Luna! Your task is to use your laser and melt the spider's shield. Keep
-      an eye on her shield bar!
+    message: Luna! Use your Laser to melt the spiders shield!
   - character: 1
-    message: While holding down your laser button, the laser drains your energy.
-  - character: 1
-    message: Collect energy to refill your energy bar!
+    message: Fuel your laser by collecting energy.
   - character: 0
-    message: Drillian! It is your job to mine energy ore and throw it into the orbit,
-      so that Luna can collect it.
-  - character: 0
-    message: Rare special ore will charge your drill. Activate your boosters inside
-      or outside the moon for stylish navigation!
+    message: Drillian! Mine energy ore and throw it into lunas orbit.
   - character: 2
-    message: You two must work together to power Luna's Laser and break the spider's
-      shield!
+    message: Work together to power Luna's Laser and break the spider's shield!
   - character: 0
     message: Once vulnerable, Drillian can drive into the spider to hurt her!
   - character: 2

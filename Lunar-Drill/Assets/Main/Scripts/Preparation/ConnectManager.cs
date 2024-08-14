@@ -13,12 +13,12 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
     public static bool isOpen { get; private set; }
     public PlayerInputManager _playerInputManager;
 
-    private List<PlayerInput> playerInputs = new();
-    public List<PlayerConnectController> connectedPlayers = new();
+    public static List<PlayerInput> playerInputs = new();
+    public static List<PlayerConnectController> connectedPlayers = new();
 
     public static bool isCoop;
     public static int TargetConnectedPlayers => isCoop ? 2 : 1;
-    public bool Valid => connectedPlayers.Count == TargetConnectedPlayers;
+    public static bool Valid => connectedPlayers.Count == TargetConnectedPlayers;
 
 
     [SerializeField]
