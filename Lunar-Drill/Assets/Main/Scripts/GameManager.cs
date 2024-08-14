@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Elements")]
     public Transform _camera;
+    [SerializeField] GameObject _drillianIntroSprite, _lunaIntroSprite, _spiderIntroSprite;
+    [SerializeField] RectTransform _promptRect;
 
     [Header("Managers")]
     [SerializeField] TimeManager _timeManager;
@@ -41,18 +43,18 @@ public class GameManager : MonoBehaviour
 
     public static float Timer { get; set; }
     public static float PlayTime => Time.time - Timer;
-    
+
     // Temp Metrics
     public List<HitMetricManager.Hit> TempHitList;
     public List<DrillianMetricManager.Activation> TempActivationList;
 
     public bool GameDone = false;
-    
+
     public void Awake()
     {
         TempHitList = new();
         TempActivationList = new();
-        
+
         SetHealth(_maxPlayerHP, true);
         SetHealth(_maxSpiderHP, false);
         _undertaker.Close();
@@ -64,12 +66,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-//#if UNITY_EDITOR
+        //#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.L))
             EndGame(_spiderController.gameObject, true, true);
         else if (Input.GetKeyDown(KeyCode.K))
             EndGame(_drillianController.gameObject, false, false);
-//#endif
+        //#endif
     }
 
     public IEnumerator StartRoutine()
@@ -81,12 +83,70 @@ public class GameManager : MonoBehaviour
         _spiderHUD.transform.localScale = Vector3.zero;
         _promptsHUD.transform.localScale = Vector3.zero;
         _statsHUD.transform.localScale = Vector3.zero;
-
-        _playerHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
-        _spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
-        _statsHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutSine).SetDelay(3f).SetUpdate(true);
-        _promptsHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutSine).SetDelay(3f).SetUpdate(true);
+      //  _promptRect.sizeDelta = Vector2.zero;
+        //_playerHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
+        //_spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
+        //_statsHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutSine).SetDelay(3f).SetUpdate(true);
+        //_promptsHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutSine).SetDelay(3f).SetUpdate(true);
         _camera.DOLocalMoveY(0, 3).SetEase(Ease.InOutSine).SetUpdate(true);
+
+        // PROMPT
+        _promptRect.DOSizeDelta(new Vector2(0, 0), 0.7f)
+            .SetDelay(0.5f)
+            .SetEase(Ease.InCubic)
+            .SetUpdate(true);
+
+        // DRILLIAN
+        GeneralSpriteIterator drillianIterator = _drillianIntroSprite.GetComponent<GeneralSpriteIterator>();
+        _drillianController.gameObject.SetActive(false);
+        _drillianIntroSprite.transform.DOLocalMove(new Vector3(10.72f, -2.36f, 0), 1f)
+            .SetDelay(0.2f)
+            .SetEase(Ease.InSine)
+            .SetUpdate(true);
+        _drillianIntroSprite.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 1f)
+            .SetDelay(0.2f)
+            .SetEase(Ease.InSine)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            { _drillianIntroSprite.transform.eulerAngles = new Vector3(0, 0, 237.5f); });
+
+        _drillianIntroSprite.transform.DOScale(new Vector3(0.075f, 0.075f, 0.075f), 1.5f)
+            .SetDelay(1.7f)
+            .SetEase(Ease.OutCubic)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _drillianController.gameObject.SetActive(true);
+                _drillianIntroSprite.SetActive(false);
+            });
+        _drillianIntroSprite.transform.DOLocalMove(new Vector3(3.616f, 0.906f, 0), 1.5f)
+             .SetDelay(1.7f)
+            .SetEase(Ease.OutCubic)
+            .SetUpdate(true);
+        DOTween.To(() => drillianIterator.Fps, x => drillianIterator.Fps = x, 0, 1.5f)
+            .SetDelay(1.7f)
+            .SetEase(Ease.OutSine)
+            .SetUpdate(true);
+
+
+        //_drillianIntroSprite.transform.DOLocalPath(
+        //    new Vector3[] { _drillianIntroSprite.transform.localPosition, new Vector3(6f, -2.8f, 0), new Vector3(3.616f, 0.906f, 0) },
+        //    3, PathType.CatmullRom, PathMode.TopDown2D, 10, null)
+        //    .SetEase(Ease.OutCubic)
+        //    .SetUpdate(true);
+        //_drillianIntroSprite.transform.DOScale(new Vector3(0.075f, 0.075f, 0.075f), 3f)
+        //    //.SetDelay(0.5f)
+        //    .SetEase(Ease.OutCubic)
+        //    .SetUpdate(true);
+        ////_drillianIntroSprite.transform.DOLocalRotate(new Vector3(0, 0, 209f), 1.3f)
+        ////    .SetEase(Ease.InSine)
+        ////    .SetUpdate(true);
+        //_drillianIntroSprite.transform.DOLocalRotate(new Vector3(0, 0, 237.5f), 2.7f)
+        //    .SetDelay(3.3f)
+        //    .SetEase(Ease.InSine)
+        //    .SetUpdate(true)
+        //
+
 
         _countdownNumber.gameObject.SetActive(true);
         _countdownNumber.text = "";
@@ -177,7 +237,7 @@ public class GameManager : MonoBehaviour
     public void EndGame(GameObject obj, bool playerVictory, bool addLeaderboard = true)
     {
         GameDone = true;
-        
+
         Debug.Log(playerVictory ? "VICTORY!" : "GAME OVER!");
 
         if (playerVictory && addLeaderboard)
@@ -186,13 +246,13 @@ public class GameManager : MonoBehaviour
         DateTime dateTime = DateTime.Now;
         // Time in sec based on the first of juli 2024
         TimeSpan diff = dateTime.ToUniversalTime() - new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-        
+
         long seconds = (long)Math.Floor(diff.TotalSeconds);
-        
+
         FindObjectOfType<HitMetricManager>().AddEntry(seconds, true, playerVictory, TempHitList);
-        
+
         FindObjectOfType<DrillianMetricManager>().AddEntry(seconds, true, playerVictory, TempActivationList);
-        
+
         _undertaker.Open(obj, playerVictory);
     }
 }
