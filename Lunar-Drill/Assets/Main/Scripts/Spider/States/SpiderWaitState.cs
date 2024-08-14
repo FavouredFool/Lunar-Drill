@@ -26,4 +26,11 @@ public class SpiderWaitState : SpiderState
             _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
         }
     }
+    
+    public override void FixedUpdateState()
+    {
+        _spiderManager.SpiderController.CalculateOrbitRotation();
+        _spiderManager.SpiderController.SetSpiderPosition();
+        _spiderManager.SpiderController.SetSpiderRotation();
+    }
 }
