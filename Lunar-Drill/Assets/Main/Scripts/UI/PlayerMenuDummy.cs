@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerMenuDummy : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>, IInputSubscriber<LunaMoveGoal>
+using DG.Tweening;
+
+public class PlayerMenuDummy : MonoBehaviour, IInputSubscriber<DrillianMoveDirection>, IInputSubscriber<LunaMoveGoal>, IInputSubscriber<Signal_SceneChange>
 {
     RectTransform rect;
     public ChosenCharacter character;
@@ -12,25 +14,39 @@ public class PlayerMenuDummy : MonoBehaviour, IInputSubscriber<DrillianMoveDirec
     Vector2 targetPosition;
     Vector2 originalPosition;
 
+    bool blocked;
+
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
         originalPosition = rect.anchoredPosition;
         targetPosition = originalPosition;
-
+    }
+    private void OnEnable()
+    {
         InputBus.Subscribe<DrillianMoveDirection>(this);
         InputBus.Subscribe<LunaMoveGoal>(this);
+        InputBus.Subscribe<Signal_SceneChange>(this);
     }
+    private void OnDisable()
+    {
+        InputBus.Unsubscribe<DrillianMoveDirection>(this);
+        InputBus.Unsubscribe<LunaMoveGoal>(this);
+        InputBus.Unsubscribe<Signal_SceneChange>(this);
+    }
+
     private void Update()
     {
-        Vector2 pos = rect.anchoredPosition;
-        pos = Vector2.Lerp(pos, targetPosition, speed * Time.unscaledDeltaTime);
-        rect.anchoredPosition = pos;
+        if (!blocked)
+        {
+            Vector2 pos = rect.anchoredPosition;
+            pos = Vector2.Lerp(pos, targetPosition, speed * Time.unscaledDeltaTime);
+            rect.anchoredPosition = pos;
+        }
     }
 
     public void UpdateTargetPosition(InputAction.CallbackContext c)
     {
-
         targetPosition = originalPosition;
 
         if (c.phase == InputActionPhase.Canceled)
@@ -51,5 +67,11 @@ public class PlayerMenuDummy : MonoBehaviour, IInputSubscriber<DrillianMoveDirec
         if (character == ChosenCharacter.drillian) return;
 
         UpdateTargetPosition(e.context);
+    }
+
+    public void OnEventHappened(Signal_SceneChange e)
+    {
+        blocked = true;
+        rect.DOAnchorPos(originalPosition,e.delay).SetEase(Ease.OutSine);
     }
 }

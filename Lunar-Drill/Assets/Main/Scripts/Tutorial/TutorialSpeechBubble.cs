@@ -14,6 +14,11 @@ public class TutorialSpeechBubble : MonoBehaviour
 
     Tween twn;
 
+    private void Awake()
+    {
+        transform.localScale = Vector3.zero;
+    }
+
     public void Display(TutorialEntry entry)
     {
         twn.Kill();

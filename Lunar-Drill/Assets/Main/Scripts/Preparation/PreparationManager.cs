@@ -7,6 +7,7 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<PlayerModeConf
     [SerializeField] ModeSelection _modeSelection;
     [SerializeField] NameSelection _nameSelection;
     [SerializeField] ConnectManager _connection;
+    [SerializeField] Transform _characters;
 
     private void OnEnable()
     {
@@ -22,6 +23,7 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<PlayerModeConf
         _connection.Set(false);
         _modeSelection.Set(false);
         _nameSelection.Set(false);
+        _characters.localScale = Vector3.zero;
 
         _modeSelection.Open();
     }
@@ -33,6 +35,7 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<PlayerModeConf
         if (_connection.Valid)
         {
             _nameSelection.Open(0.3f);
+            _characters.DOScale(1,0.33f).SetDelay(0.3f).SetEase(Ease.OutSine);
             NameManager.instance?.RandomizeBoth(0);
         }
         else
@@ -45,12 +48,15 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<PlayerModeConf
         _connection.Close();
 
         _nameSelection.Open(0.3f);
+        _characters.DOScale(1, 0.33f).SetDelay(0.3f).SetEase(Ease.OutSine);
+
         NameManager.instance?.RandomizeBoth(0);
     }
 
     public void Back()
     {
         _nameSelection.Close();
+        _characters.DOScale(0, 0.25f).SetEase(Ease.InSine);
         _connection.Set(false);
 
         InputBus.Fire(new PlayerModeReset());
