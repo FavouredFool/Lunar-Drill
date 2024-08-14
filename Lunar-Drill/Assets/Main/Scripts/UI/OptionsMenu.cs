@@ -6,6 +6,7 @@ using DG.Tweening;
 using FMOD.Studio;
 using FMODUnity;
 using System.Linq;
+using TMPro;
 
 public class OptionsMenu : MonoBehaviour, 
     IInputSubscriber<Signal_SceneChange>, 
@@ -27,6 +28,9 @@ public class OptionsMenu : MonoBehaviour,
     [SerializeField] CanvasGroup _content;
     [SerializeField] List<OptionsEntry> _entries;
     [SerializeField] int _entryIndexShift;
+
+    [SerializeField]
+    TMP_Text _quitHeader, _quitSub;
 
     float _lastShiftTime = 0;
     public const float shiftTime = 0.33f;
@@ -240,6 +244,17 @@ public class OptionsMenu : MonoBehaviour,
         if (SceneChanger.currentScene == SceneIdentity.Stats||SceneChanger.currentScene==SceneIdentity.PlayerPreparation)
             allowOpen = false;
         _button.gameObject.SetActive(allowOpen);
+
+        if ((SceneIdentity)level != SceneIdentity.MainMenu)
+        {
+            _quitHeader.text = "Leave";
+            _quitSub.text = "Return to Main Menu";
+        }
+        else
+        {
+            _quitHeader.text = "Quit";
+            _quitSub.text = "Close the Game";
+        }
 
         SetMenuMode(false);
     }

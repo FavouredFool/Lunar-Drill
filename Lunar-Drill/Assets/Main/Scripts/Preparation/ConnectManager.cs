@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, IInputSubscriber<PlayerModeChanged>
 {
     public static ConnectManager instance;
+    public  PreparationManager preparationManager;
+    public TimedBack timedBack;
     public static bool isOpen { get; private set; }
     public PlayerInputManager _playerInputManager;
 
@@ -28,6 +30,7 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
         P1Screen, P2Screen,
         P1Con, P2Con,
         SoloP1Conf,P1Conf, P2Conf;
+
 
     private void OnEnable()
     {
@@ -71,6 +74,8 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
 
         _playerInputManager.EnableJoining();
         _playerInputManager.gameObject.SetActive(true);
+        
+        timedBack.gameObject.SetActive(true);
 
         SetMenuMode(isOpen);
         RefreshMenu();
@@ -88,6 +93,8 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
         _playerInputManager.DisableJoining();
         _playerInputManager.gameObject.SetActive(false);
 
+        timedBack.gameObject.SetActive(false);
+
         SetMenuMode(isOpen);
         RefreshMenu();
     }
@@ -99,6 +106,7 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
         {
             Close(delay);
             PlayerConnectController.Enable();
+            preparationManager.ConfirmConnection();
             InputBus.Fire(new PlayerModeConfirmed());
         }
 
@@ -109,7 +117,7 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
     public void RefreshMenu()
     {
         P1Screen.SetActive(true);
-        P1Screen.SetActive(isCoop);
+        P2Screen.SetActive(isCoop);
 
         int connected = connectedPlayers.Count;
 
@@ -157,7 +165,7 @@ public class ConnectManager : MonoBehaviour, IInputSubscriber<PlayerModeReset>, 
 
         PlayerConnectController.isSolo = connectedPlayers.Count == 1;
 
-        ToggleValid();
+        ToggleValid(0.33f);
     }
     public void PlayerLeft()
     {
