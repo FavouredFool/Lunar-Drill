@@ -464,6 +464,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5575600068228943951}
     m_Modifications:
+    - target: {fileID: 1068777925057169041, guid: 326e5facf1c7cf94a96a6d0836f7a0d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4552875263290250314, guid: 326e5facf1c7cf94a96a6d0836f7a0d7, type: 3}
       propertyPath: m_Name
       value: OptionsMenu

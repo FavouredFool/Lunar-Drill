@@ -30,6 +30,7 @@ public class SceneChanger : MonoBehaviour
     {
         float delay = 0.33f;
         InputBus.Fire(new Signal_SceneChange(scene, delay * 0.99f));
+        PlayerConnectController.Exhaust(delay);
 
         float initTime = Time.unscaledTime;
 

@@ -26,11 +26,17 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
         _characters.localScale = Vector3.zero;
 
         _modeSelection.Open();
+
+        PlayerConnectController.Exhaust();
     }
 
     public void SelectMode(bool coop)
     {
         _modeSelection.Close();
+
+        Debug.Log("CONNECTMANAGER -->> " + ConnectManager.Valid);
+
+        InputBus.Fire(new PlayerModeChanged(coop));
 
         if (ConnectManager.Valid)
         {
@@ -43,7 +49,8 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
         else
             _connection.Open(0.3f);
 
-        InputBus.Fire(new PlayerModeChanged(coop));
+
+        PlayerConnectController.Exhaust();
     }
     public void ConfirmConnection()
     {
@@ -53,6 +60,8 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
         _characters.DOScale(1, 0.33f).SetDelay(0.66f).SetEase(Ease.OutSine);
 
         NameManager.instance?.RandomizeBoth(0);
+
+        PlayerConnectController.Exhaust();
     }
 
     public void Back()
@@ -67,6 +76,8 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
         InputBus.Fire(new PlayerModeReset());
 
         _modeSelection.Open(0.3f);
+
+        PlayerConnectController.Exhaust();
     }
     public void Continue()
     {

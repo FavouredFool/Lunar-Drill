@@ -174,6 +174,12 @@ public class CoopButton : MonoBehaviour,
 
     private void Update()
     {
+        if (PlayerConnectController.Exhausted)
+        {
+            _drillianWeight = 0;
+            _lunarWeight = 0;
+        }
+
         if (_requiredPressTime > 0)
         {
             if (_lunarWeight > 0) _lunarTime += Time.unscaledDeltaTime;
@@ -310,7 +316,7 @@ public class CoopButton : MonoBehaviour,
         =>ProcessInput(character,inp,context.phase);
     public virtual bool ProcessInput(ChosenCharacter character, InputType inp, InputActionPhase phase)
     {
-        if ((blocked || initBlocked) && phase != InputActionPhase.Canceled) return false; //Allow when cancelled
+        if ((blocked || initBlocked || PlayerConnectController.Exhausted) && phase != InputActionPhase.Canceled) return false; //Allow when cancelled
 
         if ((OptionsMenu.isOpen||ConnectManager.isOpen) && !_isOverlayMenu) return false;
 

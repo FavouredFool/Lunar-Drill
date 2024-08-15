@@ -11,7 +11,11 @@ public class PlayerConnectController : MonoBehaviour
     public static PlayerConnectController
         Drillian, Luna;
     public static bool isSolo = true;
-    public static bool Enabled=true;
+
+    public static bool Enabled = true;
+    public static bool Exhausted => Time.unscaledTime<exhaustTime;
+    public static float exhaustTime = 0;
+
     public PlayerInput Input => GetComponent<PlayerInput>();
     public ChosenCharacter Character = ChosenCharacter.both;
 
@@ -94,6 +98,11 @@ public class PlayerConnectController : MonoBehaviour
     public static void Enable()
     {
         Enabled = true;
+    }
+    public static void Exhaust(float duration=0.15f)
+    {
+        float newExhaust=Time.unscaledTime + duration;
+        if (exhaustTime < newExhaust) exhaustTime = newExhaust;
     }
 
     private void OnDestroy()
