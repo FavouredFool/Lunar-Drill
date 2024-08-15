@@ -2640,6 +2640,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557280340b81b1c4f8a94a99d3de3ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &789863303 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3688287869893254816, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+  m_PrefabInstance: {fileID: 789863299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &834492658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2854,6 +2859,11 @@ GameObject:
 --- !u!4 &845659927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4612293948600429603, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
+  m_PrefabInstance: {fileID: 845659925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &845659928 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1141031731221533029, guid: 5103232ec3914de4e90effbe13db8308, type: 3}
   m_PrefabInstance: {fileID: 845659925}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &895770789
@@ -4154,6 +4164,8 @@ MonoBehaviour:
   _lunaIntroSprite: {fileID: 270047209}
   _spiderIntroSprite: {fileID: 0}
   _promptRect: {fileID: 1363350047}
+  _drillianMainSprite: {fileID: 845659928}
+  _lunaMainSprite: {fileID: 789863303}
   _timeManager: {fileID: 984790318}
   _undertaker: {fileID: 1495704314}
   _playerHUD: {fileID: 2032651905}

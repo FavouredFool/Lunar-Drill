@@ -128,15 +128,7 @@ public class OreSpawner : MonoBehaviour
     public bool ChargedOreWanted()
     {
         bool oreIsCharged = _activeOres.Any(e => e.IsCharged);
-        bool drillianCharged;
-        if (_drillian != null)
-        {
-            drillianCharged = _drillian.IsActionAvaliable;
-        }
-        else
-        {
-            drillianCharged = false;
-        }
+        bool drillianCharged = _drillian.IsActionAvaliable;
 
 
         return !oreIsCharged && !drillianCharged;
