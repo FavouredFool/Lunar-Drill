@@ -78,38 +78,49 @@ public class GameManager : MonoBehaviour
     {
         _timeManager.Freeze();
 
-        _camera.localPosition = Vector3.down * 10f;
         _playerHUD.transform.localScale = Vector3.zero;
         _spiderHUD.transform.localScale = Vector3.zero;
         _promptsHUD.transform.localScale = Vector3.zero;
         _statsHUD.transform.localScale = Vector3.zero;
-      //  _promptRect.sizeDelta = Vector2.zero;
+
         //_playerHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
         //_spiderHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).SetDelay(3f).SetUpdate(true);
         //_statsHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutSine).SetDelay(3f).SetUpdate(true);
         //_promptsHUD.transform.DOScale(1, 0.5f).SetEase(Ease.OutSine).SetDelay(3f).SetUpdate(true);
+
+        // CAMERA
+        _camera.localPosition = Vector3.down * 10f;
         _camera.DOLocalMoveY(0, 3).SetEase(Ease.InOutSine).SetUpdate(true);
 
         // PROMPT
         _promptRect.DOSizeDelta(new Vector2(0, 0), 0.7f)
-            .SetDelay(0.5f)
+            .SetDelay(1f)
             .SetEase(Ease.InCubic)
             .SetUpdate(true);
 
         // DRILLIAN
+        // First Half
         GeneralSpriteIterator drillianIterator = _drillianIntroSprite.GetComponent<GeneralSpriteIterator>();
+        DOTween.To(() => drillianIterator.Fps, x => drillianIterator.Fps = x, 0, 1.5f)
+         .SetDelay(1.7f)
+         .SetEase(Ease.OutSine)
+         .SetUpdate(true);
+
         _drillianController.gameObject.SetActive(false);
+
         _drillianIntroSprite.transform.DOLocalMove(new Vector3(10.72f, -2.36f, 0), 1f)
-            .SetDelay(0.2f)
             .SetEase(Ease.InSine)
             .SetUpdate(true);
         _drillianIntroSprite.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 1f)
-            .SetDelay(0.2f)
             .SetEase(Ease.InSine)
             .SetUpdate(true)
             .OnComplete(() =>
-            { _drillianIntroSprite.transform.eulerAngles = new Vector3(0, 0, 237.5f); });
+            {
+                _drillianIntroSprite.transform.eulerAngles = new Vector3(0, 0, 237.5f);
+            });
+        DOVirtual.DelayedCall(0.5f, () => Rumble.instance?.RumbleDrillian(10, 10, 0.2f));
 
+        // Second Half
         _drillianIntroSprite.transform.DOScale(new Vector3(0.075f, 0.075f, 0.075f), 1.5f)
             .SetDelay(1.7f)
             .SetEase(Ease.OutCubic)
@@ -123,31 +134,54 @@ public class GameManager : MonoBehaviour
              .SetDelay(1.7f)
             .SetEase(Ease.OutCubic)
             .SetUpdate(true);
-        DOTween.To(() => drillianIterator.Fps, x => drillianIterator.Fps = x, 0, 1.5f)
-            .SetDelay(1.7f)
+
+
+
+        // LUNA
+        // First Half
+        GeneralSpriteIterator lunaIterator = _lunaIntroSprite.GetComponent<GeneralSpriteIterator>();
+        DOTween.To(() => lunaIterator.Fps, x => lunaIterator.Fps = x, 0, 1.5f)
+         .SetDelay(1.7f)
+         .SetEase(Ease.OutSine)
+         .SetUpdate(true);
+
+        _lunaController.gameObject.SetActive(false);
+
+        _lunaIntroSprite.transform.DOLocalPath(
+            new Vector3[] { new Vector3(20, 2.5f, 0), new Vector3(0, -5, 0), new Vector3(-20f, 2.5f, 0) },
+            1f,
+            PathType.CatmullRom, PathMode.TopDown2D)
+            .SetDelay(.7f)
+            .SetEase(Ease.OutSine)
+            .SetUpdate(true);
+        _lunaIntroSprite.transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 1f)
+            .SetDelay(.7f)
+            .SetEase(Ease.OutSine)
+            .SetUpdate(true);
+        _lunaIntroSprite.transform.DOLocalRotate(new Vector3(0, 0, 119), 1f)
+            .SetDelay(.7f)
             .SetEase(Ease.OutSine)
             .SetUpdate(true);
 
+        DOVirtual.DelayedCall(0.85f, () => Rumble.instance?.RumbleLuna(10, 10, 0.2f));
 
-        //_drillianIntroSprite.transform.DOLocalPath(
-        //    new Vector3[] { _drillianIntroSprite.transform.localPosition, new Vector3(6f, -2.8f, 0), new Vector3(3.616f, 0.906f, 0) },
-        //    3, PathType.CatmullRom, PathMode.TopDown2D, 10, null)
-        //    .SetEase(Ease.OutCubic)
-        //    .SetUpdate(true);
-        //_drillianIntroSprite.transform.DOScale(new Vector3(0.075f, 0.075f, 0.075f), 3f)
-        //    //.SetDelay(0.5f)
-        //    .SetEase(Ease.OutCubic)
-        //    .SetUpdate(true);
-        ////_drillianIntroSprite.transform.DOLocalRotate(new Vector3(0, 0, 209f), 1.3f)
-        ////    .SetEase(Ease.InSine)
-        ////    .SetUpdate(true);
-        //_drillianIntroSprite.transform.DOLocalRotate(new Vector3(0, 0, 237.5f), 2.7f)
-        //    .SetDelay(3.3f)
-        //    .SetEase(Ease.InSine)
-        //    .SetUpdate(true)
-        //
+        // Second Half
+        DOVirtual.DelayedCall(1.7f, () => _lunaIntroSprite.transform.localPosition = new Vector3(-10.28f, -2.78f, 0));
+        _lunaIntroSprite.transform.DOScale(new Vector3(0.075f, 0.075f, 0.075f), 1.5f)
+          .SetDelay(1.7f)
+          .SetEase(Ease.OutCubic)
+          .SetUpdate(true)
+          .OnComplete(() =>
+          {
+              _lunaController.gameObject.SetActive(true);
+              _lunaIntroSprite.SetActive(false);
+          });
+        _lunaIntroSprite.transform.DOLocalMove(new Vector3(-3.638f, 0.905f, 0), 1.5f)
+            .SetDelay(1.7f)
+            .SetEase(Ease.OutCubic)
+            .SetUpdate(true);
 
-
+        // COUNTDOWN
         _countdownNumber.gameObject.SetActive(true);
         _countdownNumber.text = "";
 
