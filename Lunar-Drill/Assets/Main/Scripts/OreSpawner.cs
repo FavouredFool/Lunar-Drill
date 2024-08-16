@@ -12,8 +12,8 @@ public class OreSpawner : MonoBehaviour
     //--- Exposed Fields ------------------------
 
     [Header("Configuration")]
-    [SerializeField][Range(1, 20)] int _maxOres;
-    [SerializeField][Range(0.1f, 5)] float _maxSpawnSpeed;
+    [SerializeField] [Range(1, 20)] int _maxOres;
+    [SerializeField] [Range(0.1f, 5)] float _maxSpawnSpeed;
     [SerializeField] [Range(0, 1)] float _maxChargedPercentage = 0.5f;
     [SerializeField] [Range(0, 24)] float _chargedPercentageDecay = 2f;
 
@@ -21,8 +21,8 @@ public class OreSpawner : MonoBehaviour
     [SerializeField] OreController _oreBlueprint;
 
     [Header("Placement")]
-    [SerializeField][Range(0.05f, 0.5f)] float _planetOuterPaddingPercentage;
-    [SerializeField][Range(0.1f, 5)] float _orePadding;
+    [SerializeField] [Range(0.05f, 0.5f)] float _planetOuterPaddingPercentage;
+    [SerializeField] [Range(0.1f, 5)] float _orePadding;
 
 
     //--- Private Fields ------------------------
@@ -33,7 +33,7 @@ public class OreSpawner : MonoBehaviour
     public float _chargedPercentage = 0;
 
     DrillianController _drillian;
-    
+
     //--- Unity Methods ------------------------
 
     public void Start()
@@ -44,9 +44,9 @@ public class OreSpawner : MonoBehaviour
     public void FixedUpdate()
     {
         UpdateChargedPercentage();
-        
+
         _spawnSpeed = DOVirtual.EasedValue(_maxSpawnSpeed, 0, _activeOres.Count / (float)_maxOres, Ease.Linear);
-        
+
         _spawnT += _spawnSpeed * Time.deltaTime;
 
         if (_spawnT > 1)
@@ -70,10 +70,10 @@ public class OreSpawner : MonoBehaviour
     void UpdateChargedPercentage()
     {
         if (!ChargedOreWanted()) return;
-        
+
         _chargedPercentage = _maxChargedPercentage + (_chargedPercentage - _maxChargedPercentage) * Mathf.Exp(-_chargedPercentageDecay * Time.deltaTime);
     }
-    
+
     void SpawnOre()
     {
         OreController ore = Instantiate(_oreBlueprint, transform);
@@ -85,7 +85,7 @@ public class OreSpawner : MonoBehaviour
     Vector2 GetSpawnPosition()
     {
         Vector2 finalPlacement = Vector2.zero;
-        
+
         for (int i = 0; i < 10000; i++)
         {
             bool placementAllowed = true;
@@ -121,7 +121,7 @@ public class OreSpawner : MonoBehaviour
         {
             _chargedPercentage = 0;
         }
-        
+
         return willSpawnChargedOre;
     }
 
@@ -129,6 +129,7 @@ public class OreSpawner : MonoBehaviour
     {
         bool oreIsCharged = _activeOres.Any(e => e.IsCharged);
         bool drillianCharged = _drillian.IsActionAvaliable;
+
 
         return !oreIsCharged && !drillianCharged;
     }
