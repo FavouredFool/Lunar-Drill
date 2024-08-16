@@ -2614,6 +2614,10 @@ PrefabInstance:
       propertyPath: _lunaControllMarker
       value: 
       objectReference: {fileID: 1368627427}
+    - target: {fileID: 7663241939689912788, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
+      propertyPath: _damageCollisions.m_Bits
+      value: 1792
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5807452418047519785, guid: 35359e8cb4eaf1f4ba04088689c01389, type: 3}
     m_RemovedGameObjects: []
