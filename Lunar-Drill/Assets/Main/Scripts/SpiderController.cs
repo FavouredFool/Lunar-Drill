@@ -122,7 +122,7 @@ public class SpiderController : MonoBehaviour
         Rigidbody.velocity = moveDirection * _digSpeed;
     }
 
-    void UpdateDigRotation()
+    public void UpdateDigRotation()
     {
         float currentAngle = Vector2.SignedAngle(Vector2.up, GoalRotation);
         float goalAngle = Vector2.SignedAngle(Vector2.up, (_drillianController.transform.position - transform.position).normalized);
@@ -135,13 +135,7 @@ public class SpiderController : MonoBehaviour
         GoalRotation = Quaternion.Euler(0,0, lerpedAngle) * Vector2.up;
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(GoalRotation * SpiderBodyOrbit, 0.25f);
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawSphere((_drillianController.transform.position - transform.position).normalized * _spiderBodyOrbit, 0.25f);
-    }
+
 
     float NormalizeAngle(float angle)
     {
@@ -155,7 +149,10 @@ public class SpiderController : MonoBehaviour
         IsDigging = false;
         ThrowMines();
         Rigidbody.velocity = Vector3.zero;
+        
+        ResetGoalRotation(); 
         ResetOrbitTToGoalRotation();
+        
         SetSpiderPosition();
         SetSpiderRotation();
     }
@@ -237,7 +234,12 @@ public class SpiderController : MonoBehaviour
         }
     }
 
-    void ResetOrbitTToGoalRotation()
+    public void ResetGoalRotation()
+    {
+        GoalRotation = transform.position.normalized;
+    }
+    
+    public void ResetOrbitTToGoalRotation()
     {
         _orbitRotationT = Vector2.SignedAngle(Vector2.up, GoalRotation).Remap(-180, 180, 0, 1);
     }
@@ -328,4 +330,12 @@ public class SpiderController : MonoBehaviour
         };
     }
 
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(GoalRotation * SpiderBodyOrbit, 0.25f);
+        Gizmos.color = Color.blue;
+        float angle = Utilities.Remap(_orbitRotationT, 0, 1, -180, 180);
+        Gizmos.DrawSphere(Quaternion.Euler(0, 0, angle)* Vector2.up * Utilities.InnerOrbit * 0.75f, 0.25f);
+    }
 }

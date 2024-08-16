@@ -21,8 +21,6 @@ public class SpiderDiggingState : SpiderState
         
         _spiderManager.SpiderController.SpriteIterator.ToggleDrill(true);
         _spiderManager.SpiderController.StartCoroutine(DrillStart());
-        
-        
     }
 
     public IEnumerator DrillStart()
@@ -41,6 +39,9 @@ public class SpiderDiggingState : SpiderState
     public override void FixedUpdateState()
     {
         if (_stop) return;
+        
+        _spiderManager.SpiderController.UpdateDigRotation();
+        _spiderManager.SpiderController.ResetOrbitTToGoalRotation();
         
         _spiderManager.SpiderController.SetVelocity();
         _spiderManager.SpiderController.Rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, -_spiderManager.SpiderController.Rigidbody.velocity.normalized));
