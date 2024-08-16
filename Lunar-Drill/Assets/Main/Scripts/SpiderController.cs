@@ -163,7 +163,9 @@ public class SpiderController : MonoBehaviour
 
     void ThrowMines()
     {
-        _mineSpawner.SpawnMines(transform.position.normalized * Utilities.InnerOrbit, 0/*Vector2.SignedAngle(Vector2.up, Rigidbody.velocity.normalized)*/, 2, 0.1f);
+        float mineAngle = Vector2.SignedAngle(transform.position.normalized, -transform.up);
+        // Mine angle * 5 because otherwise this method produces too small changes
+        _mineSpawner.SpawnMines(transform.position.normalized * Utilities.InnerOrbit, mineAngle * 5, 2, 0.1f);
     }
 
     void EvaluateOverheat()
