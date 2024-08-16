@@ -2056,7 +2056,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 867068659107928486, guid: 64269d5e8a400734dbe45ab46eb530e3, type: 3}
       propertyPath: m_PropertySheet.m_Int.m_Array.Array.data[1].m_Value
-      value: 10
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 867068659107928486, guid: 64269d5e8a400734dbe45ab46eb530e3, type: 3}
       propertyPath: m_PropertySheet.m_Vector2f.m_Array.Array.data[0].m_Name
@@ -2343,7 +2343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 867068659107928486, guid: 64269d5e8a400734dbe45ab46eb530e3, type: 3}
       propertyPath: m_PropertySheet.m_Int.m_Array.Array.data[0].m_Value
-      value: 12
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 867068659107928486, guid: 64269d5e8a400734dbe45ab46eb530e3, type: 3}
       propertyPath: m_PropertySheet.m_Vector2f.m_Array.Array.data[0].m_Name
