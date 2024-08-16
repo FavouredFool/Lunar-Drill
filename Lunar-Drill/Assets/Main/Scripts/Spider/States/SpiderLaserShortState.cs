@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class SpiderLaserShortState : SpiderState
 {
-    public SpiderLaserShortState(SpiderManager spiderManager) : base (spiderManager) { }
+    public SpiderLaserShortState(SpiderManager spiderManager, Stack<SpiderState> stateStack = null) : base(
+        spiderManager)
+    {
+        _stateStack = stateStack;
+    }
+    
+    Stack<SpiderState> _stateStack;
     
     public override void StartState()
     {
@@ -31,7 +37,7 @@ public class SpiderLaserShortState : SpiderState
         _spiderManager.SpiderController.SpiderLaser.StopLaser();
         yield return new WaitForSeconds(Random.Range(1f, 2.5f));
 
-        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
+        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager, _stateStack));
     }
     
     public override void FixedUpdateState()
@@ -39,13 +45,5 @@ public class SpiderLaserShortState : SpiderState
         _spiderManager.SpiderController.CalculateOrbitRotation();
         _spiderManager.SpiderController.SetSpiderPosition();
         _spiderManager.SpiderController.SetSpiderRotation();
-    }
-    
-    public override void UpdateState()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
-        }
     }
 }

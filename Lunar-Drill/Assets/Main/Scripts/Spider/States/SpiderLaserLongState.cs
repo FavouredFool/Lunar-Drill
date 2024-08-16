@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class SpiderLaserLongState : SpiderState
 {
-    public SpiderLaserLongState(SpiderManager spiderManager) : base (spiderManager) { }
+    public SpiderLaserLongState(SpiderManager spiderManager, Stack<SpiderState> stateStack = null) : base(spiderManager)
+    {
+        _stateStack = stateStack;
+    }
+    
+    Stack<SpiderState> _stateStack;
     
     public override void StartState()
     {
@@ -23,16 +28,16 @@ public class SpiderLaserLongState : SpiderState
         _spiderManager.SpiderController.SetMovementGoalRotation(35, 60);
         yield return _spiderManager.SpiderController.WaitUntilArrivedAtGoalRotation();
 
-        _spiderManager.SpiderController.SetMovementGoalRotation(35, 120);
+        _spiderManager.SpiderController.SetMovementGoalRotation(75, 120);
         yield return _spiderManager.SpiderController.WaitUntilArrivedAtGoalRotation();
         
-        _spiderManager.SpiderController.SetMovementGoalRotation(35, 179);
+        _spiderManager.SpiderController.SetMovementGoalRotation(55, 80);
         yield return _spiderManager.SpiderController.WaitUntilArrivedAtGoalRotation();
         
         _spiderManager.SpiderController.SpiderLaser.StopLaser();
         yield return new WaitForSeconds(Random.Range(1f, 2.5f));
         
-        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
+        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager, _stateStack));
     }
 
     public override void EndState()
