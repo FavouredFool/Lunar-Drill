@@ -160,6 +160,17 @@ public class MineSpawner : MonoBehaviour
     {
         _activeMines.Remove(mine);
     }
+
+    public void DestroyAllMines()
+    {
+        List<MineController> activeMines = new List<MineController>(_activeMines);
+        
+        foreach (MineController mine in activeMines)
+        {
+            mine.DestroyMine();
+        }
+    }
+    
     #endregion
 
     #region --- Private Methods ---

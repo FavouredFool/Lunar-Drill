@@ -4218,6 +4218,7 @@ MonoBehaviour:
   _drillianMainSprite: {fileID: 845659928}
   _lunaMainSprite: {fileID: 789863303}
   _timeManager: {fileID: 984790318}
+  _mineSpawner: {fileID: 5511754327332528446}
   _spiderManager: {fileID: 1250402119}
   _undertaker: {fileID: 1495704314}
   _playerHUD: {fileID: 2032651905}
@@ -7463,6 +7464,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+--- !u!114 &5511754327332528446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 547291097648402188, guid: 8c72ed9b5c2d9ba44adeb4b3768ba770, type: 3}
+  m_PrefabInstance: {fileID: 5511754327332528445}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3935c739e82a5b94ab0da5c5f509bef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5569696441469011322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8210,10 +8222,6 @@ PrefabInstance:
     - target: {fileID: 2964486227945929988, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
       propertyPath: m_Name
       value: OreSpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 7741869781981990139, guid: 7145877545bd2bc4db1f50652cb8f2ea, type: 3}
-      propertyPath: _maxChargedPercentage
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
