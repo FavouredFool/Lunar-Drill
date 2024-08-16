@@ -330,7 +330,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _maxRotationControl: 7.5
-  _digSpeed: 3
+  _digSpeed: 4.5
   _overheatGain: 0.175
   _overheatLoss: 0.01
   _spriteRenderers:
@@ -483,6 +483,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2297733279568171791}
   crest: {fileID: 6884750448878901344}
   drill: {fileID: 4652459103269632096}
+  _leftLeg: {fileID: 2668978879122849518}
+  _rightLeg: {fileID: 4885361180782936067}
   fps: 6
   rotTime: 2
   _energyLoss: {fileID: 32682472928292329}

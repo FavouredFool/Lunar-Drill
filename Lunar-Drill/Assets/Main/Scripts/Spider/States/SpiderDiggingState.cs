@@ -11,7 +11,7 @@ public class SpiderDiggingState : SpiderState
     bool _stop = true;
 
     float _initialWait = 0.5f;
-    float _endWait = 1f;
+    float _endWait = 0.75f;
     
     public override void StartState()
     {

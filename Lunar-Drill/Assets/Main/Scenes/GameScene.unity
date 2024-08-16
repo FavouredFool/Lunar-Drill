@@ -8057,18 +8057,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spider
       objectReference: {fileID: 0}
-    - target: {fileID: 2332832379483453229, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2896130235644590175, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3593579679363586201, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3806534218160603578, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8107,10 +8095,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3806534218160603578, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5028242876674824018, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

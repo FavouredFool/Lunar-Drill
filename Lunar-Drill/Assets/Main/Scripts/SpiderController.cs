@@ -156,6 +156,8 @@ public class SpiderController : MonoBehaviour
         ThrowMines();
         Rigidbody.velocity = Vector3.zero;
         ResetOrbitTToGoalRotation();
+        SetSpiderPosition();
+        SetSpiderRotation();
     }
 
     void ThrowMines()

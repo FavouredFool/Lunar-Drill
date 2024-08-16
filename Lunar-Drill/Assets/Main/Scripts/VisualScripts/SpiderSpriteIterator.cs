@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Shapes;
+using Unity.VisualScripting;
 using UnityEngine.VFX;
 
 public class SpiderSpriteIterator : MonoBehaviour
@@ -15,6 +16,7 @@ public class SpiderSpriteIterator : MonoBehaviour
 
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] SpriteRenderer crest,drill;
+    [SerializeField] SpriteRenderer _leftLeg, _rightLeg;
 
     [SerializeField] float fps = 6;
     [SerializeField] float rotTime = 2;
@@ -185,6 +187,8 @@ public class SpiderSpriteIterator : MonoBehaviour
         //IsControlled sollte dabei auch an sein.
         isDrill = on; //Das sollte probably mehr wie isLaser Funktionieren?
         drill.gameObject.SetActive(on);
+        _leftLeg.gameObject.SetActive(!on);
+        _rightLeg.gameObject.SetActive(!on);
         _drillIndex = 0;
     }
 }
