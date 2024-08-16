@@ -1059,7 +1059,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 98bff41783214244faf2c9fef964566c, type: 3}
   - {fileID: 21300000, guid: e8300db2ef738ee44b4b19253e689007, type: 3}
   - {fileID: 21300000, guid: bce370589e752da4eaa07105f65b0ee5, type: 3}
-  Fps: 8
+  Fps: 6
 --- !u!1 &292731598
 GameObject:
   m_ObjectHideFlags: 0
