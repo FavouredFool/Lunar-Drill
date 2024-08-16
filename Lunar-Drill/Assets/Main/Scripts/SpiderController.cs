@@ -65,7 +65,6 @@ public class SpiderController : MonoBehaviour
     public float InvincibleTime => _invincibleTime;
     public SpiderLaser SpiderLaser { get; set; }
     public Rigidbody2D Rigidbody { get; set; }
-    public bool IsDigging { get; set; } = false;
     public Vector2 GoalRotation { get; set; } = Vector2.up;
     public float SpiderBodyOrbit { get; set; }
 
@@ -104,11 +103,7 @@ public class SpiderController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (!IsDigging)
-        {
-            EvaluateOverheat();
-        }
-        
+        EvaluateOverheat();
         VulnerableVFX();
     }
 
@@ -116,6 +111,12 @@ public class SpiderController : MonoBehaviour
     //--- Private Methods ------------------------
 
 
+    public void ApplyGravityToVelocity()
+    {
+        float gravity = 2f;
+        Rigidbody.velocity += -(Vector2)transform.position * gravity * Time.deltaTime;
+    }
+    
     public void SetVelocity()
     {
         Vector2 moveDirection = Vector3.RotateTowards(Rigidbody.velocity.normalized, GoalRotation, _maxRotationControl * Time.deltaTime, float.PositiveInfinity);
@@ -143,11 +144,9 @@ public class SpiderController : MonoBehaviour
         while (angle < -180) angle += 360;
         return angle;
     }
-    
-    public void EndDig()
+
+    public void EndFly()
     {
-        IsDigging = false;
-        ThrowMines();
         Rigidbody.velocity = Vector3.zero;
         
         ResetGoalRotation(); 
@@ -155,6 +154,11 @@ public class SpiderController : MonoBehaviour
         
         SetSpiderPosition();
         SetSpiderRotation();
+    }
+    
+    public void EndDig()
+    {
+        ThrowMines();
     }
 
     void ThrowMines()

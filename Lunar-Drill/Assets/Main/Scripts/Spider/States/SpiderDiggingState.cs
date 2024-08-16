@@ -11,12 +11,11 @@ public class SpiderDiggingState : SpiderState
     bool _stop = true;
 
     float _initialWait = 0.5f;
-    float _endWait = 0.75f;
+
     
     public override void StartState()
     {
         Debug.Log("SpiderDiggingState");
-        _spiderManager.SpiderController.IsDigging = true;
         _spiderManager.SpiderController.GoalRotation = -_spiderManager.SpiderController.GoalRotation;
         
         _spiderManager.SpiderController.SpriteIterator.ToggleDrill(true);
@@ -29,19 +28,12 @@ public class SpiderDiggingState : SpiderState
         _startTime = Time.time;
         _stop = false;
     }
-
-    public IEnumerator DrillEnd()
-    {
-        yield return new WaitForSeconds(_endWait);
-        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
-    }
     
     public override void FixedUpdateState()
     {
         if (_stop) return;
         
         _spiderManager.SpiderController.UpdateDigRotation();
-        _spiderManager.SpiderController.ResetOrbitTToGoalRotation();
         
         _spiderManager.SpiderController.SetVelocity();
         _spiderManager.SpiderController.Rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, -_spiderManager.SpiderController.Rigidbody.velocity.normalized));
@@ -49,10 +41,9 @@ public class SpiderDiggingState : SpiderState
         if (_spiderManager.SpiderController.transform.position.magnitude > _spiderManager.SpiderController.SpiderBodyOrbit && Time.time - _startTime > _pufferTime)
         {
             _spiderManager.SpiderController.EndDig();
-            _spiderManager.SpiderController.SpriteIterator.ToggleDrill(false);
-            _stop = true;
             
-            _spiderManager.SpiderController.StartCoroutine(DrillEnd());
+            
+            _spiderManager.SpiderStateManager.SetState(new SpiderFlyingState(_spiderManager));
         } 
     }
 }
