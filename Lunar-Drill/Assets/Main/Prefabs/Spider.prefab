@@ -330,7 +330,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _maxRotationControl: 7.5
-  _digSpeed: 4.5
+  _digSpeed: 5
   _overheatGain: 0.175
   _overheatLoss: 0.01
   _spriteRenderers:

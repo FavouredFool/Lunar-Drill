@@ -5,6 +5,7 @@ using DG.Tweening;
 using System.Collections;
 using FMOD.Studio;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 
@@ -67,6 +68,8 @@ public class SpiderController : MonoBehaviour
     public Rigidbody2D Rigidbody { get; set; }
     public Vector2 GoalRotation { get; set; } = Vector2.up;
     public float SpiderBodyOrbit { get; set; }
+    public GameManager GameManager { get; set; }
+    public bool IsDrillingFlying { get; set; } = false;
 
 
 
@@ -97,6 +100,7 @@ public class SpiderController : MonoBehaviour
     {
         _mineSpawner = FindObjectOfType<MineSpawner>();
         _drillianController = FindObjectOfType<DrillianController>();
+        GameManager = FindObjectOfType<GameManager>();
 
         ResetOrbitTToGoalRotation();
     }
@@ -114,7 +118,7 @@ public class SpiderController : MonoBehaviour
     public void ApplyGravityToVelocity()
     {
         float gravity = 2f;
-        Rigidbody.velocity += -(Vector2)transform.position * gravity * Time.deltaTime;
+        Rigidbody.velocity += -(Vector2)transform.position * (gravity * Time.deltaTime);
     }
     
     public void SetVelocity()
@@ -163,9 +167,16 @@ public class SpiderController : MonoBehaviour
 
     void ThrowMines()
     {
-        float mineAngle = Vector2.SignedAngle(transform.position.normalized, -transform.up);
-        // Mine angle * 5 because otherwise this method produces too small changes
-        _mineSpawner.SpawnMines(transform.position.normalized * Utilities.InnerOrbit, mineAngle * 5, 2, 0.1f);
+        float mineAngle = Vector2.SignedAngle(transform.position.normalized, -transform.up) * 4f;
+        
+        if (GameManager.SpiderHP == GameManager.SpiderMaxHP - 3)
+        {
+            _mineSpawner.SpawnMines(transform.position.normalized * Utilities.InnerOrbit, mineAngle, 6, 0.1f);
+        }
+        else
+        {
+            _mineSpawner.SpawnMines(transform.position.normalized * Utilities.InnerOrbit, mineAngle, 3, 0.05f);
+        }
     }
 
     void EvaluateOverheat()
@@ -291,7 +302,7 @@ public class SpiderController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (_lunaLaser == (_lunaLaser | (1 << collision.gameObject.layer)) && !IsInvincible)
+        if (_lunaLaser == (_lunaLaser | (1 << collision.gameObject.layer)) && !IsInvincible && !IsDrillingFlying)
         {
             IncreaseHeat();
         }
