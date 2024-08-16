@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class SpiderDiggingState : SpiderState
@@ -20,15 +21,27 @@ public class SpiderDiggingState : SpiderState
         
         _spiderManager.SpiderController.IsDrillingFlying = true;
         _spiderManager.SpiderController.SpriteIterator.ToggleDrill(true);
-        _spiderManager.SpiderController.StartCoroutine(DrillStart());
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.AppendInterval(_initialWait);
+        
+        // Dotween jump (not on the actual transform of the spider but on a child transform for the visual)
+        Transform body = _spiderManager.SpiderController.BodyToTween;
+        Sequence jumpSequence = DOTween.Sequence();
+        jumpSequence.Append(body.DOLocalMoveY(0.5f, _initialWait * 0.6f).SetEase(Ease.OutCubic));
+        jumpSequence.AppendInterval(_initialWait * 0.2f);
+        jumpSequence.Append(body.DOLocalMoveY(0, _initialWait * 0.2f).SetEase(Ease.InCubic));
+
+        sequence.Join(jumpSequence);
+        
+        sequence.OnComplete(() =>
+        {
+            _startTime = Time.time;
+            _stop = false;
+        });
     }
 
-    public IEnumerator DrillStart()
-    {
-        yield return new WaitForSeconds(_initialWait);
-        _startTime = Time.time;
-        _stop = false;
-    }
+
     
     public override void FixedUpdateState()
     {

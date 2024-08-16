@@ -38,6 +38,7 @@ public class SpiderController : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] SpriteRenderer[] _spriteRenderers;
     [SerializeField] SpiderSpriteIterator _spriteIterator;
+    [SerializeField] Transform _bodyToTween;
 
     [Header("Hit")]
     [SerializeField] [Range(0.01f, 5f)] float _invincibleTime = 5f;
@@ -70,6 +71,7 @@ public class SpiderController : MonoBehaviour
     public float SpiderBodyOrbit { get; set; }
     public GameManager GameManager { get; set; }
     public bool IsDrillingFlying { get; set; } = false;
+    public Transform BodyToTween => _bodyToTween;
 
 
 
