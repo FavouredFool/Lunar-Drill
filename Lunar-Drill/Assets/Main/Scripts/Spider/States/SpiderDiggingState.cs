@@ -19,6 +19,7 @@ public class SpiderDiggingState : SpiderState
         _spiderManager.SpiderController.GoalRotation = -_spiderManager.SpiderController.GoalRotation;
         
         _spiderManager.SpiderController.SpriteIterator.ToggleDrill(true);
+        _spiderManager.SpiderController.ImpactParticles(0);
         _spiderManager.SpiderController.StartCoroutine(DrillStart());
     }
 
