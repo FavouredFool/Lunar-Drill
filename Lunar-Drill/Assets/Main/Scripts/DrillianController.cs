@@ -396,12 +396,12 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         _spriteRenderer.DOColor(Color.clear, _invincibleTime).SetEase(Ease.Flash, 24, 0.75f);
 
         // remove all ores
-        foreach (OreController ore in FollowingOres)
-        {
-            ore.DestroyOre();
-        }
+        //foreach (OreController ore in FollowingOres)
+        //{
+        //    ore.DestroyOre();
+        //}
 
-        FollowingOres.Clear();
+        //FollowingOres.Clear();
     }
 
     void LoseActionVisual()
