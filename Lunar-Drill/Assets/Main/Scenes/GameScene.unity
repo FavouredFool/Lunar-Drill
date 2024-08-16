@@ -7777,39 +7777,27 @@ PrefabInstance:
     m_TransformParent: {fileID: 1363068294}
     m_Modifications:
     - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: _digSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: _pickupParent
       value: 
       objectReference: {fileID: 8736392819379510102}
     - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: _rotationSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 640577912219903628, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: _spiderManager
       value: 
       objectReference: {fileID: 1250402119}
-    - target: {fileID: 883494532634627524, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2234265607896831609, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
       propertyPath: m_Name
       value: Spider
       objectReference: {fileID: 0}
-    - target: {fileID: 2532300905267504668, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 2332832379483453229, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3068010801739264425, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 2896130235644590175, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3286316065361265084, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 3593579679363586201, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3806534218160603578, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
@@ -7852,17 +7840,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5298852356174561213, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5682609479025409217, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6963202376345677195, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+    - target: {fileID: 5028242876674824018, guid: f74003cb46260eb4da72302b6ccc3abe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

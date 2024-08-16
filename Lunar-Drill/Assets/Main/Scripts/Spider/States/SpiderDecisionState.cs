@@ -67,7 +67,7 @@ public class SpiderDecisionState : SpiderState
         
         float randomT = Random.Range(0f, 1f);
         
-        if (false && randomT > 0.5f)
+        if (randomT > 0.5f)
         {
             _spiderManager.SpiderStateManager.SetState(new SpiderDiggingState(_spiderManager));
         }

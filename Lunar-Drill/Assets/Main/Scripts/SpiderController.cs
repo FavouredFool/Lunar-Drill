@@ -3,6 +3,7 @@
 using System;
 using DG.Tweening;
 using System.Collections;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.VFX;
 using Random = UnityEngine.Random;
@@ -64,6 +65,9 @@ public class SpiderController : MonoBehaviour
     public float InvincibleTime => _invincibleTime;
     public SpiderLaser SpiderLaser { get; set; }
     public Rigidbody2D Rigidbody { get; set; }
+    public bool IsDigging { get; set; } = false;
+    public Vector2 GoalRotation { get; set; } = Vector2.up;
+    public float SpiderBodyOrbit { get; set; }
 
 
 
@@ -72,12 +76,8 @@ public class SpiderController : MonoBehaviour
     
     float _orbitRotationT = 0f;
     bool _mustReachThresholdForMovement = false;
-    Vector2 _goalRotation = Vector2.up;
     Tween _hasJustBeenHitTween;
-    bool _isDigging = false;
-
-    float _spiderBodyOrbit;
-
+    
     MineSpawner _mineSpawner;
     DrillianController _drillianController;
 
@@ -88,7 +88,7 @@ public class SpiderController : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody2D>();
         SpiderLaser = GetComponent<SpiderLaser>();
 
-        _spiderBodyOrbit = ((Vector2)transform.position).magnitude;
+        SpiderBodyOrbit = ((Vector2)transform.position).magnitude;
 
         // VFX
         _energyLoss.SetTexture("Main Texture", _energyLossRed);
@@ -104,7 +104,7 @@ public class SpiderController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (!_isDigging)
+        if (!IsDigging)
         {
             EvaluateOverheat();
         }
@@ -118,13 +118,13 @@ public class SpiderController : MonoBehaviour
 
     public void SetVelocity()
     {
-        Vector2 moveDirection = Vector3.RotateTowards(Rigidbody.velocity.normalized, _goalRotation, _maxRotationControl * Time.deltaTime, float.PositiveInfinity);
+        Vector2 moveDirection = Vector3.RotateTowards(Rigidbody.velocity.normalized, GoalRotation, _maxRotationControl * Time.deltaTime, float.PositiveInfinity);
         Rigidbody.velocity = moveDirection * _digSpeed;
     }
 
     void UpdateDigRotation()
     {
-        float currentAngle = Vector2.SignedAngle(Vector2.up, _goalRotation);
+        float currentAngle = Vector2.SignedAngle(Vector2.up, GoalRotation);
         float goalAngle = Vector2.SignedAngle(Vector2.up, (_drillianController.transform.position - transform.position).normalized);
         
         float angleDecay = 0.6f;
@@ -132,13 +132,13 @@ public class SpiderController : MonoBehaviour
         float angleDiff = NormalizeAngle(currentAngle - goalAngle);
         float lerpedAngle = NormalizeAngle(goalAngle + angleDiff * Mathf.Exp(-angleDecay * Time.deltaTime));
         
-        _goalRotation = Quaternion.Euler(0,0, lerpedAngle) * Vector2.up;
+        GoalRotation = Quaternion.Euler(0,0, lerpedAngle) * Vector2.up;
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(_goalRotation * _spiderBodyOrbit, 0.25f);
+        Gizmos.DrawSphere(GoalRotation * SpiderBodyOrbit, 0.25f);
         //Gizmos.color = Color.green;
         //Gizmos.DrawSphere((_drillianController.transform.position - transform.position).normalized * _spiderBodyOrbit, 0.25f);
     }
@@ -152,7 +152,7 @@ public class SpiderController : MonoBehaviour
     
     public void EndDig()
     {
-        _isDigging = false;
+        IsDigging = false;
         ThrowMines();
         Rigidbody.velocity = Vector3.zero;
         ResetOrbitTToGoalRotation();
@@ -160,7 +160,7 @@ public class SpiderController : MonoBehaviour
 
     void ThrowMines()
     {
-        _mineSpawner.SpawnMines(transform.position.normalized * Utilities.InnerOrbit, Vector2.SignedAngle(Vector2.up, transform.up), 2, 0.1f);
+        _mineSpawner.SpawnMines(transform.position.normalized * Utilities.InnerOrbit, 0/*Vector2.SignedAngle(Vector2.up, Rigidbody.velocity.normalized)*/, 2, 0.1f);
     }
 
     void EvaluateOverheat()
@@ -183,14 +183,14 @@ public class SpiderController : MonoBehaviour
     {
         do
         {
-            _goalRotation = Random.insideUnitCircle.normalized;
+            GoalRotation = Random.insideUnitCircle.normalized;
         }
-        while (Vector2.Angle(transform.position.normalized, _goalRotation) < innerAngle || Vector2.Angle(transform.position.normalized, _goalRotation) > outerAngle);
+        while (Vector2.Angle(transform.position.normalized, GoalRotation) < innerAngle || Vector2.Angle(transform.position.normalized, GoalRotation) > outerAngle);
     }
 
     public bool ArrivedAtGoalRotation()
     {
-        return Vector2.Dot(_goalRotation, transform.position.normalized) >= 0.99f;
+        return Vector2.Dot(GoalRotation, transform.position.normalized) >= 0.99f;
     }
 
     public IEnumerator WaitUntilArrivedAtGoalRotation()
@@ -198,27 +198,15 @@ public class SpiderController : MonoBehaviour
         while (!ArrivedAtGoalRotation()) yield return new WaitForEndOfFrame();
     }
 
-    IEnumerator Digging()
-    {
-        _isDigging = true;
-        _goalRotation = -_goalRotation;
-        SetVelocity();
-        
-        while (_isDigging)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
     public void CalculateOrbitRotation()
     {
-        if (_goalRotation.magnitude < 0.1f) return;
+        if (GoalRotation.magnitude < 0.1f) return;
 
         if (IsVulnerable) return;
 
         Vector2 currentDirection = transform.position.normalized;
 
-        float angle = Vector2.Angle(currentDirection, _goalRotation);
+        float angle = Vector2.Angle(currentDirection, GoalRotation);
 
         if (_mustReachThresholdForMovement && _movementStartAngleThreshold > angle)
         {
@@ -234,7 +222,7 @@ public class SpiderController : MonoBehaviour
         {
             // Dot product to find out if you should move clockwise or counterclockwise
             _mustReachThresholdForMovement = false;
-            MoveSign = -(int)Mathf.Sign(_goalRotation.x * currentDirection.y - _goalRotation.y * currentDirection.x);
+            MoveSign = -(int)Mathf.Sign(GoalRotation.x * currentDirection.y - GoalRotation.y * currentDirection.x);
         }
         
         // increase
@@ -249,7 +237,7 @@ public class SpiderController : MonoBehaviour
 
     void ResetOrbitTToGoalRotation()
     {
-        _orbitRotationT = Vector2.SignedAngle(Vector2.up, _goalRotation).Remap(-180, 180, 0, 1);
+        _orbitRotationT = Vector2.SignedAngle(Vector2.up, GoalRotation).Remap(-180, 180, 0, 1);
     }
 
     public void SetSpiderPosition()
@@ -258,11 +246,11 @@ public class SpiderController : MonoBehaviour
         float goalAngle = _orbitRotationT.Remap(0, 1, -180, 180);
 
         Vector2 rotatedGoalVector = Quaternion.Euler(0f, 0f, goalAngle) * Vector2.up;
-        Vector2 goalPosition = rotatedGoalVector * _spiderBodyOrbit;
+        Vector2 goalPosition = rotatedGoalVector * SpiderBodyOrbit;
 
         // Smooth Movement
         Vector2 currentVector = transform.position.normalized;
-        Vector2 currentPosition = currentVector * _spiderBodyOrbit;
+        Vector2 currentPosition = currentVector * SpiderBodyOrbit;
         
         Rigidbody.MovePosition(UpdateDirection(currentPosition, goalPosition));
     }
