@@ -501,8 +501,10 @@ MonoBehaviour:
   _drillBase: {fileID: 21300000, guid: 9e6e94d14bbf8e94296d106e0770cb2c, type: 3}
   _drillSprites:
   - {fileID: 21300000, guid: cbfdc5f58e185b6459f3d9112972d263, type: 3}
+  - {fileID: 21300000, guid: cbfdc5f58e185b6459f3d9112972d263, type: 3}
   - {fileID: 21300000, guid: 8edac18545d6e69429a298cb8e85964c, type: 3}
   - {fileID: 21300000, guid: fd45b7409bc0b134a9a6ec02ed59d28f, type: 3}
+  _drillIterationSpeed: 1
 --- !u!114 &3256605038046271639
 MonoBehaviour:
   m_ObjectHideFlags: 0

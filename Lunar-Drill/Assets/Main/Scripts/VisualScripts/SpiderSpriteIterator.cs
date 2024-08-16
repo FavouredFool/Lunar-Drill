@@ -47,7 +47,7 @@ public class SpiderSpriteIterator : MonoBehaviour
     [SerializeField] Sprite _hitSprite, _stunSprite, _idleSprite;
     [SerializeField] Sprite _crestBase, _drillBase;
     [SerializeField] Sprite[] _drillSprites;
-    float _drillIterationSpeed = 2;
+    [SerializeField]float _drillIterationSpeed = 2;
     int _drillIndex = 0;
 
     private void Awake()
@@ -59,10 +59,10 @@ public class SpiderSpriteIterator : MonoBehaviour
         lastMoveSign = controller.MoveSign;
         animator.SetInteger("moveDirection", lastMoveSign);
 
-        crest.gameObject.SetActive(!isControlled);
-
-        if (!isControlled)
+        if (!isControlled&&!isDrill)
         {
+            crest.gameObject.SetActive(true);
+
             timer += Time.deltaTime;
 
             spriteRenderer.sprite = _idleSprite;
@@ -87,7 +87,7 @@ public class SpiderSpriteIterator : MonoBehaviour
             {
                 timer = 0;
                 _drillIndex = (_drillIndex + 1) % _drillSprites.Length;
-                spriteRenderer.sprite = _drillSprites[_drillIndex];
+                drill.sprite = _drillSprites[_drillIndex];
             }
         }
 
@@ -190,5 +190,8 @@ public class SpiderSpriteIterator : MonoBehaviour
         _leftLeg.gameObject.SetActive(!on);
         _rightLeg.gameObject.SetActive(!on);
         _drillIndex = 0;
+
+        crest.gameObject.SetActive(!on);
+
     }
 }
