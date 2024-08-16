@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class SpiderFlyingState : SpiderState
 {
-    public SpiderFlyingState(SpiderManager spiderManager) : base (spiderManager) { }
+    public SpiderFlyingState(SpiderManager spiderManager, Stack<SpiderState> stateStack) : base(spiderManager)
+    {
+        _stateStack = stateStack;
+    }
     
     float _pufferTime = 0.1f;
     float _endWait = 0.75f;
     float _startTime = float.PositiveInfinity;
     bool _stop = false;
+    Stack<SpiderState> _stateStack;
     
     public override void StartState()
     {
@@ -20,7 +24,7 @@ public class SpiderFlyingState : SpiderState
     public IEnumerator FlyEnd()
     {
         yield return new WaitForSeconds(_endWait);
-        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
+        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager, _stateStack));
     }
     
     public override void FixedUpdateState()

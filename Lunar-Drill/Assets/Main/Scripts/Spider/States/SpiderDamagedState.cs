@@ -15,7 +15,7 @@ public class SpiderDamagedState : SpiderState
 
         GetDamaged();
         
-        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
+        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager, null, true));
     }
     
     void GetDamaged()

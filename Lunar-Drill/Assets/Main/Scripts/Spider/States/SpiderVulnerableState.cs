@@ -24,6 +24,7 @@ public class SpiderVulnerableState : SpiderState
             _spiderManager.SpiderController.OverheatT = 0;
             _spiderManager.SpiderController.IsVulnerable = false;
             _spiderManager.SpiderController.SpriteIterator.CancelStun();
+            _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
         });
         
         // Destroy all Mines
@@ -35,14 +36,6 @@ public class SpiderVulnerableState : SpiderState
         if (_regenerateVulnerableTween != null && _regenerateVulnerableTween.IsActive())
         {
             _regenerateVulnerableTween.Kill();
-        }
-    }
-    
-    public override void UpdateState()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
         }
     }
 }

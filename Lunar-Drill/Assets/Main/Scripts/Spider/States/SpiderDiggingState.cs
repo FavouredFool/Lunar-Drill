@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class SpiderDiggingState : SpiderState
 {
-    public SpiderDiggingState(SpiderManager spiderManager) : base (spiderManager) { }
+    public SpiderDiggingState(SpiderManager spiderManager, Stack<SpiderState> stateStack = null) : base(spiderManager)
+    {
+        _stateStack = stateStack;
+    }
 
     float _pufferTime = 0.1f;
     float _startTime = float.PositiveInfinity;
     bool _stop = true;
 
     float _initialWait = 0.5f;
+    Stack<SpiderState> _stateStack;
 
     
     public override void StartState()
@@ -57,7 +61,7 @@ public class SpiderDiggingState : SpiderState
             _spiderManager.SpiderController.EndDig();
             
             
-            _spiderManager.SpiderStateManager.SetState(new SpiderFlyingState(_spiderManager));
+            _spiderManager.SpiderStateManager.SetState(new SpiderFlyingState(_spiderManager, _stateStack));
         } 
     }
 }

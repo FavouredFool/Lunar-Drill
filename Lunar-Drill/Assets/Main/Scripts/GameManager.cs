@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
         _drillianController.enabled = true;
         _spiderController.enabled = true;
         
-        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager));
+        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager, null, true));
     }
 
     public void SetHealth(int amount, bool isPlayer)

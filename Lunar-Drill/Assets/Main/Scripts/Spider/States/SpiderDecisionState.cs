@@ -7,12 +7,32 @@ using static SpiderManager.SpiderAbilityState;
 
 public class SpiderDecisionState : SpiderState
 {
-    public SpiderDecisionState(SpiderManager spiderManager) : base (spiderManager) { }
+    public SpiderDecisionState(SpiderManager spiderManager, Stack<SpiderState> stateStack = null, bool doEntryAttackChain = false) : base(spiderManager)
+    {
+        _doEntryAttackChain = doEntryAttackChain;
+        _stateStack = stateStack;
+    }
+
+    bool _doEntryAttackChain;
+    Stack<SpiderState> _stateStack;
     
     public override void StartState()
     {
         Debug.Log("DecisionState");
-        GetNextAbility(GetSpiderState(_gameManager));
+
+        SpiderState nextState;
+        
+        if (_stateStack is { Count: > 0 })
+        {
+            nextState = _stateStack.Pop();
+            return;
+        }
+        else
+        {
+            nextState = GetNextAbility(GetSpiderState(_gameManager), _doEntryAttackChain);
+        }
+
+        _spiderManager.SpiderStateManager.SetState(nextState);
     }
     
     SpiderManager.SpiderAbilityState GetSpiderState(GameManager gameManager)
@@ -41,125 +61,146 @@ public class SpiderDecisionState : SpiderState
         return spiderState;
     }
 
-    void GetNextAbility(SpiderManager.SpiderAbilityState spiderState)
+    SpiderState GetNextAbility(SpiderManager.SpiderAbilityState spiderState, bool doEntryAttackChain)
     {
         switch (spiderState)
         {
             case Level1:
-                GetLevel1Ability();
-                break;
+                return GetLevel1Ability(doEntryAttackChain);
             case Level2:
-                GetLevel2Ability();
-                break;
+                return GetLevel2Ability(doEntryAttackChain);
             case Level3:
-                GetLevel3Ability();
-                break;
+                return GetLevel3Ability(doEntryAttackChain);
             case Level4:
-                GetLevel4Ability();
-                break;
+                return GetLevel4Ability(doEntryAttackChain);
+            default:
+                return new SpiderVoidState(_spiderManager);
         }
     }
     
-    void GetLevel1Ability()
+    SpiderState GetLevel1Ability(bool doEntryAttackChain)
     {
-        // Stand: 20%
-        // Movement: 80%
+        // Stand: 30%
+        // Movement: 70%
+        
+        if (doEntryAttackChain)
+        {
+            Stack<SpiderState> attackStack = new();
+            attackStack.Push(new SpiderDiggingState(_spiderManager, attackStack));
+            
+            return attackStack.Pop();
+        }
         
         float randomT = Random.Range(0f, 1f);
         
-        if (randomT > 0.5f)
+        if (randomT > 0.7f)
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderDiggingState(_spiderManager));
-        }
-        else if (randomT > 0.8f)
-        {
-            _spiderManager.SpiderStateManager.SetState(new SpiderWaitState(_spiderManager));
+            return new SpiderWaitState(_spiderManager);
         }
         else
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderMovementState(_spiderManager));
+            return new SpiderMovementState(_spiderManager);
         }
     }
 
-    void GetLevel2Ability()
+    SpiderState GetLevel2Ability(bool doEntryAttackChain)
     {
         // Stand: 20% Chance
         // Movement: 40% Chance
-        // RandomLaserShort: 30% Chance
-        // LunaLaser: 10% Chance
+        // RandomLaserShort: 40% Chance
 
+        if (doEntryAttackChain)
+        {
+            Stack<SpiderState> attackStack = new();
+            attackStack.Push(new SpiderMovementState(_spiderManager, attackStack));
+            
+            return attackStack.Pop();
+        }
+        
         float randomT = Random.Range(0f, 1f);
 
         if (randomT > 0.8f)
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderWaitState(_spiderManager));
+            return new SpiderWaitState(_spiderManager);
         }
         else if (randomT > 0.4f)
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderMovementState(_spiderManager));
+            return new SpiderMovementState(_spiderManager);
         }
         else
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderLaserShortState(_spiderManager));
+            return new SpiderLaserShortState(_spiderManager);
         }
     }
 
-    void GetLevel3Ability()
+    SpiderState GetLevel3Ability(bool doEntryAttackChain)
     {
-        // Wait: 10% Chance
-        // Movement: 40% Chance
-        // RandomLaserShort: 25% Chance
-        // RandomLaserLong: 0% Chance
-        // Digging: 25%
-        // LunaLaser: 0% Chance
+        // Wait: 15% Chance
+        // Movement: 35% Chance
+        // RandomLaserShort: 30% Chance
+        // Digging: 20%
 
+        if (doEntryAttackChain)
+        {
+            Stack<SpiderState> attackStack = new();
+            attackStack.Push(new SpiderMovementState(_spiderManager, attackStack));
+            
+            return attackStack.Pop();
+        }
+        
+        float randomT = Random.Range(0f, 1f);
+
+        if (randomT > 0.85f)
+        {
+            return new SpiderWaitState(_spiderManager);
+        }
+        else if (randomT > 0.5f)
+        {
+            return new SpiderMovementState(_spiderManager);
+        }
+        else if (randomT > 0.2f)
+        {
+            return new SpiderLaserShortState(_spiderManager);
+        }
+        else
+        {
+            return new SpiderDiggingState(_spiderManager);
+        }
+    }
+
+
+    SpiderState GetLevel4Ability(bool doEntryAttackChain)
+    {
+        // Stand: 10% Chance
+        // Movement: 30% Chance
+        // RandomLaserShort: 35% Chance
+        // Digging: 25% Chance
+
+        if (doEntryAttackChain)
+        {
+            Stack<SpiderState> attackStack = new();
+            attackStack.Push(new SpiderMovementState(_spiderManager, attackStack));
+            
+            return attackStack.Pop();
+        }
+        
         float randomT = Random.Range(0f, 1f);
 
         if (randomT > 0.9f)
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderWaitState(_spiderManager));
+            return new SpiderWaitState(_spiderManager);
         }
-        else if (randomT > 0.5f)
+        else if (randomT > 0.6f)
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderMovementState(_spiderManager));
+            return new SpiderMovementState(_spiderManager);
         }
         else if (randomT > 0.25f)
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderLaserShortState(_spiderManager));
+            return new SpiderLaserShortState(_spiderManager);
         }
         else
         {
-            _spiderManager.SpiderStateManager.SetState(new SpiderDiggingState(_spiderManager));
-        }
-    }
-
-
-    void GetLevel4Ability()
-    {
-        // Stand: 05% Chance
-        // Movement: 25% Chance
-        // RandomLaserShort: 35% Chance
-        // RandomLaserLong: 0% Chance
-        // LunaLaser: 0% Chance
-        // Digging: 35% Chance
-
-        float randomT = Random.Range(0f, 1f);
-
-        if (randomT > 0.95f)
-        {
-            _spiderManager.SpiderStateManager.SetState(new SpiderWaitState(_spiderManager));
-        }
-        else if (randomT > 0.7f)
-        {
-            _spiderManager.SpiderStateManager.SetState(new SpiderMovementState(_spiderManager));
-        }
-        else if (randomT > 0.35f)
-        {
-            _spiderManager.SpiderStateManager.SetState(new SpiderLaserShortState(_spiderManager));
-        }
-        else
-        {
-            _spiderManager.SpiderStateManager.SetState(new SpiderDiggingState(_spiderManager));
+            return new SpiderDiggingState(_spiderManager);
         }
     }
     
