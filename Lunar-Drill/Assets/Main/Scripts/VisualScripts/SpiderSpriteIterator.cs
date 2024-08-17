@@ -59,10 +59,10 @@ public class SpiderSpriteIterator : MonoBehaviour
         lastMoveSign = controller.MoveSign;
         animator.SetInteger("moveDirection", lastMoveSign);
 
+        crest.gameObject.SetActive(!isControlled&&!isDrill);
+
         if (!isControlled&&!isDrill)
         {
-            crest.gameObject.SetActive(true);
-
             timer += Time.deltaTime;
 
             spriteRenderer.sprite = _idleSprite;
@@ -118,7 +118,7 @@ public class SpiderSpriteIterator : MonoBehaviour
             _vfxActive = !_vfxActive;
         }
 
-        energyBarAlpha += (energyBarVisible ? 2 : -2) * Time.deltaTime;
+        energyBarAlpha += (energyBarVisible && !isDrill ? 2 : -2) * Time.deltaTime;
         energyBarAlpha = Mathf.Clamp01(energyBarAlpha);
         UpdateEnergyBar();
     }
@@ -190,8 +190,5 @@ public class SpiderSpriteIterator : MonoBehaviour
         _leftLeg.gameObject.SetActive(!on);
         _rightLeg.gameObject.SetActive(!on);
         _drillIndex = 0;
-
-        crest.gameObject.SetActive(!on);
-
     }
 }
