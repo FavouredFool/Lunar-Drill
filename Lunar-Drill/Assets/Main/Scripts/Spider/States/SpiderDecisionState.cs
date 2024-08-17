@@ -42,7 +42,7 @@ public class SpiderDecisionState : SpiderState
 
         if (spiderHP == gameManager.SpiderMaxHP)
         {
-            spiderState = Level3;
+            spiderState = Level1;
         }
         else if (spiderHP == gameManager.SpiderMaxHP - 1)
         {
