@@ -199,7 +199,7 @@ public class SpiderController : MonoBehaviour
 
     void ThrowMines()
     {
-        float mineAngle = Vector2.SignedAngle(transform.position.normalized, -transform.up) * 4f;
+        float mineAngle = Vector2.SignedAngle(((Vector2)transform.position).normalized, Rigidbody.velocity.normalized) * 3;
         
         if (GameManager.SpiderHP == GameManager.SpiderMaxHP - 3)
         {
@@ -386,5 +386,10 @@ public class SpiderController : MonoBehaviour
         Gizmos.color = Color.blue;
         float angle = Utilities.Remap(_orbitRotationT, 0, 1, -180, 180);
         Gizmos.DrawSphere(Quaternion.Euler(0, 0, angle) * Vector2.up * Utilities.InnerOrbit * 0.75f, 0.25f);
+        
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(Vector3.zero, transform.position.normalized * 4);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(Vector3.zero, Rigidbody.velocity.normalized * 4);
     }
 }
