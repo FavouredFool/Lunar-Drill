@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 2
+  keepPosition: 0
   localPosition: {x: -800, y: -87.5, z: 0}
   scale: 0
 --- !u!1 &3095870117793499484
@@ -506,6 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 2
+  keepPosition: 0
   localPosition: {x: 800, y: 87.5, z: 0}
   scale: 0
 --- !u!1 &4314091437103963617
@@ -1187,6 +1189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 2
+  keepPosition: 0
   localPosition: {x: 800, y: 87.5, z: 0}
   scale: 0
 --- !u!1 &6062726055929330776

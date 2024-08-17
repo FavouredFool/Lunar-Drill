@@ -52,6 +52,9 @@ MonoBehaviour:
   _destroyLayer:
     serializedVersion: 2
     m_Bits: 64
+  _mineLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   _insideOffset: 0.2
   _mineVisuals: {fileID: 8757919760543277470}
   _mineLilac: {fileID: 21300000, guid: 966e99cbcbc5a8d488bbe319dca47f0a, type: 3}

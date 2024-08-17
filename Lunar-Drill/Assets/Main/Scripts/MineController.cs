@@ -7,6 +7,7 @@ public class MineController : MonoBehaviour
     #region --- Exposed Fields ---
     [Header("Layers")]
     [SerializeField] LayerMask _destroyLayer; // Luna laser
+    [SerializeField] LayerMask _mineLayer; // Luna laser
 
     [Header("Visuals")]
     [SerializeField] [Range(0.05f, 0.3f)] float _insideOffset = 0.2f;
@@ -93,7 +94,10 @@ public class MineController : MonoBehaviour
             if (_destroyLayer == (_destroyLayer | 1 << collision.gameObject.layer))
             {
                 DestroyMine();
-                // TODO: Rumble?
+            }
+            else if (_mineLayer == (_mineLayer | 1 << collision.gameObject.layer))
+            {
+                DestroyMine();
             }
         }
     }
