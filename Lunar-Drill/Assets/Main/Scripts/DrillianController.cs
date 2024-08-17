@@ -518,8 +518,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
 
         if (!IsBurrowed && LastFrameIsBurrowed)
         {
-            _drillImpactOut.SetVector3("StartPosition", transform.position);
-            _drillImpactOut.SetVector3("DrillianUp", transform.up);
             _drillImpactOut.SendEvent("Shoot");
 
             AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStopped));
@@ -527,8 +525,6 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         }
         else if (IsBurrowed && !LastFrameIsBurrowed)
         {
-            _drillImpactIn.SetVector3("StartPosition", transform.position);
-            _drillImpactIn.SetVector3("DrillianUp", transform.up);
             _drillImpactIn.SendEvent("Shoot");
 
             AudioController.Fire(new DrillianDrilling(DrillianDrilling.DrillState.DrillingStarted));

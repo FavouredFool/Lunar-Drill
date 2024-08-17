@@ -26,6 +26,8 @@ public class SpiderDiggingState : SpiderState
         _spiderManager.SpiderController.IsDrillingFlying = true;
         _spiderManager.SpiderController.SpriteIterator.ToggleDrill(true);
 
+        _spiderManager.SpiderController.ImpactParticles(0);
+
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(_initialWait);
         

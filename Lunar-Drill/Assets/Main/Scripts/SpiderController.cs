@@ -15,7 +15,7 @@ public class SpiderController : MonoBehaviour
 
     [Header("Manager")]
     [SerializeField] SpiderManager _spiderManager;
-    
+
     [Header("Speed")]
     [SerializeField] [Range(0.01f, 10f)] float _rotationSpeed = 1f;
 
@@ -25,7 +25,7 @@ public class SpiderController : MonoBehaviour
     [SerializeField] [Range(1, 25)] int _rotationAdjustmentDecay = 16;
     [SerializeField] LayerMask _lunaLaser;
     [SerializeField] LayerMask _drillian;
-    
+
     [Header("Digging")]
     [SerializeField] [Range(1, 100f)] float _maxRotationControl = 7.5f;
 
@@ -43,12 +43,14 @@ public class SpiderController : MonoBehaviour
     [Header("Hit")]
     [SerializeField] [Range(0.01f, 5f)] float _invincibleTime = 5f;
     [SerializeField] HealthPickup _healthPickupBlueprint;
-    [SerializeField][Range(0.01f, 20f)] float _regenerateTime = 5f;
+    [SerializeField] [Range(0.01f, 20f)] float _regenerateTime = 5f;
     [SerializeField] Transform _pickupParent;
 
     [Header("VFX")]
     [SerializeField] VisualEffect _energyLoss;
     [SerializeField] Texture2D _energyLossRed;
+    [SerializeField] TrailRenderer _jumpTrail;
+    [SerializeField] VisualEffect[] _drillImpacts;
 
     bool _vfxActive = false;
 
@@ -77,11 +79,11 @@ public class SpiderController : MonoBehaviour
 
     //--- Private Fields ------------------------
 
-    
+
     float _orbitRotationT = 0f;
     bool _mustReachThresholdForMovement = false;
     Tween _hasJustBeenHitTween;
-    
+
     MineSpawner _mineSpawner;
     DrillianController _drillianController;
 
@@ -122,7 +124,7 @@ public class SpiderController : MonoBehaviour
         float gravity = 2f;
         Rigidbody.velocity += -(Vector2)transform.position * (gravity * Time.deltaTime);
     }
-    
+
     public void SetVelocity()
     {
         Vector2 moveDirection = Vector3.RotateTowards(Rigidbody.velocity.normalized, GoalRotation, _maxRotationControl * Time.deltaTime, float.PositiveInfinity);
@@ -133,13 +135,13 @@ public class SpiderController : MonoBehaviour
     {
         float currentAngle = Vector2.SignedAngle(Vector2.up, GoalRotation);
         float goalAngle = Vector2.SignedAngle(Vector2.up, (_drillianController.transform.position - transform.position).normalized);
-        
+
         float angleDecay = 0.6f;
-        
+
         float angleDiff = NormalizeAngle(currentAngle - goalAngle);
         float lerpedAngle = NormalizeAngle(goalAngle + angleDiff * Mathf.Exp(-angleDecay * Time.deltaTime));
-        
-        GoalRotation = Quaternion.Euler(0,0, lerpedAngle) * Vector2.up;
+
+        GoalRotation = Quaternion.Euler(0, 0, lerpedAngle) * Vector2.up;
     }
 
 
@@ -154,17 +156,33 @@ public class SpiderController : MonoBehaviour
     public void EndFly()
     {
         Rigidbody.velocity = Vector3.zero;
-        
-        ResetGoalRotation(); 
+
+        ResetGoalRotation();
         ResetOrbitTToGoalRotation();
-        
+
         SetSpiderPosition();
         SetSpiderRotation();
+
+        ToggleJumpTrail();
+        ImpactParticles(2);
     }
-    
+
     public void EndDig()
     {
         ThrowMines();
+
+        ToggleJumpTrail();
+        ImpactParticles(1);
+    }
+
+    void ToggleJumpTrail()
+    {
+        _jumpTrail.enabled = !_jumpTrail.enabled;
+    }
+
+    public void ImpactParticles(int state)
+    {
+        _drillImpacts[state].SendEvent("Shoot");
     }
 
     void ThrowMines()
@@ -195,7 +213,7 @@ public class SpiderController : MonoBehaviour
             OverheatT = Mathf.Clamp01(OverheatT - _overheatLoss * Time.deltaTime);
         }
     }
-    
+
 
     public void SetMovementGoalRotation(float innerAngle, float outerAngle)
     {
@@ -242,7 +260,7 @@ public class SpiderController : MonoBehaviour
             _mustReachThresholdForMovement = false;
             MoveSign = -(int)Mathf.Sign(GoalRotation.x * currentDirection.y - GoalRotation.y * currentDirection.x);
         }
-        
+
         // increase
         _orbitRotationT += MoveSign * _rotationSpeed * Time.deltaTime;
 
@@ -257,7 +275,7 @@ public class SpiderController : MonoBehaviour
     {
         GoalRotation = transform.position.normalized;
     }
-    
+
     public void ResetOrbitTToGoalRotation()
     {
         _orbitRotationT = Vector2.SignedAngle(Vector2.up, GoalRotation).Remap(-180, 180, 0, 1);
@@ -274,10 +292,10 @@ public class SpiderController : MonoBehaviour
         // Smooth Movement
         Vector2 currentVector = transform.position.normalized;
         Vector2 currentPosition = currentVector * SpiderBodyOrbit;
-        
+
         Rigidbody.MovePosition(UpdateDirection(currentPosition, goalPosition));
     }
-    
+
     Vector2 UpdateDirection(Vector2 direction, Vector2 goalDirection)
     {
         return goalDirection + (direction - goalDirection) * Mathf.Exp(-_rotationAdjustmentDecay * Time.deltaTime);
@@ -299,7 +317,7 @@ public class SpiderController : MonoBehaviour
 
     public void SpawnHP()
     {
-        Instantiate(_healthPickupBlueprint, transform.position, Quaternion.LookRotation(Vector3.forward, transform.position.normalized),_pickupParent);
+        Instantiate(_healthPickupBlueprint, transform.position, Quaternion.LookRotation(Vector3.forward, transform.position.normalized), _pickupParent);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -355,6 +373,6 @@ public class SpiderController : MonoBehaviour
         Gizmos.DrawSphere(GoalRotation * SpiderBodyOrbit, 0.25f);
         Gizmos.color = Color.blue;
         float angle = Utilities.Remap(_orbitRotationT, 0, 1, -180, 180);
-        Gizmos.DrawSphere(Quaternion.Euler(0, 0, angle)* Vector2.up * Utilities.InnerOrbit * 0.75f, 0.25f);
+        Gizmos.DrawSphere(Quaternion.Euler(0, 0, angle) * Vector2.up * Utilities.InnerOrbit * 0.75f, 0.25f);
     }
 }
