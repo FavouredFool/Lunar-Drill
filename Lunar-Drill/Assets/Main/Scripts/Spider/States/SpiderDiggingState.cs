@@ -21,7 +21,7 @@ public class SpiderDiggingState : SpiderState
     public override void StartState()
     {
         Debug.Log("SpiderDiggingState");
-        _spiderManager.SpiderController.GoalRotation = -_spiderManager.SpiderController.GoalRotation;
+        _spiderManager.SpiderController.GoalRotation = -_spiderManager.SpiderController.transform.position.normalized;
         
         _spiderManager.SpiderController.IsDrillingFlying = true;
         _spiderManager.SpiderController.SpriteIterator.ToggleDrill(true);
