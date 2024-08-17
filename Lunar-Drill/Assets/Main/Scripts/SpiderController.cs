@@ -52,6 +52,11 @@ public class SpiderController : MonoBehaviour
     [SerializeField] TrailRenderer _jumpTrail;
     [SerializeField] VisualEffect[] _drillImpacts;
 
+    [Header("Colliders")]
+    [SerializeField] CapsuleCollider2D _normalCollider;
+    [SerializeField] CapsuleCollider2D _drillCollider;
+    
+    
     bool _vfxActive = false;
 
     public SpriteRenderer[] SpriteRenderers => _spriteRenderers;
@@ -107,6 +112,7 @@ public class SpiderController : MonoBehaviour
         GameManager = FindObjectOfType<GameManager>();
 
         ResetOrbitTToGoalRotation();
+        CollidersSetActive(true);
     }
 
     public void FixedUpdate()
@@ -123,6 +129,12 @@ public class SpiderController : MonoBehaviour
     {
         float gravity = 2f;
         Rigidbody.velocity += -(Vector2)transform.position * (gravity * Time.deltaTime);
+    }
+
+    public void CollidersSetActive(bool normalActive)
+    {
+        _normalCollider.gameObject.SetActive(normalActive);
+        _drillCollider.gameObject.SetActive(!normalActive);
     }
 
     public void SetVelocity()
