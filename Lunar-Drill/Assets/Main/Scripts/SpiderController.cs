@@ -199,7 +199,7 @@ public class SpiderController : MonoBehaviour
 
     void ThrowMines()
     {
-        float mineAngle = Vector2.SignedAngle(((Vector2)transform.position).normalized, Rigidbody.velocity.normalized) * 3;
+        float mineAngle = Vector2.SignedAngle(((Vector2)transform.position).normalized, Rigidbody.velocity.normalized);
         
         if (GameManager.SpiderHP == GameManager.SpiderMaxHP - 3)
         {
@@ -238,7 +238,7 @@ public class SpiderController : MonoBehaviour
 
     public bool ArrivedAtGoalRotation()
     {
-        return Vector2.Dot(GoalRotation, transform.position.normalized) >= 0.99f;
+        return Vector2.Dot(GoalRotation, (Vector2)(transform.position).normalized) >= 0.99f;
     }
 
     public IEnumerator WaitUntilArrivedAtGoalRotation()
@@ -251,7 +251,7 @@ public class SpiderController : MonoBehaviour
         if (GoalRotation.magnitude < 0.1f) return;
 
         if (IsVulnerable) return;
-
+        
         Vector2 currentDirection = transform.position.normalized;
 
         float angle = Vector2.Angle(currentDirection, GoalRotation);
