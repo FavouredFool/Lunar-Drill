@@ -14,10 +14,15 @@ public class TutorialSpeechBubble : MonoBehaviour
 
     Tween twn;
 
+    private void Awake()
+    {
+        transform.localScale = Vector3.zero;
+    }
+
     public void Display(TutorialEntry entry)
     {
         twn.Kill();
-        if (IsOpen) twn = transform.DOPunchScale(Vector3.one * 1.1f, 0.25f);
+        if (IsOpen) twn = transform.DOPunchScale(Vector3.one * 0.15f, 0.25f);
         else twn = transform.DOScale(1,0.33f).SetEase(Ease.OutBack);
 
         IsOpen = true;

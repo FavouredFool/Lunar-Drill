@@ -6,8 +6,14 @@ using DG.Tweening;
 using FMOD.Studio;
 using FMODUnity;
 using System.Linq;
+using TMPro;
 
-public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, IInputSubscriber<MenuMoveNorth>, IInputSubscriber<MenuMoveSouth>
+public class OptionsMenu : MonoBehaviour, 
+    IInputSubscriber<Signal_SceneChange>, 
+    IInputSubscriber<MenuMoveNorth>, 
+    IInputSubscriber<MenuMoveSouth>,
+    IInputSubscriber<PlayerModeConfirmed>,
+    IInputSubscriber<PlayerModeReset>
 {
     public static OptionsMenu instance;
     public static bool isOpen;
@@ -22,6 +28,9 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     [SerializeField] CanvasGroup _content;
     [SerializeField] List<OptionsEntry> _entries;
     [SerializeField] int _entryIndexShift;
+
+    [SerializeField]
+    TMP_Text _quitHeader, _quitSub;
 
     float _lastShiftTime = 0;
     public const float shiftTime = 0.33f;
@@ -40,12 +49,16 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         InputBus.Subscribe<MenuMoveNorth>(this);
         InputBus.Subscribe<MenuMoveSouth>(this);
         InputBus.Subscribe<Signal_SceneChange>(this);
+        InputBus.Subscribe<PlayerModeConfirmed>(this);
+        InputBus.Subscribe<PlayerModeReset>(this);
     }
     private void OnDisable()
     {
         InputBus.Unsubscribe<MenuMoveNorth>(this);
         InputBus.Unsubscribe<MenuMoveSouth>(this);
         InputBus.Unsubscribe<Signal_SceneChange>(this);
+        InputBus.Unsubscribe<PlayerModeConfirmed>(this);
+        InputBus.Unsubscribe<PlayerModeReset>(this);
     }
 
     public void SetUp()
@@ -60,6 +73,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         SetMenuMode(false);
 
         Screen.fullScreen = true;
+
 
         PopulateEntryData();
     }
@@ -103,9 +117,9 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
 
         _entryIndexShift = 0;
         for (int i = 0; i < _entries.Count; i++)
-            _entries[i].SetPosition(i,_entries.Count);
+            _entries[i].SetPosition(i, _entries.Count);
     }
-    public void Close()
+    public void Close(float duration=0.33f)
     {
         AudioController.Fire(new MenuPauseAudio(MenuPauseAudio.PauseState.GameRunning));
         if (isControlled) return;
@@ -113,9 +127,9 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
         isControlled = true;
         bodySequence.Kill();
         bodySequence = DOTween.Sequence();
-        bodySequence.Append(_blackground.DOFade(0, 0.33f).SetEase(Ease.InSine));
-        bodySequence.Join(_content.DOFade(0, 0.1f).SetEase(Ease.InSine));
-        bodySequence.Join(_background.rectTransform.DOSizeDelta(new Vector2(1250, 0), 0.2f).SetEase(Ease.InSine));
+        bodySequence.Append(_blackground.DOFade(0, duration).SetEase(Ease.InSine));
+        bodySequence.Join(_content.DOFade(0, duration*0.33f).SetEase(Ease.InSine));
+        bodySequence.Join(_background.rectTransform.DOSizeDelta(new Vector2(1250, 0), duration*0.66f).SetEase(Ease.InSine));
         bodySequence.SetUpdate(true).OnComplete(() =>
         {
             isControlled = false;
@@ -124,7 +138,6 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
 
             SetMenuMode(false);
         });
-
     }
 
     public void SetMenuMode(bool on)
@@ -133,6 +146,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
             PlayerConnectController.Drillian.SetMenuMode(on);
         if (PlayerConnectController.Luna)
             PlayerConnectController.Luna.SetMenuMode(on);
+        Debug.Log("MENU MODE IS "+on);
     }
 
     public void PopulateEntryData()
@@ -224,10 +238,33 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
 
     private void OnLevelWasLoaded(int level)
     {
+        isControlled = false;
+
         bool allowOpen = true;
-        if (SceneChanger.currentScene == SceneIdentity.PlayerConnect || SceneChanger.currentScene == SceneIdentity.Stats)
+        if (SceneChanger.currentScene == SceneIdentity.Stats||SceneChanger.currentScene==SceneIdentity.PlayerPreparation)
             allowOpen = false;
         _button.gameObject.SetActive(allowOpen);
+
+        if ((SceneIdentity)level != SceneIdentity.MainMenu)
+        {
+            _quitHeader.text = "Leave";
+            _quitSub.text = "Return to Main Menu";
+        }
+        else
+        {
+            _quitHeader.text = "Quit";
+            _quitSub.text = "Close the Game";
+        }
+
+        SetMenuMode(false);
+    }
+    public void OnEventHappened(PlayerModeConfirmed e)
+    {
+        _button.gameObject.SetActive(true);
+    }
+    public void OnEventHappened(PlayerModeReset e)
+    {
+        _button.gameObject.SetActive(false);
     }
 
     public void OnEventHappened(MenuMoveNorth e)
@@ -246,7 +283,7 @@ public class OptionsMenu : MonoBehaviour, IInputSubscriber<Signal_SceneChange>, 
     }
     public void OnEventHappened(Signal_SceneChange e)
     {
-        Close();
+        Close(e.delay*0.75f);
     }
 
     #region Modifications
