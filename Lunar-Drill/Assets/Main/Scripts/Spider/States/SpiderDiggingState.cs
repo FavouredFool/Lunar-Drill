@@ -14,7 +14,7 @@ public class SpiderDiggingState : SpiderState
     float _startTime = float.PositiveInfinity;
     bool _stop = true;
 
-    float _initialWait = 0.5f;
+    float _initialWait = 0.75f;
     Stack<SpiderState> _stateStack;
 
     
