@@ -9,7 +9,6 @@ public class TimeoutManager : MonoBehaviour, IInputSubscriber<Signal_AnyFire>
 {
     VideoPlayer player;
 
-    [SerializeField] private GameMenuUIManager optionalPauseMenu;
     [SerializeField] private InputActionReference 
         anyInputAction,
         forcePlayInputAction;
@@ -60,6 +59,7 @@ public class TimeoutManager : MonoBehaviour, IInputSubscriber<Signal_AnyFire>
         forcePlayInputAction.action.performed += OnForcePlayInputPerformed;
 
         lastForcePlay = float.NegativeInfinity;
+        lastInputTime = Time.unscaledTime;
     }
     private void OnDisable()
     {
@@ -88,8 +88,7 @@ public class TimeoutManager : MonoBehaviour, IInputSubscriber<Signal_AnyFire>
             if (shouldPlay)
             {
                 PlayVideo();
-                if (optionalPauseMenu)
-                    optionalPauseMenu.SetOptions(true);
+
             }
             else
             {
