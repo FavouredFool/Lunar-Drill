@@ -43,12 +43,10 @@ public class SpiderDecisionState : SpiderState
         if (spiderHP == gameManager.SpiderMaxHP)
         {
             spiderState = Level3;
-            //spiderState = Level1;
         }
         else if (spiderHP == gameManager.SpiderMaxHP - 1)
         {
             spiderState = Level3;
-            //spiderState = Level2;
         }
         else if (spiderHP == gameManager.SpiderMaxHP - 2)
         {
@@ -81,8 +79,8 @@ public class SpiderDecisionState : SpiderState
     
     SpiderState GetLevel1Ability(bool doEntryAttackChain)
     {
-        // Stand: 30%
-        // Movement: 70%
+        // Stand: 25%
+        // Movement: 75%
         
         if (doEntryAttackChain)
         {
@@ -97,7 +95,7 @@ public class SpiderDecisionState : SpiderState
         
         float randomT = Random.Range(0f, 1f);
         
-        if (randomT > 0.7f)
+        if (randomT > 0.75f)
         {
             return new SpiderWaitState(_spiderManager);
         }
@@ -124,7 +122,7 @@ public class SpiderDecisionState : SpiderState
         }
         
         float randomT = Random.Range(0f, 1f);
-
+        
         if (randomT > 0.8f)
         {
             return new SpiderWaitState(_spiderManager);
@@ -142,16 +140,21 @@ public class SpiderDecisionState : SpiderState
     SpiderState GetLevel3Ability(bool doEntryAttackChain)
     {
         // Wait: 15% Chance
-        // Movement: 35% Chance
-        // RandomLaserShort: 20% Chance
-        // Digging: 30%
+        // Movement: 45% Chance
+        // RandomLaserShort: 10% Chance
+        // Digging: 10%
+        // Drill -> Drill 10%
+        // Drill -> Laser 10%
 
         if (doEntryAttackChain)
         {
             Stack<SpiderState> attackStack = new();
             attackStack.Push(new SpiderMovementState(_spiderManager, attackStack));
-            attackStack.Push(new SpiderLaserShortState(_spiderManager, attackStack));
             attackStack.Push(new SpiderWaitState(_spiderManager, attackStack, 1.5f));
+            attackStack.Push(new SpiderDiggingState(_spiderManager, attackStack));
+            attackStack.Push(new SpiderMovementState(_spiderManager, attackStack));
+            attackStack.Push(new SpiderLaserShortState(_spiderManager, attackStack));
+            attackStack.Push(new SpiderMovementState(_spiderManager, attackStack, 35, 70));
             attackStack.Push(new SpiderDiggingState(_spiderManager, attackStack));
             attackStack.Push(new SpiderMovementState(_spiderManager, attackStack, 150, 170));
             
@@ -164,7 +167,7 @@ public class SpiderDecisionState : SpiderState
         {
             return new SpiderWaitState(_spiderManager);
         }
-        else if (randomT > 0.5f)
+        else if (randomT > 0.4f)
         {
             return new SpiderMovementState(_spiderManager);
         }
@@ -172,9 +175,25 @@ public class SpiderDecisionState : SpiderState
         {
             return new SpiderLaserShortState(_spiderManager);
         }
-        else
+        else if (randomT > 0.2f)
         {
             return new SpiderDiggingState(_spiderManager);
+        }
+        else if (randomT > 0.1f)
+        {
+            Stack<SpiderState> attackStack = new();
+            attackStack.Push(new SpiderDiggingState(_spiderManager, attackStack));
+            attackStack.Push(new SpiderDiggingState(_spiderManager, attackStack));
+            
+            return attackStack.Pop();
+        }
+        else
+        {
+            Stack<SpiderState> attackStack = new();
+            attackStack.Push(new SpiderLaserShortState(_spiderManager, attackStack));
+            attackStack.Push(new SpiderDiggingState(_spiderManager, attackStack));
+            
+            return attackStack.Pop();
         }
     }
 
