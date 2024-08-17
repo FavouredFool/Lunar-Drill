@@ -9,7 +9,7 @@ public class SpiderFlyingState : SpiderState
         _stateStack = stateStack;
     }
     
-    float _pufferTime = 0.1f;
+    float _pufferTime = 0.5f;
     float _endWait = 0.25f;
     float _startTime = float.PositiveInfinity;
     bool _stop = false;

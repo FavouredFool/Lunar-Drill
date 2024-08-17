@@ -10,7 +10,7 @@ public class SpiderDiggingState : SpiderState
         _stateStack = stateStack;
     }
 
-    float _pufferTime = 0.1f;
+    float _pufferTime = 0.5f;
     float _startTime = float.PositiveInfinity;
     bool _stop = true;
 
@@ -61,8 +61,6 @@ public class SpiderDiggingState : SpiderState
         if (_spiderManager.SpiderController.transform.position.magnitude > _spiderManager.SpiderController.SpiderBodyOrbit && Time.time - _startTime > _pufferTime)
         {
             _spiderManager.SpiderController.EndDig();
-            
-            
             _spiderManager.SpiderStateManager.SetState(new SpiderFlyingState(_spiderManager, _stateStack));
         } 
     }
