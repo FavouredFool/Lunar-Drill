@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
         _lunaMainSprite.enabled = false;
 
         _lunaIntroSprite.transform.DOLocalPath(
-            new Vector3[] { new Vector3(20, 2.5f, 0), new Vector3(0, -5, 0), new Vector3(-20f, 2.5f, 0) },
+            new Vector3[] { new Vector3(20, 2.5f, 0), new Vector3(0, -4, 0), new Vector3(-20f, 2.5f, 0) },
             2f,
             PathType.CatmullRom, PathMode.TopDown2D)
             .SetDelay(2f)

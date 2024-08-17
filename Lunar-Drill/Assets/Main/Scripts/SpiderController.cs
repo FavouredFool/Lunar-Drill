@@ -48,9 +48,7 @@ public class SpiderController : MonoBehaviour
     [SerializeField] VisualEffect _energyLoss;
     [SerializeField] Texture2D _energyLossRed;
     [SerializeField] TrailRenderer _jumpTrail;
-    [SerializeField] VisualEffect _drillImpactOut;
-    [SerializeField] VisualEffect _drillImpactIn;
-    [SerializeField] VisualEffect _drillImpactLand;
+    [SerializeField] VisualEffect[] _drillImpacts;
 
     bool _vfxActive = false;
 
@@ -178,24 +176,7 @@ public class SpiderController : MonoBehaviour
 
     public void ImpactParticles(int state)
     {
-        switch (state)
-        {
-            case 0:
-                _drillImpactIn.SetVector3("StartPosition", transform.position);
-                _drillImpactIn.SetVector3("DrillianUp", transform.up);
-                _drillImpactIn.SendEvent("Shoot");
-                break;
-            case 1:
-                _drillImpactOut.SetVector3("StartPosition", transform.position);
-                _drillImpactOut.SetVector3("DrillianUp", transform.up);
-                _drillImpactOut.SendEvent("Shoot");
-                break;
-            case 2:
-                _drillImpactLand.SetVector3("StartPosition", transform.position);
-                _drillImpactLand.SetVector3("DrillianUp", transform.up);
-                _drillImpactLand.SendEvent("Shoot");
-                break;
-        }
+        _drillImpacts[state].SendEvent("Shoot");
     }
 
     void ThrowMines()
