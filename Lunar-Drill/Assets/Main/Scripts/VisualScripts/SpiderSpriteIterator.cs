@@ -190,7 +190,5 @@ public class SpiderSpriteIterator : MonoBehaviour
         _leftLeg.gameObject.SetActive(!on);
         _rightLeg.gameObject.SetActive(!on);
         _drillIndex = 0;
-
-        animator.SetBool("drill", on);
     }
 }
