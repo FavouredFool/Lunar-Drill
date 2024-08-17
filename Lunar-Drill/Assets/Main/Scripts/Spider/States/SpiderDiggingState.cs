@@ -14,14 +14,14 @@ public class SpiderDiggingState : SpiderState
     float _startTime = float.PositiveInfinity;
     bool _stop = true;
 
-    float _initialWait = 0.5f;
+    float _initialWait = 0.75f;
     Stack<SpiderState> _stateStack;
 
     
     public override void StartState()
     {
         Debug.Log("SpiderDiggingState");
-        _spiderManager.SpiderController.GoalRotation = -_spiderManager.SpiderController.GoalRotation;
+        _spiderManager.SpiderController.GoalRotation = -_spiderManager.SpiderController.transform.position.normalized;
         
         _spiderManager.SpiderController.IsDrillingFlying = true;
         _spiderManager.SpiderController.SpriteIterator.ToggleDrill(true);

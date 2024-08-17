@@ -11,7 +11,7 @@ public class SpiderWaitState : SpiderState
         
         if (float.IsNaN(waitTime))
         {
-            _duration = Random.Range(1.5f, 3.5f);
+            _duration = Random.Range(1.5f, 3f);
         }
         else
         {

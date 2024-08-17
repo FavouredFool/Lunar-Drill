@@ -148,7 +148,7 @@ public class SpiderController : MonoBehaviour
         float currentAngle = Vector2.SignedAngle(Vector2.up, GoalRotation);
         float goalAngle = Vector2.SignedAngle(Vector2.up, (_drillianController.transform.position - transform.position).normalized);
 
-        float angleDecay = 0.6f;
+        float angleDecay = 0.8f;
 
         float angleDiff = NormalizeAngle(currentAngle - goalAngle);
         float lerpedAngle = NormalizeAngle(goalAngle + angleDiff * Mathf.Exp(-angleDecay * Time.deltaTime));
