@@ -446,6 +446,7 @@ public class LunaController : MonoBehaviour, IInputSubscriber<LunaShoot>, IInput
                 if (!_isInvincible)
                     GetHit(collision);
                 collision.gameObject.GetComponent<MineController>().DestroyMine();
+                AudioController.Fire(new LunaHitLaser(""));
             }
         }
     }

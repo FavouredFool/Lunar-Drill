@@ -487,6 +487,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
                 {
                     GetHit(collision);
                     collision.gameObject.GetComponent<MineController>().DestroyMine();
+                    AudioController.Fire(new DrillianHitLaser(""));
                 }
             }
         }
