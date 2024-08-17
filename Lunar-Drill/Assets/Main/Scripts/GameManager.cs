@@ -195,10 +195,10 @@ public class GameManager : MonoBehaviour
         _countdownNumber.gameObject.SetActive(true);
         _countdownNumber.text = "";
 
-        yield return new WaitForSecondsRealtime(3.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
         _countdownNumber.text = "3";
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(1.5f);
         //yield return new WaitForSecondsRealtime(1f); // Why is this here? :D
 
         _countdownNumber.text = "2";
