@@ -10,7 +10,7 @@ public class NameManager : MonoBehaviour
 {
     public static NameManager instance;
 
-    [SerializeField] TMP_Text TeamNameLunar, TeamNameDrill;
+    //[SerializeField] TMP_Text TeamNameLunar, TeamNameDrill;
 
     public static string LunaTeamName { get; set; } = "Lunar";
     public static string DrillianTeamName { get; set; } = "Drill";
@@ -214,8 +214,7 @@ public class NameManager : MonoBehaviour
 
     void UpdateTeamNameUI()
     {
-        TeamNameLunar.text = LunaTeamName;
-        TeamNameDrill.text = DrillianTeamName;
+        InputBus.Fire(new TeamNameChanged(LunaTeamName+"//"+DrillianTeamName, LunaTeamName,DrillianTeamName));
     }
 
     public void SetDefaultName()
