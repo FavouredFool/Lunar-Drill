@@ -126,7 +126,7 @@ public class MineController : MonoBehaviour
 
         _explosion.Play();
         MoveTween.Kill();
-        MoveTween = transform.DOScale(0, .5f).SetEase(Ease.InBack);
+        MoveTween = transform.DOScale(0, .5f).SetEase(Ease.InExpo);
         DOVirtual.DelayedCall(0.3f, () => _mineVisuals.enabled = false);
 
         Destroy(gameObject, 2f);
