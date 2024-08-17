@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] TimeManager _timeManager;
+    [SerializeField] MineSpawner _mineSpawner;
 
     [SerializeField] SpiderManager _spiderManager;
     [SerializeField] NewUndertaker _undertaker;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     public int SpiderHP => _spiderHP;
     public int PlayerMaxHP => _maxPlayerHP;
     public int SpiderMaxHP => _maxSpiderHP;
+    public MineSpawner MineSpawner => _mineSpawner;
 
     public static float Timer { get; set; }
     public static float PlayTime => Time.time - Timer;

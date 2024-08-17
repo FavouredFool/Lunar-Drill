@@ -304,11 +304,11 @@ Transform:
   - {fileID: 5557157889430973731}
   - {fileID: 8069745489755581955}
   - {fileID: 145623389749130462}
-  - {fileID: 1186488224145114632}
   - {fileID: 2510842284721867987}
   - {fileID: 4193989032514733357}
   - {fileID: 8508207623310610081}
   - {fileID: 7517694331359257550}
+  - {fileID: 8828133173538827566}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &640577912219903628
@@ -335,7 +335,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _maxRotationControl: 7.5
-  _digSpeed: 4.5
+  _digSpeed: 5
   _overheatGain: 0.175
   _overheatLoss: 0.01
   _spriteRenderers:
@@ -344,6 +344,7 @@ MonoBehaviour:
   - {fileID: 4885361180782936067}
   - {fileID: 6884750448878901344}
   _spriteIterator: {fileID: 7756796454352137033}
+  _bodyToTween: {fileID: 8828133173538827566}
   _invincibleTime: 5
   _healthPickupBlueprint: {fileID: 9097799415653815186, guid: af248468a2be6c546a196074a40c7b35, type: 3}
   _regenerateTime: 10
@@ -559,6 +560,38 @@ Transform:
   - {fileID: 2041089529906825283}
   m_Father: {fileID: 3806534218160603578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5}
+--- !u!1 &2799541896968025559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8828133173538827566}
+  m_Layer: 9
+  m_Name: BodyToTween
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8828133173538827566
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2799541896968025559}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1186488224145114632}
+  m_Father: {fileID: 3806534218160603578}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2866540577680017351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,7 +1602,7 @@ Transform:
   m_Children:
   - {fileID: 2446997433656444215}
   - {fileID: 7103431396629133323}
-  m_Father: {fileID: 3806534218160603578}
+  m_Father: {fileID: 8828133173538827566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2297733279568171791
 SpriteRenderer:

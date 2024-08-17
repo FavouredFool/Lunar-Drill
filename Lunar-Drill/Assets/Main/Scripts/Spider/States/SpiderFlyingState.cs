@@ -35,6 +35,7 @@ public class SpiderFlyingState : SpiderState
             _spiderManager.SpiderController.EndFly();
             _spiderManager.SpiderController.SpriteIterator.ToggleDrill(false);
             _stop = true;
+            _spiderManager.SpiderController.IsDrillingFlying = false;
             
             _spiderManager.SpiderController.StartCoroutine(FlyEnd());
         } 

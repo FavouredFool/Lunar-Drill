@@ -25,6 +25,9 @@ public class SpiderVulnerableState : SpiderState
             _spiderManager.SpiderController.IsVulnerable = false;
             _spiderManager.SpiderController.SpriteIterator.CancelStun();
         });
+        
+        // Destroy all Mines
+        _gameManager.MineSpawner.DestroyAllMines();
     }
 
     public override void EndState()
