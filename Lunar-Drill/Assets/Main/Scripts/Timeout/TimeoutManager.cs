@@ -16,6 +16,7 @@ public class TimeoutManager : MonoBehaviour, IInputSubscriber<Signal_AnyFire>
 
     [SerializeField] GameObject _mainMenuContent;
     [SerializeField] GameObject _pressPrompt;
+    [SerializeField] GameObject _panel;
 
     [SerializeField] [Range(1, 120)] float secondsUntilReplay=30;
     static float lastForcePlay;
@@ -32,6 +33,7 @@ public class TimeoutManager : MonoBehaviour, IInputSubscriber<Signal_AnyFire>
         player.Play();
         _mainMenuContent.SetActive(false);
         _pressPrompt.SetActive(true);
+        _panel.SetActive(true);
     }
     public void StopVideo()
     {
@@ -40,6 +42,7 @@ public class TimeoutManager : MonoBehaviour, IInputSubscriber<Signal_AnyFire>
         player.Stop();
         _mainMenuContent.SetActive(true);
         _pressPrompt.SetActive(false);
+        _panel.SetActive(false);
     }
 
     public void Return()
