@@ -447,7 +447,7 @@ public class DrillianController : MonoBehaviour, IInputSubscriber<DrillianMoveDi
         {
             SpiderController spider = FindObjectOfType<SpiderController>();
 
-            if (spider == null) throw new System.Exception();
+            if (spider == null) return;
 
             if (!_isInvincible && !spider.IsNotHurtingOnTouch)
             {

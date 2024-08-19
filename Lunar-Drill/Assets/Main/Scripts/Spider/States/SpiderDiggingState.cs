@@ -10,7 +10,7 @@ public class SpiderDiggingState : SpiderState
         _stateStack = stateStack;
     }
 
-    float _pufferTime = 1f;
+    float _pufferTime = 0.2f;
     float _startTime = float.PositiveInfinity;
     bool _stop = true;
 
