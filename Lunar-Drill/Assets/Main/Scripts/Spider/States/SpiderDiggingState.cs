@@ -10,7 +10,7 @@ public class SpiderDiggingState : SpiderState
         _stateStack = stateStack;
     }
 
-    float _pufferTime = 0.2f;
+    float _pufferTime = 0.1f;
     float _startTime = float.PositiveInfinity;
     bool _stop = true;
 
@@ -48,7 +48,16 @@ public class SpiderDiggingState : SpiderState
         });
     }
 
-
+    public override void UpdateState()
+    {
+        if (_stop) return;
+        
+        if (_spiderManager.SpiderController.transform.position.magnitude > _spiderManager.SpiderController.SpiderBodyOrbit && Time.time - _startTime > _pufferTime)
+        {
+            _spiderManager.SpiderController.EndDig();
+            _spiderManager.SpiderStateManager.SetState(new SpiderFlyingState(_spiderManager, _stateStack));
+        } 
+    }
     
     public override void FixedUpdateState()
     {
@@ -58,11 +67,5 @@ public class SpiderDiggingState : SpiderState
         
         _spiderManager.SpiderController.SetVelocity();
         _spiderManager.SpiderController.Rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, -_spiderManager.SpiderController.Rigidbody.velocity.normalized));
-            
-        if (_spiderManager.SpiderController.transform.position.magnitude > _spiderManager.SpiderController.SpiderBodyOrbit && Time.time - _startTime > _pufferTime)
-        {
-            _spiderManager.SpiderController.EndDig();
-            _spiderManager.SpiderStateManager.SetState(new SpiderFlyingState(_spiderManager, _stateStack));
-        } 
     }
 }

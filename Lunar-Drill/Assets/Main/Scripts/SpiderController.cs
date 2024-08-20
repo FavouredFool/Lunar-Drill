@@ -243,7 +243,7 @@ public class SpiderController : MonoBehaviour
 
     public IEnumerator WaitUntilArrivedAtGoalRotation()
     {
-        while (!ArrivedAtGoalRotation()) yield return new WaitForEndOfFrame();
+        while (!ArrivedAtGoalRotation() && !IsDrillingFlying && !IsVulnerable) yield return new WaitForEndOfFrame();
     }
 
     public void CalculateOrbitRotation()

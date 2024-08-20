@@ -31,19 +31,8 @@ public class SpiderDecisionState : SpiderState
         {
             nextState = GetNextAbility(GetSpiderState(_gameManager), _doEntryAttackChain);
         }
-
-        if (nextState is SpiderDiggingState or SpiderLaserShortState or SpiderLaserLongState)
-        {
-            Debug.Log("DELAY");
-            DOVirtual.DelayedCall(0.05f, () =>
-            {
-                _spiderManager.SpiderStateManager.SetState(nextState);
-            });
-        }
-        else
-        {
-            _spiderManager.SpiderStateManager.SetState(nextState);
-        }
+        
+        _spiderManager.SpiderStateManager.SetState(nextState);
     }
     
     SpiderManager.SpiderAbilityState GetSpiderState(GameManager gameManager)

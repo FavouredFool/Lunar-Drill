@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class SpiderFlyingState : SpiderState
@@ -9,7 +10,7 @@ public class SpiderFlyingState : SpiderState
         _stateStack = stateStack;
     }
     
-    float _pufferTime = 0.2f;
+    float _pufferTime = 0.1f;
     float _endWait = 0.25f;
     float _startTime = float.PositiveInfinity;
     bool _stop = false;
@@ -21,19 +22,10 @@ public class SpiderFlyingState : SpiderState
         _startTime = Time.time;
     }
 
-    public IEnumerator FlyEnd()
-    {
-        yield return new WaitForSeconds(_endWait);
-        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager, _stateStack));
-    }
-    
-    public override void FixedUpdateState()
+    public override void UpdateState()
     {
         if (_stop) return;
         
-        _spiderManager.SpiderController.ApplyGravityToVelocity();
-        _spiderManager.SpiderController.Rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, -_spiderManager.SpiderController.Rigidbody.velocity.normalized));
-            
         if (_spiderManager.SpiderController.transform.position.magnitude <= _spiderManager.SpiderController.SpiderBodyOrbit && Time.time - _startTime > _pufferTime)
         {
             _spiderManager.SpiderController.EndFly();
@@ -42,7 +34,15 @@ public class SpiderFlyingState : SpiderState
             _stop = true;
             _spiderManager.SpiderController.IsDrillingFlying = false;
             
-            _spiderManager.SpiderController.StartCoroutine(FlyEnd());
+            _spiderManager.SpiderStateManager.SetState(new SpiderWaitState(_spiderManager, _stateStack, 0.25f));
         } 
+    }
+    
+    public override void FixedUpdateState()
+    {
+        if (_stop) return;
+        
+        _spiderManager.SpiderController.ApplyGravityToVelocity();
+        _spiderManager.SpiderController.Rigidbody.MoveRotation(Vector2.SignedAngle(Vector2.up, -_spiderManager.SpiderController.Rigidbody.velocity.normalized));
     }
 }

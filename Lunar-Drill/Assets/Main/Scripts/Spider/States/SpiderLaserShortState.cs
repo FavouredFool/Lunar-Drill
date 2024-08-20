@@ -12,6 +12,7 @@ public class SpiderLaserShortState : SpiderState
     
     Stack<SpiderState> _stateStack;
     
+    
     public override void StartState()
     {
         Debug.Log("SpiderLaserShortState");
@@ -27,17 +28,25 @@ public class SpiderLaserShortState : SpiderState
     
     public IEnumerator RandomLaserShortMovement()
     {
-        
         _spiderManager.SpiderController.SetMovementGoalRotation(120, 179);
         yield return _spiderManager.SpiderController.WaitUntilArrivedAtGoalRotation();
+
+        if (_spiderManager.SpiderController.IsVulnerable)
+        {
+            yield break;
+        }
         
         _spiderManager.SpiderController.SetMovementGoalRotation(45, 90);
         yield return _spiderManager.SpiderController.WaitUntilArrivedAtGoalRotation();
+        
+        if (_spiderManager.SpiderController.IsVulnerable)
+        {
+            yield break;
+        }
 
         _spiderManager.SpiderController.SpiderLaser.StopLaser();
-        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
 
-        _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager, _stateStack));
+        _spiderManager.SpiderStateManager.SetState(new SpiderWaitState(_spiderManager, _stateStack, 1f));
     }
     
     public override void FixedUpdateState()

@@ -20,24 +20,16 @@ public class SpiderWaitState : SpiderState
     }
 
     float _duration;
-    float _startTime;
     Stack<SpiderState> _stateStack;
     
     public override void StartState()
     {
         Debug.Log("SpiderWaitState");
         
-        // Place in scriptable object?
-        
-        _startTime = Time.time;
-    }
-    
-    public override void UpdateState()
-    {
-        if (Time.time - _startTime >= _duration)
+        DOVirtual.DelayedCall(_duration, () =>
         {
             _spiderManager.SpiderStateManager.SetState(new SpiderDecisionState(_spiderManager, _stateStack));
-        }
+        }, false);
     }
     
     public override void FixedUpdateState()
