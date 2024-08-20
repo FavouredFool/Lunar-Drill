@@ -8,7 +8,7 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
     [SerializeField] NameSelection _nameSelection;
     [SerializeField] ConnectManager _connection;
     [SerializeField] Transform _characters;
-
+    [SerializeField] Transform _laser;
     private void OnEnable()
     {
         InputBus.Subscribe<Signal_SceneChange>(this);
@@ -24,6 +24,7 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
         _modeSelection.Set(false);
         _nameSelection.Set(false);
         _characters.localScale = Vector3.zero;
+        _laser.localScale = new Vector3(0, 1, 1);
 
         _modeSelection.Open();
 
@@ -41,7 +42,8 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
         if (ConnectManager.Valid)
         {
             _nameSelection.Open(0.3f);
-            _characters.DOScale(1,0.33f).SetDelay(0.3f).SetEase(Ease.OutSine);
+            _characters.DOScale(1, 0.33f).SetDelay(0.3f).SetEase(Ease.OutSine);
+            _laser.DOScaleX(1, 0.33f).SetDelay(0.3f).SetEase(Ease.OutSine);
             NameManager.instance?.RandomizeBoth(0);
 
             InputBus.Fire(new PlayerModeConfirmed());
@@ -58,6 +60,7 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
 
         _nameSelection.Open(0.66f);
         _characters.DOScale(1, 0.33f).SetDelay(0.66f).SetEase(Ease.OutSine);
+        _laser.DOScaleX(1, 0.33f).SetDelay(0.66f).SetEase(Ease.OutSine);
 
         NameManager.instance?.RandomizeBoth(0);
 
@@ -72,6 +75,7 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
             _connection.Close();
 
         _characters.DOScale(0, 0.25f).SetEase(Ease.InSine);
+        _laser.DOScaleX(0, 0.25f).SetEase(Ease.InSine);
 
         InputBus.Fire(new PlayerModeReset());
 
@@ -87,7 +91,10 @@ public class PreparationManager : MonoBehaviour, IInputSubscriber<Signal_SceneCh
 
     public void OnEventHappened(Signal_SceneChange e)
     {
-        if (e.scene!=SceneIdentity.GameTutorial)
+        if (e.scene != SceneIdentity.GameTutorial)
+        {
             _characters.DOScale(0, e.delay).SetEase(Ease.InSine);
+            _laser.DOScaleX(0, e.delay).SetEase(Ease.InSine);
+        }
     }
 }
