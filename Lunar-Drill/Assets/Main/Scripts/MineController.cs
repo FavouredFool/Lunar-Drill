@@ -97,7 +97,13 @@ public class MineController : MonoBehaviour
             }
             else if (_mineLayer == (_mineLayer | 1 << collision.gameObject.layer))
             {
-                DestroyMine();
+                if (collision.gameObject.GetComponent<MineController>())
+                {
+                    MineController otherMine = collision.gameObject.GetComponent<MineController>();
+                    if (otherMine.Active)
+                        DestroyMine();
+                }
+
             }
         }
     }
